@@ -29,6 +29,23 @@ class OrganizersController < ApplicationController
   end
 
   def show
+    # capture metadescription
+    if @organizer.about
+      @meta_description = @organizer.about
+    else
+      @meta_description = "#{@organizer.name}, is a course organizer on Skillmeng"
+    end
+    
+    # capture metadescription
+    @og_properties = {  
+      title: "#{@organizer.name}",
+      type: 'website',
+      image: @organizer.logo.url(:large),
+      url: "https://skllming-leke.c9users.io/organizers/#{@organizer.slug}",
+      fb: 1088485341297099,
+      description: @meta_description
+    }
+    
     if current_user && current_user == @user_organizer.user
       @tutors = @organizer.tutors
       if @organizer.about

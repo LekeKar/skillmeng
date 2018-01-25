@@ -92,13 +92,14 @@ class CoursesController < ApplicationController
   def show
     take_impression
     
+    # capture metadescription
     if @course.about
       @meta_description = @course.about.content
     else
       @meta_description = "#{@course.title}, a course on Skillmeng"
     end
     
-    
+    # capture metadescription
     @og_properties = {  
       title: "#{@course.title}",
       type: 'website',

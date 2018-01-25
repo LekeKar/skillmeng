@@ -36,6 +36,25 @@
  }
  
 
+ .title_header{
+ 		padding-bottom: 10px;
+ 		background-color: #f8ca9f;
+ 		
+ 		.title_text {
+		width: 110px;
+	  height: 50px;
+	  border-radius: 10%;
+	  font-size: 20px;
+	  font-weight: bold;
+	  color: #000;
+	  line-height: 50px;
+	  position: relative;
+	  text-align: center;
+	  background: #fff;
+	  margin-top: 10px;
+	}
+}
+
 .row-no-padding {
   [class*="col-"] {
     padding-left: 0 !important;
@@ -211,7 +230,7 @@ a:hover {
 	body{
 	background-position: 30% 20%; 
 	}
-
+	
 }
 
  /* Adjust screen for Tablet view */ 
@@ -251,6 +270,20 @@ a:hover {
 	#desktop_disapear{
     	display:none;
     }
+	
+}
+
+@media (max-width: 780px) {	
+	.profile_body{
+		.title_header{
+			margin: -20px -15px 10px -15px;
+			padding-top: 10px;
+			.title_text{
+				margin: auto;
+    		width: 35%;
+			}
+		}
+	}
 	
 }
 
@@ -294,6 +327,7 @@ a:hover {
 		background-position: 50% 0%;
 	}
 	
+
 	.scrollToTop{
 		top: 0%;
 		right: 40%;

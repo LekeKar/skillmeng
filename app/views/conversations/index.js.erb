@@ -1,6 +1,13 @@
-$('#conversation').append('<%= j render @conversations %>');
-<% if @conversations.next_page %>
-  $('.pagination').replaceWith('<%= j will_paginate @conversations %>');
+$('#conversation_inbox').append('<%= j render @conversations_inbox %>');
+<% if @conversations_inbox.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @conversations_inbox %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
+
+$('#conversation_sent').append('<%= j render @conversations_sent %>');
+<% if @conversations_sent.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @conversations_sent %>');
 <% else %>
   $('.pagination').remove();
 <% end %>

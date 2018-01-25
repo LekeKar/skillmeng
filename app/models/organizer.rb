@@ -15,7 +15,7 @@ class Organizer < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
-  has_attached_file :logo, styles: { medium: "300x300#" }, default_url: "/images/:style/missing.png"
+  has_attached_file :logo, styles: { medium: "300x300#", large: "1200x630#" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\z/
 	validates_attachment_size :logo, :in => 0.megabytes..4.megabytes
   

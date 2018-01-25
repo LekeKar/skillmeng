@@ -161,7 +161,11 @@ hr {
 		margin: 0px;
 	}
 	
-	.name_circle{
-		left: 41.5%;
+	.profile_info {
+		padding-top: 10px;
+		.name_circle{
+			margin: auto;
+	   	width: 15%;
+		}
 	}
 }

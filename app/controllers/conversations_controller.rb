@@ -4,15 +4,11 @@ class ConversationsController < ApplicationController
 	after_action :read_all_messages, only: [:index] 
 
 	def index
-		if params[:type] == "inbox"
-			@conversations = current_user.mailbox.inbox.order('updated_at ASC').page(params[:page]).per_page(8)
-		elsif params[:type] == "trash"
-			@conversations = current_user.mailbox.trash.order('updated_at ASC').page(params[:page]).per_page(8)
-		elsif params[:type] == "sent"
-			@conversations = current_user.mailbox.sentbox.order('updated_at ASC').page(params[:page]).per_page(8)
-		else
-			@conversations = current_user.mailbox.conversations.order('updated_at ASC').page(params[:page]).per_page(8)
-		end
+	
+		@conversations_inbox = current_user.mailbox.inbox.order('updated_at ASC').page(params[:page]).per_page(8)
+		@conversations_trash = current_user.mailbox.trash.order('updated_at ASC').page(params[:page]).per_page(8)
+		@conversations_sent = current_user.mailbox.sentbox.order('updated_at ASC').page(params[:page]).per_page(8)
+		@conversations_all = current_user.mailbox.conversations.order('updated_at ASC').page(params[:page]).per_page(8)
 		
 		respond_to do |format|
       format.html
@@ -51,6 +47,7 @@ class ConversationsController < ApplicationController
 	end
 
 	private
+	
 	def set_conversation
 		if params[:id]	
     	@conversation = current_user.mailbox.conversations.find(params[:id])
@@ -58,9 +55,10 @@ class ConversationsController < ApplicationController
     	@conversation = current_user.mailbox.conversations.find(params[:conversation_id])
 	  end	
 	end
+	
 	def read_all_messages
 		if params[:type] == "inbox"
-			@conversations.each do |conversation|
+			@conversations_inbox.each do |conversation|
 				conversation.mark_as_read(current_user)
 			end
 		end

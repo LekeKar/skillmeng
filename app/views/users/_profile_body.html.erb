@@ -34,14 +34,14 @@
     <div class="tab-content">
       <div class="tab-pane fade active in" id="news">
         <div class="row">
-        <%= render @announcements.first(6) %>
-        <% if @announcements.count > 6 %>
-        	<%= link_to news_path(current_user) do %>
-	          <h5>
-	            view all
-	          </h5>
-	        <% end %>
-        <% end %>
+          <%= render @announcements.first(6) %>
+          <% if @announcements.count > 6 %>
+          	<%= link_to news_path(current_user) do %>
+  	          <h5>
+  	            view all
+  	          </h5>
+  	        <% end %>
+          <% end %>
         </div>
       </div>
       <div class="tab-pane fade" id="inbox" style="margin-top: 15px;">
