@@ -1,0 +1,16 @@
+// Place all the styles related to the Contacts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.table-borderless tbody tr td, .table-borderless tbody tr th, .table-borderless thead tr th {
+    border: none;
+}
+
+.contact_body {
+	max-height: 200px;
+	overflow-y: scroll;
+	
+	.well {
+		margin: 0px 5px 5px 5px;
+	}
+}

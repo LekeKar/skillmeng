@@ -1,0 +1,56 @@
+
+<%= simple_form_for([@organizer]) do |f| %>
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :name, required: true, label:"Name (25 char max)", maxlength: "25", required: true-%>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :phone, required: true -%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :email, required: true -%>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :website-%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :about, required: true, label:"about (300 char max)", maxlength: "300", required: true-%>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :logo, required: true, as: :file -%>
+      </div>
+    </div>
+    <hr>
+    <%= f.simple_fields_for :location do |builder| %>
+    
+      <%= builder.input :address_line1, label: "Floor/Apt (optional)"  -%>
+      <%= builder.input :address_line2, label: "Street address", required: true   -%>
+  
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <%= builder.input :city, required: true, label: "Town", placeholder: "Yaba"  -%>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <%= builder.input :state, required: true, :collection => ['Abia','Abuja (FCT)','Adamawa','Anambra','Akwa Ibom','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Enugu','Edo','Ekiti','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'] -%>
+        </div>
+      </div>
+      
+    <% end %>
+	</div>
+	
+
+	<div class="form-actions">
+		<%= f.button :submit %>
+		<%= link_to 'Back', :back, class:'btn btn-danger' %>
+	</div>
+
+<% end -%>
+
+
+
+

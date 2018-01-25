@@ -1,0 +1,71 @@
+<%= simple_form_for([@user_organizer, @tutor]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <%= f.input :name %>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <%= f.input :job_title %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <%= f.input :bio, label: "Short Bio (300 char max)",  :input_html => {:rows => 5, :id => "text"}, maxlength: "300" %>
+        <h6 class="text-right" id="count_message" style="color: grey"></h6>
+      </div>
+      <% if current_page?(new_organizer_tutor_path) %>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <%= f.input :tutored_courses, label: "Teaches in ...", collection: @organizer_courses, selected: @form_selected_courses, as: :check_boxes, include_hidden: false, wrapper_html: { class: 'form-group' }, :input_html => { :multiple => true} %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-inputs">
+   <%= f.input :avatar, label: "Picture", as: :file, required: true %>
+  </div>
+  
+  <hr>
+  <h5> <strong>Qualificaitons</strong> 
+    <small style="color: grey">(max 150char)</small>
+  </h5>
+  <div id="qualifications">
+    <%= f.simple_fields_for :qualifications do |qualification| %>
+      <%= render 'qualification_fields', f: qualification %>
+    <% end %>
+    
+    <div class="links" style="margin-bottom: 20px;">
+      <%= link_to_add_association f, :qualifications do %>
+         <i class="fa fa-plus"></i> qualification
+      <% end %>
+    </div>
+  </div>
+  
+  <hr>
+  <div class="form-inputs">
+    <%= f.input :website %>
+  </div>
+  
+  <hr>
+  <h5><strong>Social Pages</strong></h5>
+  <%= f.simple_fields_for :social_link do |social_link| %>
+    <div class="form-inputs">
+      <div class="row">
+        <div class="col-md-6"><%= social_link.input :facebook, placeholder: "http://www.facebook.com/" %></div>
+        <div class="col-md-6"><%= social_link.input :linkedin, placeholder: "http://www.linkedin.com/" %></div>
+        <div class="col-md-6"><%= social_link.input :twitter, placeholder: "http://www.twitter.com/" %></div>
+        <div class="col-md-6"><%= social_link.input :googleplus, placeholder: "http://plus.google.com/" %></div>
+        <div class="col-md-6"><%= social_link.input :pintrest, placeholder: "http://www.pinterest.com/" %></div>
+        <div class="col-md-6"><%= social_link.input :instagram, placeholder: "http://instagram.com/" %></div>
+      </div>
+    </div>
+  <% end %>
+
+  
+  <div class="form-actions text-center">
+    <%= f.button :submit, "Complete" %>
+    <%= link_to 'Back', :back, class:'btn btn-danger' %>
+  </div>
+<% end %>

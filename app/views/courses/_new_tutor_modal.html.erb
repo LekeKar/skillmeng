@@ -1,0 +1,23 @@
+<!--add tutor modal--> 
+<% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" && @user_organizer %>
+  <div class="modal fade" id="add_tutor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-left">
+          <h4>Choose existing tutors</h4>
+          <table class="table">
+            <% for available_tutor in @available_tutors %>
+              <tr>
+                <td><%= available_tutor.name %></td>
+                <td class="text-center">
+                  <%= link_to "Add", add_remove_tutor_path(@course, available_tutor), class:"btn btn-default btn-xs" %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+            <%= link_to 'create new tutor',  new_organizer_tutor_path(@user_organizer), style:"color: #e58b5a; margin-left: 7px;"%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cash_instruction: MyText
+  bank_name: MyString
+  bank_account_number: MyString
+  bank_account_name: MyString
+  bank_instruction: MyText
+  trade_by_barter: false
+  classroom_id: 
+
+two:
+  cash_instruction: MyText
+  bank_name: MyString
+  bank_account_number: MyString
+  bank_account_name: MyString
+  bank_instruction: MyText
+  trade_by_barter: false
+  classroom_id: 

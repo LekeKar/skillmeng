@@ -1,0 +1,47 @@
+<div class="row container">
+  <div class="col-md-3 text-center">
+    <%= image_tag @organizer.logo.url(:medium), class:"img-circle img-responsive text-center", style:"margin: 0 auto; width: 200px; margin-top: 25px; "%>
+    <% if current_user && current_user.id == @organizer.user_id %>
+      <br>
+      <%= link_to edit_organizer_path(@organizer), style:"color: #666666" do %>
+        edit info
+      <% end -%>
+    <% end -%>
+  </div>
+  <div class="col-md-8 mobile_centralize">
+    <h2>
+    	<%= @organizer.name.try(:titleize) %> <br>
+
+    	<small id="organizer_about_pc"> <%= @organizer.about %></small>
+    	<small id="organizer_about_mobile"> 
+    	  <%= truncate(@organizer.about, :length => 100, :separator => ' ') %>
+    	   <% if @organizer.about && @organizer.about.length > 150 %>
+    	      <a href=".modal_add_about" data-toggle="modal" data-target=".modal_add_about" style="color: #666666">
+              <span style="font-size: .75em;">more</span>
+            </a>
+    	   <% end %>
+    	</small>
+    </h2>
+    <div class="btn-group" role="group" aria-label="...">
+      <a class="btn btn-default btn-sm" href=".modal_contact" data-toggle="modal" data-target=".modal_contact" style="color: #666666">
+        contact
+      </a>
+      <a class="btn btn-default btn-sm" href=".modal_share" data-toggle="modal" data-target=".modal_share" style="color: #666666">
+        share
+      </a>
+    <% if current_user && current_user.id == @organizer.user_id %>
+        <a href=".modal_addon" class="btn btn-default btn-sm" data-toggle="modal" data-target=".modal_addon" style="background-color: #e07940; border-color: #C3591D; color: #FFFFFF;">
+          buy add-ons
+        </a>
+      </div>
+      <div id="bal_info" style="color: #666666; margin-top: 18px;">
+        Email bal: <%= @organizer.organizer_credit_bal.email_bonus %> Bonus | <%= number_with_delimiter(@organizer.organizer_credit_bal.email_regular, :delimiter => ',') %> Regular
+      </div>
+    <% end %>
+  </div>
+  
+</div>
+</div> <!--closes row-->
+
+
+ 

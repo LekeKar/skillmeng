@@ -1,0 +1,19 @@
+<% title " Edit review" %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+	   		<div class="panel panel-default">
+	    		<div class="panel-heading">
+				    <h4 class="panel-title"><i class="fa fa-star"></i> Edit Review
+				    <%= link_to course_review_path, method: :delete, class:"btn btn-sm btn-default pull-right", data: {confirm: "This action will delete this review, Are you sure?"} do %>
+						<i class="fa fa-trash" style = "color: #d9534f; font-size: 15px"></i>
+				    <% end -%>
+				    </h4>
+				</div>
+			    <div class="panel-body new_class">
+					<%= render 'form' %>
+				</div>
+		  	</div> 
+		</div> 	
+	</div>	
+</div>		

@@ -1,0 +1,16 @@
+<% title "New Course" %>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+			<%= render 'helper_code/wizard_controls', next_step_name: "about", current_step_name: "basic info", step_number: "Step 1 of 5" %>
+	 		<div class="panel panel-default">
+	  		<div class="panel-heading">
+			    <h4 class="panel-title"><i class="fa fa-plus-square"></i> New Course</h4>
+				</div>
+		    <div class="panel-body new_class">
+				<%= render 'form' %>
+				</div>
+	  	</div>
+		</div>  	
+	</div>
+</div>

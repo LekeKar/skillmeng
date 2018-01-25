@@ -1,0 +1,231 @@
+<div class="container-fluid news_content">
+  <div>
+    <h3 class="course_tabs_2_menu news_reviews_tabs" style="padding-bottom: 15px;" >
+      <a href="#new" role="tab" data-toggle="tab" id="news_tabs">
+        <span class="menu-item active" >
+         News
+        </span>
+      </a>
+      &nbsp;
+      <a href="#reviews" role="tab" data-toggle="tab" id="reviews_tabs">
+        <span class="menu-item" >
+        Reviews
+        </span>
+      </a>
+    </h3>
+  </div>
+  
+  
+  
+  <!--Info content-->
+  <div class="tab-content">
+        
+    <!--News content-->
+    <div class="tab-pane fade active in" id="new">
+      
+      <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+        <div class="mobile_centralize">
+          <small>
+           <%= link_to 'add news', new_announcement_path(course: @course), class:"btn btn-xs btn-default course_control"%>
+          </small>
+        </div>
+      <% end -%>
+      
+      <div class="row">
+        <% if !@announcements.empty? %>
+          <% for announcement in @announcements.first(6) %>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+              <div class="panel panel-default panel-class" style="margin-bottom: 1px;">
+                <div class="panel-header text-center announcement_title" style="height: 40px;">
+                  <h6>
+                    <strong><%= announcement.subject %></strong><br>
+                    <small>
+                      <%= announcement.created_at.strftime("%b %d, %Y | %I:%M%p") %>
+                    </small>
+                  </h6>
+                </div>
+              </div>
+              <% announcement.photo.present? ? body_style = "background: url('#{announcement.photo.url(:rectangle)}')" : body_style = "background-color: #fafafa;" %>
+              <a href="" data-toggle="modal" data-target="#modal_<%= announcement.id%>">
+                <div class="body_announcement text-center" style= "<%= body_style %>; height: 150px; margin-bottom: 20px;">
+                   
+                  <% if !announcement.photo.present? %>
+                    <div class="container-fluid announcement_text">
+                      <i class="fa fa-quote-left" style="color: #e58b5a; font-size: 1.3em;"></i> <br>
+                      <font style=" color: #333333;">
+                        <%= truncate announcement.body, length: 100 %>
+                      </font>
+                    </div>
+                  <% end %>
+                <% if announcement.body.length > 100 || announcement.photo.present?  %>
+                  <button type="button" class="btn btn-default btn-xs" style="background-color: #e58b5a" data-toggle="modal" data-target=".bs-example-modal-lg">
+                    more
+                  </button>
+                <% end -%>
+                </div>
+              </a>
+            </div>
+            
+            <!--modal-->
+            
+          	<div class="modal fade text-center" id="modal_<%= announcement.id%>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+          	  <div class="modal-dialog modal-md" role="document">
+          	    <div class="modal-content">
+          	      <div class="modal-header" style="padding: 5px; color: #3f3f3f; ">
+          	        <h4><%= announcement.subject %><h4> 
+                  </div>
+                  <div class="modal-body">
+                    <% if announcement.photo.present? %>
+                      <% if announcement.action_type == "view course" %>
+                        <%= link_to @course do %>
+                          <%= image_tag announcement.photo.url(:rectangle), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
+                        <% end %>
+                      <% else %>
+                        <a href="<%= announcement.action_link %>" target="_blank" > 
+                          <%= image_tag announcement.photo.url(:rectangle), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
+                        </a>
+                      <% end %>
+                    <% end %>
+                    <%= announcement.body %><br>
+                    <br></br>
+                    <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+                      <div class="collapse" id="broadcast_<%= announcement.id%>">
+                        <div class="well text-center">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <h4>
+                                Send Email Broadcast
+                              </h4>
+                              <% if @course.favorited_by.subscribeable.count < @total_email_credit %>
+                                 <% credit_remaining =  @total_email_credit - @course.favorited_by.subscribeable.count %>
+                                <table class="table">
+                                  <tr>
+                                    <td class="text-left">available emails</td>
+                                    <td><%= number_with_delimiter(@total_email_credit, :delimiter => ',') %></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-left">number of recipients</td>
+                                    <td><%= number_with_delimiter(@course.favorited_by.subscribeable.count, :delimiter => ',') %></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-left"><strong>remaining emails</strong></td>
+                                    <td ><strong><%= number_with_delimiter(credit_remaining, :delimiter => ',')  %></strong></td>
+                                  </tr>
+                                  <tr>
+                                    <% if credit_remaining > 0 %>
+                                      <td class="text-left"> <%= link_to "send emails", email_broadcast_path(@course, announcement), class:"btn btn-default btn-xs course_control", data: {confirm: "This action will send this announcement to available #{@course.title} followers as an email consuming #{number_with_delimiter(@course.favorited_by.subscribeable.count, :delimiter => ',')} email credits, are you sure?"} %></td>
+                                    <% else %>
+                                      <td class="text-left">
+                                        You need more credits to send out brodcasts. <br>
+                                        <div style="margin-top: 10px;">
+                                          <%= link_to "buy more", new_organizer_organizer_order_path(@user_organizer) , class:"btn btn-xs btn-default course_control" %>
+                                        </div>
+                                      </td>  
+                                    <% end %>
+                                    <td></td>
+                                  </tr>
+                                </table>
+                              <% else %>
+                                <% credit_needed = @course.favorited_by.subscribeable.count - @total_email_credit  %>
+                                You need at least <span style="color: #d75453;"> <%= credit_needed %>  </span> email <%= "credit".pluralize(credit_needed) %> to send emails.
+                                <%= link_to "Purchase more", new_organizer_organizer_order_path(@organizer) %>
+                              <% end %>
+                            </div>
+                            <div class="col-md-6">
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                      <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+                        <div class="btn-group" role="group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Manage
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <% if @course.favorited_by.subscribeable.count > 0 %>
+                              <li>
+                                <a data-toggle="collapse" href="#broadcast_<%= announcement.id%>" aria-expanded="false" aria-controls="broadcast_<%= announcement.id%>">
+                                  Broadcast
+                                </a>
+                              </li>
+                            <% end %>
+                            <li><%= link_to 'Edit', edit_announcement_path(announcement)%></li>
+                            <li><%= link_to 'Delete',  announcement_path(announcement), method: :delete, data: {confirm: "This action will delete this news, Are you sure?"}, style:"color: #d9534f;" %></li>
+                          </ul>
+                        </div>
+                      <% end -%>
+                      <% case announcement.action_type %>
+                        <% when "link" %>
+                          <div class="btn-group" role="group">
+                            <a class="btn btn-default" type:"button" href="<%=announcement.action_link%>".html_safe role="button" target="_blank">
+                              Learn more
+                            </a>
+                          </div>
+                        <% when "view course" %>
+                          <div class="btn-group" role="group">
+                            <%= link_to @course, class: "btn btn-default", type:"button" do %>
+                              View course
+                            <% end %>
+                          </div>
+                      <% end %>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="color: #d9534f;" >Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="col-xs-12 col-sm-4 col-md-4">
+            <h5>No announcement yet</h5>
+          </div>
+        <% end %>
+          
+      </div>
+      <%= link_to course_announcements_path(@course) do %>
+    	  <small><%= @announcements.count > 6 ? "| view all" : "" %></small>
+    	<% end %>
+    </div>
+    
+    <!--Reviews content-->
+    
+    <div class="tab-pane fade" id="reviews">
+      <div class=" container-fluid reviews_content">
+        <div class="row">
+          <% if !@reviews_paginate.empty? %>
+            
+            <%= render @reviews_paginate.first(5) %>
+            <% if current_user && current_user.id != @course.user_id || params[:visitor] == "visitor" %>
+              <div class="col-xs-12 col-sm-4 col-md-4">
+                <div class="body_rating text-center" style= "height: 150px; margin-bottom: 20px;">
+                  <div class="panel-body">
+                    <H3>
+                      <%= link_to new_course_review_path(@course), style: "color: #e58b5a;"  do %>
+                         add review <br> <i class="fa fa-plus-square"></i> 
+                      <% end %>
+                    </H3>
+                  </div>
+                </div>
+              </div>
+            <%end%>
+          <%else%>
+            <div class="col-xs-12 col-sm-4 col-md-4" style= "margin-bottom: 20px;">
+              <%= link_to "Be the first to review", new_course_review_path(@course), class: "btn btn-md btn-success", style:"background-color: #e58b5a; border: none;"%>
+            </div>
+          <%end%>
+        </div>
+        <% if @reviews_paginate.count > 5 %>
+          <%= link_to course_rating_path(@course), class: "btn btn-md btn-success", style:"background-color: #e58b5a; border: none;" do %>
+        	  <small>view all</small>
+        	<% end %> 
+      	<% end %> 
+      </div>
+    </div>
+  </div>
+</div>

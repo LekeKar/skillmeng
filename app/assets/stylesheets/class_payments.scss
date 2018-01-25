@@ -1,0 +1,30 @@
+// Place all the styles related to the class_payments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#payment_form_title {
+	color: #268180;
+}
+
+.price_body {
+		max-height: 170px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+
+
+.unit_input {
+	margin-left: -40px;
+}
+
+@media (min-width: 700px) and (max-width: 1050px) { 
+		.price_body {
+		max-height: 120px;
+	}
+}
+
+@media (max-width: 800px) {
+	.unit_input{
+		margin-left: 0px;
+	}
+}

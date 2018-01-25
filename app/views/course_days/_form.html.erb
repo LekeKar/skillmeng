@@ -1,0 +1,65 @@
+<%= simple_form_for([@course, @course_day]) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-4 col-sm-8" id="datepicker" >
+        <% if @course.schedule_style == "Recurring weekdays" %>
+            <%= f.input :weekday, label: "Select day", :collection => @available_weekdays, :include_blank => false %>
+          <% else %>
+          <div class="form-inline">
+            <%= f.label :calendar_day, 'Event day' %><br> 
+            <div class="input-group date">
+              <%= f.input :calendar_day, :start_year => 2017, label: false, :as => :string, type:"text", class: "form-control", :value => date_format(f.object.calendar_day) %>
+              <span class="input-group-addon"><i class="fa fa-th"></i></span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+   
+    <h4>Locations and times </h4>
+    
+    <div id="locations">
+      <%= f.simple_fields_for :locations do |location| %>
+        <%= render 'location_fields', f: location %>
+      <% end %>
+      <div class="links text-center">
+        <%= link_to_add_association f, :locations, class: "add_location" do %>
+           <i class="fa fa-plus"></i> Location
+        <% end %>
+      </div>
+    </div>
+    <div class="has-error text-center">
+      <%= f.error :base %>
+    </div>
+      
+  
+    <div class="form-actions text-center" style="margin-top: 20px">
+      <% session[:setup_wizard] ? @pass_param = "Done" : @pass_param = "Submit"  %>
+      <% if session[:setup_wizard] %>
+       <%= link_to 'Back', edit_course_course_payment_path(@course, @course_payment), class:'btn btn-danger' %>
+  		<% end%>
+      <%= f.button :submit, name: "type", value: "#{@pass_param}" %>
+  		<% unless session[:setup_wizard] %>
+  		  <%= link_to 'Back', @course, class:'btn btn-danger' %>
+  		<% end %>
+    </div>
+    
+<% end %>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    
+    $('#datepicker .input-group.date').datepicker({
+      format: "yyyy-mm-dd",
+      startDate: "13/07/2017",
+      maxViewMode: 2,
+      clearBtn: true,
+      autoclose: true,
+      todayHighlight: true
+    });
+  });
+               
+</script>
+

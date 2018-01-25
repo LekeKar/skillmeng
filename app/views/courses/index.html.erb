@@ -1,0 +1,21 @@
+<% title "All Courses" %>
+<div class="container-fluid">
+  <%= form_tag search_courses_path, method: :get, class: 'input-group search_body', role: "search" do %>
+    <%= text_field_tag :search, nil, class: 'form-control', id: 'courses_search_mobile', autocomplete: :off, placeholder: 'search skillmeng' %>
+    <span class="input-group-btn ">
+    <%= button_tag "", name: nil, class: "btn btn-default" do%>
+      <i class="fa fa-search"></i>
+    <% end -%>
+    </span>
+  <% end %>
+  <br>
+  <div id="my-courses">
+    <%= render @courses %>
+  </div>
+
+  <div id="infinite-scrolling" class="text-center">
+    <% unless params[:type] == "popular"%>
+      <%= will_paginate @courses %>
+    <% end %>
+  </div>
+</div>

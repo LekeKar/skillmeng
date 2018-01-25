@@ -1,0 +1,185 @@
+<% course = Course.find(favorite_course.course_id)%>
+<% notification = Announcement.course.where(:sender => course.id).last %>
+<% @reviews = course.reviews %>
+<% if @reviews.blank? %>
+  <% @avg_review = 0 %>
+<% else %>
+  <% @avg_review = @reviews.average(:rating).round(2) %>
+<% end %>
+
+<div class="col-xs-12 col-sm-6 col-md-3">
+  <div class="panel panel-default panel-class">
+    <div class="panel-heading text-center" id="index_title">
+      <h5 style="margin:0 auto;"> 
+        <!-- Button trigger modal -->
+        <a href="#" data-toggle="modal" data-target=".more_<%= course.id %>">
+          <%= course.title.try(:titleize) %> <br>
+        </a >
+        <% if @reviews.blank? %>
+          <small>No reviews yet</small>
+        <% else %>
+          <div>
+            <span data-score= <%= @avg_review %> class="star-rating"></span> 
+            <small>(<%= @reviews.length %>)</small>
+          </div>
+        <% end -%>
+      </h5>
+    </div>
+      <%= link_to course do %>
+        <div class="panel-body" style="background: url('<%= course.display_pic.url(:medium) %>'); height: 200px; background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; ">
+        
+        </div>
+      <% end %>
+
+    <div class="panel-footer" style="font-size: 11px; height: 210px;">
+      <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <strong>
+              <% if !course.course_prices.empty? %>
+                <% @min_price =  course.course_prices.minimum(:price) %>
+                <% if @min_price > 0 %>
+                  ₦<%= number_with_delimiter(@min_price.floor) %><%= course.course_prices.count > 1 ? "+" : "" %>
+                <% else %>
+                  Free<%= course.course_prices.count > 1 ? "+" : "" %>
+                <% end %>
+              <% else %>
+                No price info 
+              <% end %>
+            </strong>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 text-right" >
+            <% if course.saed %>
+              <strong> <span data-toggle="tooltip" title="(saed) Skill Acquisition and Entrepreneurship Development program for NYSC corpers.">saed</span></strong>
+            <% end -%>
+            <% if course.online %>
+              <span data-toggle="tooltip" title="This is an online class"><i class="fa fa-laptop"></i></span>
+            <% end -%>
+            <% case course.attended_by %>
+              <% when "everyone"%>
+                <span  data-toggle="tooltip" title="For everyone"><strong>E</strong></span>
+              <% when "adults (18+)"%>
+                <span  data-toggle="tooltip" title="For adults only"><strong id="adult_only">18+</strong></span>
+              <% when "children only"%>
+                <span  data-toggle="tooltip" title="For children only"><i class="fa fa-child"></i></span>
+              <% when "men only"%>
+                <span  data-toggle="tooltip" title="For men only"><i class="fa fa-male"></i></span>
+              <% when "women only"%>
+                <span  data-toggle="tooltip" title="For women only"><i class="fa fa-female"></i></span>
+              <% when "couples only"%>
+                <span  data-toggle="tooltip" title="For couples only"><i class="fa fa-female"></i><i class="fa fa-male"></i></span>
+            <% end %>
+          </div>
+        </div>
+        <hr></hr>
+        
+        
+        <div class="row" style="margin: 5px; font-size: 12px;">
+          <h5 class="text-center featured_menu" id="follow_tab_title" >
+		        
+	          <a href="#settings_<%= course.id %>" role="tab" data-toggle="tab" id="settings_tabs">
+	            <span class="menu-item active" >
+	             &nbsp; settings
+	            </span>
+	          </a>&nbsp;
+	        
+	          <a href="#latest_news_<%= course.id %>" role="tab" data-toggle="tab" id="latest_news_tabs">
+	            <span class="menu-item" >
+	              &nbsp; latest &nbsp; 
+	            </span>
+	          </a>
+	         </h5>
+	         
+	          
+  	      <div class="tab-content">
+  					<div class="tab-pane active in fade" id="settings_<%= course.id %>" style="color: #777777;">
+              <table class="table borderless mytable">
+                <% on = "fa fa-toggle-on text-success" %>
+                <% off = "fa fa-toggle-off text-danger" %>
+                <tr> 
+                  <td><font style="color: #777777;" id="follow_tab_title" >Post news to my newsfeed.</font></td>
+                  <% favorite_course.broadcast ? broadcast_status = on : broadcast_status = off %>
+            
+                  <td class="col-md-3 text-center">
+                    <%= link_to toggle_broadcast_path(favorite_course), class: "toggle_#{course.id}", remote: true do%>
+                      <i class="<%= broadcast_status %>" style="font-size: 30px; margin-top: 5px; "></i>
+                    <%end%>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td><font style="color: #777777;" id="follow_tab_title" >Send news to my registered e-mail.</font></td>
+                  <% favorite_course.subscribe ? subscription_status = on : subscription_status = off %>
+                  <td class="col-md-3 text-center">
+                    <%= link_to toggle_subscription_path(favorite_course), class: "toggle_#{course.id}", remote: true do%>
+                      <i class="<%= subscription_status %>" style="font-size: 30px;  margin-top: 5px;"></i>
+                    <% end %>
+                  </td>
+                </tr>
+              </table>
+  					</div>
+  					<div class="tab-pane fade text-center" id="latest_news_<%= course.id %>">
+  					  <% if notification.present? %>
+  					    <div style='vertical-align: middle; line-height: 120px;' >
+    							<h5 style='margin-top: 5px; font-size: 1.3em;' >
+    							  <%= notification.subject %><br>
+    								<small>
+    									<%= truncate(notification.body, :length => 130) %> 
+    									<% if notification.body.length > 130 %>
+    									  <a data-toggle='modal' data-target='.notification_more_<%= course.id %>'>
+    									    more
+    									  </a>
+    									<% end %><br>
+    									<font style='color: #999999;' >	<%= notification.present? ? "(sent #{notification.created_at.strftime("%b %d, %Y at %I:%M%p")})" : "" %> </font>
+    								</small>
+    							</h5>
+  							</div>
+  							<!--modal for news overflow-->
+  							<div class="modal fade notification_more_<%= course.id %>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                  <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body" style='font-size: 1.2em;' >
+                        <h4>
+                          <%= notification.subject %>
+                        </h4>
+                        <%= notification.body %> <br></br>
+                        <font style='color: #999999; font-size: 0.9em;' >	<%= notification.present? ? "(sent #{notification.created_at.strftime("%b %d, %Y at %I:%M%p")})" : "" %> </font>
+                        
+                        <hr></hr>
+                        <a style="color: #eb6460;" data-dismiss="modal">close</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  						<% else %>
+  							<h5 style="color: #9f9999; vertical-align: middle; line-height: 100px;">
+  								No news given
+  							</h5>
+  						<%end %>
+  					</div>
+					</div>
+        </div>
+      </div>
+      <div class="panel-footer" style="font-size: 11px;">
+        <div class="row text-center" style="margin: 5px; font-size: 12px;">
+          <%= link_to favorite_course_path(course), method: :put, data: {confirm: "Do you wish to unfollow #{course.title}?"} do %>
+            <span style="color: #eb6460;"> <strong>unfollow</strong> </span>
+          <% end %>  
+        </div>
+    </div>
+  </div>
+  
+  
+  
+</div>
+
+
+<script>
+  $(document).on("click",'.toggle_<%= course.id %>', function(event) { 
+    $(this).find('i').toggleClass('fa-toggle-on fa-toggle-off');
+    $(this).find('i').toggleClass('text-success text-danger');
+  });
+</script>
+
+<%= render "helper_code/raty" %>
+<%= render "helper_code/tooltip_toggle" %>
+<%= render "helper_code/single_page_tabs" %>

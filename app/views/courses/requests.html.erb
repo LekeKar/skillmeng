@@ -1,0 +1,155 @@
+<% @disappear = 'disappear'%>
+<div class="row">
+  <%-# Overview content -%>
+  <div class="col-xs-12 col-sm-4 col-md-3">
+    <%-#main overview%>
+    <%= render "overview" %>
+    
+    <%-#Destop controls%>
+      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <%if can? :update, @course -%>
+          <%= link_to @course, class:'btn btn-default' do%>
+            <i class="fa fa-info-circle"></i> Info
+          <% end -%> 
+        <% end -%>
+      </div>
+
+      <br>
+  </div>
+
+  <div class="col-xs-12 col-sm-8 col-md-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="fa fa-calendar-check-o"></i> <strong>Requests</strong>
+        </div>
+        <div class="panel-body request_panel">
+          
+        <!--  new course requests appear here -->
+            <strong style="color: grey;">Newer</strong> <hr style="margin-top: 2px; margin-bottom: 10px;">
+            <% if !@class_request.empty? %>  
+              <div class="row">
+         
+
+                <% @class_requests.order('created_at DESC').each do |class_request| %>
+                  <% @sender = User.find(class_request.user_id) %>
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="" data-toggle="modal" data-target="#class_request<%= class_request.id%>" >
+                      <div class="well well-sm text-center">
+                        <strong><%= @sender.fname.try(:titleize)%> <%= @sender.lname.try(:titleize)%></strong><br>
+                        <small style="color: grey;">
+                          <% if !class_request.owner_read %>
+                            (<strong>unread</strong>)
+                          <% end -%>
+                          <%= class_request.created_at.to_formatted_s(:short)%>
+                        </small>
+                      </div>
+                    </a>
+                  </div>
+
+                  <div class="modal fade bs-example-modal-sm" id="class_request<%= class_request.id%>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        
+                           <strong><%= @course.title.try(:titleize) %></strong> <br>
+                          <small>
+                            Reservation details <br>
+                            Sent on <%= class_request.created_at.to_formatted_s(:short) %>
+                          </small>
+
+                          <%= link_to course_class_request_path(@course, class_request), method: :delete, style:"color: #d9534f;", data: {confirm: "This action will delete this request, are you sure?"} do %>
+                            <i class="fa fa-trash pull-right trash_request_modal" style="margin-top: -25px;"></i>
+                          <% end -%>
+                      
+                      </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-xs-12 ol-sm-6 col-md-6">
+                              <strong style="color: grey;">Name:</strong> <%= @sender.fname.try(:titleize)%> <%= @sender.lname.try(:titleize)%><br>
+                              <strong style="color: grey;">Email:</strong> <%=class_request.sender_email%><br>
+                              <strong style="color: grey;">Phone:</strong> <%= number_to_phone(class_request.sender_phone)%><br>  
+                              <strong style="color: grey;">Payment Method:</strong>  
+
+                              <% if class_request.sender_trade_courses %> <br>
+                          
+                                <% @trade_class = Classroom.find(class_request.sender_trade_courses) %>
+
+                                  <%= @sender.fname.try(:titleize)%> will like to barter 
+                                  <%= link_to @trade_class, target: "_blank"  do %>
+                                    <%= @trade_class.title %><br>
+                                  <% end -%> 
+
+                              <% else -%> 
+                                <br><%= class_request.payment_method %>
+                              <% end -%>  
+                              
+                            </div> 
+                            
+                            <div class="col-xs-12 ol-sm-6 col-md-6">
+                              <strong style="color: grey;">Additional Info</strong> <br>
+                              <%=class_request.additional_info%> <br>
+                            </div>
+                                 
+                          </div>
+                          
+
+                          <hr>
+                          <a role="button" data-toggle="collapse" href="#collapse<%= class_request.id%>" aria-expanded="false" aria-controls="collapse<%= class_request.id%>">
+                            Respond
+                          </a>
+
+                          <div class="collapse" id="collapse<%= class_request.id%>">
+                            <div class="well">
+                              
+                              <%= form_tag send_message_path, method: :post do %>
+                                <%= hidden_field_tag :sender, @sender.id %>
+                                <%= hidden_field_tag :subject,  "[Reservation] #{@course.title} for #{@sender.fname.try(:titleize)} #{@sender.lname.try(:titleize)}".html_safe %>
+                                <%= text_area_tag :body, nil, class: 'form-control message_text_input', :input_html => {:rows => 3} %>
+                                <%= submit_tag "SEND MESSAGE", class: 'btn  btn-success btn-sm btn-block' %>
+                              <% end -%>
+
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <div class="btn-group" role="group" aria-label="..." >
+                            
+                            <%= link_to course_class_request_toggle_read_path(@course, class_request), class: "btn btn-default btn-sm" do %>
+                              <%= class_request.owner_read? ? "Mark as unread" : "Mark as read" %>
+                            <% end -%>
+                                               
+                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>                      
+                    </div>
+                  </div>
+                </div>
+
+                <script type='text/javascript'>
+                  $(function() {
+                    $("#class_request<%= class_request.id%>").on("shown.bs.modal", function() {            
+                        $(".message_modal").animate({ scrollTop: $(".message_modal").height() + 150 }, 'slow');
+                    });
+                });
+                </script>
+
+                <% end -%>
+              </div>
+          <% else -%>
+              No requests available
+          <% end -%>
+          
+          <div class="row">
+            <div id="paginate">
+              <%= will_paginate @class_requests, inner_window: 0, outer_window: 0, renderer: BootstrapPagination::Rails %>
+            </div>
+          </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+
+	<%= render "helper_code/raty" %>
+	<%= render "helper_code/tooltip_toggle" %>

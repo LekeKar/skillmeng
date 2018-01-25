@@ -1,0 +1,28 @@
+<% title "Edit #{@course.title}" %>	
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<% if session[:setup_wizard] %>
+				<%= render 'helper_code/wizard_controls', next_step_name: "about", current_step_name: "basic info", step_number: "Step 1 of 5" %>
+			<% end %>
+	   	<div class="panel panel-default">
+    		<div class="panel-heading">
+			    <h4 class="panel-title"><i class="fa fa-wrench"></i> Edit basic info
+	 					<%= link_to course_path(@course), method: :delete, class:"btn btn-sm btn-default pull-right", data: {confirm: "This action will DELETE this class, Are you sure?"} do %>
+								<i class="fa fa-trash" style = "color: #d9534f; font-size: 15px"></i>
+						<% end -%>
+					</h4>
+				</div>
+			  <div class="panel-body new_class">
+					<%= render 'form' %>
+				</div>
+			</div>
+			<% if @course.display_pic.present? %>
+				<div class="panel-footer">
+					<small>current picture</small>
+          <%= image_tag @course.display_pic.url(:medium), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
+				</div>
+			<% end %>
+		</div> 
+	</div>
+</div>

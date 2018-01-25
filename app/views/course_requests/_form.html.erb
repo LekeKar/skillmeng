@@ -1,0 +1,21 @@
+
+<%= simple_form_for([@course, @course_request]) do |f| %>
+  <%= f.error_notification %>
+  
+  <%  @user_classes = current_user.courses.active %>
+
+  <div class="form-inputs">
+    <%= f.input :sender_email, label: "Email", input_html: {value: current_user.email}  %>
+    <%= f.input :sender_phone, label: "Phone Number", input_html: {value: current_user.tel}, required: true%>
+    <%= f.input :sender_trade_courses, collection: @user_classes, input_html: { multiple: false }, label: "Course you are willing to trade"%>
+    <%= f.input :additional_info, :label => 'Sales Pitch (300 char max)', hint: "Tell the course owner why you think this is a good trade. Goodluck!", maxlength: "300", :input_html => {:rows => 3, :id => "text"} %>
+    <h6 class="text-right" id="count_message" style="color: grey"></h6>
+    <hr style="margin-top: 2px">
+    <%= f.hidden_field :owner_read, :default => false %>
+  </div>
+
+  <div class="form-actions text-center">
+    <%= f.button :submit, 'Submit' %>
+    <%= link_to 'Back', @course, class:'btn btn-danger' %>
+  </div>
+<% end %>

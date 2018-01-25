@@ -1,0 +1,68 @@
+
+<% title "Add-on order #{ @order.order_number}" %>
+<div class="col-md-6 col-md-offset-3">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="container-fluid" >
+      	<div class="row" style="margin-top: 30px;">
+      	 
+    		  <table class="table table-bordered" style="margin-bottom: 5px;">
+    		    <tr>
+    		      <td><span style="color: #777777"><strong>Order #<%= @order.order_number %></strong></span></td>
+    		    </tr>
+    		    
+    		    <tr>
+    		      <td><strong>DESCRIPTION</strong> </td>
+    		      <td class="text-center"><strong>COST</strong></td>
+    		    </tr>
+    		    <% if @email_quantity > 0 %>
+      		    <tr>
+      		      <td><%= number_with_delimiter(@email_quantity) %> email credits x ₦<%= @email_price %></td>
+      		      <td class="text-center">₦<%= number_with_delimiter(@email_total) %></td>
+      		    </tr>
+    		    <% end %>
+    		    <% if !@order.course_promotions.empty?  %>
+      		    <% for promo in @order.course_promotions %>
+      		      <% course = Course.find(promo.course_id)%>
+        		    <tr>
+        		      <td><small>1 week promotion for</small> <br> <%= course.title %> </td>
+        		      <td class="text-center"> <br>₦<%= number_with_delimiter(promo.price) %></td>
+        		    </tr>
+        		  <% end %>
+      		  <% end %>
+    		    <tr class="active">
+    		      <td><strong>Total</strong></td>
+    		      <td class="text-center"><strong>₦<%= number_with_delimiter(@order.total) %></strong></td>
+    		    </tr>
+    		  </table>
+    		  
+    		  <% unless @order.status == "success" %>
+      		  <%= link_to "edit", edit_organizer_organizer_order_path(@organizer, @order) %> | 
+      		  <%= link_to  organizer_organizer_order_path(@organizer, @order), method: :delete, data: {confirm: 'This action will delete this order, do you wish to continue?'}, style: "color: #d75452;" do %>
+      		   <i class="fa fa-trash"></i>
+      		  <% end %>
+    		  <% end %>
+        </div>
+      </div>
+      
+      <div class="row text-center">
+        <% if @order.total < 100 %>
+          <h4 style="margin-top: 20px; margin-bottom: 20px;">
+            your cart is empty<br>
+            <small>so place somthing in it</small>
+          </h4>
+        <% else %>
+          <% unless @order.status == "success" %>
+            <h4 style="margin-top: 35px; margin-bottom: -10px;">
+              <%= @order.status.upcase == "fail" ? @order.status.upcase : "AWAITING PAYMENT"%>
+            </h4>
+            <br>
+            <a class="btn btn-warning" href="<%= @order.authorization_url %>" role="button" style="width: 100px;">Pay</a>
+          <% else %>
+            <%= link_to "Success!", @organizer, class:"btn btn-success", style:"width: 100px; margin-top: 10px;" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<% title @course.title %>
+
+
+<% page = "course"%>
+
+<div class="col-xs-12 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1" style="margin-bottom: 200px;">
+  <div class="course_body" style="background-color: #FFFFFF;">
+    <% if current_user && current_user.id == @course.user_id %>
+      <%= render "manager_controls" %>
+    <%end%>
+    <%= render "header" %>
+    <%= render "about_gallery" %>
+    <%= render "more_info" %>
+    <%= render "tutors_info" %>
+    <%= render "news_reviews" %>
+    <%= render "footer" %>
+  </div>
+</div>
+
+  
+<!-- Helps display Rating stars -->
+	<%= render "helper_code/raty" %>
+	<%= render "helper_code/tooltip_toggle" %>
+	<%= render "helper_code/single_page_tabs" %>
+

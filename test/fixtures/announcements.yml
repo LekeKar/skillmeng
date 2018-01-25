@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject: MyString
+  body: MyText
+  sender: 1
+  sender_type: MyString
+  important: false
+
+two:
+  subject: MyString
+  body: MyText
+  sender: 1
+  sender_type: MyString
+  important: false

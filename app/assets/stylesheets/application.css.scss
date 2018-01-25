@@ -1,0 +1,306 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require devise_bootstrap_views
+ *= require bootstrap-datepicker
+ *= require typeaheadjs
+ *= require jquery.timepicker.min
+ *= require bootstrap-datepicker3.min
+ *= require slick
+ *= require slick-theme
+ *= require social-share-button
+ *= require_tree .
+ *= require_self
+ */
+ 
+ @font-face {
+  font-family: "slick";
+  src: url(/assets/slick.ttf) format("truetype");
+}
+
+	.flash_message{
+	position: fixed;
+	z-index: 99 !important;
+	left: 0;
+	right: 0;
+	margin: auto
+ }
+ 
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+.facebook_btn {
+	color: white;
+	background: #50669e;
+	border-color:#50669e;
+}
+
+.google_btn {
+	color: white;
+	background: #db4c3e;
+	border-color: #c33428;
+}
+
+#nav_logo {
+	width: 65px;
+	position: relative; /* Declared position allows for location changes */
+  top: -22px; 
+}
+
+
+body {
+background: #ECE9E6; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #ECE9E6 , #FFFFFF); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #ECE9E6 , #FFFFFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }    
+
+
+.btn.pull-right{
+	margin-top: -5px;
+}
+
+.dont-break-out {
+
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+}
+
+.scrollToTop{
+	width:60px; 
+	height:60px;
+	padding:10px; 
+	text-align:center; 
+	background: whiteSmoke;
+	font-weight: bold;
+	font-size: 40px;
+	color: #444;
+	text-decoration: none;
+	position:fixed;
+	top: 10%;
+	right: 5%;
+	display:none;
+	background: none;
+}
+.scrollToTop:hover{
+	text-decoration:none;
+}
+
+a {
+	text-decoration: none !important;
+	 -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+a:hover {
+	text-decoration: none !important;
+}
+
+.alert_span{
+	background-color: #d9534f;
+	font-size: 10px;
+	margin-top: 2px;
+}
+
+
+
+.featured_menu{
+	color: #333333;
+	font-size: 2em;
+	
+	a{
+		color: #333333;
+		.active { 
+	    color: #e27937;
+		}
+
+	}
+	
+	a:hover{
+		color: #333333;
+		.active { 
+	    color: #e27937;
+		}
+
+	}
+	
+
+	.menu-item{
+		position: relative;
+	}
+	.menu-item:hover{
+		text-decoration: none;
+		color: #333333;
+	}
+	.menu-item:before{
+		content: "";
+	  position: absolute;
+	  width: 100%;
+	  height: 2px;
+	  bottom: 0;
+	  left: 0;
+	  background-color: #000;
+	  visibility: hidden;
+	  -webkit-transform: scaleX(0);
+	  transform: scaleX(0);
+	  -webkit-transition: all 0.3s ease-in-out 0s;
+	  transition: all 0.3s ease-in-out 0s;
+	}
+	.menu-item:hover:before {
+	  visibility: visible;
+	  -webkit-transform: scaleX(1);
+	  transform: scaleX(1);
+	}
+	
+}
+
+
+
+
+@media (min-width: 760px) and (max-width: 1035px) { 
+    #ipad_disapear{
+    	display:none;
+    }
+}
+
+ /* Adjust screen for Desktop view */ 
+
+@media (min-width: 1050px) {
+	#class_title{
+		font-size: 17px !important;
+	}
+
+	.welcome{
+	  -webkit-background-size: cover; -webkit-background-size: 100%;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;
+	}
+
+	body{
+	background-position: 30% 20%; 
+	}
+
+}
+
+ /* Adjust screen for Tablet view */ 
+@media (min-width: 1050px) {
+	.search_body{
+		display: none;
+	}
+}
+	
+@media (min-width: 750px) {
+	
+
+ 
+	.home_text{
+	margin-top: 160px;
+
+		a {
+			margin: 1%;
+		}
+	}
+
+	.welcome{
+	  -webkit-background-size: cover; -webkit-background-size: 100%;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;
+	}
+
+	#mobile_overview_back{
+		display: none;
+	}
+}
+
+ /* Adjust screen for mobile view */ 	
+ 
+@media (min-width: 770px) {
+	#desktop_disapear{
+    	display:none;
+    }
+	
+}
+
+@media (max-width: 750px) {
+
+	.home_text{
+	margin-top: 40%;
+		h1 {	
+			font-size: 400%; 
+			margin-bottom: 10%;
+		}
+		h2 {
+			font-size: 150% ;
+			margin-top: -5px;
+			margin-bottom: 0px;
+		}
+	}
+	
+	.alert_span{
+		margin-right: 60%;
+		margin-top: 2px;
+	}
+
+	.search_nav{
+		display: none;
+	}
+
+	#desktop_overview_back{
+		display: none;
+	}
+	
+	.disappear {
+		display: none;
+	}
+	
+	 #phone_disapear{
+    	display:none;
+    }
+    
+	.welcome{
+		background-position: 50% 0%;
+	}
+	
+	.scrollToTop{
+		top: 0%;
+		right: 40%;
+		font-size: 30px;
+	}
+}
+
+	
+ /* Adjust screen for mobile view */ 
+	

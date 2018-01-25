@@ -1,0 +1,2 @@
+json.extract! course_payment, :id, :cash_instruction, :bank_name, :bank_account_number, :bank_account_name, :bank_instruction, :trade_by_barter, :course_id, :created_at, :updated_at
+json.url course_payment_url(course_payment, format: :json)

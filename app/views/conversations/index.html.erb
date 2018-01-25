@@ -1,0 +1,51 @@
+<% title "Messages #{params[:type]}" %>
+<div class="container-fluid">
+	<div class="row">
+		<div class=" col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
+			<h2  style="color: #777777;"> Messages </h2>
+			<div class="btn-group btn-group-justified" role="group" aria-label="...">
+			  <%= link_to conversations_path(type: 'inbox'), class: "btn-group btn btn-default", role: "group", type:"button"   do %>
+			 	<% if params[:type] == "inbox" %>
+			 		<span style="color: #d9534f;">
+						<strong><i class="fa fa-inbox"></i> Inbox</strong> 
+					</span>
+				<% else -%>
+			   		<i class="fa fa-inbox"></i> Inbox
+			    <% end -%>
+			  <% end -%>
+			  <%= link_to conversations_path(type: 'sent'), class: "btn-group btn btn-default", role: "group", type:"button"   do %>
+		  		<% if params[:type] == "sent" %>
+			 		<span style="color: #d9534f;">
+						<strong><i class="fa fa-paper-plane"></i> Sent</strong> 
+					</span>
+				<% else -%>
+			   		<i class="fa fa-paper-plane"></i> Sent
+			    <% end -%>
+			  <% end -%>
+			  <%= link_to conversations_path(type: 'trash'), class: "btn-group btn btn-default", role: "group", type:"button"   do %>
+			  	<% if params[:type] == "trash" %>
+			 		<span style="color: #d9534f;">
+						<strong><i class="fa fa-trash"></i> Trash</strong> 
+					</span>
+				<% else -%>
+			   		<i class="fa fa-trash"></i> Trash
+			    <% end -%>
+			  <% end -%>
+			</div>
+			<br>
+				
+			<div id="conversation">
+				<%= render @conversations %>
+			</div>
+	
+			<div class="row">
+			  <div id="infinite-scrolling" class="text-center" style="color: #777777;">
+			  	<%= will_paginate @conversations %>
+			  </div>
+			</div>
+	
+		</div>
+	</div>
+</div>
+	
+	

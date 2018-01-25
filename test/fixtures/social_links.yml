@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  platform: MyString
+  address: MyString
+  course_tutor_id: 
+  contact_id: 
+
+two:
+  platform: MyString
+  address: MyString
+  course_tutor_id: 
+  contact_id: 

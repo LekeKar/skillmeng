@@ -1,0 +1,454 @@
+<div class="more_info container-fluid" style="background-color: #FFFFFF">
+  <div class="row" style="margin-bottom: 20px;"> 
+    <div class="col-sm-8 col-md-7 ">
+      <div>
+        <h3 class="course_tabs_menu more_tabs" style="padding-bottom: 15px;" >
+          <a href="#price" role="tab" data-toggle="tab" id="price_tabs">
+            <span class="menu-item active" >
+             Price
+            </span>
+          </a>
+          &nbsp;
+          <a href="#schedule" role="tab" data-toggle="tab" id="schedule_tabs">
+            <span class="menu-item" >
+            Schedule
+            </span>
+          </a>
+          &nbsp;
+          <a href="#more_info" role="tab" data-toggle="tab" id="more_info_tabs">
+            <span class="menu-item" >
+              More
+            </span>
+          </a>
+		    </h3>
+      </div>
+      
+      <!--Info content-->
+      <div class="tab-content">
+        
+        <!--Price content-->
+       
+        <div class="tab-pane fade active in" id="price">
+          <div class="mobile_centralize">
+            <% if @course_payment && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+              <%= link_to 'edit price', edit_course_course_payment_path(@course, @course_payment), class:"btn btn-xs btn-default course_control"%>
+              <br>
+            <% end %>
+          </div>
+          <% if @course_payment && !@course_payment.course_prices.empty? %>
+              <table class="table table-condensed table-striped">
+                <tr>
+                  <td>
+                    <strong>Amount</strong> 
+                  </td>
+                  <td style="color: #777777;">
+                    <strong>Details</strong>   
+                  </td>
+                </tr> 
+                <% for price in @course_payment.course_prices.order('price ASC') do %>
+                  <tr>
+                    <td>
+                      <%= price.price? ? "₦#{number_with_delimiter(price.price.floor)}" : "Free" %> for <%= pluralize(price.quantity, "#{price.unit}") %>
+                    </td>
+                    <td style="color: #777777;">
+                      <%= price.explaination %>    
+                    </td>
+                  </tr> 
+                <% end %>
+              </table>
+          <% else %>
+           <% if @course_payment.blank? || @course_payment.course_prices.empty? %>
+              <h5>No info provided</h5> 
+            <% end %>
+          <% end %>
+        
+         
+          <% if @course_payment && !@course_payment.course_prices.empty? %>
+            <div class="mobile_centralize">
+              <a href="" data-toggle="modal" data-target=".payment_info_modal", style="background-color: #e58b5a; border: none; width: 90px;", class="btn btn-xs btn-success" >
+                <i class="fa fa-money"></i> Pay
+              </a> 
+            </div>
+          <% end %> 
+        
+        </div>
+        
+        
+        <!--schedule info-->
+        <div class="tab-pane fade" id="schedule">
+          <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+            <div class="mobile_centralize">
+              <small>
+               <%= link_to 'add day', new_course_course_day_path(@course), class:"btn btn-xs btn-default course_control"%>
+              </small>
+            </div>
+          <% end -%>
+          <% if !@course_days.blank? %>
+            <div class="panel-group" id="accordion_day" role="tablist" aria-multiselectable="true" style="margin-top: 10px;">
+              <small>
+                <% data_count = 0 %>
+               
+                
+                  <% for course_day in @course_days %>
+                      <%  if @course.schedule_style == "Specific calender days" && course_day.calendar_day < 1.day.ago %>
+                        <div class="text-center" style="margin-bottom: 8px;">
+                          <h5><%= course_day.calendar_day.strftime('%a | %b %e %G')  %> event has expired.
+                            <% if !@course_days.blank? && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+                              <br>
+                              <div style="margin-top: 8px;">
+                                <%= link_to 'edit', edit_course_course_day_path(@course, course_day), style:"color: #333333" %> |
+                                <%= link_to 'delete',course_course_day_path(@course, course_day), method: :delete, style:"color: #e38b5f", data: {confirm: "This action will delete this Day, are you sure?"}%>
+                              </div>
+                            <% end %>  
+                          </h5>
+                          <hr style="border-style: dashed;">
+                        </div>
+                      
+                        
+                        
+                      <% else %>
+                        <h5 class="text-left" style="margin-bottom: -8px; border-radius: 5px;">
+                          <a id="course_day_link" role="button" style="color: #e58b5a;"  data-toggle="collapse" data-parent="#accordion_day" href="#day<%=course_day.id%>" aria-expanded="true" aria-controls="collapseTwo">
+                            <% case @course.schedule_style %>
+                              <% when "Recurring weekdays" %>
+                                <%= course_day.weekday %> 
+                              <% when "Specific calender days" %>
+                                <%= course_day.calendar_day.strftime('%a | %b %e %G')  %>
+                            <% end %>
+                          </a>
+                          
+                          <% if !@course_days.blank? && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+                            <div class="pull-right" role="group" style="margin-top: 0.3px;" >
+                              <%= link_to 'Edit', edit_course_course_day_path(@course, course_day), style:"color: #e58b5a" %> |
+                              <%= link_to 'Delete',course_course_day_path(@course, course_day), method: :delete, style:"color: #e58b5a", data: {confirm: "This action will delete this Day, are you sure?"}%>
+                						</div>
+                          <% end -%>
+                        </h5>
+                    
+                        <div id="day<%=course_day.id%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                          <% @locations = Location.where(:course_day_id => course_day.id) %>
+                          <% for location in @locations do %>
+                            <div class="row">
+                              <div class="col-xs-5 col-sm-5 col-md-5">
+                                <%= link_to  "http://maps.google.com/maps?q=#{location.address_line2} #{location.city} ", :target => "_blank" do %>
+                                  <h5  style="color: #333333;" >
+                                    <% if location.address_line1 && !location.address_line1.blank? %>
+                                      <%= location.address_line1 %><br>
+                                    <% end %>
+                                    <%= location.address_line2 %><br>
+                                    <%= location.city %>, 
+                                    <%= location.state %>
+                                  </h5>
+                                <% end %>  
+                              </div>
+                              <div class="col-xs-7 col-sm-7 col-md-7">
+                                <% location.course_times.order("start_time ASC").each do |time| %>
+                                  <div class="text-right">
+                                    <h5>
+                                    <%= time.start_time.strftime("%I:%M %p") %> - 
+                                    <%= time.end_time.strftime("%I:%M %p") %>
+                                      <% if !time.description.blank? %>
+                                        <br><small class="dont-break-out" style="color: #333333;" ><%= time.description %></small>
+                                      <% end %>
+                                    </h5>
+                                  </div>
+                                <% end %>
+                              </div>
+                            </div>
+                            <% if @locations.count > 1 && location != @locations.last %>
+                              <hr style="border-style: dashed;">
+                            <% end -%>
+                          <% end %>
+                      </div>
+                      <% if course_day != @course_days.last %>
+                        <hr>
+                      <%end%>
+                      <% data_count += 1 %>
+                    <% end %>
+                  <% end %>
+                
+              </small>
+            </div>
+          <% else %> 
+            <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
+              <div class="text-left">
+                <h5 style="margin-top: 10px;">
+                  Schedule has no days! <br> 
+                  <%= link_to 'Add a day', new_course_course_day_path(@course), style:"color: #d6d5d3"%>
+                </h5>
+              </div>
+            <% else %> 
+              <h5>No info provided</h5>
+            <% end -%>
+          <%end%>
+        </div>
+        
+        
+        <!--More info-->
+        <div class="tab-pane fade" id="more_info">
+          
+       
+          
+          <% unless @about %>
+             <h5>No info provided</h5>
+          <% end %>
+          
+          <% if @about && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+            <div class="mobile_centralize">
+              <small>
+               <%= link_to 'edit more', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control"%>
+              </small>
+            </div>
+          <% end -%>
+          
+          <!--requirements info-->
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-top: 10px;">
+            <% if @about && @about.requirements.present? %>
+              <h5 role="tab" id="headingOne" style=" margin-bottom: -8px; border-radius: 5px;">
+                <a role="button" data-toggle="collapse" style="color: #e58b5a;" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <%=@about.requirements.count%> <%= "thing".pluralize(@about.requirements.count) %> you should have
+                </a>
+              </h5>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div>
+                  <h5>
+                  <% @about.requirements.each do |requirement| %>
+                    - <%= requirement.description %>  <br>
+                  <% end -%>
+                  </h5>
+                </div>
+              </div>
+            <% elsif  current_user && current_user.id == @course.user_id && @about && @about.requirements.blank? && params[:visitor] != "visitor"%>
+              <div class="text-left">
+                Tell people what they need to have <br>
+                <%= link_to 'Add qualification', edit_course_about_path(@course, @about), style:"color: #d6d5d3" %> 
+              </div>
+            <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+              <div class="text-left">
+                Tell people what they need to have <br>
+                <%= link_to 'Add qualification', new_course_about_path(@course), style:"color: #d6d5d3" %> 
+              </div>
+            <% end %>
+            
+            <!--checklist info-->
+            <% if @about && @about.checklist_items.present? %>
+              <h5 role="tab" id="headingTwo" style=" margin-bottom: -8px; border-radius: 5px;">
+                <a class="collapsed" role="button" style="color: #e58b5a;" data-toggle="collapse" data-parent="#accordions" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <%= @about.checklist_items.count%> <%= "thing".pluralize(@about.checklist_items.count) %> you should bring
+                </a>
+              </h5>
+              <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                <div>
+                  <h5>
+                    <% @about.checklist_items.each do |checklist_item| %>
+                      - <%= checklist_item.description %> <br>
+                    <% end -%>
+                  </h5>
+                </div>
+              </div>
+            <% elsif  current_user && current_user.id == @course.user_id && @about && @about.checklist_items.blank? && params[:visitor] != "visitor" %>
+              <div class="text-left">
+                Tell people what they need to bring <br>
+                <%= link_to 'Add item', edit_course_about_path(@course, @about), style:"color: #d6d5d3" %> 
+              </div>
+            <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+              <div class="text-left">
+                Tell people what they need to bring <br>
+                <%= link_to 'Add item', new_course_about_path(@course), style:"color: #d6d5d3" %> 
+              </div>
+            <% end %>
+            
+            <!--award info-->
+            <% if @about && @about.course_rewards.present? %>
+              <h5 role="tab" id="headingThree" style="margin-bottom: -8px; border-radius: 5px;">
+                <a class="collapsed" role="button" style="color: #e58b5a;" data-toggle="collapse" data-parent="#accordions" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <%= @about.course_rewards.count%> <%= "award".pluralize(@about.course_rewards.count) %> given
+                </a>
+              </h5>
+              <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                <div>
+                  <h5>
+                    <% @about.course_rewards.each do |course_reward| %>
+                      - <%= course_reward.name %> (<%= course_reward.acronym %>)
+                      <%= !course_reward.description.blank? ? ": #{course_reward.description}" : "" %> </br>
+                    <% end -%>
+                  </h5>
+                </div>
+              </div>
+            <% elsif  current_user && current_user.id == @course.user_id && @about && @about.checklist_items.blank? && params[:visitor] != "visitor" %>
+              <div class="text-left">
+                Tell people what they need to bring <br>
+                <%= link_to 'Add item', edit_course_about_path(@course, @about), style:"color: #d6d5d3" %> 
+              </div>
+            <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+              <div class="text-left">
+                Tell people what they need to bring <br>
+                <%= link_to 'Add item', new_course_about_path(@course), style:"color: #d6d5d3" %> 
+              </div>
+            <% end %>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <hr id="desktop_disapear" style="margin-top: 20px">
+    <!--regarding contact-->
+    <div class="col-sm-4 col-md-5">
+      <div class="contact_text">
+        <div class="contact_tabs">
+          <h3> Contact
+            <% if @contact && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+              <small>
+               <%= link_to 'edit info', edit_course_contact_path(@course, @contact), class:"btn btn-xs btn-default course_control"%>
+              </small>
+            <% end -%>
+          </h3>
+        </div>
+        <% if @contact %>
+          <strong>Name:</strong>
+          <strong></strong> <%=@contact.contact_name %>
+          <% if !@contact.tel1.blank? %>
+            <br>
+              <strong>Telphone 1:</strong>
+              <%=number_to_phone(@contact.tel1)%>
+          <% end -%>
+          <% if !@contact.tel2.blank? %>
+            <br>
+              <strong>Telphone 2:</strong>
+              <%=number_to_phone(@contact.tel2)%>
+          <% end -%>
+          <% if !@contact.tel3.blank? %>
+            <br>
+              <strong>Telphone 3:</strong>
+              <%=number_to_phone(@contact.tel3)%>
+          <% end -%>
+          <% if !@contact.email.blank? %>
+            <br>
+              <strong>Email:</strong>
+              <%=@contact.email%> 
+          <% end -%>
+         
+          
+          <br>
+          <% if @contact.social_link %>
+            <span style="font-size: 20px;">
+              <%= !@contact.social_link.facebook.present? ? "<a href='#{@contact.social_link.facebook}' target='_blank' style='color: #e58b5a;'><i class='fa fa-facebook-square'></i></a>".html_safe : "" %>
+              <%= @contact.social_link.twitter.present? ? "<a href='#{@contact.social_link.twitter}' target='_blank' style='color: #e58b5a;'><i class='fa fa-twitter-square'></i></a>".html_safe : "" %>
+              <%= @contact.social_link.linkedin.present? ? "<a href='#{@contact.social_link.linkedin}' target='_blank' style='color: #e58b5a;'><i class='fa fa-linkedin-square'></i></a>".html_safe : "" %>
+              <%= @contact.social_link.googleplus.present? ? "<a href='#{@contact.social_link.googleplus}' target='_blank' style='color: #e58b5a;'><i class='fa fa-google-plus-square'></i></a>".html_safe : "" %>
+              <%= @contact.social_link.pintrest.present? ? "<a href='#{@contact.social_link.pintrest}' target='_blank' style='color: #e58b5a;'><i class='fa fa-pinterest-square'></i></a>".html_safe : "" %>
+              <%= @contact.social_link.instagram.present? ? "<a href='#{@contact.social_link.instagram}' target='_blank' style='color: #e58b5a;'><i class='fa fa-instagram'></i></a>".html_safe : "" %>
+              <%= !@contact.tutor_website.blank? ? "<a href='#{@contact.tutor_website}' target='_blank' style='color: #e58b5a;'><i class='fa fa-globe'></i></a>".html_safe : "" %>
+            </span> 
+          <% end %>
+          
+        <% else %> 
+          <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
+            <div class="text-center">
+              <h4>Tell people how to contact you</h4>
+                <%= link_to 'Share contact details', new_course_contact_path(@course), class:"btn btn-default"%>
+            </div>
+          <% else %> 
+              <h5 style="margin-top: 25px;">No info provided</h5> 
+          <% end -%>
+        <% end -%>
+        
+        <!--send in app message-->
+        <% if current_user %>          
+          <%= form_tag conversations_path, method: :post do %>
+            <%= hidden_field_tag :sender, @course.user_id %>
+            <%= hidden_field_tag :subject,  "[Message] #{@course.title} by #{current_user.fname.try(:titleize)} #{current_user.lname.try(:titleize)}".html_safe %>
+            <%= text_area_tag :body, nil, class: 'form-control message_text_input', :input_html => {:rows => 1} %>
+            <%= submit_tag "SEND MESSAGE", class: 'btn  btn-default btn-sm btn-block', style: "background-color: #555555; color: #FFFFFF; border: none;" %>
+          <% end -%>
+        <% else -%>
+          <br>
+          <%= link_to "Login in", new_user_session_path %> to send an in-app message.
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--modal for payment instructions-->
+<% if @course_payment %>
+  <div class="modal fade payment_info_modal" tabindex="-1" role="dialog" aria-labelledby="payment_info_modal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">How to pay</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="container-fluid">
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div id="payment_warning" class="text-center" style="background-color: #e27937; color: #FFFFFF; padding: 30px;">
+                  <h4>
+                    <strong>Hollup!</strong> <br>
+                    Before you pay for <%= @course.title %>, make sure you have done your due diligence. Skillmeng&trade;  will not accept any responisblities beyond this point. In short... pay at your own risk!
+                    <br><button class="btn btn-default btn-sm" id="payment_warning_accept" type="submit" style="margin-top: 10px; border: none; color: #e27937;">I accept</button>
+                  </h4>
+                </div>
+                <div id="actual_payment_info" style="display: none;">
+                  <strong>Bank Name:</strong> <%= @course_payment.bank_name %><br>
+                  <strong>Account Number:</strong> <%= @course_payment.bank_account_number %><br>
+                  <strong>Account Name:</strong> <%= @course_payment.bank_account_name %><br>
+                  <strong>Payment Instructions:</strong>
+                  <% if @course_payment.payment_instruction.present? %>
+                    <br><%= @course_payment.payment_instruction %>
+                  <% else %>
+                    <span class="text-center" style="color: grey;">No payment instructions provided</span>
+                  <% end %><br>
+                  <strong>Refund Instructions:</strong>
+                  <% if @course_payment.refund_instruction.present? %>
+                    <br><%= @course_payment.refund_instruction %>
+                  <% else %>
+                    <span class="text-center" style="color: grey;">No refund instructions provided</span>
+                  <% end %>
+                  <% if @user_organizer && @user_organizer.courses.count > 1 && @course_payment.trade_by_barter %>
+                    <hr>
+                    <div>
+                      Barter option is available <span data-toggle="tooltip" title="This course owner is willing to teach you this course in exchange of learning from one of the courses you offer on Skillmeng&trade;. Go on, see if you could strike a deal. Goodluck!"><i class="fa fa-question-circle"></i></span><br>
+                      <%= link_to "Try barter", new_course_course_request_path(@course), class:"btn btn-xs btn-default", style:"border: none; background-color: #e27937; color:#FFFFFF;" %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <h3 class="text-center">Prices</h3>
+                <% if @course_payment.blank? || @course_payment.course_prices.empty? %>
+                  <h5 class="text-center">No info provided</h5> 
+                <% else %>
+                  <table class="table table-condensed table-striped">
+                    <% for price in @course_payment.course_prices.order('price ASC') do %>
+                      <tr>
+                        <td>
+                          <%= price.price? ? "₦#{number_with_delimiter(price.price.floor)}" : "Free" %> for <%= pluralize(price.quantity, "#{price.unit}") %>
+                        </td>
+                        <td style="color: #777777;">
+                          <%= price.explaination %>    
+                        </td>
+                      </tr> 
+                    <% end %>
+                  </table>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $('#payment_warning_accept').click(function(e){    
+    $('#payment_warning').fadeOut(400, function(){
+      $('#actual_payment_info').fadeIn(400);
+    });
+  });
+</script>

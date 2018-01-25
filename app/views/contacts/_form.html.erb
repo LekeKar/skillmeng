@@ -1,0 +1,49 @@
+<%= simple_form_for([@course, @contact]) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <div class="row">
+      <div class="col-sm-6 col-md-6">
+        <%= f.input :contact_name, required: true, input_html: {value: @contact.contact_name.present? ? @contact.contact_name : "#{current_user.fname} #{current_user.lname}"} %>
+      </div>
+       <div class="col-sm-6 col-md-6">
+        <%= f.input :email, input_html: {value: @contact.email.present? ? @contact.email : @organizer.email} %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-md-6">
+        <%= f.input :tel1, label: "Telephone 1", input_html: {value: @contact.tel1.present? ? @contact.tel1 : @organizer.phone}  %>
+      </div>
+       <div class="col-sm-6 col-md-6">
+        <%= f.input :tel2, label: "Telephone 2 (Optional)" %>
+      </div>
+    </div>
+    <%= f.input :tutor_website, label: "Website", input_html: {value: @contact.tutor_website.present? ? @contact.tutor_website : @organizer.website} %>
+  </div>
+  <div class="form-inputs">
+    <hr>
+    <h5><strong>Social Pages</strong></h5>
+    <%= f.simple_fields_for :social_link do |social_link| %>
+      <div class="form-inputs">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :facebook, placeholder: "http://www.facebook.com/" %></div>
+          <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :linkedin, placeholder: "http://www.linkedin.com/" %></div>
+          <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :twitter, placeholder: "http://www.twitter.com/" %></div>
+          <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :googleplus, placeholder: "http://plus.google.com/" %></div>
+          <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :pintrest, placeholder: "http://www.pinterest.com/" %></div>
+          <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :instagram, placeholder: "http://instagram.com/" %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  
+	<% session[:setup_wizard] ? @pass_param = "Next step" : @pass_param = "Submit"  %>
+  <div class="form-actions text-center">
+    <% if session[:setup_wizard] %>
+     <%= link_to 'Back', edit_course_about_path(@course, @about), class:'btn btn-danger' %>
+		<% end%>
+    <%= f.button :submit, name: "type", value: "#{@pass_param}" %>
+		<% unless session[:setup_wizard] %>
+		  <%= link_to 'Back', @course, class:'btn btn-danger' %>
+		<% end %>
+  </div>
+<% end %>

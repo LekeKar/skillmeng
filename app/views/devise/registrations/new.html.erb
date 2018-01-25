@@ -1,0 +1,49 @@
+<% title "User Sign-up" %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4><i class="fa fa-user"></i> Sign up </h4>
+        </div>
+        <div class="panel-body new_class">
+        	<%= link_to user_facebook_omniauth_authorize_path, class:"btn btn-default btn-block facebook_btn" do %>
+    			  <i class="fa fa-facebook"></i> | Continue with Facebook
+	    		<% end %>
+	    		<%= link_to user_google_oauth2_omniauth_authorize_path, class:"btn btn-default btn-block google_btn" do %>
+	    			<i class="fa fa-google-plus"></i> | Continue with Google
+	    		<% end %> 
+  				
+  				<div class="collapse" id="collapseSignup">
+  				  <br></br>
+            <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= f.error_notification %>
+  
+              <div class="form-inputs">
+              	<%= f.input :fname, label: "First Name", required: true, autofocus: true %>
+                <%= f.input :lname, label: "Last Name",required: true, autofocus: true %>
+                <%= f.input :tel, label: "Phone number", autofocus: true %>
+                <%= f.input :email, required: true, autofocus: true %>
+                <%= f.input :avatar, as: :file, label: "Profile Pic" %>
+                <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+                <%= f.input :password_confirmation, required: true %>
+                
+              </div>
+  
+              <div class="form-actions">
+                <%= f.button :submit, "Complete" %>
+              </div>
+            <% end %>
+          </div>
+          
+        </div>
+        <div class="panel-footer">
+          <p  class="text-center" style="color:grey;" >
+  					<a data-toggle="collapse" href="#collapseSignup" aria-expanded="false" aria-controls="collapseExample">
+  					or use email </a>
+  				</p>
+        </div>
+      </div>
+    </div>    
+  </div>
+</div>

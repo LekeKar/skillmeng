@@ -1,0 +1,15 @@
+// Place all the styles related to the Gallery_pics controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+@media (min-width: 800px) {
+	.thumbnail{
+	  height: 240px;
+	}
+
+	.gallery_panel_body{
+	  height: 210px;
+	}
+
+}

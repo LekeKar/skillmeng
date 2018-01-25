@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+   		<div class="panel panel-default">
+    		<div class="panel-heading">
+			    <h4 class="panel-title"><i class="fa fa-camera-retro"></i> Edit Picture
+				    <%= link_to course_gallery_pic_path, method: :delete, class:"btn btn-sm btn-default pull-right", data: {confirm: "This action will delete this picture, Are you sure?"} do %>
+							<i class="fa fa-trash" style = "color: #d9534f; font-size: 15px"></i>
+				    <% end -%>
+			    </h4>
+				</div>
+		    <div class="panel-body new_class">
+					<%= render 'form' %>
+				</div>
+				<% if @gallery_pic.image.present? %>
+					<div class="panel-footer">
+						<small>current picture</small>
+	          <%= image_tag @gallery_pic.image.url(:medium), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
+					</div>
+				<% end %>
+	  	</div> 
+		</div> 	
+	</div>	
+</div>		

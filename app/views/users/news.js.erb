@@ -1,0 +1,6 @@
+$('#my_news').append('<%= j render @announcements %>');
+<% if @announcements.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @announcements %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>

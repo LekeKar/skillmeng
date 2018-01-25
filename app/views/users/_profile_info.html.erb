@@ -1,0 +1,10 @@
+<div class="container-fluid profile_info text-center" style="background-color: #f8ca9f;">
+    <div class="name_circle">
+      <a data-toggle="tooltip" data-placement="bottom" title="<%= current_user.fname %> <%= current_user.lname %>" style="color: #333333;">
+        <%= current_user.fname.first %> 
+        <%= current_user.lname.first %>
+      </a>
+    </div>
+</div>
+
+<%= render "helper_code/tooltip_toggle" %>

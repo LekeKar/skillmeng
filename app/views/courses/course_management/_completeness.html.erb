@@ -1,0 +1,283 @@
+<% total_percent = calc_percent(@total_score,120) %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Page Completeness
+      <%= link_to course_manager_path(@organizer, @course) do %>
+       <i class="fa fa-refresh" style="color: #428bca; font-size: 13px;"></i>
+      <% end %>
+    </h3>
+    <% bar = "success" %>
+    <div class="progress" style="margin-top: 5px; margin-bottom: -2px;">
+      <div class="progress-bar progress-bar-<%= percentage_color(total_percent) %>" role="progressbar" aria-valuenow="<%=total_percent%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= total_percent.round %>%">
+        <span><%=total_percent.round %>% Complete</span>
+      </div>
+    </div>
+    
+  </div>
+  <div class="panel-body">
+    
+    <!--Basic details -->
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#basic_details" aria-expanded="true" aria-controls="collapseOne">  
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              Basic Details
+              <span class="pull-right" style="margin-top: 1px; color: #777777;">
+                <%= calc_percent(@basic_score,30).round %>%
+              </span>
+            </h4>
+          </div>
+        </a>
+        <div id="basic_details" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <table class="table table-hover">
+              <tr>
+                <td class="active">Basic course info</td>
+                <td class="success text-center col-md-2"><i class="fa fa-check" aria-hidden="true"></i></td>
+              </tr>
+              <tr>
+                <td class="active">Picture</td>
+                <%= @course.display_pic.exists? ? check_cross("success") : check_cross("fail") %>
+              </tr>
+              <tr>
+                <td class="active">Tags <small style="color: #777777;">(2 minimum)<small></td>
+                <%= @course.tags.count > 2 ? check_cross("success") : check_cross("fail") %>
+              </tr>
+            </table>
+            
+            <div class="text-center">
+              <%= link_to edit_course_path(@course), target: "_blank" do %>
+                edit info
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contact -->
+      <div class="panel panel-default">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#contact_info" aria-expanded="false" aria-controls="collapseTwo">
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+              Contact
+              <span class="pull-right" style="margin-top: 1px; color: #777777;">
+                <%= calc_percent(@contact_score,30).round %>%
+              </span>
+            </h4>
+          </div>
+        </a>
+        <div id="contact_info" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <table class="table">
+              <tr>
+                <td class="active">Basic contact info</td>
+                <%= @contact.present? ? check_cross("success") : check_cross("fail")  %>
+              </tr>
+              <tr>
+                <td class="active">Email</td>
+                <% if @contact.present? && @contact.email.present? %>
+                  <%= check_cross("success") %>
+                <% else %>
+                  <%= check_cross("fail") %>
+                <% end %>
+              </tr>
+              <tr>
+                <td class="active">Primary Tel</td>
+                <% if @contact.present? && @contact.tel1.present? %>
+                  <%= check_cross("success") %>
+                <% else %>
+                  <%= check_cross("fail") %>
+                <% end %>
+              </tr>
+            </table>
+            
+            <div class="text-center">
+              <% if @contact.present? %>
+                <%= link_to 'edit info', edit_course_contact_path(@course, @contact), target: "_blank"%>
+              <%else%>
+                <%= link_to 'add info', new_course_contact_path(@course), target: "_blank" %>
+              <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!--payment -->
+      <div class="panel panel-default">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#payment" aria-expanded="false" aria-controls="collapseTwo">
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+              Payment
+              <span class="pull-right" style="margin-top: 1px; color: #777777;">
+                <%= calc_percent(@payment_score,20).round %>%
+              </span>
+            </h4>
+          </div>
+        </a>
+        <div id="payment" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <table class="table table-hover">
+              <tr>
+                <td class="active">Basic payment info</td>
+                <%= @course_payment.present? ? check_cross("success") : check_cross("fail")  %>
+              </tr>
+              <tr>
+                <td class="active">Refund instruction</td>
+                <% if @course_payment.present? && @course_payment.refund_instruction.present? %>
+                  <%= check_cross("success") %>
+                <% else %>
+                  <%= check_cross("fail") %>
+                <% end %>
+              </tr>
+            </table>
+            
+            <div class="text-center">
+              <% if @course_payment.present? %>
+                <%= link_to 'edit info', edit_course_course_payment_path(@course, @course_payment), target: "_blank" %>
+              <%else%>
+                <%= link_to 'add info', new_course_course_payment_path(@course), target: "_blank"  %>
+              <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- About/Requirement -->
+      <div class="panel panel-default">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#about_requirements" aria-expanded="false" aria-controls="collapseTwo"> 
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+              About/Requirements
+              <span class="pull-right" style="margin-top: 1px; color: #777777;">
+                <%= calc_percent(@about_req_score,10).round %>%
+              </span>
+            </h4>
+          </div>
+        </a>
+        <div id="about_requirements" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <table class="table table-hover">
+              <tr>
+                <td class="active">Basic about info</td>
+                <%= @about.present? ? check_cross("success") : check_cross("fail")%>
+              </tr>
+            </table>
+           
+            <div class="text-center">
+              <% if @about.present? %>
+                <%= link_to 'edit info', edit_course_about_path(@course, @about), target: "_blank" %>
+              <%else%>
+                <%= link_to 'add info', new_course_about_path(@course), target: "_blank"  %>
+              <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Schedule -->
+      <div class="panel panel-default">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#schedule" aria-expanded="false" aria-controls="collapseThree">
+          <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title">
+              Schedule
+              <span class="pull-right" style="margin-top: 1px; color: #777777;">
+                <%= calc_percent(@schedule_score,10).round %>%
+              </span>
+            </h4>
+          </div>
+        </a>
+        <div id="schedule" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            <table class="table table-hover">
+              <tr>
+                <td class="active">Date <small style="color: #777777;">(1 minimum)</small></td>
+                <%= @course_days.any? ? check_cross("success") : check_cross("fail")%>
+              </tr>
+            </table>
+           
+            <div class="text-center">
+              <%= link_to 'add date', new_course_course_day_path(@course), target: "_blank" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Gallery -->
+      <div class="panel panel-default">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#gallery" aria-expanded="false" aria-controls="collapseTwo">
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+              Gallery
+              <span class="pull-right" style="margin-top: 1px; color: #777777;">
+                <%= calc_percent(@gallery_score,10).round %>%
+              </span>
+            </h4>
+          </div>
+        </a>
+        <div id="gallery" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <table class="table table-hover">
+              <tr>
+                <td class="active">Picture <small style="color: #777777;">(3 minimum)</small></td>
+                <%= @gallery_pics.count > 2 ? check_cross("success") : check_cross("fail") %>
+              </tr>
+            </table>
+        
+            <div class="text-center">
+              <%= link_to 'add picture', new_course_gallery_pic_path(@course), target: "_blank" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tutors -->
+      <div class="panel panel-default">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#tutors" aria-expanded="false" aria-controls="collapseTwo">
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+              Tutor
+              <span class="pull-right" style="margin-top: 1px; color: #777777;">
+                <%= calc_percent(@tutor_score,10).round %>%
+              </span>
+            </h4>
+          </div>
+        </a>
+        <div id="tutors" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <table class="table table-hover">
+              <tr>
+                <td class="active">Tutor <small style="color: #777777;">(1 minimum)</small></td>
+                <%= @tutors.any? ? check_cross("success") : check_cross("fail")%>
+              </tr>
+            </table>
+            
+            <div class="text-center">
+              <% if !@available_tutors.empty? %>
+               <a href="#add_tutor" data-toggle="modal" data-target="#add_tutor" >
+                 add Tutor
+               </a>
+              <% else %>
+                <%= link_to 'add new tutor', new_organizer_tutor_path(@user_organizer), target: "_blank" %>
+              <% end %>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center">
+       	<% unless session[:setup_wizard] || total_percent.round > 75 %>
+    		  <%= link_to course_course_wizard_path(@course, type: "start"), class:'btn btn-sm btn-warning' do %>
+    		   use wizard  <i class="fa fa-magic"></i>
+    		  <% end %>
+    		<% end %>
+    </div>
+    
+  </div>
+</div>
+
+
+<%= render "courses/new_tutor_modal" %>

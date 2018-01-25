@@ -1,0 +1,63 @@
+  <%= simple_form_for([@organizer, @order]) do |f| %>
+  
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Purchase email credit</h3>
+        <div  >
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim modi nostrum, possimus perferendis sit aut. Sed esse, earum magnam neque eius ducimus, voluptatibus nesciunt inventore consequatur laudantium repellendus itaque velit.
+          <br>
+          <strong>current bal:</strong> <%= @organizer.organizer_credit_bal.email_bonus %> Bonus | <%= @organizer.organizer_credit_bal.email_regular %> Regular
+          <br>
+            <% if !@organizer.credit_orders.empty? %>
+             <strong>last purchase:</strong> <%= @organizer.credit_orders.last.email_quantity %> credits on <%= @organizer.credit_orders.last.created_at.strftime('%d/%m/%y') %>
+            <% end %>
+          <br>
+        </div>
+      </div>
+      <div class="col-md-6" id="order_explaination">
+        <%= f.simple_fields_for :organizer_credit_order do |builder| %>
+          <div class="form-inputs">
+            <div class="row">
+              <div class="container-fluid text-left">
+                <%= builder.input :email_quantity, label: false, prompt: "Select Quantity", collection: [50,100,500,1000] %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row"> 
+      <div class="col-md-6">
+        <h3>Promote course</h3>
+        <div >
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet perspiciatis quo, molestiae beatae adipisci quae asperiores ratione quasi quia recusandae, nemo illo cumque velit perferendis, suscipit consequuntur. Non, quos, consequatur!
+          <br>
+        </div>
+      </div>
+      <div class="col-md-6" id="order_explaination">
+        <div id="course_promotions">
+          <%= f.simple_fields_for :course_promotions do |course_promotion| %>
+            <%= render 'course_promotion_fields', f: course_promotion %>
+          <% end %>
+        
+          <div class="links text-left">
+            <%= link_to_add_association f, :course_promotions, class:"add_course_promotion btn btn-default" do %>
+               <i class="fa fa-plus"></i> course
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <hr style="margin-top: 20px; margin-bottom: 20px; ">
+      <div class="form-actions text-left">
+        <%= f.button :submit, "Place Order", class:'btn btn-warning'  %>
+        <% if current_page?(@user_organizer)  %>
+          <a type="button" data-dismiss="modal" class='btn btn-danger'>close</a>
+        <% else %>
+          <%= link_to 'Back', :back, class:'btn btn-danger' %>
+        <% end %>
+      </div>
+    </div>
+    
+  <% end %>

@@ -1,0 +1,20 @@
+<% title "New announcement" %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+	   		<div class="panel panel-default">
+	    		<div class="panel-heading">
+					<h4>Add News<small> <br>
+						<%= link_to @course do %>
+							for <%= @course.title %></small>
+						<% end %>
+					</h4>
+				</div>
+				<div class="panel-body">
+					<%= render 'form' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  quantity: 1
+  transaction_id: 
+  course_price_id: 
+
+two:
+  description: MyString
+  quantity: 1
+  transaction_id: 
+  course_price_id: 

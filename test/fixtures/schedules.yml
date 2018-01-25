@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  end_time: 2016-08-25 14:48:53
+  start_time: 2016-08-25 14:48:53
+  week_day: MyString
+  calender_day: 2016-08-25
+  classroom_id: 
+
+two:
+  end_time: 2016-08-25 14:48:53
+  start_time: 2016-08-25 14:48:53
+  week_day: MyString
+  calender_day: 2016-08-25
+  classroom_id: 

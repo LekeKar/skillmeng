@@ -1,0 +1,84 @@
+
+<div class="col-xs-6 col-sm-3 col-md-3">
+  <div id="tutor_gallery" style ="margin-top: 5px; margin-bottom: 10px; ">
+    <a href="#avatar<%= tutor.id%>" data-toggle="modal" data-target="#avatar<%= tutor.id%>"> 
+      <%= image_tag tutor.avatar.url(:medium), class:"img-rounded img-responsive text-center", id: "gallery_pic" %>
+      <div class="text-center" style="background-color: #FFFFFF; position: relative; top: -40px;">
+        <h6 style="color: #e58b5a; margin-bottom: -5px; margin-top: 5px;">
+         <%= tutor.name %>
+        </h6>
+        <% if tutor.job_title %>
+          <small style="color: #777777; font-size: 0.75em;"><%= tutor.job_title %></small>
+        <% end %>
+        
+      </div>
+    </a>
+  </div>
+</div>
+
+<!--modal-->
+<div class="modal fade" id="avatar<%= tutor.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">
+         <i class="fa fa-graduation-cap"></i>
+          <%= tutor.name %> 
+          <% if tutor.job_title %>
+            <br>
+            <small><%= tutor.job_title %></small>
+          <% end %>
+        </h4>
+      </div>
+      <div class="modal-body" id="tutor_modal_body">
+        <div class="row" style="margin-bottom: 5px;">
+          <div class="col-xs-12 col-sm-5 col-md-5 text-center">
+            <%= image_tag tutor.avatar.url(:medium), class:"img-rounded img-responsive text-center", style: "width: 200px; height: 200px; margin: 0 auto;", id: "gallery_pic" %>
+            <span style="font-size: 20px; color: <%= @bg_primary %>;">
+              <% if tutor.social_link %>
+                <%= tutor.social_link.facebook.present? ? "<a href='#{tutor.social_link.facebook}'><i class='fa fa-facebook-square' style='color: #e58b5a;'></i></a>".html_safe : "" %>
+                <%= tutor.social_link.twitter.present? ? "<a href='#{tutor.social_link.twitter}'><i class='fa fa-twitter-square' style='color: #e58b5a;'></i></a>".html_safe : "" %>
+                <%= tutor.social_link.linkedin.present? ? "<a href='#{tutor.social_link.linkedin}'><i class='fa fa-linkedin-square' style='color: #e58b5a;'></i></a>".html_safe : "" %>
+                <%= tutor.social_link.googleplus.present? ? "<a href='#{tutor.social_link.googleplus}'><i class='fa fa-google-plus-square' style='color: #e58b5a;'></i></a>".html_safe : "" %>
+                <%= tutor.social_link.pintrest.present? ? "<a href='#{tutor.social_link.pintrest}'><i class='fa fa-pinterest-square' style='color: #e58b5a;'></i></a>".html_safe : "" %>
+                <%= tutor.social_link.instagram.present? ? "<a href='#{tutor.social_link.instagram}'><i class='fa fa-instagram' style='color: #e58b5a;'></i></a>".html_safe : "" %>
+                <%= tutor.website? ? "<a href='#{tutor.website}' target='_blank' style='color: #e58b5a;'><i class='fa fa-globe'></i></a>".html_safe : "" %>
+              <% end %>
+            </span> 
+            <% if current_user && current_user.id == @organizer.user_id && params[:visitor] != "visitor" %>
+              <hr>
+              <%= link_to "edit", edit_organizer_tutor_path(@organizer, tutor), style: "margin-top: 5px; margin-bottom: 10px; color: grey;"%> |
+              <% if current_page?(@user_organizer) %>
+                <%= link_to "delete", organizer_tutor_path(@organizer, tutor), method: :delete, data: {confirm: "This action will delete this tutor, are you sure?"}, style: "margin-top: 10px; margin-bottom: 10px; color: grey;"%>
+              <% elsif @course %>
+                <%= link_to "remove", add_remove_tutor_path(@course, tutor), data: {confirm: "This action will remove this #{tutor.name} from #{@course.title}, are you sure?"}, style: "margin-top: 10px; margin-bottom: 10px; color: grey;"%>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div id="tutor_bio">
+              <%= tutor.bio %>
+            </div>
+            <h5> <span style="color: grey;">Qualifications</span>
+              <% for qualification in tutor.qualifications do %>
+                <br> - <span style="font-weight: normal" class="dont-break-out"> <%= qualification.description %>  </span>
+              <% end %>
+            </h5>
+            <h5> <span style="color: grey;">Courses</span>
+              <% for course in tutor.taught_courses do %>
+                  <% if course.state == "activated" %>
+                    <br> - 
+                    <%= link_to course do %>
+                      <span style="font-weight: normal" class="dont-break-out"> <%= course.title %>  </span>
+                    <% end %>
+                  <% end %>
+              <% end %>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

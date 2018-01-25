@@ -1,0 +1,143 @@
+<div class="container-fluid about_gallery_content">
+  <div class="row" style="margin-bottom: 20px;"> 
+    <div class="col-sm-6 col-md-6 about_content">
+      <h3 class="mobile_centralize">
+        About 
+        <% if @about && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+           <%= link_to 'edit about', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control" %>
+        <% end -%>
+      </h3>
+      <% if @about %>
+        <%= @about.content %> <br>
+      <% else -%>
+        <div class="text-left">
+          <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" && @about.nil? -%>
+             Tell people about your course <br>
+            <%= link_to 'Add about info', new_course_about_path(@course) %>
+          <% else %> 
+             No info provided 
+          <% end -%>
+        </div>
+      <% end %>
+      
+      <p style="margin-top: 10px;">
+        This course is 
+        <%= @course.saed ? "a saed," : ""%>
+        <%= @course.online ? "online," : ""%>
+        <% if @course.attended_by %>
+          <%= @course.saed || @course.online ? "&" : "" %>
+          <% case @course.attended_by %>
+            <% when "everyone"%>
+              for everyone
+            <% when "adults (18+)"%>
+              for adults only
+            <% when "children only"%>
+              for children only
+            <% when "men only"%>
+              for men only
+            <% when "women only"%>
+              for women only
+            <% when "couples only"%>
+              for couples only
+          <% end %>
+        <% end %>
+        <br> Managed by <%=link_to @organizer.name, @organizer %>
+      </p>
+         
+       
+      <div class="mobile_centralize">
+        <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+          <%= link_to 'edit tags', edit_course_path(@course), class:"btn btn-xs btn-default course_control"%>
+          <br>
+        <% end -%>
+        
+        <% @course.tag_list.each do |x| %>
+          <%= link_to tag_path(x) do%>
+            <span class="badge" style="background-color: #e27937; color: #FFFFFF;"><%= x %></span> 
+          <% end %>
+        <% end %>
+      </div> 
+       
+      
+    </div>
+    <div class="col-md-6 col-sm-6 gallery_info">
+      <% if @gallery_pics && !@gallery_pics.empty? %>
+        <div class="mobile_centralize">
+          <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+            <%= link_to 'add photo', new_course_gallery_pic_path(@course), style:"margin-bottom: 5px;", class:"btn btn-xs btn-default course_control"%>
+          <% end -%>
+        <br>
+        </div>
+        <div class="container-fluid carousel_outer">
+          <div class="about_carousel">
+            <% for gallery_pic in  @gallery_pics %>
+              <div>
+                <a href="#modalShow<%= gallery_pic.id%>" data-toggle="modal" data-target="#modalShow<%= gallery_pic.id%>">
+                  <%= image_tag gallery_pic.image.url(:medium), class:"img-responsive", style: "margin: 0 auto;" %>
+                </a>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+        <div class="container-fluid">
+          <div class="gallery_add text-center" style= "height: 150px; margin-bottom: 20px;">
+            <div class="panel-body">
+              <H3>
+                <%= link_to new_course_gallery_pic_path(@course), style: "color: #e58b5a;"  do %>
+                   add photo <br> <i class="fa fa-plus-square"></i> 
+                <% end %>
+              </H3>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!--modal-->
+<% for gallery_pic in  @gallery_pics %>
+  <div class="modal fade" id="modalShow<%= gallery_pic.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">
+            <i class="fa fa-camera-retro"></i>
+            <%= @course.title %>
+            <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+              <small> 
+                 <%= link_to '[edit]', edit_course_gallery_pic_path(@course, gallery_pic)%>
+              </small>
+            <% end %>
+          </h4>
+        </div>
+        <div class="modal-body text-center">
+          <%= image_tag gallery_pic.image.url(:original), class:"display_pic img-responsive", style: "margin: 0 auto; max-height: 450px;"%> <br>
+          <% if gallery_pic.caption? %>
+            "<%= gallery_pic.caption %>"
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>
+
+          
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    $('.about_carousel').slick({
+      dots: true,
+      infinite: true,
+      speed: 500,
+      fade: true,
+      cssEase: 'linear',
+      autoplay: true,
+      autoplaySpeed: 4000,
+      slidesToShow: 1
+    });
+  });
+			
+</script>

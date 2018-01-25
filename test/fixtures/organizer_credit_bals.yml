@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  regular: 1
+  bonus: 1
+  organizer_id: 
+
+two:
+  regular: 1
+  bonus: 1
+  organizer_id: 

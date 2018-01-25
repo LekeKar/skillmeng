@@ -1,0 +1,65 @@
+<%= simple_form_for(@announcement) do |f| %>
+  <%= f.error_notification %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-inputs">
+        <%= f.input :subject, label:"Subject (60 char max)", maxlength: "60", required: true -%>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-inputs">
+        <%= f.input :body, required: true, label: "content (Max 400 char)", maxlength: "400",  :input_html => {:rows => 5, :id => "text"}-%>
+	      <h6 class="pull-right" id="count_message"></h6>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-inputs">
+        <%= f.input :photo, as: :file, hint:"use 810px x 450px for best result." %>
+        <%= f.hidden_field :sender, value: @course.id %>
+        <%= f.hidden_field :sender_type, value: "course" %>
+        <%= hidden_field_tag :course, @course.id %>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 15px;">
+    <div class="col-md-12">
+      <div class="form-inputs">
+        <%= f.input :action_link, label:"Link (optional)" %>
+       </div>
+    </div>
+    <hr></hr>
+    <% if current_page?(new_announcement_path) || current_page?(course_manager_path(@organizer,@course)) %>
+      <div class="col-md-12">
+        <h4>
+          Broadcast options
+          <br> <small><%= number_with_delimiter(@course.favorited_by.subscribeable.count)%> email recipients</small>
+        </h4>
+        <div class="form-inputs">  
+          <% if @course.favorited_by.subscribeable.count < @total_email_credit %>
+            <%= f.input :broadcast, label: "Send as email? [#{ number_with_delimiter(@total_email_credit, :delimiter => ',')} #{"email".pluralize(@total_email_credit)} left]" -%>
+          <% else %>
+            <% credit_needed = @course.favorited_by.subscribeable.count - @total_email_credit  %>
+            You need at least <span style="color: #d75453;"> <%= credit_needed %>  </span>email <%= "credit".pluralize(credit_needed) %> to send emails.
+            <%= link_to "Purchase more", new_organizer_organizer_order_path(@organizer) %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="form-actions text-center">
+    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+      <div class="btn-group" role="group">
+        <%= f.button :submit, "Submit" %>
+      </div>
+      <div class="btn-group" role="group">
+        <%= link_to 'Back', :back, class:'btn btn-default', style:"color: #d9534f;"  %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+
+<%= render "helper_code/tooltip_toggle"%>

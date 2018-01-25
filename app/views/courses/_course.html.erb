@@ -1,0 +1,143 @@
+  <% @reviews = course.reviews %>
+  <% @contact  = course.contact %>
+  <% if @reviews.blank? %>
+    <% @avg_review = 0 %>
+  <% else %>
+    <% @avg_review = @reviews.average(:rating).round(2) %>
+  <% end %>
+
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <div class="panel panel-default panel-class">
+      <div class="panel-heading text-center" id="index_title">
+        <h5 style="margin:0 auto;"> 
+          <%= link_to course do %>
+            <%= course.title.try(:titleize) %> <br>
+          <% end -%>
+          <% if @reviews.blank? %>
+            <small>No reviews yet</small>
+          <% else %>
+            <div>
+              <span data-score= <%= @avg_review %> class="star-rating"></span> 
+              <%= link_to course_rating_path(course) do %>
+                <small>(<%= @reviews.length %>)</small>
+              <% end -%>
+            </div>
+          <% end -%>
+        </h5>
+      </div>
+    
+      <%= link_to course do %>
+        <div class="panel-body" style="background: url('<%= course.display_pic.url(:medium) %>'); height: 200px; background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; " >
+          <% if course.state != "activated" %>
+            <div id="not_available">
+              not available
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      
+      <div class="panel-footer" style="font-size: 11px; position: relative;">
+        <div class="save_icons">
+          <% if current_user && current_user.id != course.user_id  %>
+            <%= link_to favorite_course_path(course), remote: true, method: :put do %>
+              <% if current_user && current_user.favorites.exists?(course) %>           
+                <span class="heart_<%= course.id %>"><i class="fa fa-heart pull-right"></i></span>
+              <% else -%>
+                <span class="heart_<%= course.id %>"><i class="fa fa-heart-o pull-right"></i></span>
+              <% end -%>
+            <% end -%>
+          <% elsif current_user && current_user.id == course.user_id-%>
+            <%= link_to @organizer do %>
+              <span><i class="fa fa-user pull-right"></i></span>
+            <% end -%>
+          <% else -%>
+            <%= link_to favorite_course_path(course), method: :put do %>
+              <span class="heart_<%= course.id %>"><i class="fa fa-heart-o pull-right"></i></span>
+            <% end -%>
+          <% end -%>
+        </div>
+        
+        <% unless params[:type] == "promoted" || current_page?(root_path) %>
+          <% if course.featured  %>
+            <div id="promoted_courses">
+              promoted
+            </div>
+          <% end %>
+        <% end %>
+        
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <strong>
+              <% if !course.course_prices.empty? %>
+                <% @min_price =  course.course_prices.minimum(:price) %>
+                <% if @min_price > 0 %>
+                  ₦<%= number_with_delimiter(@min_price.floor) %><%= course.course_prices.count > 1 ? "+" : "" %>
+                <% else %>
+                  Free<%= course.course_prices.count > 1 ? "+" : "" %>
+                <% end %>
+              <% else %>
+                No price info 
+              <% end %>
+            </strong>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 text-right" >
+            <% if course.saed %>
+              <strong> <span data-toggle="tooltip" title="(saed) Skill Acquisition and Entrepreneurship Development program for NYSC corpers.">saed</span></strong>
+            <% end -%>
+            <% if course.online %>
+              <span data-toggle="tooltip" title="This is an online class"><i class="fa fa-laptop"></i></span>
+            <% end -%>
+            <% case course.attended_by %>
+              <% when "everyone"%>
+                <span  data-toggle="tooltip" title="For everyone"><strong>E</strong></span>
+              <% when "adults (18+)"%>
+                <span  data-toggle="tooltip" title="For adults only"><strong id="adult_only">18+</strong></span>
+              <% when "children only"%>
+                <span  data-toggle="tooltip" title="For children only"><i class="fa fa-child"></i></span>
+              <% when "men only"%>
+                <span  data-toggle="tooltip" title="For men only"><i class="fa fa-male"></i></span>
+              <% when "women only"%>
+                <span  data-toggle="tooltip" title="For women only"><i class="fa fa-female"></i></span>
+              <% when "couples only"%>
+                <span  data-toggle="tooltip" title="For couples only"><i class="fa fa-female"></i><i class="fa fa-male"></i></span>
+            <% end %>
+          </div>
+        </div>
+         <hr></hr>
+        <div class="row container-fluid text-left">
+          <h5 style="margin: 0px; font-size: 1.1em;">
+            <small>
+              managed by
+            </small><br>
+              
+            <% organizer = course.organizer %>  
+            <%= link_to organizer  do %>
+              <% if current_user && current_user.id == course.user_id -%>
+                  <font style="color: #d75452;">You</font>
+              <% else %>
+                <font style="color: #999999;">
+                  <%= course.tutor %>
+                </font>
+              <% end %>
+            <% end %>
+            <br>
+            <small> <% if course.local_area.present? %><%= course.local_area.try(:titleize) %>,<% end %> <%= course.locality.try(:titleize) %></small>
+          </h5>
+        </div>
+        
+        <script>
+          $(document).on("click",'.heart_<%= course.id %>', function(event) { 
+            <% if current_user %>
+              $('.heart_<%= course.id %>').find('i').toggleClass('fa-heart-o fa-heart');
+            <% else %>
+              $('.heart_<%= course.id %>').find('i').toggleClass('fa-heart-o fa-exclamation-circle');
+            <% end %>
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+
+
+	<%= render "helper_code/raty" %>
+	<%= render "helper_code/tooltip_toggle" %>

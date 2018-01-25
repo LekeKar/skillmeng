@@ -1,0 +1,132 @@
+<% if current_user %>
+  <% alert = Alert.find_or_initialize_by(:user_id => current_user.id, :announcement_id => announcement.id )%>
+<% end %>
+
+<% case announcement.sender_type %>
+  <% when "admin" %>
+    <% sender = "Andy" %>
+  <% when "organizer" %>
+    <% organizer = Organizer.find( announcement.sender ) %>
+    <% sender = organizer.name %>
+   <% when "course" %>
+    <% @course = Course.find( announcement.sender ) %>
+    <% sender = @course.title %>
+  <% when "user" %>
+    <% user = User.find( announcement.sender ) %>
+    <% sender = "#{user.fname} #{user.lname.first.capitalize}" %>
+  <% else %>
+    <% sender = "#{announcement.sender_type}" %>
+<% end %>
+
+
+	<div class="col-xs-12 col-sm-6 col-md-4 my_classes" id="tab_spacing" style="margin-bottom: 10px;">
+    <div class="well well-sm text-center" style="padding : 0px 5px 0px 5px; margin-bottom: 2px; height: 75px; margin-top: 15px;">
+      <a href="" data-toggle="modal" data-target="#modal_<%= announcement.id%>">
+        <h5>
+          <strong><%= truncate( announcement.subject, :length => 60, :separator => ' ')%></strong><br>
+          <small> 
+            <%= announcement.created_at.strftime("%b %d, %Y | %I:%M%p") %>
+            <% if current_user && alert.read? && !current_page?(course_announcements_path)%>
+    					<strong> | <span style="color: #d9534f">new</span>  </strong>
+    				<% end -%>
+            <br>
+            - <%= sender %>
+          </small> 
+        </h5>
+      </a>
+    </div>
+    <% announcement.photo.present? ? body_style = "background: url('#{announcement.photo.url(:rectangle)}')" : body_style = "background-color: #fafafa;" %>
+    <a href="" data-toggle="modal" data-target="#modal_<%= announcement.id%>">
+      <div class="body_announcement text-center" style= "<%= body_style %>; height: 150px; margin-bottom: 20px;">
+        <% if !announcement.photo.present? %>
+          <div class="container-fluid announcement_text">
+            <i class="fa fa-quote-left" style=" font-size: 1.3em;"></i> <br>
+            <font style=" color: #333333;">
+              <%= truncate announcement.body, length: 100 %>
+            </font>
+          </div>
+        <% end %>
+      <% if announcement.body.length > 100 || announcement.photo.present?  %>
+        <button type="button" class="btn btn-default btn-xs" style="background-color: #e27937" data-toggle="modal" data-target=".bs-example-modal-lg">
+          more
+        </button>
+      <% end -%>
+      </div>
+    </a>
+  </div>
+  
+  
+ 	<div class="modal fade text-center" id="modal_<%= announcement.id%>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	  <div class="modal-dialog modal-md" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header" style="padding: 5px; color: #3f3f3f; ">
+	        <h4><%= announcement.subject %></h4> 
+        </div>
+        <div class="modal-body">
+          <% if announcement.photo.present? %>
+            <% if announcement.action_type == "view course" %>
+              <%= link_to @course do %>
+                <%= image_tag announcement.photo.url(:rectangle), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
+              <% end %>
+            <% elsif announcement.action_type == "barter_response" %>
+              <%= link_to organizer do %>
+                <%= image_tag announcement.photo.url(:rectangle), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
+              <% end %>
+            <% else %>
+              <a href="<%= announcement.action_link %>" target="_blank" > 
+                <%= image_tag announcement.photo.url(:rectangle), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
+              </a>
+            <% end %>
+          <% end %>
+          <%= announcement.body %><br>
+          <font style="color: #777777">
+            <% if announcement.sender_type == "course" %>
+              <%= link_to @course do %>
+                <small>- <%= sender %> </small>
+              <% end %>
+            <% elsif announcement.sender_type == "organizer" %>
+              <%= link_to organizer do %>
+                <small>- <%= sender %> </small>
+              <% end %>
+            <% else %>
+              <small>- <%= sender %> </small>
+            <% end %>
+          </font>
+        
+          <br></br>
+            
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <% case announcement.action_type %>
+              <% when "barter_response" %>
+                <div class="btn-group" role="group">
+                  <%= link_to barter_path(current_user, type: "sent"), class: "btn btn-default", type:"button" do %>
+                    view response
+                  <% end %>
+                </div>
+              <% when "view Manager" %>
+                <div class="btn-group" role="group">
+                  <%= link_to @user_organizer, class: "btn btn-default", type:"button" do  %>
+                    view manager
+                  <% end %>
+                </div>
+              <% when "link" %>
+                <div class="btn-group" role="group">
+                  <a class="btn btn-default" type:"button" href="<%=announcement.action_link%>".html_safe role="button" target="_blank">
+                    Learn more
+                  </a>
+                </div>
+              <% when "view course" %>
+                <div class="btn-group" role="group">
+                  <%= link_to @course, class: "btn btn-default", type:"button" do %>
+                    View course
+                  <% end %>
+                </div>
+            <% end %>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default" data-dismiss="modal" style="color: #d9534f;" >close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

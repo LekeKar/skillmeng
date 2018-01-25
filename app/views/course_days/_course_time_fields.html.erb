@@ -1,0 +1,21 @@
+
+<div class="nested-fields">
+  <div class="row container-fluid">
+    <div class="col-xs-6 col-sm-3 col-md-3">
+      <%= f.input :start_time, :as => :string, :input_html => { :onclick => "timepick(this)", :value => time_format(f.object.start_time)} %>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-3">
+      <%= f.input :end_time, :as => :string, :input_html => { :onclick => "timepick(this)", :value => time_format(f.object.end_time)} %>
+    </div>
+    <div class="col-xs-9 col-sm-5 col-md-5">
+      <%= f.input :description, label: "whats happening?", placeholder: "max 100 chars" %>
+    </div>
+   
+    <div class="col-xs-3 col-sm-1 col-md-1">
+      <%= link_to_remove_association f, class: "btn btn-danger", style: "margin-top: 25px; margin-left: -15px; ", data: {confirm: "This action will delete this time, are you sure?"} do %>
+         <i class="fa fa-times"></i> 
+      <%end%>
+    </div>
+  </div>
+</div>
+<hr>

@@ -1,0 +1,28 @@
+// Place all the styles related to the schedules controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+	.schedule_body {
+		max-height: 460px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	
+		.well {
+			margin: 0px 5px 5px 5px;
+		}
+	}
+	
+	@media (min-width: 700px) and (max-width: 1050px) { 
+   	.schedule_body {
+			max-height: 410px;
+   	}
+	}
+	
+	
+	@media (max-width: 700px) { 
+   	.schedule_body {
+			max-height: 360px;
+			text-align: center;
+   	}
+		
+	}

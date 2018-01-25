@@ -1,0 +1,15 @@
+<% title "Newsfeed" %>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+		  <h2 style="color: #777777;"> Newsfeed</h2>
+      <div id="my_news" class="panel-group" role="tablist" aria-multiselectable="true">
+        <%= render @announcements %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="infinite-scrolling" class="text-center" style="color: #777777;">
+   <%= will_paginate @announcements %>
+</div> 

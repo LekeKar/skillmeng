@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  authorisation_url: MyString
+  access_code: MyString
+  reference: MyString
+  status: MyString
+  quantity: 1
+  price: 1
+  trans_type: 1
+  user_id: 
+  classroom_id: 
+
+two:
+  authorisation_url: MyString
+  access_code: MyString
+  reference: MyString
+  status: MyString
+  quantity: 1
+  price: 1
+  trans_type: 1
+  user_id: 
+  classroom_id: 

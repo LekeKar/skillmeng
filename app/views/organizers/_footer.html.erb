@@ -1,0 +1,27 @@
+<h3>
+	Contact Us
+</h3>
+<div>
+	<% if @organizer && !@organizer.email.blank? %>
+   <%= @organizer.email %>
+  <% end -%> <br>
+  <% if @organizer && !@organizer.phone.blank? %>
+   <%= number_to_phone(@organizer.phone)%>
+  <% end -%>
+</div>
+
+<div style="margin_bottom: 10px;">
+  <% if @organizer.location.present? %>
+    <br> <% @address = @organizer.location %>
+    <% if @address.address_line1.present? %>
+      <%= @address.address_line1 %>,
+    <%end%> <%= @address.address_line2 %>,<br>  <%= @address.city %>,  <%= @address.state %> 
+  <% end %>
+</div>
+
+<% if @organizer && !@organizer.website.blank? %>
+  <br> 
+  <a href="http://<%=@organizer.website%>" class="dont-break-out" target="_blank" >
+  <%=@organizer.website%>
+  </a>
+<% end -%>

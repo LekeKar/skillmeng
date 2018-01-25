@@ -1,0 +1,18 @@
+<div class="nested-fields">
+  <div class="row ">
+    <div class="col-xs-12 col-sm-6 col-md-3">
+      <%= f.input :name, label: false, placeholder: "Full name" %>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4">
+      <%= f.input :description, label: false, placeholder: "Description", :input_html => {:rows => 1}  %>
+    </div>
+    <div class="col-xs-9 col-sm-10 col-md-3">
+      <%= f.input :acronym, label: false, placeholder: "Acronym (if any)" %>
+    </div>
+    <div class="col-xs-3 col-sm-1 col-md-1">
+      <%= link_to_remove_association f, class: "btn btn-danger", data: {confirm: "This action will delete this Item, are you sure?"} do %>
+         <i class="fa fa-times"></i> 
+      <% end %>
+    </div>
+  </div>
+</div>

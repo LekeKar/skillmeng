@@ -1,0 +1,78 @@
+<div class="row container-fluid">
+  <div class="panel panel-default panel-class" id="class_overview">
+    <div class="panel-heading text-center">
+      <strong style="text-transform: uppercase">
+        <%= link_to @course do %>
+          <%= @course.title %>
+        <% end -%>
+      </strong><br>
+      <span data-score= <%= @avg_review %> class="star-rating"></span> 
+        <%= link_to course_rating_path(@course) do %>
+            <em>(<%= @reviews.length %>)</em> 
+        <% end -%>
+    </div>
+    
+      <div class="panel-body" style="background: url('<%= @course.display_pic.url(:medium) %>'); height: 200px; background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; " >
+		         
+    	</div>
+    <div class="panel-body container-fluid">
+      <div class="row">  
+        <div class="col-md-12">
+          <% if @course.featured  %>
+            <div class="text-center" style="color: #777; margin-bottom: 15px;">
+              <strong>promoted till blah blah date</strong>
+            </div>
+          <% end %>
+      	  <table class="table ">
+        		<tr>
+        			<td><strong>Status</strong></td>
+        			<td class="active"><span style="color: <%= @course.state == "activated" ? "#1aa67a": "#d9534f" %>;"><%= @course.state %></td>
+        			<td><strong>Followers</strong></td>
+        			<td class="active"><%= number_to_human(@course.favorited_by.count) %></td>
+        		</tr>
+        		<tr>
+        			<td><strong>Setup</strong></td>
+        			<td class="active">
+        			   <%= calc_percent(@course.completeness,120).to_i%>%
+        			   <% if @total_score.to_i == 120 %>
+                  <i class="fa fa-check-circle" style="color: #5cb85c;"></i>
+                 <% end %>
+        			</td>
+        			<td>accepts email</td>
+        			<td class="active"><%= number_to_human(@course.favorited_by.subscribeable.count) %></td>
+        		</tr>
+        		<tr>
+        			<td><strong>Views</strong></td>
+        			<td class="active"><%= number_to_human(@course.impressionist_count(:filter => :ip_address)) %></td>
+        			<td>accepts news</td>
+        			<td class="active"><%= number_to_human(@course.favorited_by.broadcastable.count) %></td>
+        		</tr>
+        	</table>
+        </div>
+      </div>
+      <div class="btn-group btn-group-justified" role="group" aria-label="..." style="margin-top: 10px;" >
+         <div class="btn-group" role="group">
+          <%= link_to @course, class:"btn btn-default btn-sm btn-block"  do %>
+            View
+          <% end -%>
+        </div>
+        <div class="btn-group" role="group">
+          <% if @course.state == "setup"  %>
+            <%= link_to toggle_activate_course_path(@course), class: "btn btn-warning btn-sm btn-block publish_course btn-manager", data: {confirm: "This action will let everyone else see your course, Are you sure?"} do %>
+              <i class="fa fa-check course_publish"></i> Publish
+            <% end -%>
+          <% else -%>
+            <%= link_to toggle_activate_course_path(@course), data: {confirm: "This action will #{ @course.state == "activated" ? "disable" : "activate"} this course, do you wish to continue?"}, class:"btn btn-default btn-sm btn-block" do %>
+              <%= @course.state == "activated" ? "Disable" : "Activate" %>
+            <% end -%>
+          <% end -%>
+        </div>
+        <div class="btn-group" role="group">
+          <%= link_to course_path(@course),method: :delete, data: {confirm: 'This action will delete this course and all its related info, do you wish to continue?'}, class: "btn btn-default btn-sm btn-block" do %>
+           <span style="color: #d9534f;"> <i class="fa fa-trash"></i> Delete</span>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

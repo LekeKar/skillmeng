@@ -1,0 +1,94 @@
+<% if current_user && current_user.id == @organizer.user_id  %>
+	<% for course in @courses %>
+	  <% @reviews = course.reviews %>
+	  <% @contact  = course.contact %>
+	  <% if @reviews.blank? %>
+	    <% @avg_review = 0 %>
+	  <% else %>
+	    <% @avg_review = @reviews.average(:rating).round(2) %>
+	  <% end %>
+
+		<div class="col-xs-12 col-sm-6 col-md-3">
+	    <div class="panel panel-default panel-class">
+	      <div class="panel-heading text-center" id="index_title">
+	        <h5 style="margin:0 auto;"> 
+	          <%= link_to course do %>
+	            <%= course.title.try(:titleize) %> <br>
+	          <% end -%>
+	          <% if @reviews.blank? %>
+	            <small>No reviews yet</small>
+	          <% else %>
+	            <div>
+	              <span data-score= <%= @avg_review %> class="star-rating"></span> 
+	              <%= link_to course_rating_path(course) do %>
+	                <small>(<%= @reviews.length %>)</small>
+	              <% end -%>
+	            </div>
+	          <% end -%>
+	        </h5>
+	      </div>
+	     
+      	<%= link_to course_manager_path(@organizer, course) do %>
+      		<div class="panel-body" style="background: url('<%= course.display_pic.url(:medium) %>'); height: 200px; background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; " >
+         
+        	</div>
+      	<% end %>
+      	
+      	<% if course.featured  %>
+          <div class="text-center" id="promoted_courses">
+          	<% expiration = course.course_promotions.last.created_at + 2.week %>
+            promoted <br> <small> till <%= expiration.strftime('%d/%m/%y') %></small>
+          </div>
+        <% end %>
+      	
+      	<div class="course_state text-center">
+      		<h4>
+      			<%= link_to toggle_activate_course_path(course), data: {confirm: "This action will #{ course.state == "activated" ? "disable" : "activate"} this course, do you wish to continue?"} do %>
+      				<span style="color: <%= course.state == "activated" ? "#1aa67a": "#d9534f" %>;">
+      					<%= course.state %>
+	      			</span>
+	      		<% end %>
+      			
+      		</h4>
+      	</div>
+      	<table class="table">
+      		<tr>
+      			<td><strong>Views</strong></td>
+      			<td class="active"><%= number_to_human(course.impressionist_count(:filter => :ip_address)) %></td>
+      		</tr>
+      		<tr>
+      			<td><strong>Followers</strong></td>
+      			<td class="active"><%= number_to_human(course.favorited_by.count) %></td>
+      		</tr>
+      	</table>
+      	
+      	<div class="text-center" style="margin-top: 20px; color: #777777; margin-bottom: 20px;">
+      		<% course.primary ? primary_color = "#e27937" : primary_color = "#777777"%>
+      		<strong>
+      				<%= link_to "manage", course_manager_path(@organizer, course)%> | 
+        		<span style=" color: <%= primary_color %>;">
+	        		<% if course.primary %>
+	        			primary course
+	        		<% else %>
+	        			<%= link_to "make primary", course_make_primary_path(course) %>
+	        		<% end %>
+        		</span> | 
+        			<%= link_to "view", course %>
+      		</strong>
+      	</div>
+      </div>
+    </div>
+  <% end %>  
+      
+<% else %> <!-- if visitor viewing profile-->
+	
+	<% if @courses.active.count > 0 %>
+		
+		<%= render @courses.active %>
+		
+	<% else %>
+		<div class="col-md-8">
+			<h1>No active courses.</h1>
+		</div>
+	<% end %>
+<% end %>

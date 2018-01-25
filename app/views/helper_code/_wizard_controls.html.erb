@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+	<div class="panel-body">
+		<h5>
+			<%= step_number %><br>
+			<small>
+				<%= current_step_name %> <i class="fa fa-arrow-right"></i> <%= next_step_name %>
+			</small>
+			<% unless current_page?(new_course_path) %>
+				<% if @course.save %>
+					<%= link_to course_course_wizard_path(@course, type: "end"), class:"btn btn-sm btn-warning pull-right", style:"margin-top: -15px;" do%>
+		        I'll skip the rest
+		      <% end -%>
+	      <% end -%>
+      <% end -%>
+    </h5>
+  </div>
+</div>

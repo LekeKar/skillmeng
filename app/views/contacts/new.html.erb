@@ -1,0 +1,17 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<% if session[:setup_wizard] %>
+				<%= render 'helper_code/wizard_controls', next_step_name: "payment info", current_step_name: "contact", step_number: "Step 3 of 5" %>
+			<% end %>
+	   	<div class="panel panel-default">
+	    	<div class="panel-heading">
+					<h4>New Contact<small> <br> for <%= @course.title %></small></h4>
+				</div>
+				<div class="panel-body">
+					<%= render 'form' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

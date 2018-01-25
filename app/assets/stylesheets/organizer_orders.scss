@@ -1,0 +1,15 @@
+// Place all the styles related to the organizer_orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#order_explaination{
+  margin-top: 60px;
+}
+
+@media (max-width: 750px) {
+  #order_explaination{
+    margin-top: 20px;
+  }
+	
+}

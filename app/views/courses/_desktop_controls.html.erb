@@ -1,0 +1,61 @@
+<% @course.state == "activated" ? @button_style = "btn btn-warning btn-md btn-block active" : @button_style = "btn btn-danger btn-md btn-block"%>
+
+<%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor"-%>
+  <div class="btn-group btn-group-justified" role="group" aria-label="..." >
+    <div class="btn-group" role="group">
+        <%= link_to edit_course_path(@course), class:"btn btn-success btn-md btn-block", id:"desktop_overview_back" do %>
+          Edit Main
+        <% end -%>
+      </div>
+      <% if @course.state == "setup"  %>
+        <div class="btn-group" role="group">
+          <%= link_to toggle_activate_course_path(@course), class: "btn btn-warning btn-md btn-block publish_course", id:"desktop_overview_back", data: {confirm: "This action will let everyone else see your course, Are you sure?"} do %>
+            <i class="fa fa-check course_publish"></i> Publish
+          <% end -%>
+        </div>
+      <% end -%>
+      <div class="btn-group" role="group">
+        <%= link_to course_manager_path(@organizer, @course), class: "btn btn-info btn-md btn-block", id:"desktop_overview_back" do %>
+          <i class="fa fa-sliders"></i> Manage
+        <% end -%>
+      </div>
+  </div>
+
+<% else -%>
+  <div class="btn-group btn-group-justified" role="group" aria-label="..." >
+      <div class="btn-group" role="group">
+        <%= link_to new_course_report_path(@course), class:"btn btn-danger btn-md btn-block", id:"desktop_overview_back" do %>
+          <i class="fa fa-flag"></i> <span id="ipad_disapear">Report</span>
+        <% end -%>
+      </div>
+      
+      <div class="btn-group" role="group">
+        <% if params[:visitor] == "visitor" %>
+          <a class="btn btn-success btn-md btn-block", id="desktop_overview_back" >
+            <i class="fa fa-heart-o"></i><span id="ipad_disapear"> Save</span>
+          </a> 
+        <% else %>
+          <% if current_user && current_user.favorites.exists?(@course) %>
+            <%= link_to favorite_course_path(@course), method: :put, remote: true, class:"btn btn-success btn-md btn-block btn-save", id:"desktop_overview_back" do %>
+              <i class="fa fa-heart"></i> <span id="ipad_disapear">Saved</span>
+            <% end -%> 
+          <% elsif  current_user -%>
+              <%= link_to favorite_course_path(@course), method: :put, remote: true, class:"btn btn-success btn-md btn-block btn-save", id:"desktop_overview_back" do %>
+              <i class="fa fa-heart-o"></i> <span id="ipad_disapear">Save</span> 
+              <% end -%>
+          <% else -%>
+              <%= link_to favorite_course_path(@course), method: :put, class:"btn btn-success btn-md btn-block", id:"desktop_overview_back" do %>
+                <i class="fa fa-heart-o"></i> <span id="ipad_disapear">Save</span> 
+              <% end -%>
+          <% end -%>
+        <%end%>
+      </div>
+      <%if current_user && @course_payment && @course_payment.trade_by_barter? -%>
+        <div class="btn-group" role="group">
+          <%= link_to new_course_course_request_path(@course), class:"btn btn-warning btn-md btn-block", id:"desktop_overview_back" do %>
+            <i class="fa fa-balance-scale"></i> <span id="ipad_disapear">Trade</span>
+          <% end -%>
+        </div>
+      <% end -%>
+  </div>
+<% end -%>

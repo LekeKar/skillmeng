@@ -1,0 +1,108 @@
+<div class="panel panel-default panel-class">
+  <div class="panel-heading ">
+    <strong>Contact</strong>
+    <% if @contact && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+      <%= link_to 'Edit', edit_course_contact_path(@course, @contact), class:"btn btn-default btn-sm pull-right"%>
+    <% elsif current_user && current_user.id != @course.user_id -%>
+      <button type="button" class="btn btn-warning btn-sm pull-right" data-toggle="modal" data-target=".ask-modal-sm">
+        Ask question
+      </button>
+    <% elsif current_user && current_user.id == @course.user_id && params[:visitor] == "visitor" %>
+      <button type="button" class="btn btn-warning btn-sm pull-right" data-toggle="modal" data-target="blank">
+        Ask question
+      </button>
+    <% end -%>
+
+    <div class="modal fade ask-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Question for <%=@course.title.try(:titleize)%></h4>
+          </div>
+          <div class="modal-body">
+          <% if current_user %>          
+            <%= form_tag conversations_path, method: :post do %>
+              <%= hidden_field_tag :sender, @course.user_id %>
+              <%= hidden_field_tag :subject,  "[Question] #{@course.title} by #{current_user.fname.try(:titleize)} #{current_user.lname.try(:titleize)}".html_safe %>
+              <%= text_area_tag :body, nil, class: 'form-control message_text_input', :input_html => {:rows => 3} %>
+              <%= submit_tag "ASK QUESTION", class: 'btn  btn-success btn-sm btn-block' %>
+            <% end -%>
+          <% else -%>
+            You need to be logged in to perform this action. <br> Prove you are human by 
+            <%= link_to "Login in", new_user_session_path %>
+          <% end -%>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+
+  </div>
+  <div class="panel-body contact_body">
+    <% if @contact %>
+      <strong>Name:</strong>
+      <strong></strong> <%=@contact.contact_name %>
+      <% if !@contact.tel1.blank? %>
+        <br>
+          <strong>Telphone 1:</strong>
+          <%=number_to_phone(@contact.tel1)%>
+      <% end -%>
+      <% if !@contact.tel2.blank? %>
+        <br>
+          <strong>Telphone 2:</strong>
+          <%=number_to_phone(@contact.tel2)%>
+      <% end -%>
+      <% if !@contact.tel3.blank? %>
+        <br>
+          <strong>Telphone 3:</strong>
+          <%=number_to_phone(@contact.tel3)%>
+      <% end -%>
+      <% if !@contact.email.blank? %>
+        <br>
+          <strong>Email:</strong>
+          <%=@contact.email%> 
+      <% end -%>
+      <% if !@contact.tutor_website.blank? %>
+        <br>
+        <a href="<%=@contact.tutor_website%>" class="dont-break-out" target="_blank" >
+          vist our website
+        </a>
+      <% end -%>
+      <% if !@contact.social_links.empty? %>
+        <div style="margin-top: 5px;">
+          <% for social_link in @contact.social_links do %>
+            <a href="<%= social_link.address %>" class="dont-break-out" target="_blank">
+              <% case social_link.platform %>
+                <% when "Facebook" %>
+                  <i class="fa fa-facebook-square" style= "font-size: 20px; margin-left: 5px; margin-right: 5px;"></i> 
+                <% when "Twitter" %>
+                  <i class="fa fa-twitter-square" style= "font-size: 20px; margin-left: 5px; margin-right: 5px;"></i> 
+                <% when "Google+" %>
+                  <i class="fa fa-google-plus-square" style= "font-size: 20px; margin-left: 5px; margin-right: 5px;"></i> 
+                <% when "Linked-in" %>
+                  <i class="fa fa-linkedin-square" style= "font-size: 20px; margin-left: 5px; margin-right: 5px;"></i> 
+                <% when "Pintrest" %>
+                  <i class="fa fa-pinterest-square" style= "font-size: 20px; margin-left: 5px; margin-right: 5px;"></i>
+                <% when "Instagram" %>
+                  <i class="fa fa-instagram" style= "font-size: 20px; margin-left: 5px; margin-right: 5px;"></i>
+              <% end %>
+            </a>
+          <% end %>
+        </div>
+      <% end %>
+        
+    <% else %> 
+      <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
+        <div class="text-center">
+          <h4>Tell people how to contact you</h4>
+            <%= link_to 'Share contact details', new_course_contact_path(@course), class:"btn btn-default"%>
+        </div>
+      <% else %> 
+            <h4 class="text-center" >No info provided</h4> 
+      <% end -%>
+    <% end -%>
+  </div>
+</div>

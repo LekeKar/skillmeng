@@ -1,0 +1,31 @@
+<div class="panel panel-default ">
+	<div class="panel-heading">
+	  	<i class="fa fa-user"></i> 
+	  	<strong>Account Info</strong>
+	  	<%= link_to edit_user_registration_path, class:"btn btn-sm btn-default pull-right" do %>
+           edit
+        <% end -%>
+	</div>
+    <div class="panel-body"> 
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <strong>Name: </strong><%= current_user.fname %> <%= current_user.lname %> <br>
+                <strong>Email: </strong><%= current_user.email %> <br>
+                <strong>Tel: </strong> <%= current_user.tel.present? ? number_to_phone(current_user.tel) : "No Number Provided"  %> <br>
+                <strong>Courses Owned: </strong> 
+                <%if current_user.courses.count > 0 %>
+                    <%= link_to current_user.courses.count, my_courses_path %>
+                <%else%>
+                    <%= current_user.courses.count %>
+                <%end%>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 text-center">
+                <% if current_user.courses.count == 0 %>
+                    <%= link_to "Teach a course", new_course_path, class:"btn btn-md btn-warning", style:"margin-top: 20px;" %>
+                <% else %>
+                    <%= link_to "Manage courses", my_courses_path, class:"btn btn-md btn-warning", style:"margin-top: 20px;" %>
+                <% end %>
+            </div>
+        </div>
+	</div>
+</div>

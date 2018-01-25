@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+			<% if session[:setup_wizard] %>	
+				<%= render 'wizard_controls'%>
+			<%end%>
+	 		<div class="panel panel-default">
+	  		<div class="panel-heading">
+			    <h4 class="panel-title"><i class="fa fa-calendar"></i> Edit Day
+				    <%= link_to course_course_day_path(@course, @course_day), method: :delete, data: {confirm: "This action will delete this Day, are you sure?"}, class:"pull-right" do %>
+							<i class="fa fa-trash" style="color: #d9534f; margin-top: 5px; font-size:20px"></i>
+						<% end %>
+					</h4>
+				</div>
+				<div class="panel-body">
+					<%= render 'form' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

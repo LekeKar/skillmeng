@@ -1,0 +1,126 @@
+
+<div class="header_course jumbotron" style="position: relative; background: linear-gradient(0deg,rgba(102,102,102,0.5),rgba(102,102,102,0.5)), url('<%= @course.display_pic.url(:medium) %>')">
+  <div class="title text-center">
+    <h1>
+      <%= @course.title %> <br>
+      <small id="locality"><%= @course.local_area %>, <%= @course.locality %></small> <br>
+      <span data-score= <%= @avg_review %> class="star-rating" id="star_ratings"></span>
+      <small id="review_count">(<%= number_to_human(@reviews.length) %>)</small>
+    </h1>
+    
+    <p>
+      <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor"-%>
+        <div class="btn-group" role="group" aria-label="..." >
+          <div class="btn-group" role="group">
+            <%= link_to edit_course_path(@course), class:"btn btn-success btn-lg btn-manager", style:"background-color: #7092C1; border-color: #7092C1;" do %>
+              Edit Main
+            <% end -%>
+          </div>
+          <% if @course.state == "setup"  %>
+            <div class="btn-group" role="group">
+              <%= link_to toggle_activate_course_path(@course), class: "btn btn-warning btn-lg publish_course btn-manager", data: {confirm: "This action will let everyone else see your course, Are you sure?"} do %>
+                <i class="fa fa-check course_publish"></i> Publish
+              <% end -%>
+            </div>
+          <% end -%>
+          <div class="btn-group" role="group">
+            <%= link_to course_manager_path(@user_organizer, @course), class: "btn btn-info btn-lg btn-manager", style:"background-color: #67BEAB; border-color: #67BEAB;" do %>
+              Manage
+            <% end -%>
+          </div>
+        </div>
+      <% else %>
+        <% if  params[:visitor] == "visitor" %>
+         
+          <a  href="" data-toggle="modal" data-target=".payment_info_modal", class="btn btn-default btn-lg btn-visitor" >
+            <i class="fa fa-money"></i> Pay
+          </a> 
+      
+          <a class="btn btn-default btn-lg btn-visitor" >
+            <i class="fa fa-heart-o"></i> Follow
+          </a> 
+            
+        <% else %>
+          
+          <a href="" data-toggle="modal" data-target=".payment_info_modal", class="btn btn-default btn-lg btn-visitor" > 
+            <i class="fa fa-money"></i> Pay
+          </a> 
+          <% if current_user && current_user.favorites.exists?(@course) %>
+            <%= link_to favorite_course_path(@course), method: :put, remote: true, class:"btn btn-default btn-lg btn-visitor btn-save" do %>
+              <i class="fa fa-heart"></i> <span>Unfollow</span>
+            <% end -%> 
+          <% elsif current_user -%>
+            <%= link_to favorite_course_path(@course), method: :put, remote: true, class:"btn btn-default btn-lg btn-visitor btn-save" do %>
+              <i class="fa fa-heart-o"></i> <span>Follow</span>
+            <% end -%>
+          <% else -%>
+            <%= link_to favorite_course_path(@course), method: :put, class:"btn btn-default btn-visitor btn-lg" do %>
+              <i class="fa fa-heart-o"></i> Follow
+            <% end -%>
+          <% end -%>
+        <% end %>
+      
+      <% end %>
+      
+    </p>
+  </div>
+</div>
+
+<div class="header_tools" style="background-color: rgba(222,110,49,0.6);">
+  <strong>
+    <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
+      <span  data-toggle="tooltip" title="This course has been viewed <%= number_to_human(@course.impressionist_count) %> times"><i class="fa fa-eye"></i> <%= number_to_human(@course.impressionist_count) %></span> |
+    <% end %>
+      <span  data-toggle="tooltip" title="This course has been followed by <%= number_to_human(@course.favorited_by.count) %> users"><i class="fa fa-users"></i> <%= number_to_human(@course.favorited_by.count) %></span>
+  </strong>
+  <div class="course_share pull-right">
+    <%= link_to new_course_report_path(@course), style:"color: #FFFFFF;" do %>
+      <i class="fa fa-flag"></i> 
+    <% end %>
+    <a href=".modal_share" data-toggle="modal" data-target=".modal_share" style="color: #FFFFFF;">
+      <i class="fa fa-share-alt" style="margin-left: 5px;"></i>
+    </a>
+  </div>
+</div>
+
+<!--share modal-->
+
+<div class="modal fade modal_share" tabindex="-1" role="dialog" aria-labelledby="share_modal">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <% unless @course.state != "activated" %>
+          <div class="share_link">
+            <h4>share course</h4>
+            <%= social_share_button_tag(@course.title, :url => "http://skllming-leke.c9users.io/courses/#{@course.slug}") %> <br>
+          
+            <small style="color: #777777;"> course link</small> <br>
+          
+            <div class="input-group">
+              <input type="text" id="foo" value="https://skllming-leke.c9users.io/courses/<%= @course.slug %>" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default btn-md" data-clipboard-target="#foo" type="button" data-toggle="tooltip" data-placement="left" title="Copied!",  style="background-color: #e27937; border-color: #e27937; color:#FFFFFF;">Copy</button>
+              </span>
+            </div><!-- /input-group -->
+          </div>
+        <% else %>
+          <h4>
+            "Hey, you need to activate this course before sharing it" <br>
+            - Andy
+          </h4>
+        <% end %>  
+      </div>
+      <div class="modal-footer">
+        <a type="button" data-dismiss="modal" style="color: #d9534f;">close</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var clipboard = new Clipboard('.btn');
+  clipboard.on('success', function(e) {
+  alert("Copied!");
+  e.clearSelection();
+  });
+</script>

@@ -1,0 +1,20 @@
+<% title "All #{@course.title}'s announcements" %>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+		  <h2 style="color: #777777;">  News</h2>
+		  <div style="margin: -10px 0px 10px 0px;">
+		    <%= link_to @course do %>
+		      for <%= @course.title %>
+		    <% end %>
+		  </div>
+      <div id="my_news" class="panel-group" role="tablist" aria-multiselectable="true">
+        <%= render @announcements %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="infinite-scrolling" class="text-center" style="color: #777777;">
+   <%= will_paginate @announcements %>
+</div> 

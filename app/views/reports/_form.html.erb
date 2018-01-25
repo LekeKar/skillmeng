@@ -1,0 +1,14 @@
+
+<%= simple_form_for([@course, @report]) do |f| %>
+	<div class="form-inputs">
+		<%= f.input :reason, :collection => [ "It's not a course", "It contains inappororiate matrial", "It's a scam", "Some other reason"], label: "What's wrong with this course?"-%>
+		<%= f.input :explanation, label: "Further Explanation" -%>
+		<%= f.hidden_field :status -%>
+		<%= f.hidden_field :admin_action -%>
+	</div>
+
+	<div class="form-actions">
+	    <%= f.button :submit, "Submit report", data: {confirm: "This action will submit this report, are you sure?"}  %>
+	    <%= link_to 'Back', @course, class:'btn btn-danger' %>
+  	</div>
+<% end -%>

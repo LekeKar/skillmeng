@@ -1,0 +1,39 @@
+
+<% title "#{@course.title} manager" %>
+<div class="container">
+	<div class="row">
+	  
+	  <div class="col-xs-12 col-sm-6 col-md-4">
+	  	<div class="panel panel-default text-center" style="background-color: #e27937; padding: 5px;">
+		    <h4 style="margin: 5px;">
+		    	<i class="fa fa-arrow-circle-left" style="color: #FFFFFF;"></i> <%= link_to "manager profile", @user_organizer, style:"color: #FFFFFF;" %>
+		  	</h4>
+		  </div>
+	    
+	    <%-# Overview content -%>
+	    <%= render "courses/course_management/overview" %>
+	  </div>
+	  
+	  <%-# Course completness -%>
+    <div class="col-xs-12 col-sm-6 col-md-4">
+  	  <%= render "courses/course_management/completeness" %>
+  	</div>
+  	
+		<%-# Add-ons content -%>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+	    <div class="panel panel-default panel-class" id="class_overview">
+	      <div class="panel-heading">
+		      <strong> Post News</strong></strong>
+		    </div>
+		    <div class="panel-body container-fluid">
+		     <%= render "announcements/form"%>
+		    </div>
+		  </div>
+		</div>
+	  
+	</div>
+	
+
+</div>  
+<%= render "helper_code/raty" %>
+<%= render "helper_code/tooltip_toggle" %>
