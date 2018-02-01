@@ -1,9 +1,19 @@
-<% title "Followed courses" %>
+<% title "Following" %>
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-      <h2  style="color: #777777;"> Followed Courses</h2>
+    <div class=" col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
+      <div class="profile_body" style="margin-bottom: 50px;">
+				<div class="container-fluid title_header text-center">
+			    <div class="title_text">
+			      following
+			    </div>
+				</div>
+    		<div class="container-fluid profile_content" style="background-color: #FFFFFF; padding-top:20px;">
+    
+    			  <%= render @favorite_courses %>
+    
+    		</div>
+    	</div>
     </div>
-    <%= render @favorite_courses %>
   </div>
 </div>

@@ -3,7 +3,7 @@
   <div class="form-inputs">
     <div class="row">
       <div class="col-sm-6 col-md-6">
-        <%= f.input :contact_name, required: true, input_html: {value: @contact.contact_name.present? ? @contact.contact_name : "#{current_user.fname} #{current_user.lname}"} %>
+        <%= f.input :contact_name, required: true, input_html: {value: @contact.contact_name.present? ? @contact.contact_name : "#{@organizer.name}"} %>
       </div>
        <div class="col-sm-6 col-md-6">
         <%= f.input :email, input_html: {value: @contact.email.present? ? @contact.email : @organizer.email} %>

@@ -14,10 +14,10 @@
       <%= f.input :unit, label: "Frequency", :collection => ['Session','Course','Day','Week','Month','Year'], style: 'width: 50px'%>
     </div>
     <div class="col-xs-9 col-sm-3 col-md-4">
-      <%= f.input :explaination, label: "Details (optional)"  %>
+      <%= f.input :explaination, label: "Details (110 char max)", maxlength: "110"  %>
     </div>
     <div class="pull-right">
-      <%= link_to_remove_association f, class: "btn btn-danger", style: "margin-top: 30px;", data: {confirm: "This action will delete this Price plan, are you sure?"} do %>
+      <%= link_to_remove_association f, class: "btn btn-danger", style: "margin-top: 25px;", data: {confirm: "This action will delete this Price plan, are you sure?"} do %>
          <i class="fa fa-times"></i> 
       <%end%>
     </div>

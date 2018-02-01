@@ -1,7 +1,7 @@
 class AboutsController < ApplicationController
   before_action :set_about, only: [:show, :edit, :update, :destroy]
   before_action :set_course, except: [:index, :show]
-  before_action :check_about_exists, only: [:create]
+  before_action :check_about_exists, only: [:create, :new]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :user_auth, only: [:edit, :update, :destroy, :new]  
 

@@ -1,4 +1,7 @@
-
+      <!--collections-->
+      <% @categories = [ "sport/fitness", "photography/film", "food/drink","fashion/style", "hair/beauty", "languages", "music", "art/crafts", "technical", "design", "technology", "professional", "lifestyle", "religion", "just for fun" ] %>
+      <% @who_can_attend = [ 'everyone','adults (18+)','children only','men only','women only','couples only' ] %>
+ 
 
       <%= simple_form_for(@course) do |f| %>
         <% @name = "#{current_user.fname.capitalize} #{current_user.lname.capitalize}" %>
@@ -31,7 +34,7 @@
           </div>
         
           <div class="row container-fluid">
-            <%= f.input :tag_list, :label => 'Tags <i class="fa fa-question-circle" data-toggle="tooltip" title="Up to four phrases that best describe the class"></i> (Max 4 allowed) '.html_safe, placeholder: "e.g. cooking, small chops, catering, cocktails", :input_html => { :class => "css-class", :value => @course.tag_list.join(", ")} %>
+            <%= f.input :tag_list, :label => 'Tags <i class="fa fa-question-circle" data-toggle="tooltip" title="Up to four phrases that best describe the class"></i> (Max 4 allowed) '.html_safe, placeholder: "e.g. cooking, small chops, catering, cocktails", hint: "Hint: Use commas to seperate tags", :input_html => { :class => "css-class", :value => @course.tag_list.join(", ")} %>
           </div>
           
           <% session[:setup_wizard] ? @pass_param = "Next step" : @pass_param = "Submit"  %>

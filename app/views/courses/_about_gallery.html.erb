@@ -8,7 +8,7 @@
         <% end -%>
       </h3>
       <% if @about %>
-        <%= @about.content %> <br>
+        <div class="mobile_justify" ><%= @about.content %></div> <br>
       <% else -%>
         <div class="text-left">
           <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" && @about.nil? -%>

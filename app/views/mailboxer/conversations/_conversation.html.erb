@@ -22,12 +22,12 @@
 	        <div class="modal-header">
 	          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	          <h4 class="modal-title" id="myModalLabel">
-	             <i class="fa fa-envelope"></i> <small><%= conversation.subject %></small>  
+	             <small><%= conversation.subject %></small>  
 	          </h4>
 	        </div>
 	        <div class="modal-body">
 				<div class="panel panel-default">
-		        	<div class="panel-body message_modal"> 
+		        	<div class="panel-body message_modal" style="text-align: left;"> 
 			        	<% conversation.receipts_for(current_user).order('created_at ASC').each do |receipt| %>
 			        		<% if receipt.message.sender == current_user %>
 			        			<% @name_style = "color: #5fb760" %>
@@ -37,10 +37,13 @@
 							<strong style="<%= @name_style %>" >
 							<%= receipt.message.sender.fname %></strong>: <%= receipt.message.body %><br>
 						<% end -%> 
-						<span style="color: grey; font-size: 10px;">
-							last message sent <%= conversation.receipts_for(current_user).last.created_at.to_formatted_s(:short) %>
-						</span>
 					</div>
+					<div class="text-center">
+							<span style="color: grey; font-size: 0.75em;">
+								last message sent <%= conversation.receipts_for(current_user).last.created_at.to_formatted_s(:short) %>
+							</span>
+						</div>
+					
 				</div>
 				
 				<%= form_tag conversation_messages_path(conversation), method: :post do %>
@@ -53,7 +56,7 @@
 	        		<div class="btn-group" role="group">
 		        		<% if params[:type] != "trash" %>
 			        		<%= link_to conversation_path(conversation), class:"btn btn-default", type:"button", method: :delete, data: {confirm: "This action will trash this message, Are you sure?"} do%>
-		          			<i class="fa fa-trash" style="color: #d9534f"></i> Delete
+		          			<span  style="color: #e07940"> Trash </span>
 		          		<% end -%>
 		          	<% else -%>
 	          			<%= link_to conversation_delete_from_trash_path(conversation), class:"btn btn-default", type:"button", data: {confirm: "This action will delete this message forever, Are you sure?"} do%>
@@ -64,9 +67,7 @@
 	          			<% end -%>
 	          		<% end -%>
           		</div>
-							<div class="btn-group" role="group">
-	          		<button type="button" class="btn btn-default" data-dismiss="modal" style="color: #d9534f;" >Close</button>
-	          	</div>
+						
 	          </div>
 	        </div>
 	    </div>

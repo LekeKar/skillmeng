@@ -20,6 +20,8 @@
       </div>
       
     <h4 id="payment_form_title">Bank info</h4>
+    
+    <% @prev_payments.count %>
     <%= f.input :bank_name, label: "Bank Name", :collection => @bank_name %> 
 
     <div class="row">

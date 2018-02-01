@@ -19,24 +19,26 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <%= f.input :about, required: true, label:"about (300 char max)", maxlength: "300", required: true-%>
+        <%= f.input :about, label:"about (300 char max)", maxlength: "300"-%>
       </div>
       <div class="col-md-6">
-        <%= f.input :logo, required: true, as: :file -%>
+        <%= f.input :logo, as: :file -%>
       </div>
     </div>
     <hr>
-    <%= f.simple_fields_for :location do |builder| %>
+    <%= f.error :base, style:"color: #a74544;" %>
+    <%= f.simple_fields_for :location do |location| %>
+      <div class="form-inputs">
+        <%= location.input :address_line1, label: "Floor/Apt (optional)"  -%>
+        <%= location.input :address_line2, label: "Street address", required: true   -%>
     
-      <%= builder.input :address_line1, label: "Floor/Apt (optional)"  -%>
-      <%= builder.input :address_line2, label: "Street address", required: true   -%>
-  
-      <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6">
-          <%= builder.input :city, required: true, label: "Town", placeholder: "Yaba"  -%>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
-          <%= builder.input :state, required: true, :collection => ['Abia','Abuja (FCT)','Adamawa','Anambra','Akwa Ibom','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Enugu','Edo','Ekiti','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'] -%>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <%= location.input :city,  label: "Town", placeholder: "Yaba"  -%>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <%= location.input :state,  :collection => ['Abia','Abuja (FCT)','Adamawa','Anambra','Akwa Ibom','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Enugu','Edo','Ekiti','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'] -%>
+          </div>
         </div>
       </div>
       

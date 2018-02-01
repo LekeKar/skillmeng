@@ -2,40 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#add_course_org {
-	height: 420px; 
-	line-height: 420px; 
+.add_org {
 	vertical-align: middle; 
-	padding: 50px;
-	h1{
-		-o-transition:.5s;
-	  -ms-transition:.5s;
-	  -moz-transition:.5s;
-	  -webkit-transition:.5s;
-	  /* ...and now for the proper property */
-	  transition:.5s;
-	}
-	h1:hover{
-		color: #e27937;
-	}
+	padding: 20px;
 }
 
-#add_tutor_org{
-	height: 280px; 
-	line-height: 280px; 
-	vertical-align: middle; 
-	padding: 50px;
-	h1{
+.add_org_effect{
 		-o-transition:.5s;
 	  -ms-transition:.5s;
 	  -moz-transition:.5s;
 	  -webkit-transition:.5s;
 	  /* ...and now for the proper property */
 	  transition:.5s;
-	}
-	h1:hover{
-		color: #e27937;
-	}
+}
+.add_org_effect:hover{
+	color: #e27937;
 }
 
 @media (min-width: 750px) {
@@ -62,8 +43,8 @@
 	  }
   }
   
-  #organizer_about_pc{
-  	display: none;
+  #org_info{
+  	text-align: center;
   }
 	
 }

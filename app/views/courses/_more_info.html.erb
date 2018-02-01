@@ -280,11 +280,6 @@
                 Tell people what they need to bring <br>
                 <%= link_to 'Add item', edit_course_about_path(@course, @about), style:"color: #d6d5d3" %> 
               </div>
-            <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-              <div class="text-left">
-                Tell people what they need to bring <br>
-                <%= link_to 'Add item', new_course_about_path(@course), style:"color: #d6d5d3" %> 
-              </div>
             <% end %>
             
           </div>
@@ -356,7 +351,9 @@
         <% end -%>
         
         <!--send in app message-->
-        <% if current_user %>          
+        <% if current_user && current_user.id == @course.user_id%>          
+    
+        <% elsif current_user -%>
           <%= form_tag conversations_path, method: :post do %>
             <%= hidden_field_tag :sender, @course.user_id %>
             <%= hidden_field_tag :subject,  "[Message] #{@course.title} by #{current_user.fname.try(:titleize)} #{current_user.lname.try(:titleize)}".html_safe %>
@@ -388,8 +385,8 @@
               <div class="col-xs-12 col-sm-6 col-md-6">
                 <div id="payment_warning" class="text-center" style="background-color: #e27937; color: #FFFFFF; padding: 30px;">
                   <h4>
-                    <strong>Hollup!</strong> <br>
-                    Before you pay for <%= @course.title %>, make sure you have done your due diligence. Skillmeng&trade;  will not accept any responisblities beyond this point. In short... pay at your own risk!
+                    <strong>Hollup!</strong>
+                    <div style="text-align: justify; margin-top: 10px;" >Before you pay for <%= @course.title %>, make sure you have done your due diligence. Skillmeng&trade;  will not accept any responisblities beyond this point. In short... pay at your own risk!</div>
                     <br><button class="btn btn-default btn-sm" id="payment_warning_accept" type="submit" style="margin-top: 10px; border: none; color: #e27937;">I accept</button>
                   </h4>
                 </div>
@@ -399,13 +396,13 @@
                   <strong>Account Name:</strong> <%= @course_payment.bank_account_name %><br>
                   <strong>Payment Instructions:</strong>
                   <% if @course_payment.payment_instruction.present? %>
-                    <br><%= @course_payment.payment_instruction %>
+                    <br> <div style="text-align: justify;"><%= @course_payment.payment_instruction %></div>
                   <% else %>
                     <span class="text-center" style="color: grey;">No payment instructions provided</span>
                   <% end %><br>
                   <strong>Refund Instructions:</strong>
                   <% if @course_payment.refund_instruction.present? %>
-                    <br><%= @course_payment.refund_instruction %>
+                    <br><div style="text-align: justify;"><%= @course_payment.refund_instruction %></div>
                   <% else %>
                     <span class="text-center" style="color: grey;">No refund instructions provided</span>
                   <% end %>

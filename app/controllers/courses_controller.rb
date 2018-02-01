@@ -3,8 +3,8 @@ class CoursesController < ApplicationController
   before_action :set_info, except: [:autocomplete, :course_wizard, :destroy, :update, :edit, :index, :search, :new, :create, :toggle_broadcast, :toggle_subscription]
   before_action :authenticate_user!, except: [:autocomplete, :course_wizard, :index, :search, :show, :rating, :contact_info, :gallery, :payment] 
   before_action :user_auth, only: [:edit, :update, :course_wizard, :destroy, :course_manager, :location_accuracy, :requests]  
-  before_action :activated_check, only: [:show]   
-  before_action :collections, only: [:new, :edit]  
+  before_action :activated_check, only: [:show]
+  before_action :check_wizard, only: [:new]
   before_action :min_price, only: [:show, :gallery, :rating]  
   before_action :class_limits, only: [:new, :create]
   before_action :course_completeness, only: [:course_manager, :show]
@@ -249,6 +249,7 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
+     
   end
 
   # POST /courses
@@ -259,7 +260,7 @@ class CoursesController < ApplicationController
     @course.user_id = current_user.id
     
     # makes organizers first course primary
-  	if @user_organizer.courses.count < 2
+  	if @user_organizer.courses.count < 1
   	  @course.primary = true
   	end 
     @course.save
@@ -331,11 +332,7 @@ class CoursesController < ApplicationController
       @user_fav = FavoriteCourse.find(params[:favorite_course_id])
       @course = Course.friendly.find(@user_fav.course_id)
     end
-    
-    def collections
-      @categories = [ "sport/fitness", "photography/film", "food/drink","fashion/style", "hair/beauty", "languages", "music", "art/crafts", "design", "technology", "professional", "lifestyle", "religion", "just for fun" ]
-      @who_can_attend = [ 'everyone','adults (18+)','children only','men only','women only','couples only' ]
-    end
+  
     
     def course_completeness
       # Basic Details
@@ -460,5 +457,12 @@ class CoursesController < ApplicationController
     def take_impression
       impressionist(@course,"impressions taken", unique: [:impressionable_id, :ip_address])
     end 
-
+    
+    def check_wizard
+      if session[:setup_wizard]
+         @course = current_user.courses.last
+        redirect_to edit_course_path(@course), notice: "You were creating #{@course.title}. let's finish up."
+      end
+    end 
+  
 end

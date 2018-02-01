@@ -6,6 +6,7 @@ class CoursePayment < ActiveRecord::Base
   validates :bank_name, :presence => {:message => 'Payment info requires bank name'}
   validates :bank_account_name, :presence => {:message => 'Payment info requires account name'}
   validates :bank_account_number, :presence => {:message => 'Payment info requires account number'}
+  validates :bank_account_number, format: { with: /\A\d+\z/, message: "Integer only. No signs allowed." }
   validate  :require_price_plans
 
   private

@@ -78,7 +78,7 @@
               </a>
             <% end %>
           <% end %>
-          <%= announcement.body %><br>
+          <div class="mobile_justify"><%= announcement.body %></div><br>
           <font style="color: #777777">
             <% if announcement.sender_type == "course" %>
               <%= link_to @course do %>

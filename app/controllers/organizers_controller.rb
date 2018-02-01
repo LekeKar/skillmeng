@@ -18,7 +18,7 @@ class OrganizersController < ApplicationController
       if @organizer.save
         create_paystack_profile
         create_credit_bal
-  	 	  format.html { redirect_to session.delete(:return_to), notice: "#{@organizer.name} account was successfully created." }
+  	 	  format.html { redirect_to @organizer, notice: "#{@organizer.name} account was successfully created." }
         format.json { render :show, status: :created, location: @organizer}
       else
         @organizer.build_location
@@ -48,11 +48,6 @@ class OrganizersController < ApplicationController
     
     if current_user && current_user == @user_organizer.user
       @tutors = @organizer.tutors
-      if @organizer.about
-        @meta_description = @organizer.about
-      else
-        @meta_description = "organizer profile page for #{@organizer.name}"
-      end
       @courses = Course.where(:organizer_id => @organizer.id).order(featured: :desc, completeness: :desc)
       
       #Required for addon form
@@ -72,14 +67,13 @@ class OrganizersController < ApplicationController
   end
 
   def edit
-    session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
 
   def update
-  	 respond_to do |format|
+  	respond_to do |format|
       if @organizer.update(organizer_params)
         update_paystack_profile
-        format.html { redirect_to (session.delete(:return_to) || @organizer), notice: "#{@organizer.name} account was successfully updated." }
+        format.html { redirect_to (@organizer), notice: "#{@organizer.name} account was successfully updated." }
         format.json { render :show, status: :ok, location: @organizer }
       else
         format.html { render :edit }
@@ -99,10 +93,10 @@ class OrganizersController < ApplicationController
 
   private 
   	def set_organizer
-  	  if params[:organizer_id]
-  	  	@organizer = Organizer.friendly.find(params[:organizer_id])
+  	  if params[:id]
+  	    @organizer = Organizer.friendly.find(params[:id])	
   		else
-  		  @organizer = Organizer.friendly.find(params[:id])
+  		  @organizer = Organizer.friendly.find(params[:organizer_id])
   	  end
   	end 
 
@@ -130,7 +124,7 @@ class OrganizersController < ApplicationController
     end 
     
     def create_credit_bal
-      OrganizerCreditBal.create!(:regular  => 0, :bonus => 50, :organizer_id => @organizer.id ) 
+      OrganizerCreditBal.create!(:email_regular  => 0, :email_bonus => 50, :organizer_id => @organizer.id ) 
     end 
     
     def update_paystack_profile

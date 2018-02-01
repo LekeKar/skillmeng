@@ -24,6 +24,9 @@ class TutorsController < ApplicationController
 
   # GET /tutors/1/edit
   def edit
+    if !@tutor.social_link
+      @tutor.build_social_link
+    end
     @form_selected_courses = @tutor.taught_courses
     session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
@@ -36,14 +39,17 @@ class TutorsController < ApplicationController
     
     respond_to do |format|
       if @tutor.save
-           
-        selected_courses = params[:tutor][:tutored_courses]
-        selected_courses_c = selected_courses.compact
-      
-        for selected_course in selected_courses_c
-          course = Course.find(selected_course) 
-          @tutor.taught_courses << course
+        
+        if params[:tutor][:tutored_courses]   
+          selected_courses = params[:tutor][:tutored_courses]
+          selected_courses_c = selected_courses.compact
+        
+          for selected_course in selected_courses_c
+            course = Course.find(selected_course) 
+            @tutor.taught_courses << course
+          end
         end
+        
         
         format.html { redirect_to (session.delete(:return_to) || @user_organizer), notice: 'Course tutor was successfully added.' }
         format.json { render :show, status: :created, location: @tutor }

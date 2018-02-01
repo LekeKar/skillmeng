@@ -14,12 +14,10 @@ class GalleryPicsController < ApplicationController
   # GET /gallery_pics/new
   def new
     @gallery_pic = GalleryPic.new
-    session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
 
   # GET /gallery_pics/1/edit
   def edit
-    session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
 
   # POST /gallery_pics
@@ -30,7 +28,7 @@ class GalleryPicsController < ApplicationController
   
     respond_to do |format|
       if @gallery_pic.save
-        format.html { redirect_to (session.delete(:return_to) || @course), notice: 'Gallery pic was successfully created.' }
+        format.html { redirect_to (@course), notice: 'Gallery pic was successfully created.' }
         format.json { render :show, status: :created, location: @gallery_pic }
       else
         format.html { render :new }
@@ -45,7 +43,7 @@ class GalleryPicsController < ApplicationController
   def update
     respond_to do |format|
       if @gallery_pic.update(gallery_pic_params)
-        format.html { redirect_to (session.delete(:return_to) || @course), notice: 'Gallery pic was successfully updated.' }
+        format.html { redirect_to (@course), notice: 'Gallery pic was successfully updated.' }
         format.json { render @course, status: :ok, location: @gallery_pic }
       else
         format.html { render :edit }

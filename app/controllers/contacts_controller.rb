@@ -25,7 +25,9 @@ class ContactsController < ApplicationController
 
   # GET /contacts/1/edit
   def edit
-    
+    if !@contact.social_link
+      @contact.build_social_link
+    end
   end
 
   # POST /contacts

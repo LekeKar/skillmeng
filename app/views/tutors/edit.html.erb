@@ -9,6 +9,12 @@
 				<div class="panel-body">
 					<%= render 'form' %>
 				</div>
+				<% if @tutor.avatar.present? %>
+					<div class="panel-footer">
+						<small>current picture</small>
+	          <%= image_tag @tutor.avatar.url(:medium), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
+					</div>
+				<% end %>
 			</div>
 		</div>
 	</div>

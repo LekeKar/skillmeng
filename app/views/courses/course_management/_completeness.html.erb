@@ -269,7 +269,7 @@
     </div>
     
     <div class="text-center">
-       	<% unless session[:setup_wizard] || total_percent.round > 75 %>
+       	<% unless total_percent.round > 75 %>
     		  <%= link_to course_course_wizard_path(@course, type: "start"), class:'btn btn-sm btn-warning' do %>
     		   use wizard  <i class="fa fa-magic"></i>
     		  <% end %>

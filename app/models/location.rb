@@ -14,7 +14,7 @@ class Location < ActiveRecord::Base
 	geocoded_by :full_street_address  
 	after_validation :geocode, if: ->(obj){ obj.address_line2.present? and obj.address_line2_changed? }
 	before_validation :geocode, :on => :update
-
+	
 	validates :address_line2, :presence => {:message => 'Location must have street address'}
 	validates :city, :presence => {:message => 'Location must have city'}
 	validates :state, :presence => {:message => 'Location must have state'}

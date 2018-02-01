@@ -6,5 +6,7 @@ class OrganizerOrder < ActiveRecord::Base
   accepts_nested_attributes_for :course_promotions, reject_if: :all_blank, allow_destroy: true
   
   belongs_to :organizer
+  
+  validates :course_promotions, :uniqueness => {:scope => :course_id, :message => "Cant't promote same course twice"}
 
 end

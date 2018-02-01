@@ -86,7 +86,7 @@
                         </a>
                       <% end %>
                     <% end %>
-                    <%= announcement.body %><br>
+                    <div class="mobile_justify"><%= announcement.body %></div><br>
                     <br></br>
                     <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
                       <div class="collapse" id="broadcast_<%= announcement.id%>">

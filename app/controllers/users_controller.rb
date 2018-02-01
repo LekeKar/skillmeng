@@ -27,13 +27,9 @@ class UsersController < ApplicationController
 	
 	def barter
 		@meta_description = "Learn a skill by offerning to teach another. Check status and respond to your barter request & offers here. "
-	  #for Other barter
-	  case params[:type]
-	  when "received"
-	  	@barter_requests = CourseRequest.where(:reciever_id => current_user.id).order( 'created_at DESC' ).paginate(:page => params[:page], :per_page => 12)
-		else 
-			@barter_requests = CourseRequest.where(:user_id => current_user.id).order( 'created_at DESC' ).paginate(:page => params[:page], :per_page => 12)
-	  end
+  	@barter_rec = CourseRequest.where(:reciever_id => current_user.id).order( 'created_at DESC' ).paginate(:page => params[:page], :per_page => 12)
+		@barter_sen = CourseRequest.where(:user_id => current_user.id).order( 'created_at DESC' ).paginate(:page => params[:page], :per_page => 12)
+
 	end
 	
 	def saved_courses

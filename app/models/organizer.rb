@@ -10,10 +10,16 @@ class Organizer < ActiveRecord::Base
   
   # Credit orders
   	has_many :credit_orders, through: :organizer_orders, source: :organizer_credit_order
+  # payment info
+  	has_many :course_payments, through: :courses
+  	
   
   
   extend FriendlyId
   friendly_id :name, use: :slugged
+	def should_generate_new_friendly_id?
+	  slug.blank? || name_changed?
+	end
   
   has_attached_file :logo, styles: { medium: "300x300#", large: "1200x630#" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\z/
@@ -24,6 +30,13 @@ class Organizer < ActiveRecord::Base
   validates_length_of :name, :maximum => 25
   validates :name, :uniqueness => {:message => "Organizer name aready exists"}
   validates :name, :presence => {:message => 'name must be present'}
-  validates :phone,   :numericality => true, :length => { :minimum => 10, :maximum => 15 }
+  validates :phone, :numericality => true, :length => { :minimum => 10, :maximum => 15 }
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :message => "doesn't look like a valid email"
+  validate :check_for_address
+
+ private
+ def check_for_address
+  return errors.add :base, "Organizer must have a location" unless self.location
+ end
+    
 end

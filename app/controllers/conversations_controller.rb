@@ -43,6 +43,7 @@ class ConversationsController < ApplicationController
 
 	def delete_from_trash
 	 current_user.mark_as_deleted @conversation
+	 flash[:notice] = "Message has been deleted permanently!"
 	 redirect_to :back
 	end
 

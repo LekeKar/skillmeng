@@ -2,8 +2,8 @@
   
     <div class="row">
       <div class="col-md-6">
-        <h3>Purchase email credit</h3>
-        <div  >
+        <h3 class="mobile_centralize">Purchase email credit</h3>
+        <div style="text-align: justify;" >
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim modi nostrum, possimus perferendis sit aut. Sed esse, earum magnam neque eius ducimus, voluptatibus nesciunt inventore consequatur laudantium repellendus itaque velit.
           <br>
           <strong>current bal:</strong> <%= @organizer.organizer_credit_bal.email_bonus %> Bonus | <%= @organizer.organizer_credit_bal.email_regular %> Regular
@@ -28,8 +28,8 @@
     </div>
     <div class="row"> 
       <div class="col-md-6">
-        <h3>Promote course</h3>
-        <div >
+        <h3 class="mobile_centralize">Promote course</h3>
+        <div style="text-align: justify;">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet perspiciatis quo, molestiae beatae adipisci quae asperiores ratione quasi quia recusandae, nemo illo cumque velit perferendis, suscipit consequuntur. Non, quos, consequatur!
           <br>
         </div>
@@ -40,7 +40,7 @@
             <%= render 'course_promotion_fields', f: course_promotion %>
           <% end %>
         
-          <div class="links text-left">
+          <div class="links mobile_centralize">
             <%= link_to_add_association f, :course_promotions, class:"add_course_promotion btn btn-default" do %>
                <i class="fa fa-plus"></i> course
             <% end %>
@@ -50,7 +50,7 @@
     </div>
     
       <hr style="margin-top: 20px; margin-bottom: 20px; ">
-      <div class="form-actions text-left">
+      <div class="form-actions text-left mobile_centralize">
         <%= f.button :submit, "Place Order", class:'btn btn-warning'  %>
         <% if current_page?(@user_organizer)  %>
           <a type="button" data-dismiss="modal" class='btn btn-danger'>close</a>
