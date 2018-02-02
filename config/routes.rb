@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :organizers, except: [:index] do 
     resources :organizer_orders
     resources :tutors, except: [:show, :index]
+    get 'purchases'
   end 
   
   resources :announcements, except: [:show, :index]

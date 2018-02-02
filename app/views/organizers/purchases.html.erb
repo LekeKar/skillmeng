@@ -1,0 +1,118 @@
+<% title "Purchases for #{@organizer.name}" %>
+
+	
+
+<div class="container-fluid">
+	<div class="row">
+		<div class=" col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
+			<div class="profile_body" style="margin-bottom: 50px;">
+				<div class="container-fluid title_header text-center">
+			    <div class="title_text" >
+			      Purchases
+			    </div>
+				</div>
+				<div class="container-fluid profile_content" style="background-color: #FFFFFF;">
+					<div class="row">
+					  <table class="table table-striped table-hover" style="margin-top:20px;">
+					      <tr class="text-center">
+					        <td><strong> Date</strong></td>
+  					      <td><strong> Order # </strong></td>
+  					      <td><strong> Total</strong></td>
+  					      <td><strong> Action</strong></td>
+  					    </tr>
+  					  <% for order in @all_orders %>
+  					    <!--assumptions-->
+  					    <% credit_order = order.organizer_credit_order %>
+  					    <% promotions = order.course_promotions %>
+                
+  					    <tr class="text-center">
+  					      <td> <%= order.created_at.strftime("%b %d, %Y") %></td>
+  					      <td> #<%= order.order_number %></td>
+  					      <td> <%= number_with_delimiter(order.total)%></td>
+  					      <td>  
+  					        <a class="btn btn-warning btn-xs" type="button" data-toggle="modal" data-target=".order_<%= order.id %>">
+  					         view
+  					        </a>
+  					     </td>
+  					    </tr>
+  					     
+  					    <!--modal for purchase-->
+  					    <div class="modal fade order_<%= order.id %>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                  <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Order #<%= order.order_number %></h4>
+                      </div>
+                      <div class="modal-body">
+                        
+                        <!--credit orders   -->
+                        <% credit_total = 0 %>
+                        <% if credit_order %>
+                          <div class="row">
+                            <div class="col-md-12">
+                        	     <strong> Credit order</strong>
+                        	  </div>
+                        	</div>
+                        	<div class="row">
+                      	     <div class="col-md-8">
+                      	       <%= credit_order.email_quantity %> emails x ₦<%= credit_order.email_price %>
+                      	     </div>
+                      	     <div class="col-md-4">
+                      	       <% credit_total =+ credit_order.email_quantity * credit_order.email_price  %>
+                      	       ₦<%= number_with_delimiter(credit_total) %>
+                      	     </div>
+                        	 </div>
+                        <% end %>
+                          
+                        <!--promotions-->
+                        <% promotion_total = 0 %>
+                        <% unless promotions.empty? %>
+                          <div class="row">
+                            <div class="col-md-12">
+                    	        <strong> Promoted courses</strong>
+                    	      </div>
+                    	    </div>
+                    	    <% for promotion in promotions %>
+                    	      <% course = Course.find(promotion.course_id)%>
+                    	      <div class="row">
+                    	        <div class="col-md-8">
+                  	           <%= course.title %>
+                    	        </div>
+                    	        <div class="col-md-4">
+                    	          ₦<%= promotion.price %>
+                    	        </div>
+                    	      </div>
+                    	      <% promotion_total =+ promotion.price  %>
+                    	    <% end %>
+                    	  <% end %>
+                    	  
+                    	  
+                    	  <hr>
+                    	  <div class="row">
+                    	    <div class="col-md-8">
+                    	      <strong>Total</strong>
+                    	    </div>
+                    	    <div class="col-md-4">
+                    	      <strong>₦<%= number_with_delimiter(credit_total + promotion_total) %></strong>
+                    	    </div>
+                    	  </div>
+                    	  
+                    	  
+                    	  
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  					  <% end %>
+  					  
+  					  
+					  </table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		

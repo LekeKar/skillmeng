@@ -1,7 +1,7 @@
 class OrganizersController < ApplicationController
-  before_action :set_organizer, only: [:show, :edit, :update, :destroy, :course_manager]
+  before_action :set_organizer, only: [:show, :edit, :update, :destroy, :purchases]
   before_action :authenticate_user!, except: [:show]
-  before_action :user_auth, only: [:edit, :update, :destroy, :course_manager]  
+  before_action :user_auth, only: [:edit, :update, :destroy, :purchases]  
   
   require 'paystack/objects/subaccounts.rb'
   require 'paystack.rb'
@@ -60,11 +60,13 @@ class OrganizersController < ApplicationController
       end 
       
     else
-      @courses = Course.active.where(:organizer_id => @organizer.id)
+       @courses = Course.active.where(:organizer_id => @organizer.id)
        @tutors = @organizer.tutors
     end
-    
-   
+  end
+  
+  def purchases
+    @all_orders = @organizer.organizer_orders.successful.order(created_at: :desc)
   end
 
   def edit

@@ -61,14 +61,15 @@
               <h5>No info provided</h5> 
             <% end %>
           <% end %>
-        
-         
-          <% if @course_payment && !@course_payment.course_prices.empty? %>
-            <div class="mobile_centralize">
-              <a href="" data-toggle="modal" data-target=".payment_info_modal", style="background-color: #e58b5a; border: none; width: 90px;", class="btn btn-xs btn-success" >
-                <i class="fa fa-money"></i> Pay
-              </a> 
-            </div>
+          
+          <% unless current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
+            <% if @course_payment && !@course_payment.course_prices.empty? %>
+              <div class="mobile_centralize">
+                <a href="" data-toggle="modal" data-target=".payment_info_modal", style="background-color: #e58b5a; border: none; width: 90px;", class="btn btn-xs btn-success" >
+                  <i class="fa fa-money"></i> Pay
+                </a> 
+              </div>
+            <% end %> 
           <% end %> 
         
         </div>
@@ -186,8 +187,6 @@
         
         <!--More info-->
         <div class="tab-pane fade" id="more_info">
-          
-       
           
           <% unless @about %>
              <h5>No info provided</h5>
