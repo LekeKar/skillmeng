@@ -27,7 +27,8 @@ class TutorsController < ApplicationController
     if !@tutor.social_link
       @tutor.build_social_link
     end
-    @form_selected_courses = @tutor.taught_courses
+    @organizer_courses -= @tutor.taught_courses
+    
     session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
 
@@ -39,19 +40,9 @@ class TutorsController < ApplicationController
     
     respond_to do |format|
       if @tutor.save
-        
-        if params[:tutor][:tutored_courses]   
-          selected_courses = params[:tutor][:tutored_courses]
-          selected_courses_c = selected_courses.compact
-        
-          for selected_course in selected_courses_c
-            course = Course.find(selected_course) 
-            @tutor.taught_courses << course
-          end
-        end
-        
-        
-        format.html { redirect_to (session.delete(:return_to) || @user_organizer), notice: 'Course tutor was successfully added.' }
+        add_tutor
+        remove_tutor
+        format.html { redirect_to (session.delete(:return_to) || @user_organizer), notice: ' #{@tutor.name} was successfully added.' }
         format.json { render :show, status: :created, location: @tutor }
       else
         format.html { render :new }
@@ -65,7 +56,9 @@ class TutorsController < ApplicationController
   def update
     respond_to do |format|
       if @tutor.update(tutor_params)
-        format.html { redirect_to (session.delete(:return_to) || @user_organizer), notice: "Course #{@tutor.name} was successfully updated." }
+        add_tutor
+        remove_tutor
+        format.html { redirect_to (session.delete(:return_to) || @user_organizer), notice: " #{@tutor.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @tutor }
       else
         format.html { render :edit }
@@ -79,7 +72,7 @@ class TutorsController < ApplicationController
   def destroy
     @tutor.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Course tutor was successfully destroyed.' }
+      format.html { redirect_to :back, notice: "#{@tutor.name} was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -112,7 +105,37 @@ class TutorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tutor_params
-      params.require(:tutor).permit(:name, {:tutored_courses => []}, :bio, :job_title, :website, :avatar, qualifications_attributes: [:id, :description, :_destroy], social_link_attributes: [:id, :facebook, :linkedin, :twitter, :googleplus, :pintrest, :instagram, :_destroy])
+      params.require(:tutor).permit(:name, {:tutored_courses => []}, {:untutored_courses => []}, :bio, :job_title, :website, :avatar, qualifications_attributes: [:id, :description, :_destroy], social_link_attributes: [:id, :facebook, :linkedin, :twitter, :googleplus, :pintrest, :instagram, :_destroy])
+    end
+    
+    def add_tutor
+          
+      if params[:tutor][:tutored_courses]   
+        add_courses = params[:tutor][:tutored_courses]
+        add_courses_fin = add_courses.compact
+      
+        for add_course in add_courses_fin
+          course = Course.find(add_course) 
+          @tutor.taught_courses << course
+        end
+      end
+        
+    end
+    
+    def remove_tutor
+          
+      if params[:tutor][:untutored_courses]   
+        remove_courses = params[:tutor][:untutored_courses]
+        remove_courses_fin = remove_courses.compact
+      
+        for remove_course in remove_courses_fin
+          course = Course.find(remove_course) 
+          if @tutor.taught_courses.exists?(course)
+             @tutor.taught_courses.delete(course)
+          end
+        end
+      end
+        
     end
     
     def set_org

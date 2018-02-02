@@ -26,7 +26,10 @@
       	  <table class="table ">
         		<tr>
         			<td><strong>Status</strong></td>
-        			<td class="active"><span style="color: <%= @course.state == "activated" ? "#1aa67a": "#d9534f" %>;"><%= @course.state %></td>
+        			<td class="active">
+        			    <span style="color: <%= @course.course_state == "activated" ? "#1aa67a": "#d9534f" %>;"><%= @course.course_state %>
+        			    <span  data-toggle="tooltip" title="<%= course_state_explaination(@course)%>" style="font-size: 0.70em; color: #777; top: -1px; position: relative;"><i class="fa fa-question-circle"></i></span>
+        			</td>
         			<td><strong>Followers</strong></td>
         			<td class="active"><%= number_to_human(@course.favorited_by.count) %></td>
         		</tr>
@@ -57,19 +60,30 @@
           <% end -%>
         </div>
         <div class="btn-group" role="group">
-          <% if @course.state == "setup"  %>
+          <% if @course.course_state == "setup"  %>
             <%= link_to toggle_activate_course_path(@course), class: "btn btn-warning btn-sm btn-block publish_course btn-manager", data: {confirm: "This action will let everyone else see your course, Are you sure?"} do %>
               <i class="fa fa-check course_publish"></i> Publish
             <% end -%>
+          <% elsif @course.course_state == "suspended"-%>
+            <%= link_to root_path, class:"btn btn-default btn-sm btn-block disabled" do %>
+              <span style="text-decoration: line-through;">Activate</span>
+            <% end -%>
+            
           <% else -%>
-            <%= link_to toggle_activate_course_path(@course), data: {confirm: "This action will #{ @course.state == "activated" ? "disable" : "activate"} this course, do you wish to continue?"}, class:"btn btn-default btn-sm btn-block" do %>
-              <%= @course.state == "activated" ? "Disable" : "Activate" %>
+            <%= link_to toggle_activate_course_path(@course), data: {confirm: "This action will #{ @course.course_state == "activated" ? "disable" : "activate"} this course, do you wish to continue?"}, class:"btn btn-default btn-sm btn-block" do %>
+              <%= @course.course_state == "activated" ? "Disable" : "Activate" %>
             <% end -%>
           <% end -%>
         </div>
         <div class="btn-group" role="group">
-          <%= link_to course_path(@course),method: :delete, data: {confirm: 'This action will delete this course and all its related info, do you wish to continue?'}, class: "btn btn-default btn-sm btn-block" do %>
-           <span style="color: #d9534f;"> <i class="fa fa-trash"></i> Delete</span>
+          <% if @course.course_state == "suspended"-%>
+            <%= link_to root_path, class:"btn btn-default btn-sm btn-block disabled" do %>
+              <span style="text-decoration: line-through; color: #d9534f;">Delete</span>
+            <% end -%>
+          <% else -%>
+            <%= link_to course_path(@course),method: :delete, data: {confirm: 'This action will delete this course and all its related info, do you wish to continue?'}, class: "btn btn-default btn-sm btn-block" do %>
+             <span style="color: #d9534f;"> <i class="fa fa-trash"></i> Delete</span>
+            <% end -%>
           <% end -%>
         </div>
       </div>

@@ -16,7 +16,7 @@
               Edit Main
             <% end -%>
           </div>
-          <% if @course.state == "setup"  %>
+          <% if @course.course_state == "setup"  %>
             <div class="btn-group" role="group">
               <%= link_to toggle_activate_course_path(@course), class: "btn btn-warning btn-lg publish_course btn-manager", data: {confirm: "This action will let everyone else see your course, Are you sure?"} do %>
                 <i class="fa fa-check course_publish"></i> Publish
@@ -89,7 +89,7 @@
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <% unless @course.state != "activated" %>
+        <% unless @course.course_state != "activated" %>
           <div class="share_link">
             <h4>share course</h4>
             <%= social_share_button_tag(@course.title, :url => "http://skllming-leke.c9users.io/courses/#{@course.slug}") %> <br>

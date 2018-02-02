@@ -1,7 +1,7 @@
 <%= simple_form_for([@course, @course_payment]) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
+  <div class="form-inputs bank_details">
     <h4 id="payment_form_title">Fees <i class="fa fa-question-circle" data-toggle="tooltip" title="These are all the price schemes that would be available for this course"></i></h4>
       <div class="well">
         <div id="course_prices">
@@ -20,25 +20,67 @@
       </div>
       
     <h4 id="payment_form_title">Bank info</h4>
+      <div style=" margin-bottom: 20px;">
+        <% if @available_accounts %>
+          <a  data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: #999999;">
+            use previous bank info
+          </a>
+          <div class="collapse" id="collapseExample">
+            <table class="table table-hover vertical-alilgn ">
+              <% for account in  @available_accounts%>
+                <tr>
+                  <td> 
+                    <div id="bank_name_suggestion"  style="display: inline">
+                      <%= account.bank_name %>
+                    </div>
+                    </font>|
+                    <div id="account_number_suggestion" style="display: inline">
+                      <%= account.bank_account_number %> 
+                    </div>
+                    <div id="account_name_suggestion" style="display: none">
+                      <%= account.bank_account_name %> 
+                    </div>
+                    <div id="refund_instruction_suggestion" style="display: none">
+                      <%= account.refund_instruction %> 
+                    </div>
+                     <div id="payment_instruction_suggestion" style="display: none">
+                      <%= account.payment_instruction %> 
+                    </div>
+                  </td>
+                  <td >
+                    <button type="button" class="fill_bank_details btn btn-warning btn-xs vert-aligned">
+                      use
+                    </button>
+                  </td>
+                </tr> 
+              <% end %>
+            </table>
+          </div>
+        <% end %>
+      </div>
+  
+    <div class="bank_name_ans">
+      <%= f.input :bank_name, label: "Bank Name", :collection => @bank_name %> 
+    </div>
     
-    <% @prev_payments.count %>
-    <%= f.input :bank_name, label: "Bank Name", :collection => @bank_name %> 
-
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 account_name_ans">
         <%= f.input :bank_account_name, label: "Account name ", hint: "as shown on account statement"  %>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 account_number_ans">
          <%= f.input :bank_account_number, label: "Account number"  %>
       </div>
     </div>
     <%= f.hidden_field :paystack_id %>
     <%= f.hidden_field :paystack_plan %>
     
-    <%= f.input :payment_instruction, label: "Payment Instructions (300 char max)",  :input_html => {:rows => 5, :id => "text"}, maxlength: "300" %>
+    <div class="payment_instruction_ans">
+      <%= f.input :payment_instruction, label: "Payment Instructions (300 char max)",  :input_html => {:rows => 5, :id => "text"}, maxlength: "300" %>
+    </div>
     <h6 class="text-right" id="count_message" style="color: grey"></h6>
-    
-    <%= f.input :refund_instruction, label: "Refund Instructions (300 char max)",  :input_html => {:rows => 5, :id => "text2"}, maxlength: "300" %>
+    <div class="refund_instruction_ans">
+      <%= f.input :refund_instruction, label: "Refund Instructions (300 char max)",  :input_html => {:rows => 5, :id => "text2"}, maxlength: "300" %>
+    </div>
     <h6 class="text-right" id="count_message2" style="color: grey"></h6>
     <hr>
     <h4 id="payment_form_title">Trade-by-Barter</h4>

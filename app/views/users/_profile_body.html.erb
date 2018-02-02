@@ -56,16 +56,21 @@
           <% end %>
         </div>
       </div>
-       <div class="tab-pane fade" id="info" style="margin-top: 15px; min-height: 350px;">
-        <div class="row">
-          <h4>
-            <%= current_user.fname %> 
-            <%= current_user.lname %> <br>
-            <%= current_user.email %> <br>
-            tel: <%= current_user.tel.present? ? number_to_phone(current_user.tel) : "No Number Provided"  %> 
-          </h4>
-          <div class="btn-group" role="group" aria-label="...">
-            <%= link_to "edit info", edit_user_registration_path, style:"background-color: #e58b5a; border: none; color:#FFFFFF;", class:"btn btn-xs btn-default" %>
+      <div class="tab-pane fade" id="info" >
+        <div class="container-fluid" >
+        	<div class="row" style="margin-bottom: 30px; margin-top: 25px;">
+        		<div class="col-md-4" style="margin-bottom: 30px;">
+        			<%= image_tag current_user.avatar.url(:avatar), class:"img-rounded img-responsive text-center", style:"margin: 0 auto; width: 200px; "%>
+        		</div>
+        		<div class="col-md-8 text-left" id="org_info">
+  
+        		  <%= link_to edit_user_registration_path(current_user), style:"background-color: #7193bf; border: none; width: 70px;", class:"btn btn-xs btn-success" do %>
+				        edit info
+				      <% end -%> <br>
+				        name: <%= current_user.fname %> <%= current_user.lname %> <br>
+				        tel: <%= current_user.tel.present? ? number_to_phone(current_user.tel) : "No Number Provided"  %> 
+                email: <%= current_user.email %> <br>
+          	</div>
           </div>
         </div>
       </div>

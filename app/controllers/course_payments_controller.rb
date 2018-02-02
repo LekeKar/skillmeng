@@ -137,7 +137,7 @@ class CoursePaymentsController < ApplicationController
       @course = Course.friendly.find(params[:course_id])
       @contact = @course.contact
       @course_day = @course.course_days.last
-      @prev_payments = @user_organizer.course_payments.select(:bank_account_number).distinct
+      @available_accounts = @user_organizer.course_payments.select('distinct on (bank_account_number) *')
     end
 
 

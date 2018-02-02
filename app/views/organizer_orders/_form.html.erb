@@ -1,4 +1,5 @@
   <%= simple_form_for([@organizer, @order]) do |f| %>
+    <%= f.error_notification %>
   
     <div class="row">
       <div class="col-md-6">
@@ -33,8 +34,10 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet perspiciatis quo, molestiae beatae adipisci quae asperiores ratione quasi quia recusandae, nemo illo cumque velit perferendis, suscipit consequuntur. Non, quos, consequatur!
           <br>
         </div>
+        <%= f.error :base %>
       </div>
       <div class="col-md-6" id="order_explaination">
+        
         <div id="course_promotions">
           <%= f.simple_fields_for :course_promotions do |course_promotion| %>
             <%= render 'course_promotion_fields', f: course_promotion %>

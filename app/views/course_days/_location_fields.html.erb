@@ -1,6 +1,6 @@
 <div class="nested-fields well locations">
   <div class="row" style="margin: 0px 0px 15px 0px;">
-    <% if @course.locations.count > 0 %>
+    <% if @prev_locations %>
       <a href="javascript:;" id="collapse_link" style="color: #999999;" aria-expanded="false" aria-controls="collapseExample">
         use previous address
       </a>
@@ -20,7 +20,7 @@
                   <%= location.city %>
                 </div>,
                 <div id="state_suggestion" style="display: inline">
-                <%= location.state.titleize %>
+                  <%= location.state %>
                 </div>
               </td>
               <td >

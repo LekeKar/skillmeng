@@ -1,4 +1,5 @@
 class OrganizerOrder < ActiveRecord::Base
+  
   has_one :organizer_credit_order, dependent: :destroy
   accepts_nested_attributes_for :organizer_credit_order, reject_if: :all_blank, allow_destroy: true
   
@@ -7,6 +8,4 @@ class OrganizerOrder < ActiveRecord::Base
   
   belongs_to :organizer
   
-  validates :course_promotions, :uniqueness => {:scope => :course_id, :message => "Cant't promote same course twice"}
-
 end

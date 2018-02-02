@@ -89,7 +89,7 @@
                   <br> - None
                 <% else %>
                   <% for course in tutor.taught_courses do %>
-                    <% if course.state == "activated" %>
+                    <% if course.course_state == "activated" %>
                       <br> - 
                       <%= link_to course do %>
                         <span style="font-weight: normal" class="dont-break-out"> <%= course.title %>  </span>

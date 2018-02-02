@@ -23,6 +23,7 @@ class OrganizerOrdersController < ApplicationController
     unless @order.total < 100
       post_order_process
     end 
+    
     if @order.organizer_credit_order
       @email_quantity = @order.organizer_credit_order.email_quantity
       @email_price = @order.organizer_credit_order.email_price

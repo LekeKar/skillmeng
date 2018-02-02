@@ -46,7 +46,7 @@ class OrganizersController < ApplicationController
       description: @meta_description
     }
     
-    if current_user && current_user == @user_organizer.user
+    if @user_organizer
       @tutors = @organizer.tutors
       @courses = Course.where(:organizer_id => @organizer.id).order(featured: :desc, completeness: :desc)
       
@@ -61,6 +61,7 @@ class OrganizersController < ApplicationController
       
     else
       @courses = Course.active.where(:organizer_id => @organizer.id)
+       @tutors = @organizer.tutors
     end
     
    

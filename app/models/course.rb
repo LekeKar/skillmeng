@@ -45,7 +45,7 @@ class Course < ActiveRecord::Base
 	scope :andys_pick, -> { where(andys_pick: true)}
 	scope :featured, -> { where(featured: true)}
 	scope :child_friendly, -> { where(child_friendly: true)}
-	scope :active, -> { where(state: "activated")}
+	scope :active, -> { where(course_state: "activated")}
 	
 	searchkick  suggest: [:title], word_start: [:title, :tutor, :tag_list]
 	
@@ -58,7 +58,7 @@ class Course < ActiveRecord::Base
       tutor: tutor,
       locality: locality,
       local_area: local_area,
-      state: state
+      course_state: course_state
     }
 	end
 	

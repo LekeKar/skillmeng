@@ -85,7 +85,7 @@ class CourseDaysController < ApplicationController
       end
       def set_form_info
         @states = ['Abia','Abuja (FCT)','Adamawa','Anambra','Akwa Ibom','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Enugu','Edo','Ekiti','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara']
-        @prev_locations = @course.locations.select('distinct on (address_line2) *')
+        @prev_locations = @user_organizer.course_locations.select('distinct on (address_line2) *')
       end 
       # Never trust parameters from the scary internet, only allow the white list through.
       def course_day_params

@@ -28,7 +28,7 @@
     
       <%= link_to course do %>
         <div class="panel-body" style="background: url('<%= course.display_pic.url(:medium) %>'); height: 200px; background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; " >
-          <% if course.state != "activated" %>
+          <% if course.course_state != "activated" %>
             <div id="not_available">
               not available
             </div>

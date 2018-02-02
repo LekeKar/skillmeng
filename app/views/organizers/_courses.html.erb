@@ -43,11 +43,11 @@
       	
       	<div class="course_state text-center">
       		<h4>
-      			<%= link_to toggle_activate_course_path(course), data: {confirm: "This action will #{ course.state == "activated" ? "disable" : "activate"} this course, do you wish to continue?"} do %>
-      				<span style="color: <%= course.state == "activated" ? "#1aa67a": "#d9534f" %>;">
-      					<%= course.state %>
-	      			</span>
-	      		<% end %>
+	  				<span style="color: <%= course.course_state == "activated" ? "#1aa67a": "#d9534f" %>;">
+	  					<%= course.course_state %>
+	    			</span>
+	      		<span  data-toggle="tooltip" title="<%= course_state_explaination(course)%>" style="font-size: 0.70em; color: #777; top: -1px; position: relative;"><i class="fa fa-question-circle"></i></span>
+	      	
       			
       		</h4>
       	</div>

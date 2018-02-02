@@ -4,6 +4,7 @@ class CoursesController < ApplicationController
   before_action :authenticate_user!, except: [:autocomplete, :course_wizard, :index, :search, :show, :rating, :contact_info, :gallery, :payment] 
   before_action :user_auth, only: [:edit, :update, :course_wizard, :destroy, :course_manager, :location_accuracy, :requests]  
   before_action :activated_check, only: [:show]
+  before_action :suspended_check, only: [:destroy]
   before_action :check_wizard, only: [:new]
   before_action :min_price, only: [:show, :gallery, :rating]  
   before_action :class_limits, only: [:new, :create]
@@ -42,11 +43,11 @@ class CoursesController < ApplicationController
     @meta_description = "Browse courses on skillmeng, pick one and begin building your future one."
    
     if params[:search].present?
-      @courses = Course.search(params[:search], where:{state: "activated"}, boost_where: {featured: true}, suggest: true, misspellings: {below: 5}, page: params[:page], per_page: 10)
+      @courses = Course.search(params[:search], where:{course_state: "activated"}, boost_where: {featured: true}, suggest: true, misspellings: {below: 5}, page: params[:page], per_page: 10)
       search_phrase = params[:search].downcase
       SearchTerm.create!(term: search_phrase, course_count: @courses.count)
     else
-      @courses = Course.order(featured: :desc, where:{state: "activated"}, completeness: :desc).page(params[:page]).per_page(9)
+      @courses = Course.order(featured: :desc, where:{course_state: "activated"}, completeness: :desc).page(params[:page]).per_page(9)
     end 
     
     respond_to do |format|
@@ -61,7 +62,7 @@ class CoursesController < ApplicationController
     render json: Course.active.search(params[:query], {
       fields: ["tag_list","title^5","tutor"],
       match: :word_start,
-      where:{state: "activated"},
+      where:{course_state: "activated"},
       boost_where: {featured: true},
       limit: 10,
       load: false,
@@ -111,7 +112,7 @@ class CoursesController < ApplicationController
   
     combo = []
     for tag in @course.tag_list
-      search = Course.search(tag, where:{state: "activated"})
+      search = Course.search(tag, where:{course_state: "activated"})
       combo += search.results
     end
     combo.delete @course
@@ -139,18 +140,17 @@ class CoursesController < ApplicationController
 
   def toggle_activate
     
-    case @course.state
+    case @course.course_state
       when "activated" 
-        @course.state = "disabled"
-        @course.save
+        @course.update_attribute(:course_state, "disabled")
         redirect_to :back, alert: "#{@course.title} has been disabled"
       when "disabled"
-        @course.state = "activated"
-        @course.save
+        @course.update_attribute(:course_state, "activated")
         redirect_to :back, notice: "#{@course.title} has been activated"
+      when "suspended"
+        redirect_to :back, notice: "#{@course.title} has been suspended by admin. Please contact us at info@skillmeng.com"
       when "setup"
-        @course.state = "activated"
-        @course.save
+        @course.update_attribute(:course_state, "activated")
         redirect_to :back, notice: "#{@course.title} has been published"
     end 
   
@@ -365,7 +365,17 @@ class CoursesController < ApplicationController
       
       # Gallery
       @gallery_score = 0
-      @gallery_pics.count > 2 ? @gallery_score += 10 : @gallery_score += 0
+      case @gallery_pics.count
+        when 0
+          @gallery_score += 0
+        when 1
+          @gallery_score += 3
+        when 2
+          @gallery_score += 7
+        else
+          @gallery_score += 10
+      end 
+      
       
       # Tutor
       @tutor_score = 0
@@ -424,7 +434,7 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:title, :local_area, :tutor, :saed, :schedule_style, :organizer_id, :category, :user_id, :display_pic, :tag_list, :state, :locality, :attended_by, :online)
+      params.require(:course).permit(:title, :local_area, :tutor, :saed, :schedule_style, :organizer_id, :category, :user_id, :display_pic, :tag_list, :course_state, :locality, :attended_by, :online)
     end
 
     def user_auth        
@@ -449,10 +459,16 @@ class CoursesController < ApplicationController
     end 
 
     def activated_check
-      if @course.state != "activated" && current_user != @course.user  
+      if @course.course_state != "activated" && current_user != @course.user  
         redirect_to :back, alert: 'Oga, this course is not available'   
       end    
     end   
+    
+    def suspended_check
+      if @course.course_state == "suspended"
+        redirect_to :back, alert: 'Oga, this course is under admin investigation.' 
+      end
+    end
     
     def take_impression
       impressionist(@course,"impressions taken", unique: [:impressionable_id, :ip_address])

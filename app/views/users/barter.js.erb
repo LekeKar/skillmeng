@@ -1,0 +1,13 @@
+$('#barter_req').append('<%= j render @barter_rec %>');
+<% if @barter_rec.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @barter_rec %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>
+
+$('#barter_sen').append('<%= j render @barter_senbarter_rec %>');
+<% if @barter_senbarter_rec.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @barter_senbarter_rec %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>

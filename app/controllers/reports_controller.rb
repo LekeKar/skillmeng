@@ -21,6 +21,7 @@ class ReportsController < ApplicationController
       
       if @course.reports % 5 == 0
 		    AnnouncementMailer.course_report(@course).deliver_now
+		    @course.update_atribute(:state, "suspended")
       end 
       
 

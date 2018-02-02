@@ -2,7 +2,9 @@
   <div class="row" style="margin-bottom: 10px;" <% params[:visitor] == "visitor" ? "red":"blue" %>> 
     
     <h4>
-      <strong>Status:</strong> <span style="color: <%= @course.state == "activated" ? "#1aa67a": "#d9534f" %>;"><%= @course.state %> </span> <br>
+      <strong>Status:</strong> <span style="color: <%= @course.course_state == "activated" ? "#1aa67a": "#d9534f" %>;"><%= @course.course_state %> </span>
+      <span  data-toggle="tooltip" title="<%= course_state_explaination(@course)%>" style="font-size: 0.70em; color: #777; top: -1px; position: relative;"><i class="fa fa-question-circle"></i></span>
+      <br>
       <small>
         <% if params[:visitor] == "visitor" %>
           <%= link_to @course do %>
@@ -15,7 +17,7 @@
         <%end%>
       </small>
        <!--relaunch wizard-->
-      <% unless  @course.state != "setup" || @course.completeness >= 75 %>
+      <% unless  @course.course_state != "setup" || @course.completeness >= 75 %>
        	<div class="text-center" style="padding-bottom: 10px;">
     		  <%= link_to course_course_wizard_path(@course, type: "start"), class:'btn btn-xs btn-warning' do %>
     		    launch wizard  <i class="fa fa-magic"></i>

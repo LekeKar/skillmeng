@@ -15,11 +15,15 @@
         <%= f.input :bio, label: "Short Bio (300 char max)",  :input_html => {:rows => 5, :id => "text"}, maxlength: "300" %>
         <h6 class="text-right" id="count_message" style="color: grey"></h6>
       </div>
-      <% if current_page?(new_organizer_tutor_path) %>
-        <div class="col-xs-12 col-sm-6 col-md-6">
-          <%= f.input :tutored_courses, label: "Teaches in ...", collection: @organizer_courses, selected: @form_selected_courses, as: :check_boxes, include_hidden: false, wrapper_html: { class: 'form-group' }, :input_html => { :multiple => true} %>
-        </div>
-      <% end %>
+      
+      <div class="col-xs-12 col-sm-6 col-md-6">  
+        <% unless  @organizer_courses.empty? %>
+          <%= f.input :tutored_courses, label: "Add to following courses:", collection: @organizer_courses, as: :check_boxes, include_hidden: false, wrapper_html: { class: 'form-group' }, :input_html => { :multiple => true} %>
+        <% end %>
+        <% unless  @tutor.taught_courses.empty? %>
+          <%= f.input :untutored_courses, label: "Remove from following courses:", collection: @tutor.taught_courses, as: :check_boxes, include_hidden: false, wrapper_html: { class: 'form-group' }, :input_html => { :multiple => true} %>
+        <% end %>
+      </div>
     </div>
   </div>
 

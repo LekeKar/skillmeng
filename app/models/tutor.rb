@@ -1,5 +1,6 @@
 class Tutor < ActiveRecord::Base
     attr_accessor :tutored_courses
+    attr_accessor :untutored_courses
     before_validation :smart_add_url_protocol
     
     belongs_to :organizer

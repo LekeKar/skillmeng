@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117174046) do
+ActiveRecord::Schema.define(version: 20180202062041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(version: 20180117174046) do
     t.string   "display_pic_content_type"
     t.integer  "display_pic_file_size"
     t.datetime "display_pic_updated_at"
-    t.string   "state"
+    t.string   "course_state"
     t.string   "attended_by"
     t.boolean  "online"
     t.string   "locality"
