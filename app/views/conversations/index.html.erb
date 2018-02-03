@@ -1,7 +1,5 @@
 <% title "Messages #{params[:type]}" %>
 
-	
-
 <div class="container-fluid">
 	<div class="row">
 		<div class=" col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
@@ -41,7 +39,15 @@
 				      <div class="tab-pane fade active in" id="inbox" style="margin-top: 15px;">
 				        <div class="row">
 									<div id="conversation_inbox">
-										<%= render @conversations_inbox %>
+										<% if !@conversations_inbox.empty?  %>
+					    			  <%= render @conversations_inbox %>
+					          <% else %>
+									  	<div class="quote">
+									  		<h3>
+									  			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum qui voluptate culpa corrupti, consequuntur provident quos beatae. Molestias nostrum enim, animi. Placeat nemo officia incidunt magni in sint consequuntur vel?
+									  		</h3>
+									  	</div>
+									  <% end %>
 									</div>
 							
 									<div class="row">
@@ -54,7 +60,15 @@
 				       <div class="tab-pane fade" id="trash" style="margin-top: 15px; min-height: 350px;">
 				        <div class="row">
 				          <div id="conversation_trash">
-										<%= render "conversation_trash" %>
+										<% if !@conversations_trash.empty?  %>
+					    			  <%= render "conversation_trash" %>
+					          <% else %>
+									  	<div class="quote">
+									  		<h3>
+									  			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum qui voluptate culpa corrupti, consequuntur provident quos beatae. Molestias nostrum enim, animi. Placeat nemo officia incidunt magni in sint consequuntur vel?
+									  		</h3>
+									  	</div>
+									  <% end %>
 									</div>
 				        </div>
 				      </div>

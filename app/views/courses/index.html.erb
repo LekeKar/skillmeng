@@ -14,8 +14,6 @@
   </div>
 
   <div id="infinite-scrolling" class="text-center">
-    <% unless params[:type] == "popular"%>
-      <%= will_paginate @courses %>
-    <% end %>
+    <%= will_paginate @courses %>
   </div>
 </div>

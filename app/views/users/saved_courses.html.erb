@@ -9,9 +9,15 @@
 			    </div>
 				</div>
     		<div class="container-fluid profile_content" style="background-color: #FFFFFF; padding-top:20px;">
-    
+          <% if !@favorite_courses.empty?  %>
     			  <%= render @favorite_courses %>
-    
+          <% else %>
+				  	<div class="quote">
+				  		<h3>
+				  			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum qui voluptate culpa corrupti, consequuntur provident quos beatae. Molestias nostrum enim, animi. Placeat nemo officia incidunt magni in sint consequuntur vel?
+				  		</h3>
+				  	</div>
+				  <% end %>
     		</div>
     	</div>
     </div>

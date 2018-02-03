@@ -12,7 +12,15 @@
 					<div class="row" >
 					  <div class="container-fluid">
   						<div id="barter_rec">
-  						  <%= render @announcements %>
+  							<% if !@announcements.empty? %>
+  						  	<%= render @announcements %>
+  						  <% else %>
+  						  	<div class="quote">
+  						  		<h3>
+  						  			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum qui voluptate culpa corrupti, consequuntur provident quos beatae. Molestias nostrum enim, animi. Placeat nemo officia incidunt magni in sint consequuntur vel?
+  						  		</h3>
+  						  	</div>
+  						  <% end %>
   						</div>
 						</div>
 					</div>

@@ -34,26 +34,42 @@
     <div class="tab-content">
       <div class="tab-pane fade active in" id="news">
         <div class="row">
-          <%= render @announcements.first(6) %>
-          <% if @announcements.count > 6 %>
-          	<%= link_to news_path(current_user) do %>
-  	          <h5>
-  	            view all
-  	          </h5>
-  	        <% end %>
-          <% end %>
+          <% if !@announcements.empty?  %>
+    			   <%= render @announcements.first(6) %>
+            <% if @announcements.count > 6 %>
+            	<%= link_to news_path(current_user) do %>
+    	          <h5>
+    	            view all
+    	          </h5>
+    	        <% end %>
+            <% end %>
+          <% else %>
+				  	<div class="quote">
+				  		<h3>
+				  			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum qui voluptate culpa corrupti, consequuntur provident quos beatae. Molestias nostrum enim, animi. Placeat nemo officia incidunt magni in sint consequuntur vel?
+				  		</h3>
+				  	</div>
+				  <% end %>
         </div>
       </div>
       <div class="tab-pane fade" id="inbox" style="margin-top: 15px;">
         <div class="row">
-          <%= render @conversations.first(8) %>
-          <% if @conversations.count > 8 %>
-          	<%= link_to conversations_path(type: 'inbox') do %>
-		          <h5>
-		            view all
-		          </h5>
-		        <% end %>
-          <% end %>
+          <% if !@conversations.empty?%>
+    			  <%= render @conversations.first(8) %>
+            <% if @conversations.count > 8 %>
+            	<%= link_to conversations_path(type: 'inbox') do %>
+  		          <h5>
+  		            view all
+  		          </h5>
+  		        <% end %>
+            <% end %>
+          <% else %>
+				  	<div class="quote">
+				  		<h3>
+				  			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum qui voluptate culpa corrupti, consequuntur provident quos beatae. Molestias nostrum enim, animi. Placeat nemo officia incidunt magni in sint consequuntur vel?
+				  		</h3>
+				  	</div>
+				  <% end %>
         </div>
       </div>
       <div class="tab-pane fade" id="info" >
@@ -68,7 +84,7 @@
 				        edit info
 				      <% end -%> <br>
 				        name: <%= current_user.fname %> <%= current_user.lname %> <br>
-				        tel: <%= current_user.tel.present? ? number_to_phone(current_user.tel) : "No Number Provided"  %> 
+				        tel: <%= current_user.tel.present? ? number_to_phone(current_user.tel) : "No Number Provided"  %> <br>
                 email: <%= current_user.email %> <br>
           	</div>
           </div>

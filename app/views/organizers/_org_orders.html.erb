@@ -1,0 +1,87 @@
+<!--assumptions-->
+<% for order in @all_orders %>
+  <% credit_order = order.organizer_credit_order %>
+  <% promotions = order.course_promotions %>
+  
+  <tr class="text-center">
+    <td> <%= order.created_at.strftime("%b %d, %Y") %></td>
+    <td> #<%= order.order_number %></td>
+    <td> <%= number_with_delimiter(order.total)%></td>
+    <td>  
+      <a class="btn btn-warning btn-xs" type="button" data-toggle="modal" data-target=".order_<%= order.id %>">
+       view
+      </a>
+   </td>
+  </tr>
+   
+  <!--modal for purchase-->
+  <div class="modal fade order_<%= order.id %>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Order #<%= order.order_number %></h4>
+        </div>
+        <div class="modal-body">
+          
+          <!--credit orders   -->
+          <% credit_total = 0 %>
+          <% if credit_order %>
+            <div class="row">
+              <div class="col-md-12">
+          	     <strong> Credit order</strong>
+          	  </div>
+          	</div>
+          	<div class="row">
+        	     <div class="col-md-8 col-sm-8 col-xs-6">
+        	       <%= credit_order.email_quantity %> emails x ₦<%= credit_order.email_price %>
+        	     </div>
+        	     <div class="col-md-4 col-sm-4 col-xs-6 text-right">
+        	       <% credit_total =+ credit_order.email_quantity * credit_order.email_price  %>
+        	       ₦<%= number_with_delimiter(credit_total) %>
+        	     </div>
+          	 </div>
+          <% end %>
+            
+          <!--promotions-->
+          <% promotion_total = 0 %>
+          <% unless promotions.empty? %>
+            <div class="row">
+              <div class="col-md-12">
+      	        <strong> Promoted courses</strong>
+      	      </div>
+      	    </div>
+      	    <% for promotion in promotions %>
+      	      <% course = Course.find(promotion.course_id)%>
+      	      <div class="row">
+      	        <div class="col-md-8 col-sm-8 col-xs-6">
+    	           <%= course.title %>
+      	        </div>
+      	        <div class="col-md-4 col-sm-4 col-xs-6 text-right">
+      	          ₦<%= promotion.price %>
+      	        </div>
+      	      </div>
+      	      <% promotion_total =+ promotion.price  %>
+      	    <% end %>
+      	  <% end %>
+      	  
+      	  
+      	  <hr>
+      	  <div class="row">
+      	    <div class="col-md-8 col-sm-8 col-xs-6">
+      	      <strong>Total</strong>
+      	    </div>
+      	    <div class="col-md-4 col-sm-4 col-xs-6 text-right">
+      	      <strong>₦<%= number_with_delimiter(credit_total + promotion_total) %></strong>
+      	    </div>
+      	  </div>
+      	  
+      	  
+      	  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>
+

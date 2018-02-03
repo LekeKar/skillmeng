@@ -792,7 +792,7 @@ span.twitter-typeahead {
     line-height: 1;
 
     opacity: .75;
-    color: white;
+    color: #c0c0c0;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -922,6 +922,128 @@ span.twitter-typeahead {
 {
     opacity: .75;
     color: black;
+}
+.social-share-button .ssb-icon {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+}
+
+.social-share-button .ssb-twitter {
+  background-image: url(/assets/social-share-button/twitter-7b64ce0117a85c5d52ed45c27707af61d9b0e0d590284baa287cfe87867b9ae1.svg);
+}
+
+.social-share-button .ssb-facebook {
+  background-image: url(/assets/social-share-button/facebook-03210e1663ee772e93ed5d344cdb36657b68342821aaebe982f2f984915990b3.svg);
+}
+
+.social-share-button .ssb-google_bookmark {
+  background-image: url(/assets/social-share-button/google_bookmark-bb4c960c0421cb7dce602d10e744692bcc1c54f323410f4965d508f96e2255ce.svg);
+}
+
+.social-share-button .ssb-google_plus {
+  background-image: url(/assets/social-share-button/google_plus-50c049fbb29cd3346f1bf9349017b644bcd00a53b56bd156728850f57bd85c0a.svg);
+}
+
+.social-share-button .ssb-weibo {
+  background-image: url(/assets/social-share-button/weibo-a345a6ca554e6f388da9eb35746bb0425cb018c16408ba82852c66d375245d6f.svg);
+}
+
+.social-share-button .ssb-qq {
+  background-image: url(/assets/social-share-button/qq-4dbae8223fc7823f6d73bc7fbe113eb894f4c174ec3ae93103ca382c78a2bf67.svg);
+}
+
+.social-share-button .ssb-delicious {
+  background-image: url(/assets/social-share-button/delicious-0c55f72f821aae5352691f13eb64bf3435573e2169d0720477ed367b2f1ed28e.svg);
+}
+
+.social-share-button .ssb-linkedin {
+  background-image: url(/assets/social-share-button/linkedin-b7fd42895b291003c444a9c2acf867ea813671e0b725a5d7c05dbb13f5c0fdd3.svg);
+}
+
+.social-share-button .ssb-tumblr {
+  background-image: url(/assets/social-share-button/tumblr-330a37f93cce7c27a750188d0bfdbed3a22f566b807e64d21131dcdc94e08ec3.svg);
+}
+
+.social-share-button .ssb-pinterest {
+  background-image: url(/assets/social-share-button/pinterest-86203d156197cce4087fee058b920d275c535df5fd59d8caa83da0ef41d1ec7f.svg);
+}
+
+.social-share-button .ssb-douban {
+  background-image: url(/assets/social-share-button/douban-46298c27e3bc6d59951c0bbc464339a5ba1b44e3b25b571874f1baacd7af2495.svg);
+}
+
+.social-share-button .ssb-wechat {
+  background-image: url(/assets/social-share-button/wechat-d8852cc3396a7a53eba39595d2e9f638c93a34ab1a0f41bae4ff391b63815f56.svg);
+}
+
+.social-share-button .ssb-vkontakte {
+  background-image: url(/assets/social-share-button/vkontakte-0c2b68277fade991d74efcbdb6f7b359a35e65156cbada9625a3fe8f73151c14.svg);
+}
+
+.social-share-button .ssb-odnoklassniki {
+  background-image: url(/assets/social-share-button/odnoklassniki-579bf782bd70fe94748254cac2c8c3dc150cceb0d2a143399e3062246b5ecb39.svg);
+}
+
+.social-share-button .ssb-xing {
+  background-image: url(/assets/social-share-button/xing-0ebccb4042c8c7220e471c4f569df2bf27da227db425525819b6848c86a1603e.svg);
+}
+
+.social-share-button .ssb-email {
+  background-image: url(/assets/social-share-button/email-7067143cbe69d9d8cf25e67fda1a315d133c2b79074a09088bd712cc5c81135d.svg);
+}
+
+.social-share-button .ssb-reddit {
+  background-image: url(/assets/social-share-button/reddit-730429c239b6990b67d0d4aaaeb6e9fe48c62267f889a412e81f5f1066ec625f.svg);
+}
+
+.social-share-button .ssb-hacker_news {
+  background-image: url(/assets/social-share-button/hacker_news-d89b13fec49355a787389a776f2e03a0a38314abf93777b8865f8c5f146eaf8d.svg);
+}
+
+.social-share-button .ssb-telegram {
+  background-image: url(/assets/social-share-button/telegram-a6b5607917f3e3efbcf35c3ed43356b05622fcfc533d2fbf5066621b78c1dbe4.svg);
+}
+
+.ss-wechat-dialog {
+  width: 300px;
+  position: fixed;
+  background: #fff;
+  padding: 15px;
+  border-radius: 3px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+  z-index: 11001;
+  font-size: 14px;
+  line-height: 1.2em;
+}
+
+.ss-wechat-dialog .wechat-popup-header {
+  font-weight: bold;
+}
+
+.ss-wechat-dialog .wechat-dialog-qr {
+  text-align: center;
+  margin: 25px 0;
+}
+
+.ss-wechat-dialog .wechat-popup-close {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #999;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.ss-wechat-dialog .wechat-popup-footer {
+  text-align: left;
+  line-height: 22px;
+  color: #666;
 }
 /* line 7, /home/ubuntu/workspace/app/assets/stylesheets/about.scss */
 #about_tabs {
@@ -3036,6 +3158,18 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 .contact_body .well {
   margin: 0px 5px 5px 5px;
 }
+/* line 1, /home/ubuntu/workspace/app/assets/stylesheets/conversations.css.scss */
+.message_modal {
+  height: 250px;
+  overflow-y: scroll;
+}
+
+/* line 6, /home/ubuntu/workspace/app/assets/stylesheets/conversations.css.scss */
+.message_text_input {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  height: 30px;
+}
 /* line 5, /home/ubuntu/workspace/app/assets/stylesheets/course_days.scss */
 .table.vertical-alilgn > tbody > tr > td {
   vertical-align: middle;
@@ -3046,6 +3180,167 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 }
 
 /* line 8, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_menu {
+  color: #333333;
+}
+/* line 11, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_menu a {
+  color: #333333;
+}
+/* line 13, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_menu a .active {
+  color: #e27937;
+}
+/* line 18, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_menu a:hover {
+  color: #333333;
+}
+/* line 20, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_menu a:hover .active {
+  color: #e27937;
+}
+/* line 25, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_menu .menu-item {
+  position: relative;
+}
+/* line 28, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_menu .menu-item:hover {
+  text-decoration: none;
+  color: #333333;
+}
+/* line 32, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_menu .menu-item:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+/* line 46, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_menu .menu-item:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+/* line 54, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_2_menu {
+  color: #333333;
+}
+/* line 57, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_2_menu a {
+  color: #333333;
+}
+/* line 59, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_2_menu a .active {
+  color: #e27937;
+}
+/* line 64, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_2_menu a:hover {
+  color: #333333;
+}
+/* line 66, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_2_menu a:hover .active {
+  color: #e27937;
+}
+/* line 71, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_2_menu .menu-item {
+  position: relative;
+}
+/* line 74, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_2_menu .menu-item:hover {
+  text-decoration: none;
+  color: #333333;
+}
+/* line 78, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_2_menu .menu-item:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+/* line 92, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_tabs_2_menu .menu-item:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+/* line 100, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_control {
+  background-color: #7092C1;
+  border-color: #7092C1;
+  color: #FFFFFF;
+  position: relative;
+  top: -3px;
+}
+
+/* line 108, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.course_control:hover {
+  background-color: #2E5995;
+  border-color: #2E5995;
+  color: #FFFFFF;
+}
+
+/* line 114, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.modal-footer {
+  text-align: center !important;
+}
+
+/* line 118, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.manager_controls_content {
+  background-color: #FFFFFF;
+  padding-top: 10px;
+}
+/* line 121, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.manager_controls_content h3 {
+  margin-top: -20px;
+}
+
+/* line 126, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.title {
+  color: #FFFFFF;
+  position: relative;
+  top: 5%;
+}
+/* line 130, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.title #review_count {
+  color: #FFFFFF;
+  font-size: 0.6em;
+  position: relative;
+  top: -13px;
+}
+/* line 136, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.title #locality {
+  color: #FFFFFF;
+  font-size: 0.6em;
+  position: relative;
+  top: -7px;
+}
+/* line 142, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.title #star_ratings {
+  color: #FFFFFF;
+  font-size: 0.6em;
+  position: relative;
+  top: -10px;
+}
+
+/* line 151, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 .header_course {
   height: 400px;
   margin-bottom: 0px;
@@ -3053,68 +3348,226 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
   background-repeat: no-repeat !important;
   background-position: 50% 50% !important;
 }
-/* line 15, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+/* line 158, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 .header_course h1 {
   font-size: 3em;
 }
-/* line 19, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.header_course .btn {
-  background-color: #e06e26;
-  color: #FFFFFF;
+/* line 162, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.header_course .btn-visitor {
   border: none;
-  padding: 5px 15px 5px 15px;
-  font-size: 20px;
+  width: 120px;
+  color: #FFFFFF;
+  background-color: rgba(222, 110, 49, 0.6);
+}
+/* line 169, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.header_course .star_rating_number {
+  margin-bottom: 20px;
+  margin-top: -20px;
 }
 
-/* line 28, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+/* line 179, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.social-share-button .ssb-icon {
+  background-size: 35px 35px;
+  height: 35px;
+  width: 35px;
+}
+
+/* line 187, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+#theme_change .fa-square {
+  font-size: 2.0em;
+  margin: 5px 5px 10px 5px;
+  transition: all .2s ease-in-out;
+}
+/* line 193, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+#theme_change .fa-square:hover {
+  transform: scale(1.3);
+}
+/* line 197, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+#theme_change .fa-square:active {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
+
+/* line 204, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+#course_url {
+  border: 2px solid #777777;
+  padding: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+  color: #777777;
+}
+
+/* line 213, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 .header_tools {
   position: relative;
   top: -48px;
   padding: 10px 10px 10px 10px;
+  margin-bottom: -47px;
   font-size: 20px;
-  background-color: rgba(222, 110, 49, 0.8);
   color: #FFFFFF;
 }
-/* line 36, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+/* line 221, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 .header_tools .course_share {
   margin-top: -4px;
   font-size: 25px;
 }
 
-/* line 42, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+/* line 227, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 .star-rating {
   color: #daa637;
 }
-/* line 44, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+/* line 229, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 .star-rating .fa {
   margin: 2px -2px 2px -2px;
   font-size: 1.1em;
 }
 
-/* line 50, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.title {
-  color: #FFFFFF;
+/* line 235, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.about_gallery_content {
+  background-color: #f9f9f9;
+  padding-top: 35px;
+}
+/* line 238, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.about_gallery_content h3 {
+  margin-top: -20px;
+}
+/* line 245, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.about_gallery_content .gallery_add {
+  box-shadow: 1px 1px 5px #888888;
+  border-radius: 3px;
+  background-color: #fafafa;
+}
+/* line 250, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.about_gallery_content .gallery_add h3 {
+  margin-top: 30px;
+}
+
+/* line 256, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.news_content {
+  padding-bottom: 30px;
+  background-color: #FFFFFF;
+}
+
+/* line 264, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.more_info .panel-group .panel {
+  border: none;
+}
+/* line 268, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.more_info .panel-group .panel-body {
+  border: none !important;
+  color: #333333;
+}
+/* line 273, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.more_info .panel-group .requirement_info_content {
+  margin-bottom: 15px;
+  margin-top: 10px;
+  padding: 0px;
+  font-size: 1.6em;
+}
+/* line 280, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.more_info .panel-group .payment_info_content {
+  margin-bottom: 15px;
+  font-size: 1.6em;
+}
+/* line 285, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.more_info .panel-group .schedule_info_content {
+  margin-bottom: 15px;
+  font-size: 1.6em;
+}
+/* line 290, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.more_info .panel-group .award_info_content {
+  margin-bottom: 15px;
+  margin-top: 10px;
+  padding: 0px;
+  font-size: 1.6em;
+}
+
+/* line 301, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.announcement_title {
+  padding: 0px 5px 0px 5px;
+}
+
+/* line 306, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.body_announcement {
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: 50% 50% !important;
+  box-shadow: 1px 1px 5px #888888;
+  border-radius: 3px;
+}
+/* line 312, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.body_announcement .announcement_text {
   position: relative;
-  top: 20%;
+  top: 50%;
+  transform: translateY(-50%);
 }
-
-/* line 56, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.circle {
-  box-shadow: 1px .5px 1px #3e3e3e;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  font-size: 10px;
-  color: #181818;
-  line-height: 30px;
-  text-align: center;
-  background: #ffffff;
+/* line 318, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.body_announcement button {
+  border-radius: 5px;
+  top: 86%;
+  left: 10%;
+  color: #FFFFFF;
   position: absolute;
-  top: 80%;
-  left: 80%;
+  border: none;
+}
+/* line 327, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.body_announcement button:hover {
+  color: #FFFFFF;
 }
 
-/* line 71, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+/* line 333, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.reviews_content {
+  background-color: #FFFFFF;
+  padding-bottom: 20px;
+}
+/* line 337, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.reviews_content .body_rating {
+  box-shadow: 1px 1px 5px #888888;
+  border-radius: 3px;
+  background-color: #fafafa;
+}
+/* line 342, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.reviews_content .body_rating .star-rating {
+  margin-bottom: 5px;
+}
+/* line 347, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.reviews_content .btn-more {
+  border-radius: 5px;
+  top: 82%;
+  left: 10%;
+  color: #FFFFFF;
+  position: absolute;
+  border: none;
+}
+/* line 356, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.reviews_content button:hover {
+  color: #FFFFFF;
+}
+
+/* line 361, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.tutor_content {
+  padding-bottom: 20px;
+  background-color: #f9f9f9;
+}
+/* line 364, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.tutor_content .tutor_gallery {
+  color: #FFFFFF;
+}
+/* line 368, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.tutor_content .img-circle {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* line 375, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.footer_content {
+  background-color: #f9f9f9;
+  padding-bottom: 20px;
+}
+
+/* line 385, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 #not_available {
   color: #FFFFFF;
   background-color: #e27937;
@@ -3126,7 +3579,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
   left: 32%;
 }
 
-/* line 82, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+/* line 396, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 #promoted_courses {
   color: #FFFFFF;
   background-color: #e27937;
@@ -3140,7 +3593,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
   left: 37%;
 }
 
-/* line 95, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+/* line 409, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 .course_publish {
   -webkit-animation: pulsate 2s ease-out;
   -webkit-animation-iteration-count: infinite;
@@ -3159,7 +3612,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
     opacity: 0.0;
   }
 }
-/* line 106, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+/* line 420, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 .invisibleLink {
   display: block;
   left: 10px;
@@ -3169,251 +3622,186 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
   width: 200px;
 }
 
-/* line 116, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.save_icons .fa-heart {
-  text-shadow: 0px 0px 3px #e27937;
-}
-/* line 120, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.save_icons .fa-user {
-  text-shadow: 0px 0px 3px #e27937;
-}
-/* line 124, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.save_icons .fa-heart-o {
-  text-shadow: 0px 0px 3px #e27937;
+/* line 430, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+.save_icons .fa {
+  color: #e27937;
+  font-size: 27px;
+  position: absolute;
+  top: 51%;
+  left: 80%;
 }
 
-/* line 131, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+/* line 439, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
 #index_title {
   height: 50px;
 }
 
-/* line 135, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.display_pic {
-  text-align: center;
-}
+@media (max-width: 400px) {
+  /* line 444, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  #course_url {
+    font-size: 0.6em;
+  }
 
-/* line 139, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.class-title {
-  padding: 0px !important;
-  text-align: right;
-}
+  /* line 449, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  #theme_change .fa-square {
+    font-size: 2.0em;
+    margin: 5px 10px 10px 10px;
+  }
 
-/* line 144, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-#edit_class_bufffer {
-  margin-bottom: 15px;
+  /* line 455, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .title {
+    top: 10%;
+  }
 }
-
-/* line 148, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-#paginate {
-  text-align: center;
-  margin-top: -15px;
-}
-
-/* line 153, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.class_price {
-  text-align: right;
-}
-
-/* line 157, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-#classroom_footer {
-  text-align: right;
-}
-
-/* line 160, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-#edit_pic {
-  width: 300px;
-  text-align: center;
-}
-
-/* line 165, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.more_button {
-  outline: none;
-  text-decoration: none;
-  position: relative;
-  line-height: 1;
-  color: #666666;
-  display: inline-block;
-}
-
-/* line 174, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.more_button:hover {
-  color: #095a52;
-  text-decoration: none;
-  background: none;
-  transition: 0.4s;
-}
-
-/* line 181, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.main_body {
-  max-height: 200px !important;
-}
-
-/* line 185, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-#class_body {
-  padding: 0px 10px 0px 0px;
-}
-
-/* line 190, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-#bottom_controls i {
-  font-size: 20px;
-}
-/* line 194, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-#bottom_controls .fa:hover {
-  color: #f3aa00;
-  transition: 0.4s;
-}
-
-/* line 201, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-#class_overview hr {
-  margin-bottom: 2px;
-  margin-top: 15px;
-}
-
-/* line 207, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-#mobile_overview_back {
-  margin-bottom: 10px;
-}
-
-/* line 211, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.request_panel {
-  max-height: 500px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-/* line 216, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.request_panel hr {
-  margin: 5px;
-}
-
-/* line 222, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.trash_request_modal {
-  color: #d9534f;
-  font-size: 30px;
-  margin-top: 50px;
-}
-
-/* line 228, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-.pull-right {
-  margin-top: -5px;
-}
-
-/* creating space for fixed bottom controls*/
-/* line 232, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-body {
-  margin-bottom: 60px;
-}
-
 @media (max-width: 800px) {
-  /* line 238, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  .header_course {
-    margin-top: -42px;
-    height: 375px;
-    padding-top: 0px;
+  /* line 462, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .mobile_centralize {
+    text-align: center;
   }
 
-  /* line 244, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  #view_all_gallery {
-    padding: 20px;
-  }
-
-  /* line 247, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  #tutor_modal_body {
-    margin-bottom: 50px;
-  }
-
-  /* line 251, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  /* line 466, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
   #tutor_bio {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
-  /* line 255, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  #view_all_review {
-    padding: 20px;
+  /* line 470, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .course_body {
+    box-shadow: none;
+  }
+
+  /* line 474, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .btn-manager {
+    border: none;
+    padding: 5px 15px 5px 15px;
+    font-size: 15px;
+  }
+
+  /* line 481, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .header_course {
+    height: 375px;
+    padding-top: 35px;
+    margin: -20px -15px 10px -15px;
+  }
+  /* line 486, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .header_course .course_publish {
+    display: none;
+  }
+  /* line 490, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .header_course h1 {
+    font-size: 2em;
+  }
+
+  /* line 495, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .about_gallery_content {
+    margin: 4px -15px 10px -15px;
+  }
+  /* line 497, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .about_gallery_content .about_tabs {
+    text-align: center;
+  }
+
+  /* line 502, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .header_tools {
+    top: -43px;
+    margin: -15px -15px -45px -15px;
+  }
+
+  /* line 507, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .manager_controls_content {
+    margin: -20px -15px 10px -15px;
+  }
+
+  /* line 511, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .news_content {
+    margin: -20px -15px 10px -15px;
+  }
+  /* line 513, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .news_content .news_reviews_tabs {
+    text-align: center;
+  }
+
+  /* line 518, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .reviews_content {
+    margin: 15px -15px 10px -15px;
+  }
+
+  /* line 522, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .more_info {
+    margin: -20px -15px 10px -15px;
+  }
+  /* line 524, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .more_info .more_tabs {
+    text-align: center;
+  }
+  /* line 527, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .more_info .contact_text {
+    margin-bottom: 30px;
+  }
+  /* line 530, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .more_info .contact_tabs {
+    text-align: center;
+  }
+
+  /* line 537, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .about_gallery_content .about_content {
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
+  /* line 538, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .about_gallery_content .about_content p {
+    margin-bottom: 30px;
+  }
+  /* line 546, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .about_gallery_content .gallery_info {
+    margin-bottom: 30px;
+  }
+
+  /* line 554, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .tutor_content {
+    margin: -20px -15px 10px -15px;
+  }
+  /* line 556, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .tutor_content .tutor_tabs {
+    text-align: center;
+  }
+  /* line 559, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .tutor_content .img-circle {
+    width: 60%;
+  }
+
+  /* line 564, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .footer_content {
+    margin: -20px -15px 10px -15px;
   }
 }
-@media (min-width: 800px) {
-  /* line 263, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  .contact_body {
-    max-height: 200px;
-    overflow-y: scroll;
-  }
-  /* line 267, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  .contact_body .well {
-    margin: 0px 5px 5px 5px;
-  }
-
-  /* line 272, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  #tutors_info {
-    max-height: 500px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
-
-  /* line 278, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  #view_all_gallery {
-    padding-top: 20px;
-  }
-
-  /* line 282, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  #view_all_review {
-    padding-top: 13px;
-  }
-}
-/* line 287, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-#index_box {
-  margin-top: 5px;
-  margin-left: -15px;
-}
-
 @media (min-width: 1000px) and (max-width: 1200px) {
-  /* line 294, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  /* line 574, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
   #index_title {
     height: 60px;
   }
 }
 @media (min-width: 700px) and (max-width: 800px) {
-  /* line 302, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  /* line 582, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
   .header_course {
     height: 400px;
     padding-top: 30px;
   }
 
-  /* line 308, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  .about_body {
-    height: 200px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
-  /* line 313, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  .about_body .well {
-    margin: 0px 5px 5px 5px;
-  }
-
-  /* line 318, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  .lesson_body {
-    height: 200px;
-    overflow-y: scroll;
-  }
-  /* line 321, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  .lesson_body .well {
-    margin: 0px 5px 5px 5px;
+  /* line 588, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .title {
+    top: 20%;
   }
 }
 @media (min-width: 500px) and (max-width: 700px) {
-  /* line 330, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  #index_content {
-    font-size: 150%;
-  }
-
-  /* line 334, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
-  #tutor_info {
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-
-  /* line 340, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  /* line 597, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
   .header_course {
     height: 300px;
+  }
+}
+@media (min-width: 400px) {
+  /* line 605, /home/ubuntu/workspace/app/assets/stylesheets/courses.scss */
+  .gallery_info .course_control {
+    left: 10%;
   }
 }
 @media (min-width: 800px) {
@@ -3427,16 +3815,62 @@ body {
     height: 210px;
   }
 }
+/* line 6, /home/ubuntu/workspace/app/assets/stylesheets/organizer_orders.scss */
+#order_explaination {
+  margin-top: 60px;
+}
+
+@media (max-width: 750px) {
+  /* line 11, /home/ubuntu/workspace/app/assets/stylesheets/organizer_orders.scss */
+  #order_explaination {
+    margin-top: 20px;
+  }
+}
+/* line 5, /home/ubuntu/workspace/app/assets/stylesheets/organizers.scss */
+.add_org {
+  vertical-align: middle;
+  padding: 20px;
+}
+
+/* line 10, /home/ubuntu/workspace/app/assets/stylesheets/organizers.scss */
+.add_org_effect {
+  -o-transition: .5s;
+  -ms-transition: .5s;
+  -moz-transition: .5s;
+  -webkit-transition: .5s;
+  /* ...and now for the proper property */
+  transition: .5s;
+}
+
+/* line 18, /home/ubuntu/workspace/app/assets/stylesheets/organizers.scss */
+.add_org_effect:hover {
+  color: #e27937;
+}
+
 @media (min-width: 750px) {
-  /* line 6, /home/ubuntu/workspace/app/assets/stylesheets/organizers.scss */
-  #control_desktop_disapear {
+  /* line 24, /home/ubuntu/workspace/app/assets/stylesheets/organizers.scss */
+  .organizer_content #org_courses {
+    padding: 50px;
+  }
+  /* line 27, /home/ubuntu/workspace/app/assets/stylesheets/organizers.scss */
+  .organizer_content .featured_menu {
+    font-size: 1.8em;
+  }
+
+  /* line 32, /home/ubuntu/workspace/app/assets/stylesheets/organizers.scss */
+  #organizer_about_mobile {
     display: none;
   }
 }
 @media (max-width: 750px) {
-  /* line 13, /home/ubuntu/workspace/app/assets/stylesheets/organizers.scss */
-  #control_phone_disapear {
-    display: none;
+  /* line 40, /home/ubuntu/workspace/app/assets/stylesheets/organizers.scss */
+  .organizer_content .featured_menu {
+    font-size: 2em;
+  }
+
+  /* line 46, /home/ubuntu/workspace/app/assets/stylesheets/organizers.scss */
+  #org_info {
+    text-align: center;
   }
 }
 /* line 6, /home/ubuntu/workspace/app/assets/stylesheets/reviews.scss */
@@ -3545,113 +3979,221 @@ body {
 .tt-suggestion p {
   margin: 0;
 }
-/* line 5, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+/* line 4, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+#follow_tab_title {
+  font-size: 1.2em;
+}
+
+/* line 8, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+.name_circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 10%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  line-height: 50px;
+  left: 7px;
+  position: relative;
+  text-align: center;
+  background: #fff;
+  margin-top: 10px;
+}
+
+/* line 24, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+.profile_body {
+  box-shadow: 3px 3px 5px #888888;
+}
+/* line 26, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+.profile_body .profile_info {
+  padding-bottom: 10px;
+}
+/* line 28, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+.profile_body .profile_info .btn-edit {
+  color: #FFFFFF;
+  border: none;
+  background-color: #e27937;
+}
+/* line 33, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+.profile_body .profile_info .img-circle {
+  margin-top: 20px;
+  width: 30%;
+}
+/* line 38, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+.profile_body .profile_content {
+  padding-bottom: 10px;
+}
+/* line 42, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+.profile_body .profile_content .featured_menu #new_alert {
+  position: absolute;
+  color: #d9534f;
+  font-size: 0.5em;
+  top: -12px;
+  left: 47%;
+}
+
+@media (max-width: 800px) {
+  /* line 54, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  .profile_body {
+    box-shadow: none;
+  }
+  /* line 56, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  .profile_body .profile_info {
+    margin: -20px -15px 10px -15px;
+  }
+  /* line 58, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  .profile_body .profile_info .img-circle {
+    width: 150px;
+  }
+  /* line 62, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  .profile_body .profile_content {
+    margin: -10px -15px 10px -15px;
+  }
+  /* line 65, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  .profile_body .profile_content .featured_menu #new_alert {
+    left: 44%;
+  }
+}
+/* line 78, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
 .borderless td, .borderless th {
   border: none !important;
 }
 
-/* line 10, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+/* line 83, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
 .mytable h4 {
   margin: -5px;
 }
 
-/* line 15, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
-.message_modal {
-  height: 250px;
-  overflow-y: scroll;
-}
-
-/* line 20, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
-.message_text_input {
-  margin-bottom: 10px;
-  margin-top: 10px;
-  height: 30px;
-}
-
-/* line 26, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+/* line 89, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
 .saved_courses {
   max-height: 300px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-/* line 33, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+/* line 96, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
 hr {
   margin: 5px;
 }
 
-/* line 37, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+/* line 100, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
 #tab_spacing {
   margin-bottom: -10px;
 }
 
 @media (min-width: 1200px) {
-  /* line 43, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  /* line 106, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
   .my_classes .notificaiton {
     padding-left: 0px;
   }
 }
 @media (min-width: 1000px) and (max-width: 1200px) {
-  /* line 50, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  /* line 113, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
   #request_recieved {
     height: 85px;
   }
 
-  /* line 54, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  /* line 117, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  #follow_tab_title {
+    font-size: 1.1em;
+  }
+
+  /* line 121, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
   #wishlist {
     padding: 10px;
   }
-  /* line 57, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  /* line 124, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
   #wishlist h5 {
     font-size: 12px;
   }
 
-  /* line 63, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  /* line 130, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
   .my_classes h5 {
     font-size: 11px;
   }
 }
 @media (min-width: 780px) {
-  /* line 69, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  /* line 136, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
   #phone_only {
     display: none;
   }
 }
 @media (max-width: 780px) {
-  /* line 75, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  /* line 142, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  #follow_tab_title {
+    font-size: 1.5em;
+  }
+
+  /* line 146, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
   .my_classes {
     text-align: center;
   }
 
-  /* line 79, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  /* line 150, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
   #phone_only {
     margin: 0px;
   }
+
+  /* line 154, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  .profile_info {
+    padding-top: 10px;
+  }
+  /* line 156, /home/ubuntu/workspace/app/assets/stylesheets/users.scss */
+  .profile_info .name_circle {
+    margin: auto;
+    width: 15%;
+  }
 }
-/* line 7, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.home_text h1 {
-  font-size: 90px;
+/* line 5, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+#teach_skill {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
 }
 
-/* line 12, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-#welcome_form {
+/* line 13, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+.couse_cat {
+  border: 3px solid #e4e4e4;
   width: 200px;
-  height: 100px;
+  background: #FFFFFF;
+  color: #e07940;
+  font-size: 1.5em;
+  margin: 5px;
+  transition-duration: 3s;
+  transition-property: transform;
 }
 
-/* line 17, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.wallpaper {
-  height: 510px;
+/* Fade */
+/* line 25, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+.couse_cat {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
 }
 
-/* line 21, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+/* line 37, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+.couse_cat:hover, .couse_cat:focus, .couse_cat:active {
+  background-color: #e07940;
+  color: white;
+  border-color: #e4e4e4;
+}
+
+/* line 43, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
 .jumbotron_top {
   height: 500px;
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-position: 50% 50% !important;
 }
-/* line 27, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+/* line 49, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
 .jumbotron_top #course_title {
   position: relative;
   top: 90%;
@@ -3660,30 +4202,24 @@ hr {
   text-shadow: 0px 0px 3px #e27937;
   text-align: right;
 }
-/* line 35, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+/* line 57, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
 .jumbotron_top #course_title a {
   text-decoration: none;
   color: #FFFFFF;
 }
 
-/* line 42, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.jumbotron_teach {
-  background-color: #FFFFFF;
-  color: #333333;
+/* line 65, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+.wallpaper {
+  height: 510px;
 }
-/* line 45, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.jumbotron_teach .tutor_button {
-  background-color: #e27937;
+
+/* line 70, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+.welcome_panel {
+  background: rgba(224, 111, 39, 0.7);
   border: none;
 }
 
-/* line 52, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-#near_me .btn_change_location {
-  background-color: #e27937;
-  border: none;
-}
-
-/* line 57, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+/* line 76, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
 #welcome_text {
   top: 30%;
   left: 40px;
@@ -3691,13 +4227,7 @@ hr {
   position: absolute;
 }
 
-/* line 64, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.welcome_panel {
-  background: rgba(224, 111, 39, 0.7);
-  border: none;
-}
-
-/* line 71, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+/* line 84, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
 #home_search .input-group {
   margin-top: 30px;
   width: 250px;
@@ -3705,91 +4235,61 @@ hr {
   color: #FFFFFF;
 }
 
-/* line 79, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.featured_menu {
-  color: #333333;
-  font-size: 2em;
-}
-/* line 83, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.featured_menu a {
+/* line 92, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+.jumbotron_teach {
+  background-color: #FFFFFF;
   color: #333333;
 }
-/* line 85, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.featured_menu a .active {
-  color: #e27937;
-}
-/* line 91, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.featured_menu a:hover {
-  color: #333333;
-}
-/* line 93, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.featured_menu a:hover .active {
-  color: #e27937;
-}
-/* line 100, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.featured_menu .menu-item {
-  position: relative;
-}
-/* line 103, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.featured_menu .menu-item:hover {
-  text-decoration: none;
-  color: #333333;
-}
-/* line 107, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.featured_menu .menu-item:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: #000;
-  visibility: hidden;
-  -webkit-transform: scaleX(0);
-  transform: scaleX(0);
-  -webkit-transition: all 0.3s ease-in-out 0s;
-  transition: all 0.3s ease-in-out 0s;
-}
-/* line 121, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
-.featured_menu .menu-item:hover:before {
-  visibility: visible;
-  -webkit-transform: scaleX(1);
-  transform: scaleX(1);
+/* line 95, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+.jumbotron_teach .tutor_button {
+  background-color: #e27937;
+  border: none;
 }
 
 @media (max-width: 750px) {
-  /* line 131, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+  /* line 102, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
   .featured_menu {
     font-size: 1.5em;
   }
 
-  /* line 134, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+  /* line 106, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+  .couse_cat {
+    font-size: 1.2em;
+    width: 150px;
+  }
+
+  /* line 111, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
   .jumbotron_top {
     height: 400px;
   }
-  /* line 137, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+  /* line 114, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
   .jumbotron_top #course_title {
     display: none;
   }
 
-  /* line 142, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+  /* line 119, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+  #teach_skill {
+    margin-bottom: 40px;
+  }
+
+  /* line 123, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
   .wallpaper {
     height: 410px;
   }
 
-  /* line 146, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+  /* line 127, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
   #welcome_text {
     top: 25%;
     left: 5px;
     width: auto;
     position: absolute;
   }
-  /* line 151, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+  /* line 132, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
   #welcome_text .h1 {
     font-size: 40px !important;
   }
 
-  /* line 157, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
+  /* line 138, /home/ubuntu/workspace/app/assets/stylesheets/welcome.css.scss */
   #home_search .input-group {
     position: relative;
     width: 95%;
@@ -3818,30 +4318,70 @@ hr {
 
 
 
+
  */
-/* line 25, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+@font-face {
+  font-family: "slick";
+  src: url(/assets/slick.ttf) format("truetype");
+}
+/* line 31, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.flash_message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 10;
+}
+
+/* line 39, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.title_header {
+  padding-bottom: 10px;
+  background-color: #f8ca9f;
+}
+/* line 43, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.title_header .title_text {
+  width: 110px;
+  height: 50px;
+  border-radius: 10%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  line-height: 50px;
+  position: relative;
+  text-align: center;
+  background: #fff;
+  margin-top: 10px;
+}
+
+/* line 59, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.row-no-padding [class*="col-"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* line 65, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
 .facebook_btn {
   color: white;
   background: #50669e;
   border-color: #50669e;
 }
 
-/* line 31, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+/* line 71, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
 .google_btn {
   color: white;
   background: #db4c3e;
   border-color: #c33428;
 }
 
-/* line 37, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+/* line 77, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
 #nav_logo {
-  width: 50px;
+  width: 65px;
   position: relative;
   /* Declared position allows for location changes */
-  top: -12px;
+  top: -22px;
 }
 
-/* line 44, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+/* line 84, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
 body {
   background: #ECE9E6;
   /* fallback for old browsers */
@@ -3851,7 +4391,12 @@ body {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-/* line 50, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+/* line 91, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.btn.pull-right {
+  margin-top: -5px;
+}
+
+/* line 95, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
 .dont-break-out {
   /* These are technically the same, but use both */
   overflow-wrap: break-word;
@@ -3868,7 +4413,7 @@ body {
   hyphens: auto;
 }
 
-/* line 70, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+/* line 115, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
 .scrollToTop {
   width: 60px;
   height: 60px;
@@ -3886,12 +4431,12 @@ body {
   background: none;
 }
 
-/* line 86, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+/* line 131, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
 .scrollToTop:hover {
   text-decoration: none;
 }
 
-/* line 90, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+/* line 135, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
 a {
   text-decoration: none !important;
   -webkit-touch-callout: none;
@@ -3902,32 +4447,123 @@ a {
   user-select: none;
 }
 
-/* line 100, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+/* line 145, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
 a:hover {
   text-decoration: none !important;
 }
 
-/* line 104, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+/* line 149, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
 .alert_span {
   background-color: #d9534f;
   font-size: 10px;
   margin-top: 2px;
 }
 
+/* line 157, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.featured_menu {
+  color: #333333;
+  font-size: 2em;
+}
+/* line 161, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.featured_menu a {
+  color: #333333;
+}
+/* line 163, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.featured_menu a .active {
+  color: #e27937;
+}
+/* line 169, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.featured_menu a:hover {
+  color: #333333;
+}
+/* line 171, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.featured_menu a:hover .active {
+  color: #e27937;
+}
+/* line 178, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.featured_menu .menu-item {
+  position: relative;
+}
+/* line 181, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.featured_menu .menu-item:hover {
+  text-decoration: none;
+  color: #333333;
+}
+/* line 185, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.featured_menu .menu-item:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+/* line 199, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.featured_menu .menu-item:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+/* line 208, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.quote {
+  background: #e07940;
+  position: relative;
+  z-index: 1;
+}
+/* line 213, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.quote:before, .quote:after {
+  background: inherit;
+  content: '';
+  display: block;
+  height: 50%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  z-index: -1;
+  -webkit-backface-visibility: hidden;
+}
+/* line 226, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.quote:before {
+  top: 0;
+  transform: skewY(1.5deg);
+  transform-origin: 100% 0;
+}
+/* line 232, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.quote:after {
+  bottom: 0;
+  transform: skewY(-1.5deg);
+  transform-origin: 100%;
+}
+
+/* line 240, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+.quote {
+  color: #fff;
+  margin: 50px 0;
+  padding: 10% 10px;
+  text-align: center;
+}
+
 @media (min-width: 760px) and (max-width: 1035px) {
-  /* line 111, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 249, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   #ipad_disapear {
     display: none;
   }
 }
 /* Adjust screen for Desktop view */
 @media (min-width: 1050px) {
-  /* line 119, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 257, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   #class_title {
     font-size: 17px !important;
   }
 
-  /* line 123, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 261, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .welcome {
     -webkit-background-size: cover;
     -webkit-background-size: 100%;
@@ -3936,29 +4572,29 @@ a:hover {
     background-size: cover;
   }
 
-  /* line 130, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 268, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   body {
     background-position: 30% 20%;
   }
 }
 /* Adjust screen for Tablet view */
 @media (min-width: 1050px) {
-  /* line 138, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 276, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .search_body {
     display: none;
   }
 }
 @media (min-width: 750px) {
-  /* line 144, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 285, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .home_text {
     margin-top: 160px;
   }
-  /* line 147, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 288, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .home_text a {
     margin: 1%;
   }
 
-  /* line 152, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 293, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .welcome {
     -webkit-background-size: cover;
     -webkit-background-size: 100%;
@@ -3967,67 +4603,89 @@ a:hover {
     background-size: cover;
   }
 
-  /* line 159, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 300, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   #mobile_overview_back {
     display: none;
   }
 }
 /* Adjust screen for mobile view */
 @media (min-width: 770px) {
-  /* line 167, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 308, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   #desktop_disapear {
     display: none;
   }
 }
+@media (max-width: 780px) {
+  /* line 316, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  .profile_body .title_header {
+    margin: -20px -15px 10px -15px;
+    padding-top: 10px;
+  }
+  /* line 319, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  .profile_body .title_header .title_text {
+    margin: auto;
+    width: 35%;
+  }
+}
 @media (max-width: 750px) {
-  /* line 175, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 330, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .home_text {
     margin-top: 40%;
   }
-  /* line 177, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 332, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .home_text h1 {
     font-size: 400%;
     margin-bottom: 10%;
   }
-  /* line 181, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 336, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .home_text h2 {
     font-size: 150%;
     margin-top: -5px;
     margin-bottom: 0px;
   }
 
-  /* line 188, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 343, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  .mobile_justify {
+    text-align: justify !important;
+  }
+
+  /* line 347, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  .mobile_centralize {
+    text-align: center !important;
+  }
+
+  /* line 351, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .alert_span {
     margin-right: 60%;
     margin-top: 2px;
   }
 
-  /* line 193, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 356, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .search_nav {
     display: none;
   }
 
-  /* line 197, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 360, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   #desktop_overview_back {
     display: none;
   }
 
-  /* line 201, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 364, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .disappear {
     display: none;
   }
 
-  /* line 205, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 368, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   #phone_disapear {
     display: none;
   }
 
-  /* line 209, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 372, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .welcome {
     background-position: 50% 0%;
   }
 
-  /* line 213, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
+  /* line 377, /home/ubuntu/workspace/app/assets/stylesheets/application.css.scss */
   .scrollToTop {
     top: 0%;
     right: 40%;

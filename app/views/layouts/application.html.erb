@@ -101,5 +101,9 @@
     
     <%= yield %>
     <a href="#" class="scrollToTop"><i class="fa fa-chevron-circle-up"></i></a>
+    
+    <script>
+      setTimeout("$('.flash_message').fadeOut('slow')", 5000)
+    </script>
   </body>
 </html>

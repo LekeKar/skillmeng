@@ -27,6 +27,14 @@
   src: url(/assets/slick.ttf) format("truetype");
 }
 
+ .flash_message{
+  position: absolute;
+  left: 0; 
+  right: 0; 
+  margin: auto;
+  z-index: 10;
+ }
+
  .title_header{
  		padding-bottom: 10px;
  		background-color: #f8ca9f;
@@ -195,7 +203,45 @@ a:hover {
 	
 }
 
+// slanted edges here
+.quote {
+  background: #e07940;
+  position: relative;
+  z-index: 1;
+  
+  &:before,
+  &:after {
+    background: inherit;
+    content: '';
+    display: block;
+    height: 50%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: -1;
+    -webkit-backface-visibility: hidden; // for Chrome Windows
+  }
 
+  &:before {
+    top: 0;
+    transform: skewY(1.5deg);
+    transform-origin: 100% 0;
+  }
+  
+  &:after {
+    bottom: 0;
+    transform: skewY(-1.5deg);
+    transform-origin: 100%;
+  }
+}
+
+// demo code below
+.quote {
+  color: #fff;
+  margin: 50px 0;
+  padding: 10% 10px;
+  text-align: center;
+}
 
 
 @media (min-width: 760px) and (max-width: 1035px) { 
@@ -336,4 +382,3 @@ a:hover {
 
 	
  /* Adjust screen for mobile view */ 
-	

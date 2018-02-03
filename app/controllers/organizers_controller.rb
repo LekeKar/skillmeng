@@ -66,7 +66,7 @@ class OrganizersController < ApplicationController
   end
   
   def purchases
-    @all_orders = @organizer.organizer_orders.successful.order(created_at: :desc)
+    @all_orders = @organizer.organizer_orders.successful.order(created_at: :desc).page(params[:page]).per_page(12)
   end
 
   def edit
