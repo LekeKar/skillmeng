@@ -80,8 +80,8 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   
   # Sendgrid setting
-  config.action_mailer.default_url_options = { host: 'http://skillmeng.com' }
-  config.action_mailer.asset_host = 'https://skllming-leke.c9users.io'
+  config.action_mailer.default_url_options = { host: 'http://www.skillmeng.com' }
+  config.action_mailer.asset_host = 'http://www.skillmeng.com'
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries  = true
 
