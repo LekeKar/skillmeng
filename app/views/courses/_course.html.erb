@@ -19,7 +19,7 @@
             <div>
               <span data-score= <%= @avg_review %> class="star-rating"></span> 
               <%= link_to course_rating_path(course) do %>
-                <div style="position: relative; font-size: 10px; top: -15.8px; left: 55px; color: #777;" >(<%= @reviews.length %>)</div>
+                <span id="rating_figure">(<%= @reviews.length %>)</span>
               <% end -%>
             </div>
           <% end -%>

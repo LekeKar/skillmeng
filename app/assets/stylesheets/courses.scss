@@ -5,6 +5,14 @@
 	box-shadow: 3px 3px 5px #888888;
 }
 
+#rating_figure{
+	position: relative;
+	font-size: 10px; 
+	top: -3px; 
+	left: 0px; 
+	color: #777;
+}
+
 .course_tabs_menu {
 	color: #333333;
 	
@@ -233,7 +241,7 @@ $size: 35px;
 }
 
 .about_gallery_content{
-	background-color: #f9f9f9;
+	background-color: #FFFFFF;
 	padding-top: 35px;
 	h3 {
 		margin-top: -20px;
@@ -255,7 +263,7 @@ $size: 35px;
 
 .news_content{
 	padding-bottom: 30px;
-	background-color: #FFFFFF;	
+	background-color: #f9f9f9;	
 }
 
 .more_info{
@@ -331,7 +339,7 @@ $size: 35px;
 }
 
 .reviews_content{
-	background-color: #FFFFFF;
+	background-color: #f9f9f9;
 	padding-bottom: 20px;
 
 	.body_rating {
@@ -360,7 +368,7 @@ $size: 35px;
 
 .tutor_content{
 	padding-bottom: 20px;
-	background-color: #f9f9f9;
+	background-color: #FFFFFF;
 	.tutor_gallery{
 		color: #FFFFFF;
 	}
@@ -373,7 +381,7 @@ $size: 35px;
 }
 
 .footer_content{
-	background-color: #f9f9f9;
+	background-color: #FFFFFF;
 	padding-bottom: 20px;
 }
 	
@@ -459,6 +467,7 @@ $size: 35px;
 
 
 @media (max-width: 800px) {
+	
 	.mobile_centralize{
 		text-align: center;
 	}

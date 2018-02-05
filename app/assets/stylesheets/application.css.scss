@@ -84,7 +84,7 @@ body {
 background: #ECE9E6; /* fallback for old browsers */
 background: -webkit-linear-gradient(to left, #ECE9E6 , #FFFFFF); /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to left, #ECE9E6 , #FFFFFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        }    
+ }    
 
 
 .btn.pull-right{
@@ -311,6 +311,13 @@ a:hover {
 }
 
 @media (max-width: 780px) {	
+	body {
+		background-color: #FFFFFF; /* fallback for old browsers */ /* Chrome 10-25, Safari 5.1-6 */
+		background: -webkit-linear-gradient(to left, #FFFFFF , #FFFFFF); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #FFFFFF , #FFFFFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ 
+		}
+	
 	.profile_body{
 		.title_header{
 			margin: -20px -15px 10px -15px;
@@ -325,7 +332,7 @@ a:hover {
 }
 
 @media (max-width: 750px) {
-
+	
 	.home_text{
 	margin-top: 40%;
 		h1 {	

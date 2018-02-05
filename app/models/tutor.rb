@@ -17,6 +17,10 @@ class Tutor < ActiveRecord::Base
     validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
     validates_attachment_size :avatar, :in => 0.megabytes..4.megabytes
   	validates_length_of :bio, :maximum => 300
+  	validates_length_of :job_title, :maximum => 30
+  	validates_length_of :name, :maximum => 25
+  	validates :name, :presence => {:message => 'A tutor must have a name'}
+  	validates :job_title, :presence => {:message => 'A tutor must have a job title'}
   	
   	
   	protected 

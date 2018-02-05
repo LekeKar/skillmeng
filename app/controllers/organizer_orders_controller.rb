@@ -151,7 +151,7 @@ class OrganizerOrdersController < ApplicationController
   	end
   	
   	#update_course_promotion
-  	if  @order.status == "success" && @order.course_promotions
+  	if  @order.status == "success" && !@order.course_promotions.empty?
   	  course = Course.find(@order.course_promotions.last.course_id)
   	  course.update_attribute(:featured, true)
   	end

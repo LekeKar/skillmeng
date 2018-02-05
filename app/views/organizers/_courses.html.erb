@@ -34,7 +34,7 @@
         	</div>
       	<% end %>
       	
-      	<% if course.featured  %>
+      	<% if course.featured && !course.course_promotions.empty?  %>
           <div class="text-center" id="promoted_courses">
           	<% expiration = course.course_promotions.last.created_at + 2.week %>
             promoted <br> <small> till <%= expiration.strftime('%d/%m/%y') %></small>

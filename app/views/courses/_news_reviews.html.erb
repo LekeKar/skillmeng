@@ -26,7 +26,9 @@
       <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
         <div class="mobile_centralize">
           <small>
-           <%= link_to 'add news', new_announcement_path(course: @course), class:"btn btn-xs btn-default course_control"%>
+            <% unless @course.course_state != "activated" %>  
+             <%= link_to 'add news', new_announcement_path(course: @course), class:"btn btn-xs btn-default course_control"%>
+            <%end%>  
           </small>
         </div>
       <% end -%>
@@ -112,15 +114,20 @@
                                     <td ><strong><%= number_with_delimiter(credit_remaining, :delimiter => ',')  %></strong></td>
                                   </tr>
                                   <tr>
-                                    <% if credit_remaining > 0 %>
-                                      <td class="text-left"> <%= link_to "send emails", email_broadcast_path(@course, announcement), class:"btn btn-default btn-xs course_control", data: {confirm: "This action will send this announcement to available #{@course.title} followers as an email consuming #{number_with_delimiter(@course.favorited_by.subscribeable.count, :delimiter => ',')} email credits, are you sure?"} %></td>
+                                    <% unless @course.course_state != "activated" %>  
+                                      <% if credit_remaining > 0 %>
+                                        <td class="text-left"> <%= link_to "send emails", email_broadcast_path(@course, announcement), class:"btn btn-default btn-xs course_control", data: {confirm: "This action will send this announcement to available #{@course.title} followers as an email consuming #{number_with_delimiter(@course.favorited_by.subscribeable.count, :delimiter => ',')} email credits, are you sure?"} %></td>
+                                      <% else %>
+                                        <td class="text-left">
+                                          You need more credits to send out brodcasts. <br>
+                                          <div style="margin-top: 10px;">
+                                            <%= link_to "buy more", new_organizer_organizer_order_path(@user_organizer) , class:"btn btn-xs btn-default course_control" %>
+                                          </div>
+                                        </td>  
+                                      <% end %>
                                     <% else %>
-                                      <td class="text-left">
-                                        You need more credits to send out brodcasts. <br>
-                                        <div style="margin-top: 10px;">
-                                          <%= link_to "buy more", new_organizer_organizer_order_path(@user_organizer) , class:"btn btn-xs btn-default course_control" %>
-                                        </div>
-                                      </td>  
+                                      <h5 style="color: #d75452;">Broadcast is disabled due to suspended status of course</h5>
+  
                                     <% end %>
                                     <td></td>
                                   </tr>
@@ -215,7 +222,7 @@
               </div>
             <%end%>
           <%else%>
-            <div class="col-xs-12 col-sm-4 col-md-4" style= "margin-bottom: 20px;">
+            <div class="col-xs-12 col-sm-4 col-md-4 mobile_centralize" style= "margin-bottom: 20px;">
               <%= link_to "Be the first to review", new_course_review_path(@course), class: "btn btn-md btn-success", style:"background-color: #e58b5a; border: none;"%>
             </div>
           <%end%>

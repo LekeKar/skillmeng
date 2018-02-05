@@ -27,22 +27,25 @@
 	          </h4>
 	        </div>
 	        <div class="modal-body">
-				<div class="panel panel-default">
-		        	<div class="panel-body message_modal"> 
-			        	<% conversation.receipts_for(current_user).order('created_at ASC').each do |receipt| %>
-			        		<% if receipt.message.sender == current_user %>
-			        			<% @name_style = "color: #5fb760" %>
-			        		<%	else %>
-			        			<% @name_style = "color: #777777" %>
-			        		<% end -%>
-							<strong style="<%= @name_style %>" >
-							<%= receipt.message.sender.fname %></strong>: <%= receipt.message.body %><br>
-						<% end -%> 
-						<span style="color: grey; font-size: 10px;">
-							last message sent <%= conversation.receipts_for(current_user).last.created_at.to_formatted_s(:short) %>
-						</span>
+						<div class="panel panel-default">
+			        	<div class="panel-body message_modal" style="text-align: left;"> 
+				        	<% conversation.receipts_for(current_user).order('created_at ASC').each do |receipt| %>
+				        		<% if receipt.message.sender == current_user %>
+				        			<% @name_style = "color: #5fb760" %>
+				        		<%	else %>
+				        			<% @name_style = "color: #777777" %>
+				        		<% end -%>
+								<strong style="<%= @name_style %>" >
+								<%= receipt.message.sender.fname %></strong>: <%= receipt.message.body %><br>
+							<% end -%> 
+						</div>
+						<div class="text-center">
+								<span style="color: grey; font-size: 0.75em;">
+									last message sent <%= conversation.receipts_for(current_user).last.created_at.to_formatted_s(:short) %>
+								</span>
+							</div>
+						</div>
 					</div>
-				</div>
 				
 				<%= form_tag conversation_messages_path(conversation), method: :post do %>
 					<%= text_area_tag :body, nil, class: 'form-control message_text_input', :input_html => {:rows => 3} %>

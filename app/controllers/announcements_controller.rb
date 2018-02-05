@@ -2,6 +2,7 @@ class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: [:show, :edit, :update, :destroy, :email_broadcast]
   before_action :set_course
   before_action :set_organizer, only: [:new, :edit] 
+  before_action :suspended_check, only: [:new, :edit] 
   before_action :user_auth, only: [:edit, :new]
 
   # GET /announcements
@@ -151,5 +152,11 @@ class AnnouncementsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def announcement_params
     params.require(:announcement).permit(:subject, :body, :sender_type, :sender, :action_link, :sender_type, :photo, :broadcast)
+  end
+  
+  def suspended_check
+    if @course.course_state == "suspended"
+      redirect_to :back, alert: 'Oga, this course is under admin investigation.' 
+    end
   end
 end

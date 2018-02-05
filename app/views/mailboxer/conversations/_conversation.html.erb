@@ -26,7 +26,7 @@
 	          </h4>
 	        </div>
 	        <div class="modal-body">
-				<div class="panel panel-default">
+					<div class="panel panel-default">
 		        	<div class="panel-body message_modal" style="text-align: left;"> 
 			        	<% conversation.receipts_for(current_user).order('created_at ASC').each do |receipt| %>
 			        		<% if receipt.message.sender == current_user %>
@@ -43,8 +43,7 @@
 								last message sent <%= conversation.receipts_for(current_user).last.created_at.to_formatted_s(:short) %>
 							</span>
 						</div>
-					
-				</div>
+					</div>
 				
 				<%= form_tag conversation_messages_path(conversation), method: :post do %>
 					<%= text_area_tag :body, nil, class: 'form-control message_text_input', :input_html => {:rows => 3} %>

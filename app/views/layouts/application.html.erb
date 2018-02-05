@@ -64,6 +64,7 @@
     </script>
     
     <%= content_for?(:head) ? yield(:head) : '' %>
+    <%= favicon_link_tag 'favicon.ico' %>
 
   </head>
   <body <%= yield(:body_attributes) %> onunload="">

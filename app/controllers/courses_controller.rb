@@ -397,8 +397,8 @@ class CoursesController < ApplicationController
       @course_request = @course.course_requests
       @announcements = Announcement.course.where(:sender => @course.id).order('created_at DESC')
       @total_email_credit = @organizer.organizer_credit_bal.email_regular + @organizer.organizer_credit_bal.email_bonus
-      @gallery_pics = @course.gallery_pics.page(params[:page]).per_page(3)
-      @tutors = @course.tutors
+      @gallery_pics = @course.gallery_pics.page(params[:page])
+      @tutors = @course.tutors.includes(:course_tutors).order("course_tutors.created_at asc")
       if @user_organizer && @user_organizer.tutors
         available_tutor_prep = @user_organizer.tutors
         @available_tutors = available_tutor_prep - @tutors
@@ -453,8 +453,8 @@ class CoursesController < ApplicationController
     end
 
     def class_limits
-      if current_user.courses.count > 7  
-        redirect_to @organizer, alert: 'You have uplaoded max amount of classes (8) for this account'   
+      if current_user.courses.count > 2  
+        redirect_to @user_organizer, alert: 'You have uplaoded max amount of classes (3) for this account'   
       end    
     end 
 
