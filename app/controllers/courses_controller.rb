@@ -256,7 +256,7 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = @user_organizer.courses.build(course_params)
-    @course.state = "setup"
+    @course.course_state = "setup"
     @course.user_id = current_user.id
     
     # makes organizers first course primary
