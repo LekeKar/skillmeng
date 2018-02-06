@@ -88,7 +88,7 @@ class OrganizersController < ApplicationController
   def destroy
     @organizer.destroy
     respond_to do |format|
-      format.html { redirect_to @user, notice: 'Organizer account was successfully destroyed.' }
+      format.html { redirect_to @user, notice: 'Manager account was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -10,7 +10,7 @@ class CoursesController < ApplicationController
   before_action :class_limits, only: [:new, :create]
   before_action :course_completeness, only: [:course_manager, :show]
   after_action :course_completeness, only: [:show]
-  before_action :user_organizer_check, only: [:new, :create, :edit, :update ]
+  before_action :user_manager_check, only: [:new, :create, :edit, :update ]
   before_action :set_user_fav, only: [:toggle_broadcast, :toggle_subscription]
 
 
@@ -443,10 +443,10 @@ class CoursesController < ApplicationController
       end    
     end
     
-    def user_organizer_check
+    def user_manager_check
       if current_user.organizer == nil
         session[:return_to] ||= request.original_url
-        redirect_to new_organizer_path, notice: "You need to create an Organization first." 
+        redirect_to new_organizer_path, notice: "You need to create an Manager profile first." 
       else
         @user_organizer = current_user.organizer
       end 
