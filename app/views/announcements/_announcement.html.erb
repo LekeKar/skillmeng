@@ -60,7 +60,21 @@
 	  <div class="modal-dialog modal-md" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header" style="padding: 5px; color: #3f3f3f; ">
-	        <h4><%= announcement.subject %></h4> 
+	        <h4><%= announcement.subject %><br>
+	          <font style="color: #777777">
+              <% if announcement.sender_type == "course" %>
+                <%= link_to @course do %>
+                  <small style ="color: #777;"><%= sender %> </small>
+                <% end %>
+              <% elsif announcement.sender_type == "organizer" %>
+                <%= link_to organizer do %>
+                  <small style ="color: #777;"><%= sender %> </small>
+                <% end %>
+              <% else %>
+                <small>- <%= sender %> </small>
+              <% end %>
+            </font>
+	        </h4> 
         </div>
         <div class="modal-body">
           <% if announcement.photo.present? %>
@@ -78,20 +92,8 @@
               </a>
             <% end %>
           <% end %>
-          <div class="mobile_justify"><%= announcement.body %></div><br>
-          <font style="color: #777777">
-            <% if announcement.sender_type == "course" %>
-              <%= link_to @course do %>
-                <small>- <%= sender %> </small>
-              <% end %>
-            <% elsif announcement.sender_type == "organizer" %>
-              <%= link_to organizer do %>
-                <small>- <%= sender %> </small>
-              <% end %>
-            <% else %>
-              <small>- <%= sender %> </small>
-            <% end %>
-          </font>
+          <div style="text-align: justify;"><%= announcement.body %></div><br>
+          
         
           <br></br>
             

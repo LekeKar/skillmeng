@@ -76,6 +76,12 @@ class OrganizersController < ApplicationController
   	respond_to do |format|
       if @organizer.update(organizer_params)
         update_paystack_profile
+        
+        if organizer.name_changed?
+          update_course_org
+        end
+          
+        
         format.html { redirect_to (@organizer), notice: "#{@organizer.name} account was successfully updated." }
         format.json { render :show, status: :ok, location: @organizer }
       else
@@ -129,6 +135,12 @@ class OrganizersController < ApplicationController
     def create_credit_bal
       OrganizerCreditBal.create!(:email_regular  => 0, :email_bonus => 50, :organizer_id => @organizer.id ) 
     end 
+    
+    def update_course_org
+      for course in @organizer.courses
+        course.update_atribute(:tutor, organizer.name)
+      end
+    end
     
     def update_paystack_profile
       paystackObj = Paystack.new

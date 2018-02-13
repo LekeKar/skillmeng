@@ -1,4 +1,9 @@
 <% title "All Courses" %>
+<h1>
+<% site = ENV["SKILLMENG_SITE"] %>
+<%= site %>
+</h1>
+
 <div class="container-fluid">
   <%= form_tag search_courses_path, method: :get, class: 'input-group search_body', role: "search" do %>
     <%= text_field_tag :search, nil, class: 'form-control', id: 'courses_search_mobile', autocomplete: :off, placeholder: 'search skillmeng' %>

@@ -54,11 +54,11 @@
       	<table class="table">
       		<tr>
       			<td><strong>Views</strong></td>
-      			<td class="active"><%= number_to_human(course.impressionist_count(:filter => :ip_address)) %></td>
+      			<td class="active text-center"><%= number_to_human(course.impressionist_count(:filter => :ip_address)) %></td>
       		</tr>
       		<tr>
       			<td><strong>Followers</strong></td>
-      			<td class="active"><%= number_to_human(course.favorited_by.count) %></td>
+      			<td class="active text-center"><%= number_to_human(course.favorited_by.count) %></td>
       		</tr>
       	</table>
       	

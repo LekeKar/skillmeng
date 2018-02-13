@@ -1,27 +1,42 @@
-<%-# Style Alterator  -%>
-<% @disappear = 'disappear'%>
-
-<div class="container course_body" style="background-color: #FFFFFF;">
-  <div class="row reviews_content">
-    <div class=" col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
-      
-			<h2 style="color: #777777;">
-			  Reviews for 
-			  <br><small><%= @course.title.titleize %></small>
-			</h2>
-			
-  	  <div class="row" style="margin-top: 40px;">
-        <%= render @reviews_paginate %>
-      </div>
-      
-      <div class="row text-center" >
-        <div id="paginate">
-          <%= will_paginate @reviews_paginate, inner_window: 0, outer_window: 0, renderer: BootstrapPagination::Rails %>
-        </div> 
-      </div> 
-    </div> 
+<% title "#{@course.title} ratings  " %>
+<div class="container-fluid">
+	<div class="row">
+		<div class=" col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
+		  <div class="profile_body" style="margin-bottom: 50px;">
+				<div class="container-fluid title_header text-center">
+			    <div class="title_text">
+			      Reviews
+			    </div>
+				</div>
+				<div class="container-fluid profile_content text-center" style="padding-top: 30px; background-color: #FFFFFF;">
+					<div class="row" >
+					  <div class="container-fluid">
+  						<div id="ratings">
+  							<% if !@reviews_paginate.empty? %>
+  						  	<%= render @reviews_paginate %>
+  						  <% else %>
+  						  	<div class="quote">
+  						  		<h3>
+  						  			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum qui voluptate culpa corrupti, consequuntur provident quos beatae. Molestias nostrum enim, animi. Placeat nemo officia incidunt magni in sint consequuntur vel?
+  						  		</h3>
+  						  	</div>
+  						  <% end %>
+  						</div>
+						</div>
+					</div>
+					
+					<div class="row">
+					  <div id="infinite-scrolling" class="text-center" style="color: #777777;">
+					  	<%= will_paginate @reviews_paginate %>
+					  </div>
+					</div>
+				</div>
+			</div>
+    </div>
   </div>
 </div>
+
+
 
 <!-- Helps display Rating stars -->
 	<%= render "helper_code/raty" %>

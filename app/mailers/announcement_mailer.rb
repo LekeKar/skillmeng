@@ -24,7 +24,7 @@ class AnnouncementMailer < ApplicationMailer
   
   def course_report(course)
     @course = course
-    mail(to:"info@skillmeng.com", subject: "Users are reporting #{@course.title}", from: "no_reply@skillmeng.com")
+    mail(to:"admin@skillmeng.com", subject: "Users are reporting #{@course.title}", from: "no_reply@skillmeng.com")
   end
   
   

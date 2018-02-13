@@ -66,7 +66,7 @@
             <% if @course_payment && !@course_payment.course_prices.empty? %>
               <div class="mobile_centralize">
                 <a href="" data-toggle="modal" data-target=".payment_info_modal", style="background-color: #e58b5a; border: none; width: 90px;", class="btn btn-xs btn-success" >
-                  <i class="fa fa-money"></i> Pay
+                  How to pay
                 </a> 
               </div>
             <% end %> 
@@ -268,7 +268,7 @@
                 <div>
                   <h5>
                     <% @about.course_rewards.each do |course_reward| %>
-                      - <%= course_reward.name %> (<%= course_reward.acronym %>)
+                      - <%= course_reward.name %> <%= !course_reward.acronym.empty? ? "(#{course_reward.acronym})" : ""%>
                       <%= !course_reward.description.blank? ? ": #{course_reward.description}" : "" %> </br>
                     <% end -%>
                   </h5>

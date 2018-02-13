@@ -3,7 +3,7 @@
   <div class="title text-center">
     <h1>
       <%= @course.title %> <br>
-      <small id="locality"><%= @course.local_area %>, <%= @course.locality %></small> <br>
+      <small id="locality" ><%= @course.local_area %>, <%= @course.locality %></small> <br>
       <span data-score= <%= @avg_review %> class="star-rating" id="star_ratings"></span>
       <small id="review_count">(<%= number_to_human(@reviews.length) %>)</small>
     </h1>
@@ -32,30 +32,23 @@
       <% else %>
         <% if  params[:visitor] == "visitor" %>
          
-          <a  href="" data-toggle="modal" data-target=".payment_info_modal", class="btn btn-default btn-lg btn-visitor" >
-            <i class="fa fa-money"></i> Pay
-          </a> 
-      
-          <a class="btn btn-default btn-lg btn-visitor" >
-            <i class="fa fa-heart-o"></i> Follow
+          <a class="btn btn-default btn-lg btn-visitor-o" >
+            <i class="fa fa-heart-o"></i> Interested
           </a> 
             
         <% else %>
-          
-          <a href="" data-toggle="modal" data-target=".payment_info_modal", class="btn btn-default btn-lg btn-visitor" > 
-            <i class="fa fa-money"></i> Pay
-          </a> 
+
           <% if current_user && current_user.favorites.exists?(@course) %>
             <%= link_to favorite_course_path(@course), method: :put, remote: true, class:"btn btn-default btn-lg btn-visitor btn-save" do %>
-              <i class="fa fa-heart"></i> <span>Unfollow</span>
+              <i class="fa fa-heart"></i> <span>I'm interested</span>
             <% end -%> 
           <% elsif current_user -%>
-            <%= link_to favorite_course_path(@course), method: :put, remote: true, class:"btn btn-default btn-lg btn-visitor btn-save" do %>
-              <i class="fa fa-heart-o"></i> <span>Follow</span>
+            <%= link_to favorite_course_path(@course), method: :put, remote: true, class:"btn btn-default btn-lg btn-visitor-o btn-save" do %>
+              <i class="fa fa-heart-o"></i> <span>Interested</span>
             <% end -%>
           <% else -%>
-            <%= link_to favorite_course_path(@course), method: :put, class:"btn btn-default btn-visitor btn-lg" do %>
-              <i class="fa fa-heart-o"></i> Follow
+            <%= link_to favorite_course_path(@course), method: :put, class:"btn btn-default btn-visitor-o btn-lg" do %>
+              <i class="fa fa-heart-o"></i> Interested
             <% end -%>
           <% end -%>
         <% end %>
@@ -74,11 +67,8 @@
       <span  data-toggle="tooltip" title="This course has been followed by <%= number_to_human(@course.favorited_by.count) %> users"><i class="fa fa-users"></i> <%= number_to_human(@course.favorited_by.count) %></span>
   </strong>
   <div class="course_share pull-right">
-    <%= link_to new_course_report_path(@course), style:"color: #FFFFFF;" do %>
-      <i class="fa fa-flag"></i> 
-    <% end %>
     <a href=".modal_share" data-toggle="modal" data-target=".modal_share" style="color: #FFFFFF;">
-      <i class="fa fa-share-alt" style="margin-left: 5px;"></i>
+     <i class="fa fa-share-alt"></i> share 
     </a>
   </div>
 </div>

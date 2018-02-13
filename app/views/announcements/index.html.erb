@@ -1,20 +1,35 @@
-<% title "All #{@course.title}'s announcements" %>
+<% title "#{@course.title} announcements  " %>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-		  <h2 style="color: #777777;">  News</h2>
-		  <div style="margin: -10px 0px 10px 0px;">
-		    <%= link_to @course do %>
-		      for <%= @course.title %>
-		    <% end %>
-		  </div>
-      <div id="my_news" class="panel-group" role="tablist" aria-multiselectable="true">
-        <%= render @announcements %>
-      </div>
+		<div class=" col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
+		  <div class="profile_body" style="margin-bottom: 50px;">
+				<div class="container-fluid title_header text-center">
+			    <div class="title_text">
+			      News
+			    </div>
+				</div>
+				<div class="container-fluid profile_content text-center" style="padding-top: 30px; background-color: #FFFFFF;">
+					<div class="row" >
+						<div id="my_news">
+							<% if !@announcements.empty? %>
+						  	<%= render @announcements %>
+						  <% else %>
+						  	<div class="quote">
+						  		<h3>
+						  			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum qui voluptate culpa corrupti, consequuntur provident quos beatae. Molestias nostrum enim, animi. Placeat nemo officia incidunt magni in sint consequuntur vel?
+						  		</h3>
+						  	</div>
+						  <% end %>
+						</div>
+					</div>
+					
+					<div class="row">
+					  <div id="infinite-scrolling" class="text-center" style="color: #777777;">
+					  	<%= will_paginate @announcements %>
+					  </div>
+					</div>
+				</div>
+			</div>
     </div>
   </div>
 </div>
-
-<div id="infinite-scrolling" class="text-center" style="color: #777777;">
-   <%= will_paginate @announcements %>
-</div> 

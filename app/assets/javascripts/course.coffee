@@ -30,22 +30,25 @@ $(document).ready ->
     
   # Course follow button
   $('.btn-save').click ->
+    $(this).toggleClass 'btn-visitor-o btn-visitor'
     $(this).find('i').toggleClass 'fa-heart-o fa-heart'
-    if $(this).find('span').text() == 'Follow'
-      $(this).find('span').text 'Unfollow'
+    if $(this).find('span').text() == 'Interested'
+      $(this).find('span').text 'I\'m interested'
     else
-      $(this).find('span').text 'Follow'
+      $(this).find('span').text 'Interested'
     return
   return
   
   #search
-$(document).ready ->
-  courses = new Bloodhound(
-    datumTokenizer: Bloodhound.tokenizers.whitespace
-    queryTokenizer: Bloodhound.tokenizers.whitespace
-    remote:
-      url: '/courses/autocomplete?query=%QUERY'
-      wildcard: '%QUERY')
-  $('#courses_search_nav').typeahead null, source: courses
-  $('#courses_search_mobile').typeahead null, source: courses
-  return
+  $(document).ready ->
+    courses = new Bloodhound(
+      datumTokenizer: Bloodhound.tokenizers.whitespace
+      queryTokenizer: Bloodhound.tokenizers.whitespace
+      remote:
+        url: '/courses/autocomplete?query=%QUERY'
+        wildcard: '%QUERY')
+    $('#courses_search_nav').typeahead null, source: courses
+    $('#courses_search_mobile').typeahead null, source: courses
+    return
+
+  

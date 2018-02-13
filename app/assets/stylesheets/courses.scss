@@ -135,11 +135,12 @@
 	color: #FFFFFF;
 	position: relative; 
 	top: 5%;
+	
 	#review_count {
 		color: #FFFFFF;
 		font-size: 0.6em; 
 		position: relative; 
-		top: -13px;
+		top: -12px;
 	}
 	#locality{
 		color: #FFFFFF; 
@@ -169,9 +170,14 @@
 	
 	.btn-visitor {
 		border: none;
-		width: 120px; 
 		color: #FFFFFF;
-		background-color: rgba(222,110,49,0.6);
+		background-color: rgba(222,110,49,0.9);
+	}
+	
+	.btn-visitor-o {
+		border: none;
+		color: #FFFFFF;
+		background-color: rgba(222,110,49,0.5);
 	}
 	
 	.star_rating_number{
@@ -227,8 +233,8 @@ $size: 35px;
 	color: #FFFFFF;
 	
 	.course_share{
-		margin-top: -4px;
-		font-size: 25px;
+		margin-top: 5px;
+		font-size: 18px;
 	}
 }
 
@@ -339,7 +345,7 @@ $size: 35px;
 }
 
 .reviews_content{
-	background-color: #f9f9f9;
+	
 	padding-bottom: 20px;
 
 	.body_rating {
@@ -492,9 +498,6 @@ $size: 35px;
 		padding-top: 35px;
 		margin: -20px -15px 10px -15px;
 		
-		.course_publish {
-			display: none;
-		}
 		
 		h1{
 		font-size: 2em;
@@ -524,9 +527,7 @@ $size: 35px;
 		}
 	}
 	
-	.reviews_content {
-		margin: 15px -15px 10px -15px;
-	}
+	
 	
 	.more_info{
 		margin: -20px -15px 10px -15px;

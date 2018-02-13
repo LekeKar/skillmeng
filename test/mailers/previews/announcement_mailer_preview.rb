@@ -4,12 +4,12 @@ class AnnouncementMailerPreview < ActionMailer::Preview
   # Preview this email at http://localhost:3000/rails/mailers/announcement_mailer/course_news
   def course_news
     user = User.find(1)
-    announcement = Announcement.find(71)
+    announcement = Announcement.find(4)
     AnnouncementMailer.course_news(user, announcement)
   end
   
   def credit_refill
-    org = Organizer.find(11)
+    org = Organizer.find(7)
     AnnouncementMailer.credit_refill(org)
   end
   
@@ -20,13 +20,13 @@ class AnnouncementMailerPreview < ActionMailer::Preview
   
   def barter_request
     user = User.find(1)
-    trade_offer = CourseRequest.find(34)
+    trade_offer = CourseRequest.find(1)
     AnnouncementMailer.barter_request(user, trade_offer)
   end
   
   def barter_response
     user = User.find(2)
-    trade_offer = CourseRequest.find(34)
+    trade_offer = CourseRequest.find(1)
     ans = "accepted"
     AnnouncementMailer.barter_response(user, trade_offer, ans)
   end

@@ -40,7 +40,7 @@
               <div class="panel panel-default panel-class" style="margin-bottom: 1px;">
                 <div class="panel-header text-center announcement_title" style="height: 40px;">
                   <h6>
-                    <strong><%= announcement.subject %></strong><br>
+                    <%= announcement.subject %><br>
                     <small>
                       <%= announcement.created_at.strftime("%b %d, %Y | %I:%M%p") %>
                     </small>
@@ -88,7 +88,7 @@
                         </a>
                       <% end %>
                     <% end %>
-                    <div class="mobile_justify"><%= announcement.body %></div><br>
+                    <div style="text-align: justify;"><%= announcement.body %></div><br>
                     <br></br>
                     <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
                       <div class="collapse" id="broadcast_<%= announcement.id%>">
@@ -160,8 +160,8 @@
                                 </a>
                               </li>
                             <% end %>
-                            <li><%= link_to 'Edit', edit_announcement_path(announcement)%></li>
-                            <li><%= link_to 'Delete',  announcement_path(announcement), method: :delete, data: {confirm: "This action will delete this news, Are you sure?"}, style:"color: #d9534f;" %></li>
+                            <li><%= link_to 'Edit', edit_announcement_path(announcement,  @course)%></li>
+                            <li><%= link_to 'Delete',  announcement_path(announcement, @course), method: :delete, data: {confirm: "This action will delete this news, Are you sure?"}, style:"color: #d9534f;" %></li>
                           </ul>
                         </div>
                       <% end -%>
@@ -195,9 +195,12 @@
         <% end %>
           
       </div>
-      <%= link_to course_announcements_path(@course) do %>
-    	  <small><%= @announcements.count > 6 ? "| view all" : "" %></small>
-    	<% end %>
+      <% if  @announcements.count > 6 %>
+        <div class="text-center">
+          <%= link_to "view all",course_announcements_path(course: @course), class:"text-center btn btn-xs btn-success", style:"background-color: #e58b5a; border: none; width: 90px;"%>
+        </div>
+      <% end %>
+    
     </div>
     
     <!--Reviews content-->
@@ -207,10 +210,10 @@
         <div class="row">
           <% if !@reviews_paginate.empty? %>
             
-            <%= render @reviews_paginate.first(5) %>
+            <%= render @reviews_paginate.first(6) %>
             <% if current_user && current_user.id != @course.user_id || params[:visitor] == "visitor" %>
               <div class="col-xs-12 col-sm-4 col-md-4">
-                <div class="body_rating text-center" style= "height: 150px; margin-bottom: 20px;">
+                <div class="body_rating" style= "height: 150px; margin-bottom: 20px;">
                   <div class="panel-body">
                     <H3>
                       <%= link_to new_course_review_path(@course), style: "color: #e58b5a;"  do %>
@@ -227,11 +230,13 @@
             </div>
           <%end%>
         </div>
-        <% if @reviews_paginate.count > 5 %>
-          <%= link_to course_rating_path(@course), class: "btn btn-md btn-success", style:"background-color: #e58b5a; border: none;" do %>
-        	  <small>view all</small>
-        	<% end %> 
-      	<% end %> 
+        
+        <% if  @reviews_paginate.count > 6 %>
+          <div class="text-center">
+            <%= link_to "view all", course_rating_path(@course), class:"text-center btn btn-xs btn-success", style:"background-color: #e58b5a; border: none; width: 90px;"  %>
+          </div>
+        <% end %>
+      
       </div>
     </div>
   </div>
