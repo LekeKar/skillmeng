@@ -164,9 +164,9 @@
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <%= social_share_button_tag(@organizer.name, :url => "https://skllming-leke.c9users.io/organizers/#{@organizer.slug}") %> <br>
+        <%= social_share_button_tag(@organizer.name, :url => "#{ENV["SKILLMENG_SITE"]}/organizers/#{@organizer.slug}") %> <br>
         <div class="input-group">
-          <input type="text" id="foo" value="https://skllming-leke.c9users.io/organizers/<%= @organizer.slug %>" class="form-control" placeholder="Search for...">
+          <input type="text" id="foo" value="<%= ENV["SKILLMENG_SITE"]%>/organizers/<%= @organizer.slug %>" class="form-control" placeholder="Search for...">
           <span class="input-group-btn">
             <button class="btn btn-warning btn-md" data-clipboard-target="#foo" type="button" data-toggle="tooltip" data-placement="left" title="Copied!">Copy</button>
           </span>

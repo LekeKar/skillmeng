@@ -82,12 +82,12 @@
         <% unless @course.course_state != "activated" %>
           <div class="share_link">
             <h4>share course</h4>
-            <%= social_share_button_tag(@course.title, :url => "http://skllming-leke.c9users.io/courses/#{@course.slug}") %> <br>
+            <%= social_share_button_tag(@course.title, :url => "#{ENV["SKILLMENG_SITE"]}/courses/#{@course.slug}") %> <br>
           
             <small style="color: #777777;"> course link</small> <br>
           
             <div class="input-group">
-              <input type="text" id="foo" value="https://skllming-leke.c9users.io/courses/<%= @course.slug %>" class="form-control" placeholder="Search for...">
+              <input type="text" id="foo" value="<%=ENV["SKILLMENG_SITE"]%>/courses/<%= @course.slug %>" class="form-control" placeholder="Search for...">
               <span class="input-group-btn">
                 <button class="btn btn-default btn-md" data-clipboard-target="#foo" type="button" data-toggle="tooltip" data-placement="left" title="Copied!",  style="background-color: #e27937; border-color: #e27937; color:#FFFFFF;">Copy</button>
               </span>

@@ -41,8 +41,8 @@ class OrganizersController < ApplicationController
       title: "#{@organizer.name}",
       type: 'website',
       image: @organizer.logo.url(:large),
-      url: "https://skllming-leke.c9users.io/organizers/#{@organizer.slug}",
-      fb: 1088485341297099,
+      url: "#{ENV["SKILLMENG_SITE"]}/organizers/#{@organizer.slug}",
+      fb: ENV["FACEBOOK_ID"],
       description: @meta_description
     }
     

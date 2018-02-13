@@ -125,7 +125,7 @@ class OrganizerOrdersController < ApplicationController
   	result = transactions.initializeTransaction(
   		:amount => @order.total * 100,
   		:email => @organizer.email,
-  		:callback_url => "https://skllming-leke.c9users.io/organizers/#{@organizer.slug}/organizer_orders/#{@order.id}"
+  		:callback_url => "#{ENV["SKILLMENG_SITE"]}/organizers/#{@organizer.slug}/organizer_orders/#{@order.id}"
   		)
   		
   	@order.transaction_reference = result['data']['reference']

@@ -105,8 +105,8 @@ class CoursesController < ApplicationController
       title: "#{@course.title}",
       type: 'website',
       image: @course.display_pic.url(:large),
-      url: "http://skllming-leke.c9users.io/courses/#{@course.slug}",
-      fb: 1088485341297099,
+      url: "#{ENV["SKILLMENG_SITE"]}/courses/#{@course.slug}",
+      fb: ENV["FACEBOOK_ID"],
       description: @meta_description
     }
   
