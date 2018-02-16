@@ -6,7 +6,15 @@ class WelcomeController < ApplicationController
   	if current_user
   		redirect_to courses_path
   	end
-  	  @meta_description = "Welcome to Skillmeng, an online platform for finding \"offline\" courses in Nigeria."
+  	   # capture metadescription
+    @og_properties = {  
+      title: "Welcome to Skillmeng",
+      type: 'website',
+      image: ActionController::Base.helpers.asset_path('email_header_art.jpg'),
+      url: "#{ENV["SKILLMENG_SITE"]}",
+      fb: ENV["FACEBOOK_ID"],
+      description: "Welcome to Skillmeng, an online platform for finding \"offline\" courses in Nigeria."
+    }
   end
 
   def about

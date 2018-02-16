@@ -213,7 +213,7 @@
             <%= render @reviews_paginate.first(6) %>
             <% if current_user && current_user.id != @course.user_id || params[:visitor] == "visitor" %>
               <div class="col-xs-12 col-sm-4 col-md-4">
-                <div class="body_rating" style= "height: 150px; margin-bottom: 20px;">
+                <div class="body_rating text-center" style= "height: 150px; margin-bottom: 20px;">
                   <div class="panel-body">
                     <H3>
                       <%= link_to new_course_review_path(@course), style: "color: #e58b5a;"  do %>
@@ -241,3 +241,4 @@
     </div>
   </div>
 </div>
+

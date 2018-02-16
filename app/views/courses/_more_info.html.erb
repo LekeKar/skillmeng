@@ -55,6 +55,12 @@
                     </td>
                   </tr> 
                 <% end %>
+                <% if @user_organizer && @user_organizer.courses.count > 1 && @course_payment.trade_by_barter %>
+                  <tr>
+                    <td> Barter available</td>
+                    <td style="color: #777777;">This course owner is willing to teach you this course in exchange of learning from one of the courses you offer on Skillmeng&trade;.</td>
+                  </tr>
+                <% end %>
               </table>
           <% else %>
            <% if @course_payment.blank? || @course_payment.course_prices.empty? %>
@@ -429,6 +435,12 @@
                           <%= price.explaination %>    
                         </td>
                       </tr> 
+                    <% end %>
+                    <% if @user_organizer && @user_organizer.courses.count > 1 && @course_payment.trade_by_barter %>
+                      <tr>
+                        <td> Barter available</td>
+                        <td style="color: #777777;">This course owner is willing to teach you this course in exchange of learning from one of the courses you offer on Skillmeng&trade;.</td>
+                      </tr>
                     <% end %>
                   </table>
                 <% end %>

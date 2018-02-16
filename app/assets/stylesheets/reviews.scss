@@ -2,6 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+div.ext-box { 
+	line-height: 85px;
+}
+div.int-box {
+	display: inline-block;
+  line-height: 20px;
+  vertical-align: middle;
+  color: #333;
+}
 
 .vertical-center {
  margin-top: 10%;

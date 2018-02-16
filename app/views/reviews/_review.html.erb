@@ -3,17 +3,19 @@
     <a href="#modal<%= review.id%>" data-toggle="modal" data-target="#modal<%= review.id%>">
       <div class="panel-body text-center">
         <div data-score = <%= review.rating %> class="star-rating text-center" style="color: #e58b5a;"></div>
-        <font style=" color: #333333;">
-          <%= truncate review.comment, length: 70 %>
-         <br> <strong>- 
-            <% if review.anonymous %>
-              Anonymous
-            <% else %>
-              <%= review.user.fname %>
-              <%= review.user.lname.first(1) %> 
-            <% end %>
-           </strong>
-        </font>
+        <div class="ext-box">
+          <div class="int-box">
+            <%= truncate review.comment, length: 70 %>
+           <br> <strong>- 
+              <% if review.anonymous %>
+                Anonymous
+              <% else %>
+                <%= review.user.fname %>
+                <%= review.user.lname.first(1) %> 
+              <% end %>
+             </strong>
+          </div>
+        </div>
   
       </div>    
       <% if review.comment.length > 70 %>

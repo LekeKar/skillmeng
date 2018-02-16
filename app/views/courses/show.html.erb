@@ -15,7 +15,17 @@
     <%= render "news_reviews" %>
     <%= render "footer" %>
   </div>
+  
+  <div class="row">
+    <div class="container-fluid text-center">
+      <%= link_to new_course_report_path(@course), style:"color: #d75452; background-color: #FFF; border-color: #cccbca; text-align: center; margin: 40px 0px 5px 0px ;", class:"text-center btn btn-primary btn-sm" do %>
+        <i class="fa fa-flag"></i> report course
+      <% end %>
+    </div>
+  </div>
 </div>
+
+
   
 <!-- Helps display Rating stars -->
 	<%= render "helper_code/raty" %>
