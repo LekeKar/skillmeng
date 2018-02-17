@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     	get 'contact_info'
     	get 'gallery'
       get 'toggle_activate', :on => :member
+      get 'toggle_sold_out', :on => :member
     	put :favorite, on: :member
 		collection do
 			get 'search'

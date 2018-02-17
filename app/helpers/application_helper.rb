@@ -17,15 +17,19 @@ module ApplicationHelper
   end
   
   def course_state_explaination(course)
-    case course.course_state
-      when "activated"
-        explaination = "This course is published and can be seen by all users"
-      when "setup"
-        explaination = "This course has not been published and can only be seen by you."
-      when "disabled"
-        explaination = "This course has been disabled by you. It can only be seen by you"
-      when "suspended"
-        explaination = "This course has been disabled by admin. It can only be seen by you. Please contact us at info@skillmeng.com for inquiries"
+    if course.sold_out
+      explaination = "This course is active but sold_out. It can be seen by all users"
+    else 
+      case course.course_state
+        when "activated"
+          explaination = "This course is published and can be seen by all users"
+        when "setup"
+          explaination = "This course has not been published and can only be seen by you."
+        when "disabled"
+          explaination = "This course has been disabled by you. It can only be seen by you"
+        when "suspended"
+          explaination = "This course has been disabled by admin. It can only be seen by you. Please contact us at info@skillmeng.com for inquiries"
+      end 
     end 
   end
 

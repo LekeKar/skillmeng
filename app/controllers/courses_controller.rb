@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :make_primary, :switch_theme, :course_wizard, :course_manager, :requests, :toggle_activate, :favorite, :edit, :update, :destroy, :rating, :location_accuracy, :contact_info, :gallery, :schedule, :payment]
+  before_action :set_course, only: [:show, :make_primary, :switch_theme, :course_wizard, :course_manager, :requests, :toggle_activate, :toggle_sold_out, :favorite, :edit, :update, :destroy, :rating, :location_accuracy, :contact_info, :gallery, :schedule, :payment]
   before_action :set_info, except: [:autocomplete, :course_wizard, :destroy, :update, :edit, :index, :search, :new, :create, :toggle_broadcast, :toggle_subscription]
   before_action :authenticate_user!, except: [:autocomplete, :course_wizard, :index, :search, :show, :rating, :contact_info, :gallery, :payment] 
   before_action :user_auth, only: [:edit, :update, :course_wizard, :destroy, :course_manager, :location_accuracy, :requests]  
@@ -9,7 +9,7 @@ class CoursesController < ApplicationController
   before_action :min_price, only: [:show, :gallery, :rating]  
   before_action :class_limits, only: [:new, :create]
   before_action :course_completeness, only: [:course_manager, :show]
-  after_action :course_completeness, only: [:show]
+  after_action  :course_completeness, only: [:show]
   before_action :user_manager_check, only: [:new, :create, :edit, :update ]
   before_action :set_user_fav, only: [:toggle_broadcast, :toggle_subscription]
 
@@ -137,7 +137,18 @@ class CoursesController < ApplicationController
 
   def payment
   end 
-
+  
+  def toggle_sold_out
+    if @course.sold_out
+      @course.update_attribute(:sold_out, false)
+      redirect_to :back, notice: "#{@course.title} is now available"
+    else
+      @course.update_attribute(:sold_out, true)
+      redirect_to :back, alert: "#{@course.title} is sold out!"
+    end
+    
+  end
+  
   def toggle_activate
     
     case @course.course_state
@@ -469,6 +480,7 @@ class CoursesController < ApplicationController
         redirect_to :back, alert: 'Oga, this course is under admin investigation.' 
       end
     end
+    
     
     def take_impression
       impressionist(@course,"impressions taken", unique: [:impressionable_id, :ip_address])

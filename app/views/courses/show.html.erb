@@ -7,7 +7,7 @@
   <div class="course_body" style="background-color: #FFFFFF;">
     <% if current_user && current_user.id == @course.user_id %>
       <%= render "manager_controls" %>
-    <%end%>
+    <% end %>
     <%= render "header" %>
     <%= render "about_gallery" %>
     <%= render "more_info" %>

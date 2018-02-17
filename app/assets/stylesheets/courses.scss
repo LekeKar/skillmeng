@@ -59,6 +59,18 @@
 	
 }
 
+#sold_out{
+	position: relative;
+	color: #FFF;
+	font-weight: 600;
+	box-shadow: 2px 2px #3e3e3d;
+	background: rgba(224,121,64,1);
+	border-radius: 10px;
+	padding: 10px;
+	top: 20px;
+	left: 70%;
+}
+
 .course_tabs_2_menu {
 	color: #333333;
 	
@@ -407,6 +419,16 @@ $size: 35px;
 	left: 32%;
 }
 
+#promoted_courses_manager {
+	position: relative;
+	color: #FFFFFF;
+	background-color: #e27937;
+	border-radius: 5px;
+  vertical-align: middle;
+  top: 90%;
+}
+
+
 #promoted_courses {
 	color: #FFFFFF;
 	background-color: #e27937;
@@ -446,7 +468,7 @@ $size: 35px;
 		font-size: 27px;
 		position: absolute;
 		top: 51%;
-		left: 80%;
+		left: 83%;
 	}
 }
 

@@ -30,16 +30,14 @@
 	     
       	<%= link_to course_manager_path(@organizer, course) do %>
       		<div class="panel-body" style="background: url('<%= course.display_pic.url(:medium) %>'); height: 200px; background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; " >
-         
+         		<% if course.featured && !course.course_promotions.empty?  %>
+		          <div class="text-center" id="promoted_courses_manager">
+		          	<% expiration = course.course_promotions.last.created_at + 2.week %>
+		            promoted till <%= expiration.strftime('%d/%m/%y') %>
+		          </div>
+		        <% end %>
         	</div>
       	<% end %>
-      	
-      	<% if course.featured && !course.course_promotions.empty?  %>
-          <div class="text-center" id="promoted_courses">
-          	<% expiration = course.course_promotions.last.created_at + 2.week %>
-            promoted <br> <small> till <%= expiration.strftime('%d/%m/%y') %></small>
-          </div>
-        <% end %>
       	
       	<div class="course_state text-center">
       		<h4>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180202062041) do
+ActiveRecord::Schema.define(version: 20180216092234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(version: 20180202062041) do
     t.integer  "completeness"
     t.string   "category"
     t.integer  "homepage_slider_course_id"
-    t.boolean  "andys_pick",                default: false
+    t.boolean  "sold_out",                  default: false
     t.boolean  "featured",                  default: false
     t.float    "longitude"
     t.float    "latitude"
