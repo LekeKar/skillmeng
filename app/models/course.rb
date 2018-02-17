@@ -28,11 +28,11 @@ class Course < ActiveRecord::Base
 	# Favorite courses of user
 	has_many :favorite_courses, dependent: :destroy  # just the 'relationships'
   	has_many :favorited_by, through: :favorite_courses, source: :user do
-    def broadcastable
-      where("favorite_courses.broadcast = ?", true)
+    def textable
+      where("favorite_courses.text = ?", true)
     end
-    def subscribeable
-      where("favorite_courses.subscribe = ?", true)
+    def emailable
+      where("favorite_courses.email = ?", true)
     end
   end
 

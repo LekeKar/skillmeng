@@ -21,6 +21,7 @@ class AnnouncementsController < ApplicationController
   def new
     @announcement = Announcement.new
     @total_email_credit = @organizer.organizer_credit_bal.email_regular + @organizer.organizer_credit_bal.email_bonus
+    @total_text_credit = @organizer.organizer_credit_bal.text_regular + @organizer.organizer_credit_bal.text_bonus
     session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
 
@@ -37,7 +38,7 @@ class AnnouncementsController < ApplicationController
     respond_to do |format|
       if @announcement.save
           post_news
-        if @announcement.broadcast
+        if @announcement.email
           send_email
         end
         format.html { redirect_to (session.delete(:return_to) || @course), notice: 'Announcement was successfully created.' }
@@ -98,8 +99,8 @@ class AnnouncementsController < ApplicationController
   end
   
   def send_email
-    total_email_list = @course.favorited_by.subscribeable.count
-    recipients = @course.favorited_by.subscribeable
+    total_email_list = @course.favorited_by.emailable.count
+    recipients = @course.favorited_by.emailable
     credit_bal = @user_organizer.organizer_credit_bal
     
     #deduct email bal
@@ -146,12 +147,12 @@ class AnnouncementsController < ApplicationController
 		end
 		@announcement.action_id = @course.id
 		@announcement.save
-    @announcement.users << @course.favorited_by.broadcastable
+    @announcement.users << @course.favorited_by.textable
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def announcement_params
-    params.require(:announcement).permit(:subject, :body, :sender_type, :sender, :action_link, :sender_type, :photo, :broadcast)
+    params.require(:announcement).permit(:subject, :body, :sender_type, :sender, :action_link, :sender_type, :photo, :email, :text)
   end
   
   def suspended_check

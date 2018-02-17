@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get '/users/:id/saved_courses', :to => 'users#saved_courses', :as => :saved_courses
   get '/:organizer_id/course_manager/:course_id', :to => 'courses#course_manager', :as => :course_manager
   get '/:course_id/tutor/:id', :to => 'tutors#add_remove_tutor', :as => :add_remove_tutor
-  get 'toggle_broadcast/:favorite_course_id', :to => 'courses#toggle_broadcast', :as => :toggle_broadcast
+  get 'toggle_email_broadcast/:favorite_course_id', :to => 'courses#toggle_email_broadcast', :as => :toggle_email_broadcast
+  get 'toggle_text_broadcast/:favorite_course_id', :to => 'courses#toggle_text_broadcast', :as => :toggle_text_broadcast
   get 'toggle_subscription/:favorite_course_id', :to => 'courses#toggle_subscription', :as => :toggle_subscription
   post '/messages/send_message', :to => "messages#send_message", :as => "send_message"
   get '/:course_id/annoucement/:id', :to => "announcements#email_broadcast", :as => "email_broadcast"

@@ -16,28 +16,28 @@
       
       <div class="row">
         <div class="col-md-12 col-xs-12 col-sm-12">
-          <span style="font-size: 1.2em; color: #777; padding-top: 5px;">Allow posts to my:</span>
+          <span style="font-size: 1.2em; color: #777; padding-top: 5px;">Allow news posts through:</span>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-xs-6 col-sm-6">
-          <font style="color: #777777; padding: 0px;" id="follow_tab_title" >Newsfeed</font>
-          <% favorite_course.broadcast ? broadcast_status = on : broadcast_status = off %>
+          <font style="color: #777777; padding: 0px;" id="follow_tab_title" >Text</font>
+          <% favorite_course.text ? text_status = on : text_status = off %>
         </div>
         <div class="col-md-6 col-xs-6 col-sm-6 text-right">
-          <%= link_to toggle_broadcast_path(favorite_course), class: "toggle_#{course.id}", remote: true do%>
-            <i class="<%= broadcast_status %>" style="font-size: 20px;"></i>
+          <%= link_to toggle_text_broadcast_path(favorite_course), class: "toggle_#{course.id}", remote: true do%>
+            <i class="<%= text_status %>" style="font-size: 20px;"></i>
           <%end%>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-xs-6 col-sm-6">
           <font style="color: #777777; padding: 0px;" id="follow_tab_title" >Email</font>
-          <% favorite_course.subscribe ? subscription_status = on : subscription_status = off %>
+          <% favorite_course.email ? email_status = on : email_status = off %>
         </div>
         <div class="col-md-6 col-xs-6 col-sm-6 text-right">
-          <%= link_to toggle_subscription_path(favorite_course), class: "toggle_#{course.id}", remote: true do%>
-            <i class="<%= subscription_status %>" style="font-size: 20px;"></i>
+          <%= link_to toggle_email_broadcast_path(favorite_course), class: "toggle_#{course.id}", remote: true do%>
+            <i class="<%= email_status %>" style="font-size: 20px;"></i>
           <% end %>
         </div>
       </div>

@@ -4,5 +4,6 @@ class FavoriteCourse< ActiveRecord::Base
   
   
   # Scopes
-	scope :subscribed, -> { where(broadcast: true)}
+	scope :email, -> { where(email: true)}
+	scope :text, -> { where(text: true)}
 end

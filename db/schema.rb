@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216092234) do
+ActiveRecord::Schema.define(version: 20180217192001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20180216092234) do
     t.string   "sender_type"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.boolean  "broadcast",          default: false
+    t.boolean  "email",              default: false
     t.string   "action_type"
     t.string   "action_link"
     t.integer  "action_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180216092234) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.boolean  "text",               default: false
   end
 
   create_table "checklist_items", force: :cascade do |t|
@@ -218,8 +219,8 @@ ActiveRecord::Schema.define(version: 20180216092234) do
     t.integer  "user_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-    t.boolean  "broadcast",  default: true
-    t.boolean  "subscribe",  default: true
+    t.boolean  "text",       default: true
+    t.boolean  "email",      default: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -366,6 +367,8 @@ ActiveRecord::Schema.define(version: 20180216092234) do
     t.integer  "organizer_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "text_regular"
+    t.integer  "text_bonus"
   end
 
   add_index "organizer_credit_bals", ["organizer_id"], name: "index_organizer_credit_bals_on_organizer_id", using: :btree
@@ -373,9 +376,11 @@ ActiveRecord::Schema.define(version: 20180216092234) do
   create_table "organizer_credit_orders", force: :cascade do |t|
     t.float    "email_price",        default: 7.5
     t.integer  "organizer_order_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "email_quantity"
+    t.float    "text_price",         default: 30.0
+    t.integer  "text_quantity"
   end
 
   add_index "organizer_credit_orders", ["organizer_order_id"], name: "index_organizer_credit_orders_on_organizer_order_id", using: :btree

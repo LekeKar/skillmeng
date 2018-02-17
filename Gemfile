@@ -22,6 +22,7 @@ gem 'devise-bootstrap-views'
 gem 'bootstrap-datepicker-rails', '~> 1.5'
 gem 'mailboxer', github: 'mailboxer/mailboxer'
 gem "gibbon"
+gem 'twilio-ruby', '~> 5.6.3'
 gem 'faker', '~> 1.6', '>= 1.6.6'
 gem "cancancan"
 gem 'social-share-button', '~> 0.10.0'

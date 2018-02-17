@@ -21,6 +21,12 @@
       		      <td class="text-center">₦<%= number_with_delimiter(@email_total) %></td>
       		    </tr>
     		    <% end %>
+    		    <% if @text_quantity > 0 %>
+      		    <tr>
+      		      <td><%= number_with_delimiter(@text_quantity) %> text credits x ₦<%= @text_price %></td>
+      		      <td class="text-center">₦<%= number_with_delimiter(@text_total) %></td>
+      		    </tr>
+    		    <% end %>
     		    <% if !@order.course_promotions.empty?  %>
       		    <% for promo in @order.course_promotions %>
       		      <% course = Course.find(promo.course_id)%>

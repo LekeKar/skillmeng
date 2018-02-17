@@ -25,11 +25,13 @@
         <div class="modal-body">
           
           <!--credit orders   -->
-          <% credit_total = 0 %>
-          <% if credit_order %>
+          <% email_credit_total = 0 %>
+          <% text_credit_total = 0 %>
+          
+          <% if credit_order.email_quantity %>
             <div class="row">
               <div class="col-md-12">
-          	     <strong> Credit order</strong>
+          	     <strong> Email credit order</strong>
           	  </div>
           	</div>
           	<div class="row">
@@ -38,6 +40,23 @@
         	     </div>
         	     <div class="col-md-4 col-sm-4 col-xs-6 text-right">
         	       <% credit_total =+ credit_order.email_quantity * credit_order.email_price  %>
+        	       ₦<%= number_with_delimiter(credit_total) %>
+        	     </div>
+          	 </div>
+          <% end %>
+          
+          <% if credit_order.text_quantity %>
+            <div class="row">
+              <div class="col-md-12">
+          	     <strong> Text credit order</strong>
+          	  </div>
+          	</div>
+          	<div class="row">
+        	     <div class="col-md-8 col-sm-8 col-xs-6">
+        	       <%= credit_order.text_quantity %> texts x ₦<%= credit_order.text_price %>
+        	     </div>
+        	     <div class="col-md-4 col-sm-4 col-xs-6 text-right">
+        	       <% credit_total =+ credit_order.text_quantity * credit_order.text_price  %>
         	       ₦<%= number_with_delimiter(credit_total) %>
         	     </div>
           	 </div>
@@ -75,8 +94,6 @@
       	      <strong>₦<%= number_with_delimiter(credit_total + promotion_total) %></strong>
       	    </div>
       	  </div>
-      	  
-      	  
       	  
           </div>
         </div>

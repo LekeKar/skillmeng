@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :make_primary, :switch_theme, :course_wizard, :course_manager, :requests, :toggle_activate, :toggle_sold_out, :favorite, :edit, :update, :destroy, :rating, :location_accuracy, :contact_info, :gallery, :schedule, :payment]
-  before_action :set_info, except: [:autocomplete, :course_wizard, :destroy, :update, :edit, :index, :search, :new, :create, :toggle_broadcast, :toggle_subscription]
+  before_action :set_info, except: [:autocomplete, :course_wizard, :destroy, :update, :edit, :index, :search, :new, :create, :toggle_text, :toggle_email_broadcast, :toggle_text_broadcast]
   before_action :authenticate_user!, except: [:autocomplete, :course_wizard, :index, :search, :show, :rating, :contact_info, :gallery, :payment] 
   before_action :user_auth, only: [:edit, :update, :course_wizard, :destroy, :course_manager, :location_accuracy, :requests]  
   before_action :activated_check, only: [:show]
@@ -11,7 +11,7 @@ class CoursesController < ApplicationController
   before_action :course_completeness, only: [:course_manager, :show]
   after_action  :course_completeness, only: [:show]
   before_action :user_manager_check, only: [:new, :create, :edit, :update ]
-  before_action :set_user_fav, only: [:toggle_broadcast, :toggle_subscription]
+  before_action :set_user_fav, only: [:toggle_text, :toggle_email_broadcast, :toggle_text_broadcast]
 
 
   # GET /courses, 
@@ -168,15 +168,34 @@ class CoursesController < ApplicationController
 
   end
   
-  def toggle_broadcast
-    if @user_fav.broadcast == true
-      @user_fav.broadcast = false
+  def toggle_text
+    if @user_fav.text == true
+      @user_fav.text = false
       @user_fav.save
       message = "#{@course.title} will no longer post to your newsfeed"
     else
-      @user_fav.broadcast = true
+      @user_fav.text = true
       @user_fav.save
       message = "#{@course.title} can post to yout newsfeed"
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to :back, notice: message };
+      format.json { head :no_content, notice: message }
+      format.js   { head :no_content, notice: message }
+      format.xml  { head :no_content, notice: message }
+    end
+  end
+  
+  def toggle_text_broadcast
+     if @user_fav.text == true
+      @user_fav.text = false
+      @user_fav.save
+      message = "#{@course.title} will no longer post to your text"
+    else
+      @user_fav.text = true
+      @user_fav.save
+      message = "#{@course.title} can post to your text"
     end
     
     respond_to do |format|
@@ -187,13 +206,14 @@ class CoursesController < ApplicationController
     end
   end
   
-  def toggle_subscription
-    if @user_fav.subscribe == true
-      @user_fav.subscribe = false
+  
+  def toggle_email_broadcast
+    if @user_fav.email == true
+      @user_fav.email = false
       @user_fav.save
       message = "#{@course.title} will no longer post to your email"
     else
-      @user_fav.subscribe = true
+      @user_fav.email = true
       @user_fav.save
       message = "#{@course.title} can post to your email"
     end
@@ -251,6 +271,7 @@ class CoursesController < ApplicationController
     @announcement = Announcement.new
     session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
     @total_email_credit = @organizer.organizer_credit_bal.email_regular + @organizer.organizer_credit_bal.email_bonus
+    @total_text_credit = @organizer.organizer_credit_bal.text_regular + @organizer.organizer_credit_bal.text_bonus
   end
 
   # GET /courses/new

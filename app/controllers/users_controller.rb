@@ -7,12 +7,7 @@ class UsersController < ApplicationController
 
 	def show
 		@meta_description = "View summary of activities that pertain to you and see what you have missed. Also view and edit your user profile from here."
-		if current_user.organizer.present?
-			@organizer = current_user.organizer
-		end
-	  @user_favs = current_user.favorites.order( 'created_at DESC' )
 	  @conversations = current_user.mailbox.inbox.order('updated_at DESC')
-	  @broadcasts = current_user.favorites
 	  @announcements = current_user.announcements.order('created_at DESC')
 	end 
 	

@@ -43,13 +43,13 @@
                  <% end %>
         			</td>
         			<td>accepts email</td>
-        			<td class="active"><%= number_to_human(@course.favorited_by.subscribeable.count) %></td>
+        			<td class="active"><%= number_to_human(@course.favorited_by.emailable.count) %></td>
         		</tr>
         		<tr>
         			<td><strong>Views</strong></td>
         			<td class="active"><%= number_to_human(@course.impressionist_count(:filter => :ip_address)) %></td>
-        			<td>accepts news</td>
-        			<td class="active"><%= number_to_human(@course.favorited_by.broadcastable.count) %></td>
+        			<td>accepts text</td>
+        			<td class="active"><%= number_to_human(@course.favorited_by.textable.count) %></td>
         		</tr>
         	</table>
         </div>

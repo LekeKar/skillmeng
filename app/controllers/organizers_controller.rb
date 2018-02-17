@@ -54,6 +54,8 @@ class OrganizersController < ApplicationController
       @order = OrganizerOrder.new
       @order.build_organizer_credit_order
       @promotable = @organizer.courses.active.where(:featured => false)
+      @last_email_credit_purchase = @organizer.credit_orders.where("email_quantity > ?", 0).last
+      @last_text_credit_purchase = @organizer.credit_orders.where("text_quantity > ?", 0).last
       
       unless @organizer.paystack_id
         create_paystack_profile
@@ -110,7 +112,7 @@ class OrganizersController < ApplicationController
   	end 
 
   	def organizer_params
-  		params.require(:organizer).permit(:name, :phone, :email, :website, :logo, :about, :broadcast_left, location_attributes: [:id, :address_line1, :address_line2, :city, :state, :country, :latitude, :longitude, :_destroy])
+  		params.require(:organizer).permit(:name, :phone, :email, :website, :logo, :about, location_attributes: [:id, :address_line1, :address_line2, :city, :state, :country, :latitude, :longitude, :_destroy])
   	end 
 
     def user_auth
@@ -133,7 +135,7 @@ class OrganizersController < ApplicationController
     end 
     
     def create_credit_bal
-      OrganizerCreditBal.create!(:email_regular  => 0, :email_bonus => 50, :organizer_id => @organizer.id ) 
+      OrganizerCreditBal.create!(:email_regular  => 0, :email_bonus => 50, :text_regular  => 0, :text_bonus => 10,  :organizer_id => @organizer.id ) 
     end 
     
     def update_course_org

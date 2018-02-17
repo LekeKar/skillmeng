@@ -9,8 +9,8 @@
           <br>
           <strong>current bal:</strong> <%= @organizer.organizer_credit_bal.email_bonus %> Bonus | <%= @organizer.organizer_credit_bal.email_regular %> Regular
           <br>
-            <% if !@organizer.credit_orders.empty? %>
-             <strong>last purchase:</strong> <%= @organizer.credit_orders.last.email_quantity %> credits on <%= @organizer.credit_orders.last.created_at.strftime('%d/%m/%y') %>
+            <% if @last_email_credit_purchase %>
+             <strong>last purchase:</strong> <%= @last_email_credit_purchase.email_quantity %> credits on <%= @last_email_credit_purchase.created_at.strftime('%d/%m/%y') %>
             <% end %>
           <br>
         </div>
@@ -27,6 +27,34 @@
         <% end %>
       </div>
     </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="mobile_centralize">Purchase text credit</h3>
+        <div style="text-align: justify;" >
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim modi nostrum, possimus perferendis sit aut. Sed esse, earum magnam neque eius ducimus, voluptatibus nesciunt inventore consequatur laudantium repellendus itaque velit.
+          <br>
+          <strong>current bal:</strong> <%= @organizer.organizer_credit_bal.text_bonus %> Bonus | <%= @organizer.organizer_credit_bal.text_regular %> Regular
+          <br>
+            <% if @last_text_credit_purchase%>
+             <strong>last purchase:</strong> <%= @last_text_credit_purchase.text_quantity.nil? ? "0" : @last_text_credit_purchase.text_quantity  %> credits on <%= @organizer.credit_orders.last.created_at.strftime('%d/%m/%y') %>
+            <% end %>
+          <br>
+        </div>
+      </div>
+      <div class="col-md-6" id="order_explaination">
+        <%= f.simple_fields_for :organizer_credit_order do |builder| %>
+          <div class="form-inputs">
+            <div class="row">
+              <div class="container-fluid text-left">
+                <%= builder.input :text_quantity, label: false, prompt: "Select Quantity", collection: [50,100,500,1000] %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
     <div class="row"> 
       <div class="col-md-6">
         <h3 class="mobile_centralize">Promote course</h3>

@@ -98,8 +98,8 @@
                               <h4>
                                 Send Email Broadcast
                               </h4>
-                              <% if @course.favorited_by.subscribeable.count < @total_email_credit %>
-                                 <% credit_remaining =  @total_email_credit - @course.favorited_by.subscribeable.count %>
+                              <% if @course.favorited_by.emailable.count < @total_email_credit %>
+                                 <% credit_remaining =  @total_email_credit - @course.favorited_by.emailable.count %>
                                 <table class="table">
                                   <tr>
                                     <td class="text-left">available emails</td>
@@ -107,7 +107,7 @@
                                   </tr>
                                   <tr>
                                     <td class="text-left">number of recipients</td>
-                                    <td><%= number_with_delimiter(@course.favorited_by.subscribeable.count, :delimiter => ',') %></td>
+                                    <td><%= number_with_delimiter(@course.favorited_by.emailable.count, :delimiter => ',') %></td>
                                   </tr>
                                   <tr>
                                     <td class="text-left"><strong>remaining emails</strong></td>
@@ -116,7 +116,7 @@
                                   <tr>
                                     <% unless @course.course_state != "activated" %>  
                                       <% if credit_remaining > 0 %>
-                                        <td class="text-left"> <%= link_to "send emails", email_broadcast_path(@course, announcement), class:"btn btn-default btn-xs course_control", data: {confirm: "This action will send this announcement to available #{@course.title} followers as an email consuming #{number_with_delimiter(@course.favorited_by.subscribeable.count, :delimiter => ',')} email credits, are you sure?"} %></td>
+                                        <td class="text-left"> <%= link_to "send emails", email_broadcast_path(@course, announcement), class:"btn btn-default btn-xs course_control", data: {confirm: "This action will send this announcement to available #{@course.title} followers as an email consuming #{number_with_delimiter(@course.favorited_by.emailable.count, :delimiter => ',')} email credits, are you sure?"} %></td>
                                       <% else %>
                                         <td class="text-left">
                                           You need more credits to send out brodcasts. <br>
@@ -133,7 +133,7 @@
                                   </tr>
                                 </table>
                               <% else %>
-                                <% credit_needed = @course.favorited_by.subscribeable.count - @total_email_credit  %>
+                                <% credit_needed = @course.favorited_by.emailable.count - @total_email_credit  %>
                                 You need at least <span style="color: #d75453;"> <%= credit_needed %>  </span> email <%= "credit".pluralize(credit_needed) %> to send emails.
                                 <%= link_to "Purchase more", new_organizer_organizer_order_path(@organizer) %>
                               <% end %>
@@ -153,7 +153,7 @@
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu">
-                            <% if @course.favorited_by.subscribeable.count > 0 %>
+                            <% if @course.favorited_by.emailable.count > 0 %>
                               <li>
                                 <a data-toggle="collapse" href="#broadcast_<%= announcement.id%>" aria-expanded="false" aria-controls="broadcast_<%= announcement.id%>">
                                   Broadcast

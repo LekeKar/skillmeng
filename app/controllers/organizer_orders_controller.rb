@@ -25,14 +25,28 @@ class OrganizerOrdersController < ApplicationController
     end 
     
     if @order.organizer_credit_order
-      @email_quantity = @order.organizer_credit_order.email_quantity
-      @email_price = @order.organizer_credit_order.email_price
-    else
-      @email_quantity = 0
-      @email_price = 0
+      credit_order = @order.organizer_credit_order
+      
+      if credit_order.email_quantity
+        @email_quantity = @order.organizer_credit_order.email_quantity
+        @email_price = @order.organizer_credit_order.email_price
+      else
+        @email_quantity = 0
+        @email_price = 0
+      end
+      
+      if credit_order.text_quantity
+        @text_quantity = @order.organizer_credit_order.text_quantity
+        @text_price = @order.organizer_credit_order.text_price
+      else
+        @text_quantity = 0
+        @text_price = 0
+      end
+      
     end
   
   	 @email_total =  @email_price * @email_quantity
+  	 @text_total =  @text_price * @text_quantity
 	end
 	
 	def update
@@ -80,7 +94,7 @@ class OrganizerOrdersController < ApplicationController
   
   private 
   def organizer_order_params
-		params.require(:organizer_order).permit(:total, :status, organizer_credit_order_attributes: [:id, :email_quantity, :email_price, :_destroy], course_promotions_attributes: [:id, :course_id, :price, :_destroy])
+		params.require(:organizer_order).permit(:total, :status, organizer_credit_order_attributes: [:id, :email_quantity, :email_price, :text_quantity, :text_price, :_destroy], course_promotions_attributes: [:id, :course_id, :price, :_destroy])
 	end 
 	
 	def set_propmotable_courses
@@ -93,6 +107,9 @@ class OrganizerOrdersController < ApplicationController
   
 	def set_order
 		@order = OrganizerOrder.find(params[:id])
+	  @promotable = @organizer.courses.active.where(:featured => false)
+    @last_email_credit_purchase = @organizer.credit_orders.where("email_quantity > ?", 0).last
+    @last_text_credit_purchase = @organizer.credit_orders.where("text_quantity > ?", 0).last
 	end
 	
 	def pre_order_process
@@ -100,9 +117,18 @@ class OrganizerOrdersController < ApplicationController
 	  #calculate credit total
 	  if @order.organizer_credit_order
       credit_order = @order.organizer_credit_order
-      email_total = credit_order.email_price * credit_order.email_quantity
-    else
-      email_total = 0
+      
+      if credit_order.email_quantity
+        email_total = credit_order.email_price * credit_order.email_quantity
+      else
+        email_total = 0
+      end
+      
+      if credit_order.text_quantity 
+        text_total = credit_order.text_price * credit_order.text_quantity
+      else
+        text_total = 0
+      end
     end 
     
     #calclulate order total
@@ -113,7 +139,7 @@ class OrganizerOrdersController < ApplicationController
       promo_total = 0
     end
     
-    @order.total = promo_total + email_total
+    @order.total = promo_total + email_total + text_total
     @order.order_number = "#{@organizer.id}-#{current_user.id}-#{@order.id}"
     
     @order.save
@@ -146,7 +172,13 @@ class OrganizerOrdersController < ApplicationController
   	
   	#update_credit_bal
   	if  @order.status == "success" && @order.organizer_credit_order
-  	  @organizer.organizer_credit_bal.email_regular += @order.organizer_credit_order.email_quantity
+  	  if @order.organizer_credit_order.email_quantity
+    	  @organizer.organizer_credit_bal.email_regular += @order.organizer_credit_order.email_quantity
+    	end
+    	if @order.organizer_credit_order.text_quantity
+    	  @organizer.organizer_credit_bal.text_regular += @order.organizer_credit_order.text_quantity
+    	end
+    	
   	  @organizer.organizer_credit_bal.save
   	end
   	
