@@ -42,35 +42,64 @@
 						<div class="row" id="org_courses">
 				      <div class="tab-content">
 				    		<div class="tab-pane fade active in" id="courses">
-				    			<% if @organizer.courses.count < 8 && current_user && current_user.id == @organizer.user_id %>
-				    				
+				    			<% if current_user && current_user.id == @organizer.user_id %>
 				    				<div class="col-xs-12 col-sm-6 col-md-4" style="margin-top: 25px;">
 				    					<div class="container-fluid">
 						    				<div class="row">
 													<div class="panel panel-default">
-													  <div class="panel-body text-center add_org">
-													    <h2 style="display: inline-block;"> get course add-ons <br>
-													    	<a href=".modal_addon" class="btn btn-md btn-success" data-toggle="modal" data-target=".modal_addon" style="background-color: #e07940; border: none; width: 100px; margin-top: 10px;">
-												          purchase
+													  <div class="panel-body add_org">
+													    <h4 style="text-align: center; margin-bottom: 20px"> Credit Status</h4>
+													    	<table class="table">
+													    		<!--shorten-->
+													    		<%email_bonus = @organizer.organizer_credit_bal.email_bonus %>
+													    		<%email_regular = @organizer.organizer_credit_bal.email_regular %>
+													    		<%text_bonus = @organizer.organizer_credit_bal.text_bonus %>
+													    		<%text_regular = @organizer.organizer_credit_bal.text_regular %>
+													    		
+													    		<tr>
+													    			<td>Email Bonus</td>
+													    			<td class="text-right"><%= email_bonus %></td>
+													    		</tr>
+													    		<tr>
+													    			<td>Email Regular</td>
+													    			<td class="text-right"><%= email_regular %></td>
+													    		</tr>
+													    		<tr style="font-weight: 500;" class="active">
+													    			<td>Email Total</td>
+													    			<td class="text-right"><%= email_bonus + email_regular %></td>
+													    		</tr>
+													    		<tr>
+													    			<td>Text Bonus</td>
+													    			<td class="text-right"><%= text_bonus %></td>
+													    		</tr>
+													    		<tr>
+													    			<td>Text Regular</td>
+													    			<td class="text-right"><%= text_regular %></td>
+													    		</tr>
+													    		<tr style="font-weight: 500;" class="active">
+													    			<td>Text Total</td>
+													    			<td class="text-right"> <%= text_bonus + text_regular %></td>
+													    		</tr>
+													    	</table>
+													    <div class="text-center">
+													    	<a href=".modal_addon" class="btn btn-md btn-success" data-toggle="modal" data-target=".modal_addon" style="background-color: #e07940; border: none; width: 150px; margin-bottom: 10px;">
+												          Purchase Add-ons
 												        </a>
-													    </h2>
-													  </div>
-													</div>
-												</div>
-											</div>
-											<div class="container-fluid">
-												<div class="row">
-													<div class="panel panel-default">
-													  <div class="panel-body text-center add_org">
-													    <h2 style="display: inline-block;"> add new course <br>
-													    	<%= link_to  "create", new_course_path, style:"background-color: #7193bf; border: none; width: 100px; margin-top: 10px;", class: "btn btn-md btn-success" %>
-													    </h2>
+											        </div>
+													   
+															<% if @organizer.courses.count < 3 %>
+																<div class="text-center">
+																	<hr>
+															    <h4 style="text-align: center;"> <%= @course_slot_left %> Course <%= "Slot".pluralize(@course_slot_left) %> Left</h4>
+															    <%= link_to  "Create Course", new_course_path, style:"background-color: #7193bf; border: none; width: 150px;", class: "btn btn-md btn-success" %>
+														    </div>
+													    <% end %>
 													  </div>
 													</div>
 												</div>
 											</div>
 										</div>
-									<% end %>	
+									<% end %>
 									<%= render "courses" %>
 								</div>
 								

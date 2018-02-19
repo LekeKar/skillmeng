@@ -1,6 +1,7 @@
 class AnnouncementsController < ApplicationController
   before_action :set_announcement, only: [:show, :edit, :update, :destroy, :email_broadcast]
   before_action :set_course
+  before_action :set_credit, only: [:new, :edit] 
   before_action :set_organizer, only: [:new, :edit] 
   before_action :suspended_check, only: [:new, :edit] 
   before_action :user_auth, only: [:edit, :new]
@@ -20,8 +21,6 @@ class AnnouncementsController < ApplicationController
   # GET /announcements/new
   def new
     @announcement = Announcement.new
-    @total_email_credit = @organizer.organizer_credit_bal.email_regular + @organizer.organizer_credit_bal.email_bonus
-    @total_text_credit = @organizer.organizer_credit_bal.text_regular + @organizer.organizer_credit_bal.text_bonus
     session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
 
@@ -130,6 +129,11 @@ class AnnouncementsController < ApplicationController
     elsif @announcement && @announcement.sender_type == "course" 
       @course = Course.friendly.find(@announcement.sender)
     end
+  end
+  
+  def set_credit
+    @total_email_credit = @organizer.organizer_credit_bal.email_regular + @organizer.organizer_credit_bal.email_bonus
+    @total_text_credit = @organizer.organizer_credit_bal.text_regular + @organizer.organizer_credit_bal.text_bonus
   end
   
   def set_organizer

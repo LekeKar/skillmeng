@@ -42,7 +42,6 @@ class Course < ActiveRecord::Base
 
 	# Scopes
 	scope :saed, -> { where(saed: true)}
-	scope :andys_pick, -> { where(andys_pick: true)}
 	scope :featured, -> { where(featured: true)}
 	scope :child_friendly, -> { where(child_friendly: true)}
 	scope :active, -> { where(course_state: "activated")}
