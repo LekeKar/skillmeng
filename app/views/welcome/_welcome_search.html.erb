@@ -1,0 +1,17 @@
+<div class="container" style= "color:#FFFFFF;" id="welcome_text">
+  <div class="panel panel-default welcome_panel">
+    <div class="panel-body">
+      <h1>
+        I would like to <br>gain skills in
+        <%= form_tag(search_courses_path, method: 'get', id: "home_search" ) do %>
+          <div class="input-group">
+            <%= text_field_tag :search, nil, class: 'form-control', id: 'courses_search_mobile', autocomplete: :off, placeholder: "search skillmeng" %>
+            <div class="input-group-btn search_panel">
+              <%= submit_tag "GO", class: 'btn btn-default', :name => nil %>
+            </div>
+          </div>
+        <% end %>
+      </h1>
+    </div>
+  </div>
+</div>

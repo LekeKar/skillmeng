@@ -137,17 +137,7 @@ class CoursesController < ApplicationController
 
   def payment
   end 
-  
-  def toggle_sold_out
-    if @course.sold_out
-      @course.update_attribute(:sold_out, false)
-      redirect_to :back, notice: "#{@course.title} is now available"
-    else
-      @course.update_attribute(:sold_out, true)
-      redirect_to :back, alert: "#{@course.title} is sold out!"
-    end
-    
-  end
+ 
   
   def toggle_activate
     
@@ -227,20 +217,19 @@ class CoursesController < ApplicationController
   end
 
   def favorite
+    if current_user.favorites.exists?(@course)
+      current_user.favorites.delete(@course)
+      message = "#{@course.title} removed from interests"
+      message_type = "alert"
+    elsif current_user == @course.user_id
+      message =  "Oga, you own this class"
+      message_type = "alert"
+    else
+      current_user.favorites << @course
+      message = "#{@course.title} added to interests"
+      message_type = "notice"
+    end 
   
-      if current_user.favorites.exists?(@course)
-        current_user.favorites.delete(@course)
-        message = "You have unfollowed #{@course.title}"
-        message_type = "alert"
-      elsif current_user == @course.user_id
-        message =  "You own this class"
-        message_type = "alert"
-      else
-        current_user.favorites << @course
-        message = "You are now following #{@course.title}"
-        message_type = "notice"
-      end 
-    
     respond_to do |format|
       format.html { redirect_to :back, notice: message };
       format.json { head :no_content }
@@ -430,6 +419,8 @@ class CoursesController < ApplicationController
       @announcements = Announcement.course.where(:sender => @course.id).order('created_at DESC')
       @total_email_credit = @organizer.organizer_credit_bal.email_regular + @organizer.organizer_credit_bal.email_bonus
       @total_text_credit = @organizer.organizer_credit_bal.text_regular + @organizer.organizer_credit_bal.text_bonus
+      @textable_users = @course.favorited_by.textable.where.not(tel: '')
+      @emailable_users = @course.favorited_by.emailable
       @gallery_pics = @course.gallery_pics.page(params[:page])
       @tutors = @course.tutors.includes(:course_tutors).order("course_tutors.created_at asc")
       if @user_organizer && @user_organizer.tutors

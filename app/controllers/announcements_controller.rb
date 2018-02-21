@@ -1,10 +1,12 @@
 class AnnouncementsController < ApplicationController
-  before_action :set_announcement, only: [:show, :edit, :update, :destroy, :email_broadcast]
+  before_action :set_announcement, only: [:show, :edit, :update, :destroy, :email_broadcast, :text_broadcast]
   before_action :set_course
-  before_action :set_credit, only: [:new, :edit] 
   before_action :set_organizer, only: [:new, :edit] 
+  before_action :set_credit, only: [:new, :edit] 
   before_action :suspended_check, only: [:new, :edit] 
   before_action :user_auth, only: [:edit, :new]
+
+
 
   # GET /announcements
   # GET /announcements.json
@@ -21,6 +23,9 @@ class AnnouncementsController < ApplicationController
   # GET /announcements/new
   def new
     @announcement = Announcement.new
+    @textable_users = @course.favorited_by.textable.where.not(tel: '')
+    @emailable_users = @course.favorited_by.emailable
+    
     session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
 
@@ -37,6 +42,9 @@ class AnnouncementsController < ApplicationController
     respond_to do |format|
       if @announcement.save
           post_news
+        if @announcement.text
+          send_text
+        end
         if @announcement.email
           send_email
         end
@@ -104,8 +112,8 @@ class AnnouncementsController < ApplicationController
     
     #deduct email bal
     if credit_bal.email_bonus <= total_email_list
+      credit_bal.email_regular -= ( total_email_list + credit_bal.email_bonus)
       credit_bal.email_bonus = 0
-      credit_bal.email_regular = credit_bal.email_regular - ( total_email_list - credit_bal.email_bonus)
     else
       credit_bal.email_bonus -= total_email_list 
     end
@@ -116,6 +124,56 @@ class AnnouncementsController < ApplicationController
     
     credit_bal.save
   end
+  
+  
+  def send_text
+    
+    total_text_list = @course.favorited_by.textable.where.not(tel: '').count
+    recipients = @course.favorited_by.textable.where.not(tel: '')
+    credit_bal = @user_organizer.organizer_credit_bal
+    
+    require 'twilio-ruby'
+
+    # put your own credentials here
+    account_sid = ENV["TWILIO_LIST_ID"] 
+    auth_token = ENV["TWILIO_AUTH_TOKEN"]
+    
+    # set up a client to talk to the Twilio REST API
+    @client = Twilio::REST::Client.new account_sid, auth_token
+    
+    
+    #deduct text bal
+    if credit_bal.text_bonus <= total_text_list
+      credit_bal.text_regular -= ( total_text_list + credit_bal.text_bonus)
+      credit_bal.text_bonus = 0
+    else
+      credit_bal.text_bonus -= total_text_list 
+    end
+    
+    # send text and save bal
+   
+    message_length = 80 - (@course.title.length + @announcement.subject.length)
+    bitly = Bitly.new(ENV["BITLY_USERNAME"] , ENV["BITLY_API_KEY"])
+    course_link = bitly.shorten("#{ENV["SKILLMENG_SITE"]}/courses/#{@course.slug}")
+   
+    for recipient in recipients 
+      
+      # prep number
+      tel = recipient.tel.lstrip
+      tel.slice!(0, 1)
+    
+      # send text
+      @client.messages.create(
+      from: '+16174053029',
+      to: "+234#{tel}",
+      body: "Message from #{@course.title} on #skillmeng - \"#{@announcement.subject}, #{@announcement.body.first(message_length)} ...\" read more here #{course_link.short_url}"
+      )
+      
+    end 
+    
+    credit_bal.save
+  end
+
   
   def user_auth    
     if current_user != @course.user    
@@ -151,7 +209,7 @@ class AnnouncementsController < ApplicationController
 		end
 		@announcement.action_id = @course.id
 		@announcement.save
-    @announcement.users << @course.favorited_by.textable
+    @announcement.users << @course.favorited_by
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

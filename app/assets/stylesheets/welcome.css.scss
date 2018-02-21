@@ -48,7 +48,7 @@
 		
 		#course_title{
 		position: relative;
-	    top: 90%;
+	    top: 40%;
 	    font-family: lato;
 	    color: #FFFFFF;
 	    text-shadow: 0px 0px 3px #e27937;
@@ -74,10 +74,13 @@
 
 
 #welcome_text {
-	top: 30%;
-	left: 40px;
-	width: auto;
-	position: absolute;
+	top: 25%;
+	right: 30%;
+	width: 30%;
+	position: relative;
+	h1 {
+		font-size: 45px !important;
+	}
 }
 
 #home_search{
@@ -98,7 +101,7 @@
 	}
 }
 
-@media (max-width: 750px) {
+@media (max-width: 770px) {
 	.featured_menu{
 	font-size: 1.5em;
 	}
@@ -125,22 +128,22 @@
   }
 
 	#welcome_text {
-	top: 25%;
-	left: 5px;
-	width: auto;
-	position: absolute;
-	.h1 {
-		font-size: 40px !important;
+	top: 20%;
+	left: 0px;
+	width: 100%;
+	h1 {
+		font-size: 35px !important;
 	}
 }
 
+
 	#home_search{
-	.input-group{
-		position: relative;
- 		width: 95%;
- 		font-size: 21px;
- 		text-align: left;
+		.input-group{
+			position: relative;
+	 		width: 95%;
+	 		font-size: 21px;
+	 		text-align: left;
+		}
 	}
-}
 }
 

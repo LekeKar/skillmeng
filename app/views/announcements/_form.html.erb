@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-inputs">
-        <%= f.input :subject, label:"Subject (60 char max)", maxlength: "60", required: true -%>
+        <%= f.input :subject, label:"Subject (40 char max)", maxlength: "40", required: true -%>
       </div>
     </div>
     <div class="col-md-12">
@@ -34,7 +34,7 @@
       <div class="col-md-12">
         <h4>
           Broadcast options
-          <br><small>Recepients:  <%= number_with_delimiter(@course.favorited_by.emailable.count)%> email |  <%= number_with_delimiter(@course.favorited_by.textable.count)%> Text</small>
+          <br><small>Recepients:  <%= number_with_delimiter(@course.favorited_by.emailable.count)%> email |  <%= number_with_delimiter(@textable_users.count)%> Text</small>
         </h4>
         <div class="form-inputs">  
           <% if !@course.favorited_by  %>
@@ -48,14 +48,14 @@
               You need at least <span style="color: #d75453;"> <%= email_credit_needed %>  </span>email <%= "credit".pluralize(email_credit_needed) %> to send emails.
             <% end  %>
             
-            <% if  @course.favorited_by.textable.count < @total_text_credit %>
+            <% if  @textable_users.count < @total_text_credit %>
               <%= f.input :text, label: "Send as text [#{number_with_delimiter(@total_text_credit, :delimiter => ',')} left]" -%>
             <% else  %>
               You need at least <span style="color: #d75453;"> <%= text_credit_needed %>  </span>text <%= "credit".pluralize(text_credit_needed) %> to send texts.
             <% end  %>
             
-            <% text_credit_needed = @course.favorited_by.textable.count - @total_text_credit  %>
-            <% email_credit_needed = @course.favorited_by.emailable.count - @total_email_credit  %>
+            <% text_credit_needed = @textable_users.count - @total_text_credit  %>
+            <% email_credit_needed = @emailable_users.count - @total_email_credit  %>
       
             <% if text_credit_needed > 0 || email_credit_needed > 0 %>
               <%= link_to "Purchase more", new_organizer_organizer_order_path(@organizer), target: '_blank' %>

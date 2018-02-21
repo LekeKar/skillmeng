@@ -1,6 +1,18 @@
 <% title "Edit login" %>
 <div class="container">
   <div class="row">
+  <% if current_user.tel == "" %>
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-body text-center" style="background-color: #de6e32; color: #FFF; "> 
+          <h1> <font style="font-family: 'Gochi Hand', cursive; font-size: 1.3em;">Didn't know they changed your course schedule?</font></h1>
+          <h4>get text alerts by filling in your mobile number below</h4>
+        </div>
+      </div>
+    </div>
+  <% end %>  
+  </div>
+  <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -20,7 +32,7 @@
                   <%= f.input :lname, label: "Last Name", autofocus: true %>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
-                  <%= f.input :tel, label: "Phone number", autofocus: true %>
+                  <%= f.input :tel, label: "Phone number", placeholder: "e.g 08145463102", autofocus: true, required: true %>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                   <%= f.input :email, required: true, autofocus: true %>

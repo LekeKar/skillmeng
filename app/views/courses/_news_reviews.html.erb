@@ -88,8 +88,8 @@
                         </a>
                       <% end %>
                     <% end %>
-                    <div style="text-align: justify;"><%= announcement.body %></div><br>
-                    <br></br>
+                    <div style="text-align: center;"><%= announcement.body %></div><br>
+                    <br>
                     <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
                       <div class="collapse" id="broadcast_<%= announcement.id%>">
                         <div class="well text-center">

@@ -24,8 +24,15 @@ class ApplicationController < ActionController::Base
   		def get_user_organizer
   		  if current_user
   		    @user_organizer = current_user.organizer
-  		    @course_slot_left = 3 - @user_organizer.courses.count
+  		    if !@user_organizer.nil?
+    		    @course_slot_left = 3 - @user_organizer.courses.count
+    		  end
   		  end 
   		end 
-
+  		
+  		def after_sign_in_path_for(resource)
+  		  if current_user && !current_user.tel.present?
+  		    edit_user_registration_path(current_user)
+  		  end 
+  		end
 end

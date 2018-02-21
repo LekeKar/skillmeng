@@ -3,6 +3,9 @@
   <% if @slider_pic %>
     <% @course = Course.find(@slider_pic.course_id) %>
     <div class="jumbotron jumbotron_top" style="background: url('<%= @slider_pic.slider_image.url(:original) %>'); margin-top: -20px;">
+    
+      <%= render "welcome_search"%>
+      
       <div id="course_title">
         <%= link_to @course do%>
           <%= @course.title %>
@@ -11,26 +14,9 @@
     </div>
   <% else %>
     <div class="jumbotron jumbotron_top" style='background: url(<%= image_tag "home_bg_1.jpeg"%>); margin-top: -20px;'>
-      
+      <%= render "welcome_search"%>
     </div>
   <% end %>
-  <div class="container" style= "color:#FFFFFF;" id="welcome_text">
-    <div class="panel panel-default welcome_panel">
-      <div class="panel-body">
-        <h1>
-          I would like to <br>gain skills in
-          <%= form_tag(search_courses_path, method: 'get', id: "home_search" ) do %>
-            <div class="input-group">
-              <%= text_field_tag :search, nil, class: 'form-control', id: 'courses_search_mobile', autocomplete: :off, placeholder: "search skillmeng" %>
-              <div class="input-group-btn search_panel">
-                <%= submit_tag "GO", class: 'btn btn-default', :name => nil %>
-              </div>
-            </div>
-          <% end %>
-        </h1>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="container-fluid text-center" style="margin-bottom: 30px;">
@@ -64,7 +50,7 @@
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit voluptate ex, ratione quas necessitatibus maxime cum eveniet? Quam perferendis, esse officiis, vel saepe, architecto, odit nesciunt suscipit voluptas velit totam!
             </p>
             <p  class="mobile_centralize">
-              <%= link_to "create a course", new_course_path, class:"couse_cat btn btn-primary btn-sm", style:"font-size: 20px;" %>
+              <%= link_to "create course", new_course_path, class:"couse_cat btn btn-primary btn-sm", style:"font-size: 20px;" %>
           </div>
         </div>
       </div>

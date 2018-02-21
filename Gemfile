@@ -43,6 +43,7 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks', '~> 2.1'
 gem 'turbolinks', '~> 5.0', '>= 5.0.1'
 gem 'jquery-ui-rails'
+gem 'bitly', '~> 1.1', '>= 1.1.1'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 

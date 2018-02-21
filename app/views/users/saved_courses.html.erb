@@ -1,6 +1,18 @@
 <% title "Intrests" %>
 <div class="container">
   <div class="row">
+  	<% if current_user.tel == "" %>
+	    <div class="col-md-8 col-md-offset-2" style="margin-bottom: 50px;">
+	    	<%= link_to edit_user_registration_path(current_user) do %>
+		      <div class="panel panel-default">
+		        <div class="panel-body text-center" style="background-color: #de6e32; color: #FFF; "> 
+		          <h1> <font style="font-family: 'Gochi Hand', cursive; font-size: 1.3em;">Didn't know they changed your course schedule?</font></h1>
+		          <h4> get text alerts by filling in your mobile number here</h4>
+		        </div>
+		      </div>
+		    <% end %>
+	    </div>
+	  <% end %>  
     <div class=" col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
       <div class="profile_body" style="margin-bottom: 50px;">
 				<div class="container-fluid title_header text-center">

@@ -9,7 +9,7 @@ class Announcement < ActiveRecord::Base
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\z/
   validates_attachment_size :photo, :in => 0.megabytes..4.megabytes
   
-  validates_length_of :subject, :maximum => 60
+  validates_length_of :subject, :maximum => 40
   validates :subject, :presence => {:message => 'Announcement must have a subject'}
   validates_length_of :body, :maximum => 400
   validates :body, :presence => {:message => 'Announcement must have a body'}

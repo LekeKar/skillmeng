@@ -5,8 +5,9 @@ class User < ActiveRecord::Base
 
   validates :fname, :presence => {:message => 'User must have first name'}
   validates :lname, :presence => {:message => 'User must have Last name'}
-  validates :tel,   :numericality => true, :allow_blank => true,
-                :length => { :minimum => 10, :maximum => 15 }
+  validates :tel,   :numericality => true,
+                    :length => { :minimum => 10, :maximum => 15 },
+                    :uniqueness => {:message => "This number aready exists, please use another"}
   
 
 
@@ -79,6 +80,9 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, styles:{ avatar: "300x300#"}, default_url: "/images/:style/missing1.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   validates_attachment_size :avatar, :in => 0.megabytes..4.megabytes
+  
+   validates :tel, 	:numericality => true, :allow_blank => true,
+                      :length => { :minimum => 10, :maximum => 15 }
 
   # Messaging 
   acts_as_messageable
@@ -92,7 +96,7 @@ private
   end
   
   def name
-      return self.fname
+    return self.fname
   end
   
   def strip_blanks
