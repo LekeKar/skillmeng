@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="row text-center" style="margin-bottom: 10px; margin-top: 10px;">
-        <%= link_to favorite_course_path(course), method: :put, data: {confirm: "Do you wish to remove #{course.title} from your interests?"} do %>
+        <%= link_to favorite_course_path(course), method: :put, data: {confirm: "Do you wish to remove #{course.title} from your wishlist?"} do %>
         <span style="color: rgba(211,86,88,0.6); font-size: 1em;" ><strong>no longer interested?</strong></span>
         <% end %>
       </div>

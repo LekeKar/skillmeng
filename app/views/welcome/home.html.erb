@@ -22,7 +22,7 @@
 <div class="container-fluid text-center" style="margin-bottom: 30px;">
   <h2 style="margin: 30px;">categories</h2>
   <div class="row">
-    <div class="container">
+  
       <% @category_count.each do |key,array| %>
         <% if array.count > 0 %>
           <div class="col-md-3 col-lg-2 col-sm-4 col-xs-6">
@@ -30,7 +30,7 @@
           </div>
         <% end %>
       <% end %>
-    </div>
+   
   </div>
 </div>
 
@@ -46,11 +46,17 @@
         <div class="col-md-6 col-xs-12 col-sm-6" class="mobile_justify">
           <div class="container-fluid">
             <p style="font-size: 1.5em; font-weight: 300; text-align: justify;" > 
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo, voluptatem, fuga laborum delectus possimus laboriosam dignissimos hic ullam? Quas, repellat aut velit provident praesentium eligendi quibusdam enim officiis quod tempore.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit voluptate ex, ratione quas necessitatibus maxime cum eveniet? Quam perferendis, esse officiis, vel saepe, architecto, odit nesciunt suscipit voluptas velit totam!
-            </p>
-            <p  class="mobile_centralize">
-              <%= link_to "create course", new_course_path, class:"couse_cat btn btn-primary btn-sm", style:"font-size: 20px;" %>
+              SkillmeNG is an online hub for offline courses. It’s designed to help individuals with skills connect with people that want to learn.
+            
+            <h4 class="mobile_centralize" style="font-size: 1.5em; color: #e28b60; font-weight: 400;"> What skill can you teach? </h4>
+            <p style="font-size: 1.5em; font-weight: 300; text-align: justify;" > 
+              We host courses on just about anything! From how to start a balanced investment portfolio to how to change car batteries. <br>
+              Join our growing community of teachers, create a course and get discovered. 
+            </p> 
+            
+          </div>
+          <div class="mobile_centralize">
+            <%= link_to "create course", new_course_path, class:"couse_cat btn btn-primary btn-sm", style:"font-size: 20px;" %>
           </div>
         </div>
       </div>

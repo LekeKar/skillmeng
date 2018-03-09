@@ -14,7 +14,7 @@
         <%= f.input :tel1, label: "Telephone 1", input_html: {value: @contact.tel1.present? ? @contact.tel1 : @organizer.phone}  %>
       </div>
        <div class="col-sm-6 col-md-6">
-        <%= f.input :tel2, label: "Telephone 2 (Optional)" %>
+        <%= f.input :tel2, label: "Telephone 2" %>
       </div>
     </div>
     <%= f.input :tutor_website, label: "Website", input_html: {value: @contact.tutor_website.present? ? @contact.tutor_website : @organizer.website} %>
@@ -26,9 +26,9 @@
       <div class="form-inputs">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :facebook, placeholder: "http://www.facebook.com/" %></div>
-          <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :linkedin, placeholder: "http://www.linkedin.com/" %></div>
+          <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :linkedin, label: "LinkedIn", placeholder: "http://www.linkedin.com/" %></div>
           <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :twitter, placeholder: "http://www.twitter.com/" %></div>
-          <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :googleplus, placeholder: "http://plus.google.com/" %></div>
+          <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :googleplus, label: "Google+", placeholder: "http://plus.google.com/" %></div>
           <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :pintrest, placeholder: "http://www.pinterest.com/" %></div>
           <div class="col-xs-12 col-sm-6 col-md-6"><%= social_link.input :instagram, placeholder: "http://instagram.com/" %></div>
         </div>
@@ -36,14 +36,18 @@
     <% end %>
   </div>
   
+  <div id="desktop_disapear" style="margin-bottom: 20px;">
+    <hr></hr>
+  </div>
+  
 	<% session[:setup_wizard] ? @pass_param = "Next step" : @pass_param = "Submit"  %>
   <div class="form-actions text-center">
     <% if session[:setup_wizard] %>
-     <%= link_to 'Back', edit_course_about_path(@course, @about), class:'btn btn-danger' %>
+     <%= link_to 'Back', edit_course_about_path(@course, @about), class:'btn btn-default', id:"form_cancel" %>
 		<% end%>
-    <%= f.button :submit, name: "type", value: "#{@pass_param}" %>
+    <%= f.button :submit, name: "type", value: "#{@pass_param}", id:"form_submit" %>
 		<% unless session[:setup_wizard] %>
-		  <%= link_to 'Back', @course, class:'btn btn-danger' %>
+		  <%= link_to 'Cancel', @course, class:'btn btn-default', id:"form_cancel" %>
 		<% end %>
   </div>
 <% end %>

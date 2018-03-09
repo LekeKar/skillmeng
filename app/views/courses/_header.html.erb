@@ -1,5 +1,5 @@
 
-<div class="header_course jumbotron" style="position: relative; background: linear-gradient(0deg,rgba(102,102,102,0.5),rgba(102,102,102,0.5)), url('<%= @course.display_pic.url(:medium) %>')">
+<div class="header_course jumbotron" style="position: relative; background: linear-gradient(0deg,rgba(102,102,102,0.5),rgba(102,102,102,0.5)), url('<%= @course.display_pic.url(:large) %>')">
   <div class="title text-center">
     <h1>
       <%= @course.title %> <br>
@@ -100,7 +100,9 @@
         <% end %>  
       </div>
       <div class="modal-footer">
-        <a type="button" data-dismiss="modal" style="color: #d9534f;">close</a>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="color: #d9534f;" >close</button>
+        </div>
       </div>
     </div>
   </div>

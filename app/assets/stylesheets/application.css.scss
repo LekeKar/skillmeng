@@ -27,6 +27,29 @@
   src: url(/assets/slick.ttf) format("truetype");
 }
 
+#form_header {
+	border-color: #de6e32;
+	background-color: #de6e32; 
+	color: #FFF;
+}
+
+#form_drop_down{
+	color: rgba(220,110,59, 0.8);
+}
+
+#form_submit{
+	border-color: #de6e32; 
+	background: #de6e32; 
+	color: #FFF;
+	width: 100px;
+}
+
+#form_cancel{
+	 background: #FFF; 
+	 color: #de6e32;
+	 width: 100px;
+}
+
  .flash_message{
   position: absolute;
   left: 0; 

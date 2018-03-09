@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get 'toggle_text_broadcast/:favorite_course_id', :to => 'courses#toggle_text_broadcast', :as => :toggle_text_broadcast
   get 'toggle_subscription/:favorite_course_id', :to => 'courses#toggle_subscription', :as => :toggle_subscription
   post '/messages/send_message', :to => "messages#send_message", :as => "send_message"
-  get '/:course_id/annoucement/:id', :to => "announcements#email_broadcast", :as => "email_broadcast"
+  get 'email_broadcast/:course_id/annoucement/:id', :to => "announcements#email_broadcast", :as => "email_broadcast"
+  get 'text_broadcast/:course_id/annoucement/:id', :to => "announcements#text_broadcast", :as => "text_broadcast"
   post '/store_location', :to => "welcome#store_location", :as => "store_location"
 
   resources :organizers, except: [:index] do 

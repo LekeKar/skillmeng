@@ -1,0 +1,7 @@
+about your barter request for <%= @requested_course.title %>
+=====================================================================
+
+ Your offer for <%= @requested_course.title %> was <%= @ans %>.
+--------------------------------------------------------------------
+<%= link_to "view response", barter_url(@user, type: "sent"), title:"respond to offer" %>
+                    

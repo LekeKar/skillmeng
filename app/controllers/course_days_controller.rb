@@ -35,6 +35,10 @@ class CourseDaysController < ApplicationController
       @course_day = @course.course_days.build(course_day_params)
       respond_to do |format|
         if @course_day.save
+          if @course.schedule_style != "Specific calender days"
+            @course_day.update_attribute(:calendar_day, Date.today)
+          end
+          
           if session[:setup_wizard]
             session.delete(:setup_wizard)
             format.html { redirect_to @course, notice: "#{@course.title} now exists, Huzzah!. Now cross-check, edit and publish" }

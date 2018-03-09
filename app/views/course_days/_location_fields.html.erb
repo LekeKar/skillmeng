@@ -1,8 +1,8 @@
 <div class="nested-fields well locations">
   <div class="row" style="margin: 0px 0px 15px 0px;">
-    <% if @prev_locations %>
-      <a href="javascript:;" id="collapse_link" style="color: #999999;" aria-expanded="false" aria-controls="collapseExample">
-        use previous address
+    <% if !@prev_locations.empty? %>
+      <a href="javascript:;" id="collapse_link" style="color: rgba(220,110,50,0.7);" aria-expanded="false" aria-controls="collapseExample">
+        Use previous address
       </a>
       <div class="collapse" id="collapse_div">
         <table class="table table-hover vertical-alilgn ">
@@ -48,26 +48,28 @@
       <div class="col-xs-12 col-sm-6 col-md-6 form-inputs city_ans">
         <%= f.input :city, required: true, label: "Town" %>
       </div>
-      <div class="col-xs-9 col-sm-5 col-md-5 form-inputs state_ans">
+      <div class="col-xs-6 col-sm-3 col-md-3 form-inputs state_ans">
         <%= f.input :state, :collection => @states %>
       </div>
       
-      <div class="col-xs-3 col-sm-1 col-md-1">
-        <%= link_to_remove_association f, class: "btn btn-danger", style: "margin-top: 25px; margin-left: -15px; ", data: {confirm: "This action will delete this time, are you sure?"} do %>
-           <i class="fa fa-times"></i> 
+      <div class="col-xs-6 col-sm-2 col-md-2">
+        <%= link_to_remove_association f, class: "btn btn-danger", style: "margin-top: 25px; margin-left: -15px; ", data: {confirm: "This action will delete this location and it's times, are you sure?"} do %>
+          <i class="fa fa-times"></i> remove location 
         <%end%>
       </div>
     </div>
   </div>
-
+  <div style="margin: 10px;">
+    <hr></hr>
+  </div>
   <div class="row">
-    <h5 class="text-center" style="color: #555555;"> - add times -</h5>
+    <h5 class="text-center" style="color: #555555;"> Times</h5>
     <div id="course_times">
       <%= f.simple_fields_for :course_times do |course_time| %>
         <%= render 'course_time_fields', f: course_time %>
       <% end %>
       <div class="links text-center">
-        <%= link_to_add_association f, :course_times, class:"add_time" do %>
+        <%= link_to_add_association f, :course_times, id:"form_drop_down", class:"add_time" do %>
            <i class="fa fa-plus"></i> Time
         <% end %>
       </div>

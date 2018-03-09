@@ -4,7 +4,7 @@
   <div class="form-inputs">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6">
-        <%= f.input :name, maxlength: "25", :label => 'Title (25 char max)', required: true %>
+        <%= f.input :name, maxlength: "25", :label => 'Name (25 char max)', required: true %>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6">
         <%= f.input :job_title, maxlength: "30", :label => 'Title (30 char max)', required: true %>
@@ -12,8 +12,8 @@
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6">
-        <%= f.input :bio, label: "Short Bio (300 char max)",  :input_html => {:rows => 5, :id => "text"}, maxlength: "300" %>
-        <h6 class="text-right" id="count_message" style="color: grey"></h6>
+        <%= f.input :bio, label: "Short bio",  :input_html => {:rows => 5, :id => "text"}, maxlength: "300" %>
+        <h6 class="text-right" id="count_message" style="color: grey" data-value="300"></h6>
       </div>
       
       <div class="col-xs-12 col-sm-6 col-md-6">  
@@ -28,12 +28,12 @@
   </div>
 
   <div class="form-inputs">
-   <%= f.input :avatar, label: "Picture", as: :file, required: true %>
+   <%= f.input :avatar, label: "Picture", hint: 'Recommended size: 300px <span style="font-size: .8em;">x</span> 300px'.html_safe, as: :file, required: true %>
   </div>
   
   <hr>
   <h5> <strong>Qualificaitons</strong> 
-    <small style="color: grey">(max 150char)</small>
+    <small style="color: grey">(150 char max)</small>
   </h5>
   <div id="qualifications">
     <%= f.simple_fields_for :qualifications do |qualification| %>
@@ -41,7 +41,7 @@
     <% end %>
     
     <div class="links" style="margin-bottom: 20px;">
-      <%= link_to_add_association f, :qualifications do %>
+      <%= link_to_add_association f, :qualifications, id:"form_drop_down"  do %>
          <i class="fa fa-plus"></i> qualification
       <% end %>
     </div>
@@ -58,9 +58,9 @@
     <div class="form-inputs">
       <div class="row">
         <div class="col-md-6"><%= social_link.input :facebook, placeholder: "http://www.facebook.com/" %></div>
-        <div class="col-md-6"><%= social_link.input :linkedin, placeholder: "http://www.linkedin.com/" %></div>
+        <div class="col-md-6"><%= social_link.input :linkedin, label: "LinkedIn", placeholder: "http://www.linkedin.com/" %></div>
         <div class="col-md-6"><%= social_link.input :twitter, placeholder: "http://www.twitter.com/" %></div>
-        <div class="col-md-6"><%= social_link.input :googleplus, placeholder: "http://plus.google.com/" %></div>
+        <div class="col-md-6"><%= social_link.input :googleplus, label: "Google+", placeholder: "http://plus.google.com/" %></div>
         <div class="col-md-6"><%= social_link.input :pintrest, placeholder: "http://www.pinterest.com/" %></div>
         <div class="col-md-6"><%= social_link.input :instagram, placeholder: "http://instagram.com/" %></div>
       </div>
@@ -68,7 +68,7 @@
   <% end %>
   
   <div class="form-actions text-center">
-    <%= f.button :submit, "Complete" %>
-    <%= link_to 'Back', :back, class:'btn btn-danger' %>
+    <%= f.button :submit, "Submit", id:"form_submit" %>
+    <%= link_to 'Cancel', :back, class:'btn btn-default', id:"form_cancel" %>
   </div>
 <% end %>

@@ -56,22 +56,24 @@
 	     <% end %>
 	     	
 	    </div>
-	    <div class="panel-body container-fluid text-center">
-	    	<% if @offer_organizer != current_user.organizer %>
-	    		<%= link_to 'view course', @offer_course, target: "_blank", class:"btn btn-warning btn-sm btn-block text-center", style:" margin-bottom: 10px;" %> <hr></hr>
-	    	<%else%>
-	    		<%= link_to 'view course', @ask_course, target: "_blank", class:"btn btn-warning btn-sm btn-block text-center", style:" margin-bottom: 10px;" %> <hr></hr>
-	    	<%end%>
-	    	<% if course_request.additional_info.present? %>
-		    	<h5 style="margin: 0px;">
-			    	"<%= course_request.additional_info %>"<br> 
-			    	<small>-
-				    	<%= link_to @offer_organizer, target: "_blank"  do %>
-				    		<%= @offer_course.tutor %>
-				    	<% end %> 
-			    	</small>
-		    	</h5>
-		    <% end %>
+	    <div class="panel-body container-fluid text-center" >
+	    	<div style="margin: 15px 0px;">
+		    	<% if @offer_organizer != current_user.organizer %>
+		    		<%= link_to 'view course', @offer_course, target: "_blank", class:"btn btn-warning btn-sm btn-block text-center", style:" margin-bottom: 10px;" %> <hr></hr>
+		    	<%else%>
+		    		<%= link_to 'view course', @ask_course, target: "_blank", class:"btn btn-warning btn-sm btn-block text-center", style:" margin-bottom: 10px;" %> <hr></hr>
+		    	<%end%>
+		    	<% if course_request.additional_info.present? %>
+			    	<h5 style="margin: 0px; text-align: justify;">
+				    	"<%= course_request.additional_info %>"
+				    	<small>-
+					    	<%= link_to @offer_organizer, target: "_blank"  do %>
+					    		<%= @offer_course.tutor %>
+					    	<% end %> 
+				    	</small>
+			    	</h5>
+			    <% end %>
+			   </div>
 	  
 	    	
 	    	<hr> 

@@ -117,7 +117,7 @@
 		}
 		h1{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:26px;
 			font-style:normal;
 			font-weight:bold;
@@ -127,7 +127,7 @@
 		}
 		h2{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:22px;
 			font-style:normal;
 			font-weight:bold;
@@ -137,7 +137,7 @@
 		}
 		h3{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:20px;
 			font-style:normal;
 			font-weight:bold;
@@ -147,7 +147,7 @@
 		}
 		h4{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:18px;
 			font-style:normal;
 			font-weight:bold;
@@ -168,7 +168,7 @@
 		}
 		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{
 			color:#656565;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:12px;
 			line-height:150%;
 			text-align:left;
@@ -191,7 +191,7 @@
 		}
 		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:16px;
 			line-height:150%;
 			text-align:left;
@@ -214,7 +214,7 @@
 		}
 		#templateBody .mcnTextContent,#templateBody .mcnTextContent p{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:16px;
 			line-height:150%;
 			text-align:left;
@@ -237,7 +237,7 @@
 		}
 		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{
 			color:#656565;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:12px;
 			line-height:150%;
 			text-align:center;
@@ -515,6 +515,7 @@
             setupSocialSharingStuffs();
         });
     </script> 
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
  	</head> 
  	  <body style="height: 100%;margin: 0;padding: 0;width: 100%;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;">
 		<!---->
@@ -547,10 +548,10 @@
                 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
                   <tbody>
                     <tr>
-                      <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;">
+                      <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: 'Lato', sans-serif;font-size: 12px;line-height: 150%;">
                       
-                        <div style="text-align: center;">regrading your barter request for<br>
-												<span style="font-size:24px"><%= @requested_course.title %></span></div>
+                        <div style="text-align: center;">about your barter request for<br>
+												<span style="font-size:20px"><%= @requested_course.title %></span></div>
 
                       </td>
                     </tr>
@@ -584,7 +585,7 @@
                                 
                               <% @ans == "accepted" ? pic = "barter_accepted.png" : pic = "barter_rejected.png" %>
                               <%= link_to barter_url(@user, type: "sent") do %>
-      													<%= image_tag pic, align:"center", width:"564", alt:"Yay, your offer was #{@ans}!", style:"max-width: 810px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;", class:"mcnImage" %>      
+      													<%= image_tag pic, align:"center", width:"564", alt:"your offer was #{@ans}!", style:"max-width: 810px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;", class:"mcnImage" %>      
                              	<% end %>
                                 
                             </td>
@@ -642,7 +643,7 @@
         <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
           <tbody>
           	<tr>       
-              <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #FFF;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+              <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #FFF;font-family: 'Lato', sans-serif;font-size: 16px;line-height: 150%;text-align: left;">
                 <div style="text-align: left;"><span style="font-size:14px"><span style="font-family:helvetica neue,helvetica,arial,verdana,sans-serif"><strong>About <%= @requested_course.title %></strong></span></span></div>
 								<span style="font-size:15px"><span style="font-family:helvetica neue,helvetica,arial,verdana,sans-serif"><%= @requested_course.about.content %></span></span>
               </td>
@@ -687,7 +688,7 @@
 						          <table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="264" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 					              <tbody>
 					              	<tr>
-					                  <td valign="top" class="mcnTextContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #FFF;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+					                  <td valign="top" class="mcnTextContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #FFF;font-family: 'Lato', sans-serif;font-size: 16px;line-height: 150%;text-align: left;">
 						                  
 						                
 						                  <span style="color:#FFF"><strong>price</strong></span>:
@@ -763,8 +764,8 @@
                 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
                     <tbody>
                     	<tr>
-                        <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: center;">
-                          You are receiving this email because  you (<%=link_to @requested_course.organizer.name, @requested_course.organizer %>) would like to trade courses on skillmeng.<br>
+                        <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: 'Lato', sans-serif;font-size: 12px;line-height: 150%;text-align: center;">
+                          You are receiving this email because  you (<%=link_to @requested_course.organizer.name, @requested_course.organizer %>) would like to trade courses on skillmeNG.<br>
 													<em><a href="http://www.skillmeng.com" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">Skillmeng</a> </em>™<em>&nbsp;is not responsible for the content of this email</em><br>
 													<br>
 													<%= link_to "update your trade preferences", edit_course_course_payment_url(@offered_course, @course_payment), target: :_blank, style:"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;" %>
@@ -790,9 +791,9 @@
                         <tbody><tr>
                             <td class="mcnImageContent" valign="top" style="padding-right: 9px;padding-left: 9px;padding-top: 0;padding-bottom: 0;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                 
-                              <a href="http://www.skillmeng.com" title="" class="" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                  <img align="center" alt="" src="https://gallery.mailchimp.com/716677cb3211f76ce0c1a2476/images/f9fcced6-644b-4825-9d54-4d634e3c8808.jpg" width="564" style="max-width: 728px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" class="mcnImage">
-                              </a>
+                              <%= link_to root_path do %>
+                                <%= image_tag "skillmeng_logo_tagline.png", align:"center", width:"225", alt:"Skillmeng: build your future, one skill at a time", style:"max-width: 810px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;", class:"mcnImage" %>      
+                             	<% end %> 
                                 
                             </td>
                         </tr>

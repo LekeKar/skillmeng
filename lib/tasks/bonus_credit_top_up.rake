@@ -6,15 +6,18 @@ namespace :ade do
     
     #update bonus credit balance
       for org in @orgs
-        org.organizer_credit_bal.email_bonus = 50
+        
+        amount = {email:50, text:10}
+        org.organizer_credit_bal.email_bonus = amount[:email]
+        org.organizer_credit_bal.text_bonus = amount[:text]
         org.organizer_credit_bal.save 
         
         # send email
-        AnnouncementMailer.credit_refill(org).deliver_now
+        AnnouncementMailer.credit_refill(org, amount).deliver_now
         
         # send in-app announcement  
       	@ann = Announcement.create(subject: "Bonus credit refilled!",
-																			body: "Hi #{org.user.fname}, your bonus credit has been re-filled and is back to 50! Bonus credit doesn't roll-over so make sure you spend it.",
+																			body: "Hi #{org.user.fname}, your bonus credit has been topped-up!. Your bonus email is #{amount[:email]} and bonus text is #{amount[:text]}. Bonus credit doesn't roll-over so make sure you spend it.",
 																			sender: "Andy",
 																			sender_type:"admin",
 																			broadcast: false,

@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   protected
   
   def update_resource(resource, params)
-    if current_user.provider == "facebook" || current_user.provider == "Google"
+    if current_user.provider == "Facebook" || current_user.provider == "Google"
       params.delete("current_password")
       resource.update_without_password(params)
     else

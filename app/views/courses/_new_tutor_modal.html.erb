@@ -10,12 +10,12 @@
               <tr>
                 <td><%= available_tutor.name %></td>
                 <td class="text-center">
-                  <%= link_to "Add", add_remove_tutor_path(@course, available_tutor), class:"btn btn-default btn-xs" %>
+                  <%= link_to "Add", add_remove_tutor_path(@course, available_tutor), class:"btn btn-warning btn-xs" %>
                 </td>
               </tr>
             <% end %>
           </table>
-            <%= link_to 'create new tutor',  new_organizer_tutor_path(@user_organizer), style:"color: #e58b5a; margin-left: 7px;"%>
+            <%= link_to 'create new tutor',  new_organizer_tutor_path(@user_organizer), class:'btn btn-default', id:"form_submit", style:"width: 150px; margin-left: 7px;"%>
         </div>
       </div>
     </div>

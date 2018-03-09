@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :user_auth, only: [:edit, :update, :destroy] 
   before_action :oga_check, only: [:edit, :new, :update] 
-  before_action :duplicate_check, only: [:edit, :new, :update] 
+  before_action :duplicate_check, only: [:new] 
 
   # GET /reviews
   # GET /reviews.json
@@ -99,7 +99,7 @@ class ReviewsController < ApplicationController
     
     def duplicate_check
       if  @course.reviews.where(:user_id => current_user.id).exists?
-        redirect_to @course, alert: "Oga, you can only review once!"
+        redirect_to @course, alert: "Oga, you can only review this course once!"
       end
     end
 end

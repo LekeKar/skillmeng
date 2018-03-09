@@ -1,14 +1,14 @@
-<% title "New review" %>
+<% title "Add review" %>
 <div class="container">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 	   		<div class="panel panel-default">
-	    		<div class="panel-heading">
-				    <h4 class="panel-title"><i class="fa fa-star"></i> New Review</h4>
-				</div>
+	    		<div class="panel-heading" id="form_header">
+				    <h4 class="panel-title"> New Review<small style="color: #FFF;"> <br> <%= @course.title %></small></h4>
+					</div>
 			    <div class="panel-body new_class">
-					<%= render 'form' %>
-				</div>
+						<%= render 'form' %>
+					</div>
 		  	</div> 
 		</div> 	
 	</div>	

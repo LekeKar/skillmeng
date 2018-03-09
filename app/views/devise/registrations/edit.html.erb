@@ -15,8 +15,8 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title"><i class="fa fa-user"></i> Edit <%= resource_name.to_s.humanize %></h4>
+        <div class="panel-heading" id="form_header">
+            <h4 class="panel-title">Edit <%= resource_name.to_s.humanize %></h4>
         </div>
         <div class="panel-body new_class">
 
@@ -26,19 +26,21 @@
             <div class="form-inputs">
               <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">
-                  <%= f.input :fname, label: "First Name",  autofocus: true %>
+                  <%= f.input :fname, label: "First name",  autofocus: true %>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
-                  <%= f.input :lname, label: "Last Name", autofocus: true %>
+                  <%= f.input :lname, label: "Last name", autofocus: true %>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
-                  <%= f.input :tel, label: "Phone number", placeholder: "e.g 08145463102", autofocus: true, required: true %>
+                  <%= f.input :tel, label: "Phone number", maxlength: "11", placeholder: "e.g 08145463102", autofocus: true, required: true %>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                  <%= f.input :email, required: true, autofocus: true %>
-                </div>
+                <% unless current_user.provider == "Facebook" || current_user.provider ==  "Google" %>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <%= f.input :email, required: true, autofocus: true %>
+                  </div>
+                <% end %>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                  <%= f.input :avatar, as: :file, label: "Profile Pic" %>
+                  <%= f.input :avatar, as: :file, hint: 'Recommended size: 300px <span style="font-size: .8em;">x</span> 300px'.html_safe, label: "Profile Pic" %>
                 </div>
               
               
@@ -47,28 +49,30 @@
                   <% end %>
                 <% unless current_user.provider == "Facebook" || current_user.provider ==  "Google" %>
                   <div class="col-xs-12 col-sm-12 col-md-12">
-                    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
+                    <%= f.input :password, label:"New password", autocomplete: "off", hint: "Leave blank if you don’t want to change your password", required: false %>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12">
-                    <%= f.input :password_confirmation, required: false %>
+                    <%= f.input :password_confirmation, label:"Confirm new password", required: false %>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-12">
                     <hr>
-                    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+                    <%= f.input :current_password, hint: "We need your current password to confirm your changes", required: true %>
                   </div>
                 <% end %>
               </div>
             </div>
 
-            <div class="form-actions">
-              <%= f.button :submit, "Update" %>
-              <%= link_to 'Back', current_user, class:'btn btn-danger' %>
+            <div class="form-actions text-center">
+              <%= f.button :submit, "Submit", id:"form_submit" %>
+              <%= link_to 'Cancel', current_user, class:'btn btn-default', id:"form_cancel" %>
             </div>
           <% end %>
-
-          <hr>
+          
+          <div style="margin: 20px;">
+            <hr>
+          </div>
           <span class="text-center">
-            <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+            <p>Unhappy? <%= link_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, id:"form_drop_down", method: :delete %></p>
           </span>
         </div>
       </div>

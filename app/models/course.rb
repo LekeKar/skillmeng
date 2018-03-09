@@ -129,7 +129,6 @@ class Course < ActiveRecord::Base
   def check_for_extras
   	requests = CourseRequest.where(:course_id => self.id)
   	announcements = Announcement.course.where(:sender => self.id)
-  	announcements = Announcement.course.where(:sender => self.id)
   	requests.destroy_all
   	announcements.destroy_all
   end

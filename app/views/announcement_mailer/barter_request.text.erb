@@ -1,0 +1,8 @@
+you have an offer to learn <%= @offered_course.title %>
+==============================================================================================
+
+<%= link_to @offered_course.organizer.name, @offered_course.organizer %>
+would like to learn <%= link_to @requested_course.title, @requested_course %> 
+and in return, is offering to teach you <%= link_to @offered_course.title, @offered_course %>.
+----------------------------------------------------------------------------------------------------------------------------------------
+<%= link_to "respond to offer", barter_url(@user, type: "received"), title:"respond to offer" %>

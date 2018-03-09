@@ -8,11 +8,11 @@ class Contact < ActiveRecord::Base
   
   validates :contact_name, :presence => {:message => 'Contact must have name'}
   validates :tel1, 	:numericality => true, :allow_blank => true,
-  							:length => { :minimum => 10, :maximum => 15 }
+  							:length => { is: 11}
   validates :tel2, 	:numericality => true,:allow_blank => true,
-  							:length => { :minimum => 10, :maximum => 15 }
+  							:length => { is: 11}
   validates :tel3, 	:numericality => true,:allow_blank => true,
-  							:length => { :minimum => 10, :maximum => 15 }		
+  							:length => { is: 11}
   			
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :allow_blank => true, :message => "doesn't look like a  valid email"
 

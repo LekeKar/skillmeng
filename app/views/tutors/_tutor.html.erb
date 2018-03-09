@@ -23,7 +23,6 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">
-         <i class="fa fa-graduation-cap"></i>
           <%= tutor.name %> 
           <% if tutor.job_title %>
             <br>
@@ -49,13 +48,14 @@
               <% end %>  
             </span> 
             <% if current_user && current_user.id == @organizer.user_id && params[:visitor] != "visitor" %>
-              <hr>
-              <%= link_to "edit", edit_organizer_tutor_path(@organizer, tutor), style: "margin-top: 5px; margin-bottom: 10px; color: grey;"%> |
-              <% if current_page?(@user_organizer) %>
-                <%= link_to "delete", organizer_tutor_path(@organizer, tutor), method: :delete, data: {confirm: "This action will delete this tutor, are you sure?"}, style: "margin-top: 10px; margin-bottom: 10px; color: grey;"%>
-              <% elsif @course %>
-                <%= link_to "remove", add_remove_tutor_path(@course, tutor), data: {confirm: "This action will remove this #{tutor.name} from #{@course.title}, are you sure?"}, style: "margin-top: 10px; margin-bottom: 10px; color: grey;"%>
+              <div style="margin-top: 15px;">
+              <%= link_to "edit", edit_organizer_tutor_path(@organizer, tutor), class:'btn btn-default', id:"form_submit"%>
+                <% if current_page?(@user_organizer) %>
+                  <%= link_to "delete", organizer_tutor_path(@organizer, tutor), method: :delete, data: {confirm: "This action will delete this tutor, are you sure?"}, class:'btn btn-default', id:"form_cancel"%>
+                <% elsif @course %>
+                  <%= link_to "remove", add_remove_tutor_path(@course, tutor), data: {confirm: "This action will remove this #{tutor.name} from #{@course.title}, are you sure?"}, class:'btn btn-default', id:"form_cancel"%>
               <% end %>
+              </div>
             <% end %>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6">
@@ -80,7 +80,7 @@
                   <% for course in tutor.taught_courses do %>
                     <br> - 
                     <%= link_to course do %>
-                      <span style="font-weight: normal" class="dont-break-out"> <%= course.title %>  </span>
+                      <span style="font-weight: normal" id="form_drop_down" class="dont-break-out"> <%= course.title %>  </span>
                     <% end %>
                   <% end %>
                 <% end %>

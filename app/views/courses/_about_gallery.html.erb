@@ -104,13 +104,7 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">
-            <i class="fa fa-camera-retro"></i>
             <%= @course.title %>
-            <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-              <small> 
-                 <%= link_to '[edit]', edit_course_gallery_pic_path(@course, gallery_pic)%>
-              </small>
-            <% end %>
           </h4>
         </div>
         <div class="modal-body text-center">
@@ -118,6 +112,19 @@
           <% if gallery_pic.caption? %>
             "<%= gallery_pic.caption %>"
           <% end %>
+          <br>
+          
+          <div class="btn-group btn-group-sm" role="group" aria-label="..." style="margin-top: 30px;">
+            <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+              <div class="btn-group" role="group">
+                 <%= link_to 'edit', edit_course_gallery_pic_path(@course, gallery_pic), class:"btn btn-default", style:"width: 100px;"%>
+              </div>
+            <% end %>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default" id="form_cancel" data-dismiss="modal" >Close</button>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>

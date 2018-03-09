@@ -27,7 +27,7 @@
       </div>
     
       <%= link_to course do %>
-        <div class="panel-body" style="background: url('<%= course.display_pic.url(:medium) %>'); height: 200px; background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; " >
+        <div class="panel-body" style="background: url('<%= course.display_pic.url(:large) %>'); height: 200px; background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; " >
           
         </div>
       <% end %>
@@ -65,8 +65,8 @@
           <div class="col-xs-6 col-sm-6 col-md-6">
             <strong>
               <% if !course.course_prices.empty? %>
-                <% @min_price =  course.course_prices.minimum(:price) %>
-                <% if @min_price > 0 %>
+                <% course.course_prices.nil? ? @min_price = course.course_prices.minimum(:price) : @min_price = 0 %>
+                <% if  @min_price > 0 %>
                   ₦<%= number_with_delimiter(@min_price.floor) %><%= course.course_prices.count > 1 ? "+" : "" %>
                 <% else %>
                   Free<%= course.course_prices.count > 1 ? "+" : "" %>

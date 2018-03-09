@@ -2,12 +2,12 @@
 <div class="container">
   <div class="row">
   	<% if current_user.tel == "" %>
-	    <div class="col-md-8 col-md-offset-2" style="margin-bottom: 50px;">
+	    <div class="col-md-8 col-md-offset-2" id="user_tel_prompt">
 	    	<%= link_to edit_user_registration_path(current_user) do %>
 		      <div class="panel panel-default">
 		        <div class="panel-body text-center" style="background-color: #de6e32; color: #FFF; "> 
 		          <h1> <font style="font-family: 'Gochi Hand', cursive; font-size: 1.3em;">Didn't know they changed your course schedule?</font></h1>
-		          <h4> get text alerts by filling in your mobile number here</h4>
+		          <h4> get text alerts from courses you follow by filling in your mobile number</h4>
 		        </div>
 		      </div>
 		    <% end %>
@@ -17,7 +17,7 @@
       <div class="profile_body" style="margin-bottom: 50px;">
 				<div class="container-fluid title_header text-center">
 			    <div class="title_text">
-			      Interests
+			      Wishlist
 			    </div>
 				</div>
     		<div class="container-fluid profile_content" style="background-color: #FFFFFF; padding-top:20px;">
@@ -26,7 +26,10 @@
           <% else %>
 				  	<div class="quote">
 				  		<h3>
-				  			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum qui voluptate culpa corrupti, consequuntur provident quos beatae. Molestias nostrum enim, animi. Placeat nemo officia incidunt magni in sint consequuntur vel?
+				  		Wow! It seems like you don’t have any courses you are interested in… aren’t you boring :p. <br>
+							Fix this by searching for courses. Once you find a class that interests you, click on “interested”
+							or the <i class="fa fa-heart"></i> and the course wiill be added to your wishlist. You can then decide 
+							how or if you’d like to hear from them. <br> The ball’s in your court	
 				  		</h3>
 				  	</div>
 				  <% end %>

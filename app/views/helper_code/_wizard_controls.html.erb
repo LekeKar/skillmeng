@@ -3,7 +3,7 @@
 		<h5>
 			<%= step_number %><br>
 			<small>
-				<%= current_step_name %> <i class="fa fa-arrow-right"></i> <%= next_step_name %>
+				<span style="color: #de6e32; font-size: 1.1em"><%= current_step_name %></span> <i class="fa fa-arrow-right"></i> <%= next_step_name %>
 			</small>
 			<% unless current_page?(new_course_path) %>
 				<% if @course.save %>

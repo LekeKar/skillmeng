@@ -5,7 +5,9 @@
       <div class="col-md-6">
         <h3 class="mobile_centralize">Purchase email credit</h3>
         <div style="text-align: justify;" >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim modi nostrum, possimus perferendis sit aut. Sed esse, earum magnam neque eius ducimus, voluptatibus nesciunt inventore consequatur laudantium repellendus itaque velit.
+          Send email email updates directly to your followers. All followers have verified emails
+          and have chosen to hear from you. Skillmeng Sends you 50 bonus email credits each month
+          but If you need a few more you can top-up here. Emails cost ₦7.50 each
           <br>
           <strong>current bal:</strong> <%= @organizer.organizer_credit_bal.email_bonus %> Bonus | <%= @organizer.organizer_credit_bal.email_regular %> Regular
           <br>
@@ -15,11 +17,11 @@
           <br>
         </div>
       </div>
-      <div class="col-md-3" id="order_explaination">
+      <div class="col-md-3 text-left" id="order_explaination">
         <%= f.simple_fields_for :organizer_credit_order do |builder| %>
           <div class="form-inputs">
             <div class="row">
-              <div class="container-fluid text-left">
+              <div class="container-fluid ">
                 <%= builder.input :email_quantity, label: false, prompt: "Select Quantity", collection: [50,100,500,1000] %>
               </div>
             </div>
@@ -32,7 +34,10 @@
       <div class="col-md-6">
         <h3 class="mobile_centralize">Purchase text credit</h3>
         <div style="text-align: justify;" >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim modi nostrum, possimus perferendis sit aut. Sed esse, earum magnam neque eius ducimus, voluptatibus nesciunt inventore consequatur laudantium repellendus itaque velit.
+           If you need to let your followers know about any changes, a direct text
+           message is the best way to reach them, because everyone gets text messages.
+           Skillmeng sends you 10 bonus text credits each month but If you need a few 
+           more you can top-up here. Texts cost ₦29.50 each.
           <br>
           <strong>current bal:</strong> <%= @organizer.organizer_credit_bal.text_bonus %> Bonus | <%= @organizer.organizer_credit_bal.text_regular %> Regular
           <br>
@@ -42,11 +47,11 @@
           <br>
         </div>
       </div>
-      <div class="col-md-3" id="order_explaination">
+      <div class="col-md-3 text-left" id="order_explaination">
         <%= f.simple_fields_for :organizer_credit_order do |builder| %>
           <div class="form-inputs">
             <div class="row">
-              <div class="container-fluid text-left">
+              <div class="container-fluid ">
                 <%= builder.input :text_quantity, label: false, prompt: "Select Quantity", collection: [50,100,500,1000] %>
               </div>
             </div>
@@ -59,20 +64,23 @@
       <div class="col-md-6">
         <h3 class="mobile_centralize">Promote course</h3>
         <div style="text-align: justify;">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet perspiciatis quo, molestiae beatae adipisci quae asperiores ratione quasi quia recusandae, nemo illo cumque velit perferendis, suscipit consequuntur. Non, quos, consequatur!
+           When you promote your course it becomes extremely visible, and will come up 
+           first on every list on the site. Promoted courses are also more likely to be 
+           featured in the SkillmeNG blog, which will really boost its publicity. Promotion 
+           costs ₦7,500/week.
           <br>
         </div>
         <%= f.error :base %>
       </div>
-      <div class="col-md-6" id="order_explaination">
+      <div class="col-md-6 text-left" id="order_explaination">
         
         <div id="course_promotions">
           <%= f.simple_fields_for :course_promotions do |course_promotion| %>
             <%= render 'course_promotion_fields', f: course_promotion %>
           <% end %>
         
-          <div class="links mobile_centralize">
-            <%= link_to_add_association f, :course_promotions, class:"add_course_promotion btn btn-default" do %>
+          <div class="links">
+            <%= link_to_add_association f, :course_promotions, class:"add_course_promotion btn btn-default " do %>
                <i class="fa fa-plus"></i> course
             <% end %>
           </div>
@@ -81,12 +89,12 @@
     </div>
     
       <hr style="margin-top: 20px; margin-bottom: 20px; ">
-      <div class="form-actions text-left mobile_centralize">
-        <%= f.button :submit, "Place Order", class:'btn btn-warning'  %>
+      <div class="form-actions text-left text-center">
+        <%= f.button :submit, "Place Order", class:'btn btn-default', id:"form_submit" %>
         <% if current_page?(@user_organizer)  %>
-          <a type="button" data-dismiss="modal" class='btn btn-danger'>close</a>
+          <a type="button" data-dismiss="modal" class='btn btn-default', id="form_cancel">Close</a>
         <% else %>
-          <%= link_to 'Back', :back, class:'btn btn-danger' %>
+          <%= link_to 'Cancel', :back, class:'btn btn-default', id:"form_cancel" %>
         <% end %>
       </div>
     </div>

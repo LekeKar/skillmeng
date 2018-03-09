@@ -117,7 +117,7 @@
 		}
 		h1{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:26px;
 			font-style:normal;
 			font-weight:bold;
@@ -127,7 +127,7 @@
 		}
 		h2{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:22px;
 			font-style:normal;
 			font-weight:bold;
@@ -137,7 +137,7 @@
 		}
 		h3{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:20px;
 			font-style:normal;
 			font-weight:bold;
@@ -147,7 +147,7 @@
 		}
 		h4{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:18px;
 			font-style:normal;
 			font-weight:bold;
@@ -168,7 +168,7 @@
 		}
 		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{
 			color:#656565;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:12px;
 			line-height:150%;
 			text-align:left;
@@ -191,7 +191,7 @@
 		}
 		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:16px;
 			line-height:150%;
 			text-align:left;
@@ -214,7 +214,7 @@
 		}
 		#templateBody .mcnTextContent,#templateBody .mcnTextContent p{
 			color:#202020;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:16px;
 			line-height:150%;
 			text-align:left;
@@ -237,7 +237,7 @@
 		}
 		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{
 			color:#656565;
-			font-family:Helvetica;
+			font-family:'Lato', sans-serif;
 			font-size:12px;
 			line-height:150%;
 			text-align:center;
@@ -515,6 +515,8 @@
             setupSocialSharingStuffs();
         });
     </script> 
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    
  	</head> 
  	  <body style="height: 100%;margin: 0;padding: 0;width: 100%;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;">
 		<!---->
@@ -547,10 +549,10 @@
                 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
                   <tbody>
                     <tr>
-                      <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;">
+                      <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: 'Lato', sans-serif;font-size: 12px;line-height: 150%;">
                       
                         <div style="text-align: center;">you have an offer to learn<br>
-												<span style="font-size:24px"><%= @offered_course.title %></span></div>
+												<span style="font-size:20px"><%= @offered_course.title %></span></div>
 
                       </td>
                     </tr>
@@ -576,11 +578,11 @@
 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
   <tbody>
   	<tr>
-      <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+      <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: 'Lato', sans-serif;font-size: 16px;line-height: 150%;text-align: left;">
         <div style="text-align: center;">
 					<div style="text-align: left;"><span style="font-family:helvetica neue,helvetica,arial,verdana,sans-serif"><span style="font-size:14px"><span style="color:#333333"><strong>Trade details</strong></span></span></span></div>
 					
-					<div style="text-align: justify;"><span style="font-family:helvetica neue,helvetica,arial,verdana,sans-serif"><%= link_to @offered_course.organizer.name, @offered_course.organizer %> would like to learn <%= link_to @requested_course.title, @requested_course %> and in return offer to teach you <%= link_to @offered_course.title, @offered_course %> .</span></div>
+					<div style="text-align: justify;"><span style="font-family:helvetica neue,helvetica,arial,verdana,sans-serif"><%= link_to @offered_course.organizer.name, @offered_course.organizer %> would like to learn <%= link_to @requested_course.title, @requested_course %> and in return, is offering to teach you <%= link_to @offered_course.title, @offered_course %> .</span></div>
 					
 					<div style="text-align: left; margin-top: 10px;"><span style="font-family:helvetica neue,helvetica,arial,verdana,sans-serif"><span style="font-size:14px"><span style="color:#333333"><strong>Additional message</strong></span></span></span></div>
 					
@@ -632,7 +634,7 @@
         <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
           <tbody>
           	<tr>       
-              <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #FFF;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+              <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #FFF;font-family: 'Lato', sans-serif;font-size: 16px;line-height: 150%;text-align: left;">
                 <div style="text-align: left;"><span style="font-size:14px"><span style="font-family:helvetica neue,helvetica,arial,verdana,sans-serif"><strong>About <%= @offered_course.title %></strong></span></span></div>
 								<span style="font-size:15px"><span style="font-family:helvetica neue,helvetica,arial,verdana,sans-serif"><%= @offered_course.about.content %></span></span>
               </td>
@@ -674,13 +676,13 @@
 	          <table class="mcnCaptionRightTextContentContainer" align="right" border="0" cellpadding="0" cellspacing="0" width="264" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
               <tbody>
               	<tr>
-                  <td valign="top" class="mcnTextContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #FFF;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
+                  <td valign="top" class="mcnTextContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #FFF;font-family: 'Lato', sans-serif;font-size: 16px;line-height: 150%;text-align: left;">
 	                  
 	                
 	                  <span style="color:#FFF"><strong>price</strong></span>:
 		                  <% if !@offered_course.course_prices.empty? %>
 				                <% @min_price =  @offered_course.course_prices.minimum(:price) %>
-				                <% if @min_price > 0 %>
+				                <% if @min_price && @min_price > 0 %>
 				                  ₦<%= number_with_delimiter(@min_price.floor) %><%= @offered_course.course_prices.count > 1 ? "+" : "" %>
 				                <% else %>
 				                  Free<%= @offered_course.course_prices.count > 1 ? "+" : "" %>
@@ -691,7 +693,7 @@
 										<span style="color:#FFF"><strong>location</strong></span>:
 											<% if @offered_course.local_area.present? %><%= @offered_course.local_area.try(:titleize) %>,<% end %> <%= @offered_course.locality.try(:titleize) %><br>
 					
-										<span style="color:#FFF"><strong>avg rating</strong></span>: <%= @offered_course_reviews.blank? ? "no reviews" : "#{@avg_review}/5"%><br>
+										<span style="color:#FFF"><strong>avg rating</strong></span>: <%= @offered_course_reviews.blank? ? "no reviews" : "#{@avg_review}/5.0"%><br>
 										<span style="color:#FFF"><strong>followers</strong></span>: <%= number_to_human(@offered_course.favorited_by.count) %><hr>
 										This course is 
 							      <%= @offered_course.saed ? "a SAED," : ""%>
@@ -746,8 +748,8 @@
                 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
                     <tbody>
                     	<tr>
-                        <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: center;">
-                          You are receiving this email because <%=link_to @offered_course.organizer.name, @offered_course.organizer %> would like to trade courses on&nbsp;skillmeng.<br>
+                        <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: 'Lato', sans-serif;font-size: 12px;line-height: 150%;text-align: center;">
+                          You are receiving this email because <%=link_to @offered_course.organizer.name, @offered_course.organizer %> would like to trade courses on&nbsp;skillmeNG.<br>
 													<em><a href="http://www.skillmeng.com" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">Skillmeng</a> </em>™<em>&nbsp;is not responsible for the content of this email</em><br>
 													<br>
 													<%= link_to "update your trade preferences", edit_course_course_payment_url(@requested_course, @course_payment), target: :_blank, style:"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;" %>
@@ -773,9 +775,9 @@
                         <tbody><tr>
                             <td class="mcnImageContent" valign="top" style="padding-right: 9px;padding-left: 9px;padding-top: 0;padding-bottom: 0;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                 
-                              <a href="http://www.skillmeng.com" title="" class="" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                  <img align="center" alt="" src="https://gallery.mailchimp.com/716677cb3211f76ce0c1a2476/images/f9fcced6-644b-4825-9d54-4d634e3c8808.jpg" width="564" style="max-width: 728px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" class="mcnImage">
-                              </a>
+                              <%= link_to root_path do %>
+                                <%= image_tag "skillmeng_logo_tagline.png", align:"center", width:"225", alt:"Skillmeng: build your future, one skill at a time", style:"max-width: 810px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;", class:"mcnImage" %>      
+                             	<% end %> 
                                 
                             </td>
                         </tr>

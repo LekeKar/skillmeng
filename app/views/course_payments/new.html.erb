@@ -6,8 +6,8 @@
 				<%= render 'helper_code/wizard_controls', next_step_name: "schedule", current_step_name: "payment info", step_number: "Step 4 of 5" %>
 			<% end %>
 	   	<div class="panel panel-default">
-	    	<div class="panel-heading">
-					<h4>New payment details<small> <br> for <%= @course.title %></small></h4>
+	    	<div class="panel-heading" id="form_header">
+					<h4>Payment details<small style="color: #FFF;"><br><%= @course.title %></small></h4>
 				</div>
 				<div class="panel-body">
 					<%= render 'form' %>

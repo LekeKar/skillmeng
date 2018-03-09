@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
     @og_properties = {  
       title: "Welcome to Skillmeng",
       type: 'website',
-      image: ActionController::Base.helpers.asset_path('email_header_art.jpg'),
+      image: ActionController::Base.helpers.asset_path('email_header_art.png'),
       url: "#{ENV["SKILLMENG_SITE"]}",
       fb: ENV["FACEBOOK_ID"],
       description: "Welcome to Skillmeng, an online platform for finding \"offline\" courses in Nigeria."

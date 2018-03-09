@@ -2,59 +2,65 @@
 
 <%= simple_form_for([@course, @about]) do |f| %>
 	<div class="form-inputs">
-		<%= f.input :content, required: true, label: "About this course (Max 300 char)", maxlength: "300",  :input_html => {:rows => 5, :id => "text"}-%>
-	  <h6 class="pull-right" id="count_message"></h6>
+		<h4>
+		  <%= f.input :content, required: true, label:'<span style="font-weight: 500;">What is this course about?</span>'.html_safe, maxlength: "300",  :input_html => {:rows => 5, :id => "text"}-%>
+	  </h4>
+	  <h6 class="pull-right" id="count_message" style="color: grey" data-value= 300></h6>
 	</div>
 	
   <hr>
-  <h4>Qualifications needed to take course</h4>
+  <h4>What qualifications do people need for this course?<br><small>(one per input | leave blank if nothing)</small></h4>
   <div id="requirements">
     <%= f.simple_fields_for :requirements do |requirement| %>
       <%= render 'requirement_fields', f: requirement %>
     <% end %>
     
     <div class="links">
-      <%= link_to_add_association f, :requirements, class:"add_qualification" do %>
+      <%= link_to_add_association f, :requirements, class:"add_qualification", id:"form_drop_down" do %>
         <i class="fa fa-plus"></i> Qualification
       <% end %>
     </div>
   </div>
   <hr>
-  <h4>What items should people bring?</h4>
+  <h4>What items should people bring?<br><small>(one per input | leave blank if nothing)</small></h4>
   <div id="checklist_items">
     <%= f.simple_fields_for :checklist_items do |checklist_item| %>
       <%= render 'checklist_item_fields', f: checklist_item %>
     <% end %>
   
     <div class="links">
-      <%= link_to_add_association f, :checklist_items, class:"add_checklist_item" do %>
-         <i class="fa fa-plus"></i> Checklist Item
+      <%= link_to_add_association f, :checklist_items, class:"add_checklist_item", id:"form_drop_down" do %>
+         <i class="fa fa-plus"></i> Item
       <% end %>
     </div>
   </div>
   
   <hr>
-  <h4> What will people recieve upon course completion?</h4>
+  <h4> What will people recieve when the course is completed?<br><small>(one per input | leave blank if nothing)</small></h4>
   <div id="course_rewards">
     <%= f.simple_fields_for :course_rewards do |course_reward| %>
       <%= render 'course_reward_fields', f: course_reward %>
     <% end %>
     
     <div class="links"  style="margin-bottom: 20px;">
-      <%= link_to_add_association f, :course_rewards, class:"add_award" do %>
+      <%= link_to_add_association f, :course_rewards, class:"add_award", id:"form_drop_down" do %>
         <i class="fa fa-plus"></i> Award
       <% end %>
     </div>
   </div>
   
+  <div id="desktop_disapear" style="margin-bottom: 20px;">
+    <hr></hr>
+  </div>
+  
 	<% session[:setup_wizard] ? @pass_param = "Next step" : @pass_param = "Submit"  %>
   <div class="form-actions text-center">
     <% if session[:setup_wizard] %>
-     <%= link_to 'Back', edit_course_path(@course), class:'btn btn-danger' %>
+     <%= link_to 'Back', edit_course_path(@course), class:'btn btn-default', id:"form_cancel" %>
 		<% end%>
-    <%= f.button :submit, name: "type", value: "#{@pass_param}" %>
+    <%= f.button :submit, name: "type", value: "#{@pass_param}", id:"form_submit" %>
 		<% unless session[:setup_wizard] %>
-		  <%= link_to 'Back', @course, class:'btn btn-danger' %>
+		  <%= link_to 'Cancel', @course, class:'btn btn-default', id:"form_cancel" %>
 		<% end %>
 		 
   </div>

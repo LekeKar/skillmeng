@@ -7,7 +7,7 @@
             <%= f.input :weekday, label: "Select day", :collection => @available_weekdays, :include_blank => false %>
           <% else %>
           <div class="form-inline">
-            <%= f.label :calendar_day, 'Event day' %><br> 
+            <%= f.label :calendar_day, 'Select day' %><br> 
             <div class="input-group date">
               <%= f.input :calendar_day, :start_year => 2017, label: false, :as => :string, type:"text", class: "form-control", :value => date_format(f.object.calendar_day) %>
               <span class="input-group-addon"><i class="fa fa-th"></i></span>
@@ -24,7 +24,7 @@
         <%= render 'location_fields', f: location %>
       <% end %>
       <div class="links text-center">
-        <%= link_to_add_association f, :locations, class: "add_location" do %>
+        <%= link_to_add_association f, :locations, id:"form_drop_down", class: "add_location" do %>
            <i class="fa fa-plus"></i> Location
         <% end %>
       </div>
@@ -37,11 +37,11 @@
     <div class="form-actions text-center" style="margin-top: 20px">
       <% session[:setup_wizard] ? @pass_param = "Done" : @pass_param = "Submit"  %>
       <% if session[:setup_wizard] %>
-       <%= link_to 'Back', edit_course_course_payment_path(@course, @course_payment), class:'btn btn-danger' %>
+       <%= link_to 'Back', edit_course_course_payment_path(@course, @course_payment), class:'btn btn-default ', id:"form_cancel" %>
   		<% end%>
-      <%= f.button :submit, name: "type", value: "#{@pass_param}" %>
+      <%= f.button :submit, name: "type", value: "#{@pass_param}", id:"form_submit" %>
   		<% unless session[:setup_wizard] %>
-  		  <%= link_to 'Back', @course, class:'btn btn-danger' %>
+  		  <%= link_to 'Cancel', @course, class:'btn btn-default ', id:"form_cancel" %>
   		<% end %>
     </div>
     

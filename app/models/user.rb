@@ -3,20 +3,41 @@ class User < ActiveRecord::Base
   before_validation :strip_blanks
   after_create :subscribe_user_to_mailing_list
 
-  validates :fname, :presence => {:message => 'User must have first name'}
-  validates :lname, :presence => {:message => 'User must have Last name'}
-  validates :tel,   :numericality => true,
-                    :length => { :minimum => 10, :maximum => 15 },
-                    :uniqueness => {:message => "This number aready exists, please use another"}
-  
-
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
   
+   ROLES = %i[admin trial pro banned]
+  
+  has_many :courses, dependent: :destroy
+  has_one  :organizer, dependent: :destroy
+  has_many :reports, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :course_requests, dependent: :destroy
+  has_many :alerts, dependent: :destroy # just the 'relationships'
+  has_many :announcements, through: :alerts
+
+
+  # Favorited by users
+  has_many :favorite_courses, dependent: :destroy # just the 'relationships'
+  has_many :favorites, through: :favorite_courses, source: :course # the actual courses a user favorites
+
+  # Profile pic
+  has_attached_file :avatar, styles:{ avatar: "300x300#"}, default_url: "/images/:style/missing1.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+  validates_attachment_size :avatar, :in => 0.megabytes..4.megabytes
+  
+  
+
+  validates :fname, :presence => {:message => 'User must have first name'}
+  validates :lname, :presence => {:message => 'User must have Last name'}
+  validates :tel,   :numericality => true, 
+                    :length => { is: 11},
+                    uniqueness: true
+  
+  # facebook oath
   def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     if user
@@ -39,6 +60,7 @@ class User < ActiveRecord::Base
     end
   end
   
+  # google oath
   def self.find_for_google_oauth2(access_token, signed_in_resource = nil)
     data = access_token.info
     user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first
@@ -61,33 +83,9 @@ class User < ActiveRecord::Base
     end
   end
      
-  ROLES = %i[admin trial pro banned]
-  
-  has_many :courses, dependent: :destroy
-  has_one  :organizer, dependent: :destroy
-  has_many :reports, dependent: :destroy
-  has_many :reviews, dependent: :destroy
-  has_many :course_requests, dependent: :destroy
-  has_many :alerts, dependent: :destroy # just the 'relationships'
-  has_many :announcements, through: :alerts
-
-
-  # Favorited by users
-  has_many :favorite_courses, dependent: :destroy # just the 'relationships'
-  has_many :favorites, through: :favorite_courses, source: :course # the actual courses a user favorites
-
-  # Profile pic
-  has_attached_file :avatar, styles:{ avatar: "300x300#"}, default_url: "/images/:style/missing1.png"
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
-  validates_attachment_size :avatar, :in => 0.megabytes..4.megabytes
-  
-   validates :tel, 	:numericality => true, :allow_blank => true,
-                      :length => { :minimum => 10, :maximum => 15 }
-
   # Messaging 
   acts_as_messageable
   before_destroy { messages.destroy_all }
-
 
 private
   

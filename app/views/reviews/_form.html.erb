@@ -10,19 +10,19 @@
   <div class="form-inputs">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6">
-        <%= f.input :rating, :hint => 'from 1 - 5 stars', :label => 'Rating', :default => false, :collection => ['1','2','3','4','5'] %>
+        <%= f.input :rating, :hint => 'From 1 - 5 stars', :label => 'Rating', :default => false, :collection => ['1','2','3','4','5'] %>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6">
         <div style="color: grey;", id="anonymous_input">
-          <%= f.input :anonymous, :label => 'I will like to remain anonymous'%>
+          <%= f.input :anonymous, :label => 'I would like to remain anonymous'%>
         </div>
       </div>
     </div>
    <%= f.input :comment, label: "Review", :input_html => {:rows => 7} %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-    <%= link_to 'Back',:back, class:'btn btn-danger' %>
+  <div class="form-actions text-center">
+    <%= f.button :submit, "Submit", id:"form_submit"  %>
+    <%= link_to 'Cancel', :back, class:'btn btn-default', id:"form_cancel"%>
   </div>
 <% end %>

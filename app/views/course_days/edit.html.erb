@@ -5,12 +5,13 @@
 				<%= render 'wizard_controls'%>
 			<%end%>
 	 		<div class="panel panel-default">
-	  		<div class="panel-heading">
-			    <h4 class="panel-title"><i class="fa fa-calendar"></i> Edit Day
-				    <%= link_to course_course_day_path(@course, @course_day), method: :delete, data: {confirm: "This action will delete this Day, are you sure?"}, class:"pull-right" do %>
-							<i class="fa fa-trash" style="color: #d9534f; margin-top: 5px; font-size:20px"></i>
-						<% end %>
+	  		<div class="panel-heading" id="form_header">
+			    <h4 class="panel-title" > Edit Day
+			    	<small style="color: #FFF;"><br><%= @course.title %></small>
 					</h4>
+					<%= link_to course_course_day_path(@course, @course_day), style:"position: relative; margin-top: -35px; font-size: 30px; color: #FFF;", method: :delete, data: {confirm: "This action will delete this day, are you sure?"}, class:"pull-right" do %>
+						<i class="fa fa-trash"></i>
+					<% end %>
 				</div>
 				<div class="panel-body">
 					<%= render 'form' %>

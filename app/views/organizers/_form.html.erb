@@ -19,17 +19,18 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <%= f.input :about, label:"about (300 char max)", maxlength: "300"-%>
+        <%= f.input :about, label:"About", maxlength: "300",  :input_html => {:rows => 5, :id => "text"}-%>
+        <h6 class="text-right" id="count_message" data-value=300></h6>
       </div>
       <div class="col-md-6">
-        <%= f.input :logo, as: :file -%>
+        <%= f.input :logo, hint:'Recommended size: 300px <span style="font-size: .8em;">x</span> 300px'.html_safe, as: :file -%>
       </div>
     </div>
     <hr>
     
     <%= f.simple_fields_for :location do |location| %>
       <div class="form-inputs">
-        <%= location.input :address_line1, label: "Floor/Apt (optional)"  -%>
+        <%= location.input :address_line1, label: "Floor/Apt #(optional)"  -%>
         <%= location.input :address_line2, label: "Street address", required: true   -%>
         <%= f.error :base, style:"color: #a74544;" %>
         <div class="row">
@@ -46,9 +47,9 @@
 	</div>
 	
 
-	<div class="form-actions">
-		<%= f.button :submit %>
-		<%= link_to 'Back', :back, class:'btn btn-danger' %>
+	<div class="form-actions text-center">
+		<%= f.button :submit,"Submit", id:"form_submit" %>
+		<%= link_to 'Cancel', :back, class:'btn btn-default', id:"form_cancel" %>
 	</div>
 
 <% end -%>

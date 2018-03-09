@@ -6,11 +6,9 @@
 				<%= render 'helper_code/wizard_controls', next_step_name: "about", current_step_name: "basic info", step_number: "Step 1 of 5" %>
 			<% end %>
 	   	<div class="panel panel-default">
-    		<div class="panel-heading">
-			    <h4 class="panel-title"><i class="fa fa-wrench"></i> Edit basic info
-	 					<%= link_to course_path(@course), method: :delete, class:"btn btn-sm btn-default pull-right", data: {confirm: "This action will DELETE this class, Are you sure?"} do %>
-								<i class="fa fa-trash" style = "color: #d9534f; font-size: 15px"></i>
-						<% end -%>
+    		<div class="panel-heading" id="form_header">
+			    <h4 class="panel-title">
+			    	 Edit basic info
 					</h4>
 				</div>
 			  <div class="panel-body new_class">
@@ -19,8 +17,10 @@
 			</div>
 			<% if @course.display_pic.present? %>
 				<div class="panel-footer">
-					<small>current picture</small>
-          <%= image_tag @course.display_pic.url(:medium), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
+					<div class="text-center" style="color: #777; margin-bottom: 10px;">
+						<strong>current picture</strong>
+					</div>
+          <%= image_tag @course.display_pic.url(:large), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
 				</div>
 			<% end %>
 		</div> 

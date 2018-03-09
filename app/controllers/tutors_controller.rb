@@ -42,7 +42,7 @@ class TutorsController < ApplicationController
       if @tutor.save
         add_tutor
         remove_tutor
-        format.html { redirect_to (session.delete(:return_to) || @user_organizer), notice: ' #{@tutor.name} was successfully added.' }
+        format.html { redirect_to (session.delete(:return_to) || @user_organizer), notice: "#{@tutor.name} was successfully added." }
         format.json { render :show, status: :created, location: @tutor }
       else
         format.html { render :new }
@@ -58,7 +58,7 @@ class TutorsController < ApplicationController
       if @tutor.update(tutor_params)
         add_tutor
         remove_tutor
-        format.html { redirect_to (session.delete(:return_to) || @user_organizer), notice: " #{@tutor.name} was successfully updated." }
+        format.html { redirect_to (session.delete(:return_to) || @user_organizer), notice: "#{@tutor.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @tutor }
       else
         format.html { render :edit }

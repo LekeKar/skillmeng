@@ -17,14 +17,16 @@ $(document).ready ->
     false
     
     
-  #Click event to scroll to top
+  #Character counter
   $('#text').keyup ->
     text_length = $(this).val().length
-    $('#count_message').html text_length + ' chars'
+    max_length = $('#count_message').data('value')
+    $('#count_message').html text_length + ' /' + max_length
     return
   $('#text2').keyup ->
     text_length = $(this).val().length
-    $('#count_message2').html text_length + ' chars'
+    max_length = $('#count_message2').data('value')
+    $('#count_message2').html text_length + '/'+ max_length
     return
     
     

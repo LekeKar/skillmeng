@@ -18,7 +18,7 @@ class OrganizersController < ApplicationController
       if @organizer.save
         create_paystack_profile
         create_credit_bal
-  	 	  format.html { redirect_to @organizer, notice: "#{@organizer.name} account was successfully created." }
+  	 	  format.html { redirect_to new_course_path, notice: "#{@organizer.name} account was successfully created." }
         format.json { render :show, status: :created, location: @organizer}
       else
         @organizer.build_location
@@ -79,7 +79,7 @@ class OrganizersController < ApplicationController
       if @organizer.update(organizer_params)
         update_paystack_profile
         
-        if organizer.name_changed?
+        if @organizer.name_changed?
           update_course_org
         end
           

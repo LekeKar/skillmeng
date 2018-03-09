@@ -14,7 +14,7 @@
               <%= f.input :tutor, :label => 'Organizer', input_html: {value: @user_organizer.name}, readonly: true, required: true %>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
-              <%= f.input :category, :label => 'Category', :collection => @categories,  required: true %>
+              <%= f.input :category, label: 'Category', :collection => @categories,  required: true %>
             </div>
           </div>
           <div class="row">
@@ -23,25 +23,25 @@
                 <%= f.input :locality, label: "State", required: true, selected:  @course.locality.present? ? @course.locality : @user_organizer.location.state, :collection => ['Abia','Abuja (FCT)','Adamawa','Anambra','Akwa Ibom','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Enugu','Edo','Ekiti','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'] -%>
                 </div>
               <div class="col-xs-12 col-sm-4 col-md-4">
-                <%= f.input :attended_by, :label => 'Who can attend?', :collection => @who_can_attend, :default => true %>
-                <%= f.input :schedule_style, label: "Schedule Style", required: true, :collection => ['Specific calender days','Recurring weekdays'] -%>
+                <%= f.input :attended_by, label:'Who can attend?', :collection => @who_can_attend, :default => true %>
+                <%= f.input :schedule_style, label: "Schedule style", required: true, :collection => ['Specific calender days','Recurring weekdays'] -%>
               </div>
               <div class="col-xs-12 col-sm-4 col-md-4">
-                <%= f.input :saed, :label => 'It\'s a SAED <i class="fa fa-question-circle" data-toggle="tooltip" title="A Skill Acquisition and Entrepreneurship Development program for NYSC corpers. (Must be government registered)"></i>'.html_safe %>
-                <%= f.input :online, :label => 'It\'s an online course <i class="fa fa-question-circle" data-toggle="tooltip" title="Check this if a the internet is required to attend this course "></i>'.html_safe %>
-                <%= f.input :display_pic, :label => 'Display pic', as: :file%>
+                <%= f.input :saed, label:'It\'s a SAED <i class="fa fa-question-circle" data-toggle="tooltip" title="A Skill Acquisition and Entrepreneurship Development program for NYSC corpers. (Must be government registered)"></i>'.html_safe %>
+                <%= f.input :online, label: 'It\'s an online course <i class="fa fa-question-circle" data-toggle="tooltip" title="Check this if an internet connection is required to attend this course "></i>'.html_safe %>
+                <%= f.input :display_pic, hint: 'Recommended size: 1200px <span style="font-size: .8em;">x</span> 630px'.html_safe, label: 'Display picture',  as: :file%>
               </div>
           </div>
         
           <div class="row container-fluid">
-            <%= f.input :tag_list, :label => 'Tags <i class="fa fa-question-circle" data-toggle="tooltip" title="Up to four phrases that best describe the class"></i> (Max 4 allowed) '.html_safe, placeholder: "e.g. cooking, small chops, catering, cocktails", hint: "Hint: Use commas to seperate tags", :input_html => { :class => "css-class", :value => @course.tag_list.join(", ")} %>
+            <%= f.input :tag_list, label: 'Tags <i class="fa fa-question-circle" data-toggle="tooltip" title="Up to four words or phrases that best describe the class"></i> (4 tags max) '.html_safe, placeholder: "e.g. cooking, small chops, catering, cocktails", hint: "Use commas to seperate tags", :input_html => { :class => "css-class", :value => @course.tag_list.join(", ")} %>
           </div>
           
           <% session[:setup_wizard] ? @pass_param = "Next step" : @pass_param = "Submit"  %>
           <div class="form-actions text-center" style="margin-top: 20px">
-            <%= f.button :submit, name: "type", value: "#{@pass_param}" %>
+            <%= f.button :submit, name: "type", value: "#{@pass_param}", id:"form_submit" %>
            	<% unless session[:setup_wizard] %>
-        		  <%= link_to 'Cancel', :back, class:'btn btn-danger' %>
+        		  <%= link_to 'Cancel', :back, class:'btn btn-default ', id:"form_cancel" %>
         		<% end %>
           </div>
           

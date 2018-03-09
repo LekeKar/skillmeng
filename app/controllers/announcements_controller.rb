@@ -5,6 +5,7 @@ class AnnouncementsController < ApplicationController
   before_action :set_credit, only: [:new, :edit] 
   before_action :suspended_check, only: [:new, :edit] 
   before_action :user_auth, only: [:edit, :new]
+  before_action :set_receipients, only: [:edit, :new]
 
 
 
@@ -23,9 +24,6 @@ class AnnouncementsController < ApplicationController
   # GET /announcements/new
   def new
     @announcement = Announcement.new
-    @textable_users = @course.favorited_by.textable.where.not(tel: '')
-    @emailable_users = @course.favorited_by.emailable
-    
     session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
 
@@ -88,6 +86,14 @@ class AnnouncementsController < ApplicationController
     send_email
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Email broadcast was successful' }
+      format.json { head :no_content }
+    end
+  end
+  
+  def text_broadcast
+    send_text
+    respond_to do |format|
+      format.html { redirect_to :back, notice: 'Text broadcast was successful' }
       format.json { head :no_content }
     end
   end
@@ -166,7 +172,7 @@ class AnnouncementsController < ApplicationController
       @client.messages.create(
       from: '+16174053029',
       to: "+234#{tel}",
-      body: "Message from #{@course.title} on #skillmeng - \"#{@announcement.subject}, #{@announcement.body.first(message_length)} ...\" read more here #{course_link.short_url}"
+      body: "Alert from #{@course.title} on #skillmeng - \"#{@announcement.subject}, #{@announcement.body.first(message_length)} ...\" read more here #{course_link.short_url}"
       )
       
     end 
@@ -192,6 +198,11 @@ class AnnouncementsController < ApplicationController
   def set_credit
     @total_email_credit = @organizer.organizer_credit_bal.email_regular + @organizer.organizer_credit_bal.email_bonus
     @total_text_credit = @organizer.organizer_credit_bal.text_regular + @organizer.organizer_credit_bal.text_bonus
+  end
+  
+  def set_receipients
+    @textable_users = @course.favorited_by.textable.where.not(tel: '')
+    @emailable_users = @course.favorited_by.emailable
   end
   
   def set_organizer

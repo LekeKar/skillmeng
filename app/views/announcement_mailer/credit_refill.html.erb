@@ -119,7 +119,7 @@
   	}
   	h1{
   		color:#202020;
-  		font-family:Helvetica;
+  		font-family:'Lato', sans-serif;
   		font-size:26px;
   		font-style:normal;
   		font-weight:bold;
@@ -129,7 +129,7 @@
   	}
   	h2{
   		color:#202020;
-  		font-family:Helvetica;
+  		font-family:'Lato', sans-serif;
   		font-size:22px;
   		font-style:normal;
   		font-weight:bold;
@@ -139,7 +139,7 @@
   	}
   	h3{
   		color:#202020;
-  		font-family:Helvetica;
+  		font-family:'Lato', sans-serif;
   		font-size:20px;
   		font-style:normal;
   		font-weight:bold;
@@ -149,7 +149,7 @@
   	}
   	h4{
   		color:#202020;
-  		font-family:Helvetica;
+  		font-family:'Lato', sans-serif;
   		font-size:18px;
   		font-style:normal;
   		font-weight:bold;
@@ -170,7 +170,7 @@
   	}
   	#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{
   		color:#656565;
-  		font-family:Helvetica;
+  		font-family:'Lato', sans-serif;
   		font-size:12px;
   		line-height:150%;
   		text-align:left;
@@ -193,7 +193,7 @@
   	}
   	#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{
   		color:#202020;
-  		font-family:Helvetica;
+  		font-family:'Lato', sans-serif;
   		font-size:16px;
   		line-height:150%;
   		text-align:left;
@@ -216,7 +216,7 @@
   	}
   	#templateBody .mcnTextContent,#templateBody .mcnTextContent p{
   		color:#202020;
-  		font-family:Helvetica;
+  		font-family:'Lato', sans-serif;
   		font-size:16px;
   		line-height:150%;
   		text-align:left;
@@ -239,7 +239,7 @@
   	}
   	#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{
   		color:#656565;
-  		font-family:Helvetica;
+  		font-family:'Lato', sans-serif;
   		font-size:12px;
   		line-height:150%;
   		text-align:center;
@@ -499,6 +499,7 @@
         setupSocialSharingStuffs();
     });
   </script> 
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>  
 <body style="height: 100%; margin: 0;padding: 0;width: 100%;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FAFAFA;">
 		<!---->
@@ -531,10 +532,10 @@
                 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
                     <tbody>
                       <tr>
-                        <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;">
+                        <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: 'Lato', sans-serif;font-size: 12px;line-height: 150%;">
                         
-                           refilled bonus credit for<br>
-                            <%= link_to "#{@org.name}", @org, target: :_blank %>
+                            bonus credit topUp for<br>
+                            <span style="font-size:20px; "><%= link_to "#{@org.name}", @org, target: :_blank %></span>
                         </td>
                       </tr>
                   </tbody>
@@ -590,9 +591,23 @@
                 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
                   <tbody>
                     <tr>
-                      <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helvetica;font-size: 16px;line-height: 150%;text-align: left;">
-                       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias possimus aspernatur perspiciatis quam ullam, est quos reiciendis. Facilis sapiente voluptatem nostrum quo. Qui ipsam tempora nesciunt distinctio excepturi deleniti unde.
+                      <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: 'Lato', sans-serif;font-size: 16px;line-height: 150%;text-align: left;">
+                       Hello <%= @org.name %>, <br>
+                       <div style="margin: 15px 0px;">
+                          We have topped up your bonus emails and text to <%= @amount[:email]%> and  <%= @amount[:text]%> respectively. So go ahead and reach out to people interested in your course and keep them updated.
+                          <div style="text-align: center; color: #333; margin: 15px; font-weight: bold;">Broadcast responsibly. No one likes to be spammed.</div>
+                          <hr>
+                          <strong>How To Broadcast</strong>
+                          
+                          <div style="padding-left: 10px">Step 1: <div style="padding-left: 10px"> Create an annuoncemnt in the news sections on your course page.</div> </div> 
+                          <div style="padding-left: 10px">Step 2: <div style="padding-left: 10px"> Depending on what you want, tick the box that says  “send as email” or “send as text” under Broadcast options.</div> </div> 
+                          <div style="padding-left: 10px">Step 3: <div style="padding-left: 10px"> Hit the send button and you are done. In addition to publishing the announcement on your course page, it will be posted on newsfeed of users interested in your course. They will also recieve emails and/or text depending on your selection and thier preferences. See? Easy as 1,2,3 :)</div> </div> 
+                        
+                        </div>
+                        
+                        
                       </td>
+                   
                     </tr>
                   </tbody>
                 </table>
@@ -615,7 +630,7 @@
                     <tbody>
                       <tr>
                         <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial;font-size: 16px;padding: 15px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-		                      <%= link_to "view #{@org.name}s profile", @org, title:"respond to offer", class:"mcnButton", style:"font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;display: block;"  %>
+		                      <%= link_to "view manager profile", @org, title:"view manager profile", class:"mcnButton", style:"font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;display: block;"  %>
 		                    </td>
                       </tr>
                     </tbody>
@@ -646,9 +661,9 @@
                 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
                   <tbody>
                     <tr>
-                      <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: center;">
+                      <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: 'Lato', sans-serif;font-size: 12px;line-height: 150%;text-align: center;">
                       
-                          You are receiving this email because you are manage <%= link_to @org.name, @org %> page on skillmeng.<br>
+                          You are receiving this email because you are manage <%= link_to @org.name, @org %> page on skillmeNG.<br>
                         <em><a href="http://www.skillmeng.com" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">Skillmeng</a> </em>™<em>&nbsp;is not responsible for the content of this email</em><br>
                       </td>
                     </tr>
@@ -673,10 +688,10 @@
                         <tbody><tr>
                             <td class="mcnImageContent" valign="top" style="padding-right: 9px;padding-left: 9px;padding-top: 0;padding-bottom: 0;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                 
-                                    <a href="http://www.skillmeng.com" title="skillmeng" class="" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                        <img align="center" alt="" src="https://gallery.mailchimp.com/716677cb3211f76ce0c1a2476/images/f9fcced6-644b-4825-9d54-4d634e3c8808.jpg" width="564" style="max-width: 728px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" class="mcnImage">
-                                    </a>
-                                
+                              <%= link_to root_path do %>
+                                <%= image_tag "skillmeng_logo_tagline.png", align:"center", width:"225", alt:"Skillmeng: build your future, one skill at a time", style:"max-width: 810px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;", class:"mcnImage" %>      
+                             	<% end %> 
+                                   
                             </td>
                         </tr>
                     </tbody></table>

@@ -3,11 +3,10 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 	   		<div class="panel panel-default">
-	    		<div class="panel-heading">
-					<h4>Add News<small> <br>
-						<%= link_to @course do %>
-							for <%= @course.title %></small>
-						<% end %>
+	    		<div class="panel-heading" id="form_header">
+					<h4>Add News<small style="color: #fff;"> <br>
+							<%= @course.title %>
+						</small>
 					</h4>
 				</div>
 				<div class="panel-body">

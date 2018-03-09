@@ -1,3 +1,23 @@
-AnnouncementMailer#course_news
+<%= @announcement.subject%>
+==============================================================================================
+<%= @announcement.body%>
 
-<%= @greeting %>, find me in app/views/announcement_mailer/course_news.text.erb
+--------------------------------------------------------------------
+<% case @announcement.action_type %>
+<% when "barter_response" %>
+    <%= link_to barter_url(@user, type: "sent"), title:"view response",  target:"_blank" do %>
+      view response
+    <% end %>=
+<% when "view organizer" %>
+  <%= link_to @organizer title:"view manager",  target:"_blank" do  %>
+    view managers
+  <% end %>
+<% when "link" %>
+  <a class="mcnButton",  href="<%= @announcement.action_link%>".html_safe, target="_blank" title="learn more">
+    learn more
+  </a>
+<% when "view course" %>
+  <%= link_to @course , title:"View course", target:"_blank" do %>
+    view course
+  <% end %>
+<% end %>

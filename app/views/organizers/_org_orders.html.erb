@@ -39,8 +39,8 @@
         	       <%= credit_order.email_quantity %> emails x ₦<%= credit_order.email_price %>
         	     </div>
         	     <div class="col-md-4 col-sm-4 col-xs-6 text-right">
-        	       <% credit_total =+ credit_order.email_quantity * credit_order.email_price  %>
-        	       ₦<%= number_with_delimiter(credit_total) %>
+        	       <% email_credit_total =+ credit_order.email_quantity * credit_order.email_price  %>
+        	       ₦<%= number_with_delimiter(email_credit_total) %>
         	     </div>
           	 </div>
           <% end %>
@@ -56,8 +56,8 @@
         	       <%= credit_order.text_quantity %> texts x ₦<%= credit_order.text_price %>
         	     </div>
         	     <div class="col-md-4 col-sm-4 col-xs-6 text-right">
-        	       <% credit_total =+ credit_order.text_quantity * credit_order.text_price  %>
-        	       ₦<%= number_with_delimiter(credit_total) %>
+        	       <% text_credit_total =+ credit_order.text_quantity * credit_order.text_price  %>
+        	       ₦<%= number_with_delimiter(text_credit_total) %>
         	     </div>
           	 </div>
           <% end %>
@@ -91,7 +91,7 @@
       	      <strong>Total</strong>
       	    </div>
       	    <div class="col-md-4 col-sm-4 col-xs-6 text-right">
-      	      <strong>₦<%= number_with_delimiter(credit_total + promotion_total) %></strong>
+      	      <strong>₦<%= number_with_delimiter(email_credit_total + text_credit_total + promotion_total) %></strong>
       	    </div>
       	  </div>
       	  

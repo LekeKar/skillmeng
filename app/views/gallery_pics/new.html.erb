@@ -2,8 +2,8 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 	   		<div class="panel panel-default">
-	    		<div class="panel-heading">
-				    <h4 class="panel-title"><i class="fa fa-camera-retro"></i> New Picture</h4>
+	    		<div class="panel-heading" id="form_header">
+				    <h4 class="panel-title">New Picture<small style="color: #FFF;"> <br><%= @course.title %></small></h4>
 				</div>
 			    <div class="panel-body new_class">
 					<%= render 'form' %>

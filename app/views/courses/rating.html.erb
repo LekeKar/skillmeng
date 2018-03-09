@@ -17,7 +17,10 @@
   						  <% else %>
   						  	<div class="quote">
   						  		<h3>
-  						  			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum qui voluptate culpa corrupti, consequuntur provident quos beatae. Molestias nostrum enim, animi. Placeat nemo officia incidunt magni in sint consequuntur vel?
+  						  			This course doesn't have any reviews yet. <br> If you have taken this course please leave a review. <br> 
+  						  			<%= link_to new_course_review_path(@course), class:"btn btn-md btn-default", style: "background-color: #fff; border:none; color: #de7947; margin-top: 15px;"  do %>
+                        add review
+                      <% end %>
   						  		</h3>
   						  	</div>
   						  <% end %>

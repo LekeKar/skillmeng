@@ -16,8 +16,9 @@ class AnnouncementMailer < ApplicationMailer
     mail(to: email_with_name, subject: @announcement.subject, from: "no_reply@skillmeng.com")
   end
   
-  def credit_refill(org)
+  def credit_refill(org, amount)
     @org = org
+    @amount = amount
     email_with_name = %("#{@org.name}" <#{@org.email}>)
     mail(to: email_with_name, subject: "Bonus email credit refilled", from: "no_reply@skillmeng.com")
   end

@@ -96,10 +96,10 @@
                           <div class="row">
                             <div class="col-md-6">
                               <h4>
-                                Send Email Broadcast
+                                Via Email
                               </h4>
-                              <% if @course.favorited_by.emailable.count < @total_email_credit %>
-                                 <% credit_remaining =  @total_email_credit - @course.favorited_by.emailable.count %>
+                              <% if @emailable_users.count < @total_email_credit %>
+                                 <% credit_remaining =  @total_email_credit - @emailable_users.count %>
                                 <table class="table">
                                   <tr>
                                     <td class="text-left">available emails</td>
@@ -107,39 +107,58 @@
                                   </tr>
                                   <tr>
                                     <td class="text-left">number of recipients</td>
-                                    <td><%= number_with_delimiter(@course.favorited_by.emailable.count, :delimiter => ',') %></td>
+                                    <td><%= number_with_delimiter(@emailable_users.count, :delimiter => ',') %></td>
                                   </tr>
                                   <tr>
                                     <td class="text-left"><strong>remaining emails</strong></td>
                                     <td ><strong><%= number_with_delimiter(credit_remaining, :delimiter => ',')  %></strong></td>
                                   </tr>
-                                  <tr>
-                                    <% unless @course.course_state != "activated" %>  
-                                      <% if credit_remaining > 0 %>
-                                        <td class="text-left"> <%= link_to "send emails", email_broadcast_path(@course, announcement), class:"btn btn-default btn-xs course_control", data: {confirm: "This action will send this announcement to available #{@course.title} followers as an email consuming #{number_with_delimiter(@course.favorited_by.emailable.count, :delimiter => ',')} email credits, are you sure?"} %></td>
-                                      <% else %>
-                                        <td class="text-left">
-                                          You need more credits to send out brodcasts. <br>
-                                          <div style="margin-top: 10px;">
-                                            <%= link_to "buy more", new_organizer_organizer_order_path(@user_organizer) , class:"btn btn-xs btn-default course_control" %>
-                                          </div>
-                                        </td>  
-                                      <% end %>
-                                    <% else %>
-                                      <h5 style="color: #d75452;">Broadcast is disabled due to suspended status of course</h5>
-  
-                                    <% end %>
-                                    <td></td>
-                                  </tr>
                                 </table>
+                                <% if @course.course_state == "activated" %>
+                                  <div class="text-center" style="margin: 10px 0px;"> <%= link_to "send emails", email_broadcast_path(@course, announcement), style: "width: 100px;", class:"btn btn-default btn-xs course_control", data: {confirm: "This action will send this announcement to available #{@course.title} followers as an email consuming #{number_with_delimiter(@emailable_users.count, :delimiter => ',')} email credits, are you sure?"} %></div>
+                                <% else %>
+                                  <h5 style="color: #d75452;">feature is disabled because course is <%= @course.course_state %></h5>
+                                <% end %>
                               <% else %>
-                                <% credit_needed = @course.favorited_by.emailable.count - @total_email_credit  %>
+                                <% credit_needed = @emailable_users.count - @total_email_credit  %>
                                 You need at least <span style="color: #d75453;"> <%= credit_needed %>  </span> email <%= "credit".pluralize(credit_needed) %> to send emails.
                                 <%= link_to "Purchase more", new_organizer_organizer_order_path(@organizer) %>
                               <% end %>
                             </div>
+                            <div id="desktop_disapear" style="margin: 20px 0px;">
+                              <hr></hr>
+                            </div>
                             <div class="col-md-6">
-                              
+                              <h4>
+                                Via Text
+                              </h4>
+                              <% if @textable_users.count < @total_text_credit %>
+                                 <% credit_remaining =  @total_text_credit - @textable_users.count %>
+                                <table class="table">
+                                  <tr>
+                                    <td class="text-left">available text</td>
+                                    <td><%= number_with_delimiter(@total_text_credit, :delimiter => ',') %></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-left">number of recipients</td>
+                                    <td><%= number_with_delimiter(@textable_users.count, :delimiter => ',') %></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-left"><strong>remaining text</strong></td>
+                                    <td ><strong><%= number_with_delimiter(credit_remaining, :delimiter => ',')  %></strong></td>
+                                  </tr>
+                                </table>
+                                  
+                                <% if @course.course_state == "activated" %>  
+                                  <div class="text-center" style="margin: 10px 0px;"> <%= link_to "send texts", text_broadcast_path(@course, announcement),  style: "width: 100px;", class:"btn btn-default btn-xs course_control", data: {confirm: "This action will send this announcement to available #{@course.title} followers as a text consuming #{number_with_delimiter(@textable_users.count, :delimiter => ',')} text credits, are you sure?"} %></div>
+                                <% else  %>
+                                  <h5 style="color: #d75452;">feature is disabled because course is <%= @course.course_state %></h5>
+                                <% end %>
+                              <% else %>
+                                <% credit_needed = @textable_users.count - @total_text_credit  %>
+                                You need at least <span style="color: #d75453;"> <%= credit_needed %>  </span> email <%= "credit".pluralize(credit_needed) %> to send emails.
+                                <%= link_to "Purchase more", new_organizer_organizer_order_path(@organizer) %>
+                              <% end %>
                             </div>
                           </div>
                         </div>
@@ -153,7 +172,7 @@
                             <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu">
-                            <% if @course.favorited_by.emailable.count > 0 %>
+                            <% if @textable_users.count > 0 || @emailable_users.count > 0 %>
                               <li>
                                 <a data-toggle="collapse" href="#broadcast_<%= announcement.id%>" aria-expanded="false" aria-controls="broadcast_<%= announcement.id%>">
                                   Broadcast
@@ -165,19 +184,13 @@
                           </ul>
                         </div>
                       <% end -%>
-                      <% case announcement.action_type %>
-                        <% when "link" %>
-                          <div class="btn-group" role="group">
-                            <a class="btn btn-default" type:"button" href="<%=announcement.action_link%>".html_safe role="button" target="_blank">
-                              Learn more
-                            </a>
-                          </div>
-                        <% when "view course" %>
-                          <div class="btn-group" role="group">
-                            <%= link_to @course, class: "btn btn-default", type:"button" do %>
-                              View course
-                            <% end %>
-                          </div>
+                      
+                      <% if announcement.action_type == "link" %>
+                        <div class="btn-group" role="group">
+                          <a class="btn btn-default" type:"button" href="<%=announcement.action_link%>".html_safe role="button" target="_blank">
+                            Learn more
+                          </a>
+                        </div>
                       <% end %>
                       <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default" data-dismiss="modal" style="color: #d9534f;" >Close</button>
