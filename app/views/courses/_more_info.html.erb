@@ -394,7 +394,11 @@
                 <div id="payment_warning" class="text-center" style="background-color: #e27937; color: #FFFFFF; padding: 30px;">
                   <h4>
                     <strong style="font-family: 'Gochi Hand', cursive; font-size: 1.6em;">Hollup!</strong>
-                    <div style="text-align: justify; margin-top: 10px;" >Before you pay for <%= @course.title %>, make sure you have done your due diligence. Skillmeng&trade;  will not accept any responisblities beyond this point. In short... pay at your own risk!</div>
+                    <div style="text-align: justify; margin-top: 10px;" >
+                      BEFORE YOU PAY for <%= @course.title %> - make sure you get in touch with the course manager. <br><br>
+                      SkillmeNG&trade;  is not responsible for this course content and does not accept any responsibility/liability for 
+                      this transaction. In short - pay at your own risk!
+                    </div>
                     <br><button class="btn btn-default btn-sm" id="payment_warning_accept" type="submit" style="margin-top: 10px; border: none; color: #e27937;">I accept</button>
                   </h4>
                 </div>
@@ -423,12 +427,21 @@
                   <% end %>
                 </div>
               </div>
-              <div class="col-xs-12 col-sm-6 col-md-6">
-                <h3 class="text-center">Prices</h3>
-                <% if @course_payment.blank? || @course_payment.course_prices.empty? %>
-                  <h5 class="text-center">No info provided</h5> 
-                <% else %>
-                  <table class="table table-condensed table-striped">
+              
+             
+              <div class="col-xs-12 col-sm-6 col-md-6" style="margin: 30px 0px;">
+              
+                <table class="table table-condensed table-striped">
+                    <!--price info-->
+                    <tr style="color: #de7947;">
+                      <td>
+                         <strong>Prices</strong>
+                        <% if @course_payment.blank? || @course_payment.course_prices.empty? %>
+                          <strong>No info provided</strong>
+                        <% else %>
+                      </td>
+                      <td></td>
+                    </tr>
                     <% for price in @course_payment.course_prices.order('price ASC') do %>
                       <tr>
                         <td>
@@ -445,8 +458,48 @@
                         <td style="color: #777777;">This course owner is willing to teach you this course in exchange of learning from one of the courses you offer on Skillmeng&trade;.</td>
                       </tr>
                     <% end %>
+                    
+                    <!--contact info-->
+                    <% if @contact %>
+                      <tr style="color: #de7947;">
+                        <td>
+                           <strong>Contact</strong>
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td style="width: 125px">Name</td>
+                        <td style="color: #777777;"><%=@contact.contact_name %></td>
+                      </tr>
+                      <% if !@contact.tel1.blank? %>
+                        <tr>
+                          <td style="width: 125px">Telphone 1</td>
+                          <td style="color: #777777;"><%=number_to_phone(@contact.tel1)%></td>
+                        </tr>  
+                      <% end %>
+                      <% if !@contact.tel2.blank? %>
+                        <tr>
+                          <td style="width: 125px">Telphone 2</td>
+                          <td style="color: #777777;"><%=number_to_phone(@contact.tel2)%></td>
+                        </tr>  
+                      <% end %>  
+                      <% if !@contact.tel3.blank? %>
+                        <tr>
+                          <td style="width: 125px">Telphone 3</td>
+                          <td style="color: #777777;"><%=number_to_phone(@contact.tel3)%></td>
+                        </tr>  
+                      <% end %>  
+                      <% if !@contact.email.blank? %>
+                        <tr>
+                          <td style="width: 125px">Email</td>
+                          <td style="color: #777777; "> <%=@contact.email%> </td>
+                        </tr>  
+                      <% end %>  
+                    <% end -%>
                   </table>
                 <% end %>
+             
+                
               </div>
             </div>
           </div>
