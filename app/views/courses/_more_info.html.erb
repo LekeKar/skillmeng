@@ -33,7 +33,7 @@
             <% if !@course_payment.nil? && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
               <%= link_to 'edit price', edit_course_course_payment_path(@course, @course_payment), class:"btn btn-xs btn-default course_control"%>
               <br>
-            <% elsif @course_payment.blank? || @course_payment.course_prices.empty? %>
+            <% elsif @course_payment.blank? || @course_payment.course_prices.empty? && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
               <%= link_to 'add prices', new_course_course_payment_path(@course), class:"btn btn-xs btn-default course_control"%>
               <br>
             <% end %>
@@ -183,8 +183,7 @@
             <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
               <div class="text-left">
                 <h5 style="margin-top: 10px;">
-                  Schedule has no days! <br> 
-                  <%= link_to 'Add a day', new_course_course_day_path(@course), style:"color: #d6d5d3"%>
+                  Schedule has no days!
                 </h5>
               </div>
             <% else %> 
