@@ -43,7 +43,7 @@
         <div class="col-md-6 col-xs-12 col-sm-6">
           <%= image_tag 'skill_teach.jpeg', id:"teach_skill" %>
         </div>
-        <div class="col-md-6 col-xs-12 col-sm-6" class="mobile_justify">
+        <div class="col-md-6 col-xs-12 col-sm-6">
           <div class="container-fluid">
             <p style="font-size: 1.5em; font-weight: 300; text-align: justify;" > 
               SkillmeNG is an online hub for offline courses. It’s designed to help individuals with skills connect with people that want to learn.
@@ -54,9 +54,11 @@
               Join our growing community of teachers, create a course and get discovered. 
             </p> 
             
-          </div>
-          <div class="mobile_centralize">
-            <%= link_to "create course", new_course_path, class:"couse_cat btn btn-primary btn-sm", style:"font-size: 20px;" %>
+              
+            
+            <div class="mobile_centralize">
+              <%= link_to "create course", new_course_path, class:"couse_cat btn btn-primary btn-sm", style:"font-size: 20px;" %>
+            </div>
           </div>
         </div>
       </div>

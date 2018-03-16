@@ -10,7 +10,7 @@
     <div class="panel panel-default panel-class">
       <div class="panel-heading text-center" id="index_title">
         <h5 style="margin:0 auto;"> 
-          <%= link_to course, style:"color: #333; font-size: 1.2em;" do %>
+          <%= link_to course, style:"font-size: 1.2em;" do %>
             <%= course.title.try(:titleize) %> <br>
           <% end -%>
           <% if @reviews.blank? %>
