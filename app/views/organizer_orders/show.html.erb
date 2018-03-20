@@ -5,7 +5,9 @@
     <div class="panel-body">
       <div class="container-fluid" >
       	<div class="row" style="margin-top: 30px;">
-      	 
+      	  <% if @order.status == "success" %>
+      	     <h1  class="text-center" style="color: #1db365; font-family: 'Gochi Hand', cursive;">Success!</h1> 
+      	  <% end %>
     		  <table class="table table-bordered" style="margin-bottom: 5px;">
     		    <tr>
     		      <td><span style="color: #777777"><strong>Order #<%= @order.order_number %></strong></span></td>
@@ -65,7 +67,7 @@
             <br>
             <a class="btn btn-warning" href="<%= @order.authorization_url %>" role="button" style="width: 100px;">Pay</a>
           <% else %>
-            <%= link_to "Success!", @organizer, class:"btn btn-success", style:"width: 100px; margin-top: 10px;" %>
+            <%= link_to "Continue", @organizer, class:"btn btn-success", style:"width: 100px; margin-top: 10px;" %>
           <% end %>
         <% end %>
       </div>

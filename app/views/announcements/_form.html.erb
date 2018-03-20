@@ -34,7 +34,7 @@
     </div>
     <hr></hr>
     <% if current_page?(new_announcement_path) || current_page?(course_manager_path(@organizer,@course)) && @course.favorited_by.emailable.count > 0  %>
-      <div class="col-md-4">
+      <div class="col-md-12">
         <h4>
           Broadcast <i class="fa fa-question-circle" data-toggle="tooltip" title="Send this Announcement to all users that have shown interest in this course "></i>
           <br><small>Recepients:  <%= number_with_delimiter(@course.favorited_by.emailable.count)%> email |  <%= number_with_delimiter(@textable_users.count)%> text</small>
@@ -68,7 +68,7 @@
           <% end %>
         </div>
       </div>
-      <div class="col-md-8" style="color: #777; padding-top: 5%;">
+      <div class="col-md-12" style="color: #777;">
         <h5>Pro tip: Broadcast responsibly. No one likes to be spammed.</h5>
       </div>
     <% end %>
@@ -76,8 +76,9 @@
 
   <div class="form-actions text-center" style="margin-top: 20px">
     <%= f.button :submit, "Submit", id:"form_submit" %>
-		
-		<%= link_to 'Cancel', :back, class:'btn btn-default ', id:"form_cancel" %>
+		<% if current_page?(new_announcement_path) %>
+		  <%= link_to 'Cancel', :back, class:'btn btn-default ', id:"form_cancel" %>
+    <% end %>
   </div>
 <% end %>
 

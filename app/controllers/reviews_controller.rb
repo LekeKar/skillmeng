@@ -21,12 +21,10 @@ class ReviewsController < ApplicationController
   # GET /reviews/new
   def new
     @review = Review.new
-    session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
 
   # GET /reviews/1/edit
   def edit
-    session[:return_to] ||= request.env["HTTP_REFERER"] || 'none'
   end
 
   # POST /reviews
@@ -37,7 +35,7 @@ class ReviewsController < ApplicationController
      
     respond_to do |format|
       if @review.save
-        format.html { redirect_to (session.delete(:return_to) || @course), notice: 'Review was successfully created.' }
+        format.html { redirect_to  @course, notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
       else
         format.html { render :new }
@@ -51,7 +49,7 @@ class ReviewsController < ApplicationController
   def update
     respond_to do |format|
       if @review.update(review_params)
-        format.html { redirect_to (session.delete(:return_to) || root_path), notice: 'Review was successfully updated.' }
+        format.html { redirect_to @course, notice: 'Review was successfully updated.' }
         format.json { render :show, status: :ok, location: @review }
       else
         format.html { render :edit }

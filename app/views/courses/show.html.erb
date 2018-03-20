@@ -12,7 +12,9 @@
     <%= render "more_info" %>
     <%= render "tutors_info" %>
     <%= render "news_reviews" %>
-    <%= render "footer" %>
+    <% if  !@other_courses.empty? %>
+      <%= render "footer" %>
+    <% end %>
   </div>
   
   <div class="row">

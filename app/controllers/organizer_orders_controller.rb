@@ -43,6 +43,11 @@ class OrganizerOrdersController < ApplicationController
         @text_price = 0
       end
       
+    else
+      @email_quantity = 0
+      @email_price = 0
+      @text_quantity = 0
+      @text_price = 0
     end
   
   	 @email_total =  @email_price * @email_quantity
@@ -129,6 +134,9 @@ class OrganizerOrdersController < ApplicationController
       else
         text_total = 0
       end
+    else 
+      email_total = 0
+      text_total = 0
     end 
     
     #calclulate order total

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180226093133) do
+ActiveRecord::Schema.define(version: 20180318184001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,12 +107,12 @@ ActiveRecord::Schema.define(version: 20180226093133) do
   add_index "course_payments", ["course_id"], name: "index_course_payments_on_course_id", using: :btree
 
   create_table "course_prices", force: :cascade do |t|
-    t.decimal  "price"
+    t.decimal  "price",             default: 0.0
     t.string   "unit"
     t.string   "explaination"
     t.integer  "course_payment_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "quantity"
   end
 
@@ -378,9 +378,9 @@ ActiveRecord::Schema.define(version: 20180226093133) do
     t.integer  "organizer_order_id"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
-    t.integer  "email_quantity"
+    t.integer  "email_quantity",     default: 0
     t.float    "text_price",         default: 29.5
-    t.integer  "text_quantity"
+    t.integer  "text_quantity",      default: 0
   end
 
   add_index "organizer_credit_orders", ["organizer_order_id"], name: "index_organizer_credit_orders_on_organizer_order_id", using: :btree
