@@ -1,46 +1,46 @@
 <% title "User Sign-up" %>
 <div class="container">
   <div class="row">
-    <div class="col-md-4 col-md-offset-4">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
       <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4> Sign up </h4>
+        <div class="panel-heading" id="form_header">
+          <h4 class="panel-title"> Sign up </h4>
         </div>
         <div class="panel-body new_class">
-        	<%= link_to user_facebook_omniauth_authorize_path, class:"btn btn-default btn-block facebook_btn" do %>
-    			  <i class="fa fa-facebook"></i> | Continue with Facebook
-	    		<% end %>
-	    		<%= link_to user_google_oauth2_omniauth_authorize_path, class:"btn btn-default btn-block google_btn" do %>
-	    			<i class="fa fa-google-plus"></i> | Continue with Google
-	    		<% end %> 
-  				
-  				<div style="margin: 30px;">
-  				  <hr></hr>
-  				</div>
-					  <div class="text-center" style="color: #777; margin-bottom: 10px;">
-  						<strong>
-  					    or use email 
-  					 </strong>
-  					</div>
-					
-            <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-              <%= f.error_notification %>
-  
+    
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= f.error_notification %>
+            <div class="row">
               <div class="form-inputs">
-              	<%= f.input :fname, label: "First name", required: true, autofocus: true %>
-                <%= f.input :lname, label: "Last name",required: true, autofocus: true %>
-                <%= f.input :tel, label: "Phone number", required: true, maxlength: "11", placeholder: "e.g 08145463102", autofocus: true %>
-                <%= f.input :email, required: true, autofocus: true %>
-                <%= f.input :avatar, as: :file, hint: 'Recommended size: 300px <span style="font-size: .8em;">x</span> 300px'.html_safe, label: "Profile Pic" %>
-                <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-                <%= f.input :password_confirmation, label:"Confirm password", required: true %>
-          
+                
+                <div class="col-sm-6">
+              	  <%= f.input :fname, label: "First name", required: true, autofocus: true %>
+              	</div>
+                <div class="col-sm-6">
+                  <%= f.input :lname, label: "Last name",required: true, autofocus: true %>
+                </div>
+                <div class="col-sm-6">
+                  <%= f.input :tel, label: "Phone number", required: true, maxlength: "11", placeholder: "e.g 08145463102", autofocus: true %>
+                </div>
+                <div class="col-sm-6">
+                  <%= f.input :email, required: true, autofocus: true %>
+                </div>
+                <div class="col-sm-12">
+                  <%= f.input :avatar, as: :file, hint: 'Recommended size: 300px <span style="font-size: .8em;">x</span> 300px'.html_safe, label: "Profile Pic" %>
+                </div>
+                <div class="col-sm-6">
+                  <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+                </div>
+                <div class="col-sm-6">
+                  <%= f.input :password_confirmation, label:"Confirm password", required: true %>
+                </div>
               </div>
-  
-              <div class="form-actions text-center">
-                <%= f.button :submit, "Submit", id:"form_submit" %>
-              </div>
-            <% end %>
+            </div>
+
+            <div class="form-actions text-center">
+              <%= f.button :submit, "Submit", id:"form_submit" %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>    

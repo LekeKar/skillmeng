@@ -45,6 +45,7 @@ gem 'turbolinks', '~> 5.0', '>= 5.0.1'
 gem 'jquery-ui-rails'
 gem 'bitly', '~> 1.1', '>= 1.1.1'
 gem 'jbuilder', '~> 2.0'
+gem 'activerecord-session_store', '~> 1.1', '>= 1.1.1'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
