@@ -11,7 +11,7 @@
           <%= f.input :title, :label => 'Title (25 char max)', maxlength: "25", required: true %>
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
-              <%= f.input :tutor, :label => 'Organizer', input_html: {value: @user_organizer.name}, readonly: true, required: true %>
+              <%= f.input :tutor, :label => 'Organizer', input_html: {value: @tutor_name}, readonly: true, required: true %>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
               <%= f.input :category, label: 'Category', :collection => @categories,  required: true %>

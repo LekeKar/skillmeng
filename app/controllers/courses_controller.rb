@@ -4,6 +4,7 @@ class CoursesController < ApplicationController
   before_action :authenticate_user!, except: [:autocomplete, :course_wizard, :index, :search, :show, :rating, :contact_info, :gallery, :payment] 
   before_action :user_auth, only: [:edit, :update, :course_wizard, :destroy, :course_manager, :location_accuracy, :requests]  
   before_action :activated_check, only: [:show]
+  before_action :set_tutor_name, only: [:new, :edit]
   before_action :suspended_check, only: [:destroy]
   before_action :check_wizard, only: [:new]
   before_action :min_price, only: [:show, :gallery, :rating]  
@@ -407,6 +408,10 @@ class CoursesController < ApplicationController
       @course.update_attribute(:completeness, @total_score) 
     end
     
+    def set_tutor_name
+      current_user.role == "Admin" ? @tutor_name = "SkillmeNG" : @tutor_name = @user_organizer.name
+    end 
+    
     def set_info
 
       @organizer = @course.organizer
@@ -423,6 +428,7 @@ class CoursesController < ApplicationController
       @emailable_users = @course.favorited_by.emailable
       @gallery_pics = @course.gallery_pics.page(params[:page])
       @tutors = @course.tutors.includes(:course_tutors).order("course_tutors.created_at asc")
+      
       if @user_organizer && @user_organizer.tutors
         available_tutor_prep = @user_organizer.tutors
         @available_tutors = available_tutor_prep - @tutors
@@ -477,7 +483,7 @@ class CoursesController < ApplicationController
     end
 
     def class_limits
-      if current_user.courses.count > 2  
+      if current_user.courses.count > 2  && !current_user.admin
         redirect_to @user_organizer, alert: 'You have uplaoded max amount of classes (3) for this account'   
       end    
     end 

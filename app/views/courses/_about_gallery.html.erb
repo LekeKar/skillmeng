@@ -10,17 +10,17 @@
       <% if @about %>
         <div style = "text-align: justify;"><%= @about.content %></div> <br>
       <% else -%>
-        <div class="text-left">
+        <div class="text-left mobile_centralize">
           <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" && @about.nil? -%>
              Tell people about your course <br>
-            <%= link_to 'Add about info', new_course_about_path(@course) %>
+            <%= link_to 'Add about info', new_course_about_path(@course), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %>
           <% else %> 
              No info provided 
           <% end -%>
         </div>
       <% end %>
       
-      <p style="margin-top: 10px;">
+      <p style="margin-top: 10px;" class="text-left mobile_centralize">
         This course is 
         <%= @course.saed ? "a saed," : ""%>
         <%= @course.online ? "online," : ""%>

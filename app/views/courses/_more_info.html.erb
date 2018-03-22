@@ -29,17 +29,16 @@
         <!--Price content-->
        
         <div class="tab-pane fade active in" id="price">
-          <div class="mobile_centralize">
-            <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-              <% if !@course_payment.nil? %>
-                <%= link_to 'edit price', edit_course_course_payment_path(@course, @course_payment), class:"btn btn-xs btn-default course_control"%>
-                <br>
-              <% elsif @course_payment.blank? || @course_payment.course_prices.empty? %>
-                <%= link_to 'add prices', new_course_course_payment_path(@course), class:"btn btn-xs btn-default course_control"%>
-                <br>
-              <% end %>
+          
+          <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+            <% if !@course_payment.nil? %>
+              <%= link_to 'edit price', edit_course_course_payment_path(@course, @course_payment), class:"btn btn-xs btn-default course_control"%>
+              <br>
+            <% elsif @course_payment.blank? || @course_payment.course_prices.empty? %>
+              <%= link_to 'add prices', new_course_course_payment_path(@course), class:"btn btn-xs btn-default course_control"%>
+              <br>
             <% end %>
-          </div>
+          <% end %>
           <% if @course_payment && !@course_payment.course_prices.empty? %>
               <table class="table table-condensed table-striped">
                 <tr>
@@ -89,11 +88,11 @@
         <!--schedule info-->
         <div class="tab-pane fade" id="schedule">
           <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-            <div class="mobile_centralize">
+            
               <small>
                <%= link_to 'add day', new_course_course_day_path(@course), class:"btn btn-xs btn-default course_control"%>
               </small>
-            </div>
+            
           <% end -%>
           <% if !@course_days.blank? %>
             <div class="panel-group" id="accordion_day" role="tablist" aria-multiselectable="true" style="margin-top: 10px;">
@@ -203,11 +202,10 @@
           <% end %>
           
           <% if @about && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-            <div class="mobile_centralize">
+            
               <small>
                <%= link_to 'edit more', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control"%>
               </small>
-            </div>
           <% end -%>
           
           <!--requirements info-->
@@ -230,12 +228,12 @@
             <% elsif  current_user && current_user.id == @course.user_id && @about && @about.requirements.blank? && params[:visitor] != "visitor"%>
               <div class="text-left">
                 Tell people what they need to have <br>
-                <%= link_to 'Add qualification', edit_course_about_path(@course, @about), style:"color: #d6d5d3" %> 
+                <%= link_to 'Add qualification', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control" , style:"margin-top: 10px;" %> 
               </div>
             <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
               <div class="text-left">
                 Tell people what they need to have <br>
-                <%= link_to 'Add qualification', new_course_about_path(@course), style:"color: #d6d5d3" %> 
+                <%= link_to 'Add qualification', new_course_about_path(@course), class:"btn btn-xs btn-default course_control"  , style:"margin-top: 10px;"%> 
               </div>
             <% end %>
             
@@ -258,12 +256,12 @@
             <% elsif  current_user && current_user.id == @course.user_id && @about && @about.checklist_items.blank? && params[:visitor] != "visitor" %>
               <div class="text-left">
                 Tell people what they need to bring <br>
-                <%= link_to 'Add item', edit_course_about_path(@course, @about), style:"color: #d6d5d3" %> 
+                <%= link_to 'Add item', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control" , style:"margin-top: 10px;" %> 
               </div>
             <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
               <div class="text-left">
                 Tell people what they need to bring <br>
-                <%= link_to 'Add item', new_course_about_path(@course), style:"color: #d6d5d3" %> 
+                <%= link_to 'Add item', new_course_about_path(@course), class:"btn btn-xs btn-default course_control" , style:"margin-top: 10px;" %> 
               </div>
             <% end %>
             
@@ -284,10 +282,15 @@
                   </h5>
                 </div>
               </div>
-            <% elsif  current_user && current_user.id == @course.user_id && @about && @about.checklist_items.blank? && params[:visitor] != "visitor" %>
+            <% elsif  current_user && current_user.id == @course.user_id && @about && @about.course_rewards.blank? && params[:visitor] != "visitor" %>
               <div class="text-left">
-                Tell people what they need to bring <br>
-                <%= link_to 'Add item', edit_course_about_path(@course, @about), style:"color: #d6d5d3" %> 
+                Tell people what awards (if any) are available<br>
+                <%= link_to 'Add item', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %> 
+              </div>
+             <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+              <div class="text-left">
+                Tell people what awards (if any) are available<br>
+                <%= link_to 'Add item', new_course_about_path(@course), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %> 
               </div>
             <% end %>
             
@@ -350,10 +353,10 @@
           
         <% else %> 
           <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
-            <div class="text-center">
-              <h4>Tell people how to contact you</h4>
-                <%= link_to 'Share contact details', new_course_contact_path(@course), class:"btn btn-default"%>
-            </div>
+            
+            <%= link_to 'Share contact details', new_course_contact_path(@course), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %>
+            <h5>Tell people how to contact you</h5>
+          
           <% else %> 
               <h5 style="margin-top: 25px;">No info provided</h5> 
           <% end -%>

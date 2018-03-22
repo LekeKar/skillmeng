@@ -108,7 +108,7 @@ class Course < ActiveRecord::Base
  private
  
 	def check_exclusive_titles
-		unless self.tutor == "Ministry of the mindddddd"
+		unless self.tutor == "SkillmeNG"
 	    if self.title.include?("101") || self.title.include?("102")  || self.title.include?("103")  || self.title.include?("104")
 	      errors.add(:title, "101, 102, 103 and 104 are reserved names, sorry")
 	    end

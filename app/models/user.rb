@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
                     :length => { is: 11},
                     uniqueness: true
   
+  # Scopes
+	scope :admin, -> {where(role: "Admin")}
+  
+  
   # facebook oath
   def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first

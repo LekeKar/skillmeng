@@ -37,7 +37,7 @@ class Organizer < ActiveRecord::Base
   validates_length_of :name, :maximum => 25
   validates :name, :uniqueness => {:message => "Organizer name aready exists"}
   validates :name, :presence => {:message => 'name must be present'}
-  validates :phone, :numericality => true, :length => { :minimum => 10, :maximum => 15 }
+  validates :phone, :numericality => true, :length => { is: 11}
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :message => "doesn't look like a valid email"
   validate :check_for_address
 
