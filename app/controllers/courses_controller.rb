@@ -409,7 +409,7 @@ class CoursesController < ApplicationController
     end
     
     def set_tutor_name
-      current_user.role == "Admin" ? @tutor_name = "SkillmeNG" : @tutor_name = @user_organizer.name
+      current_user.role == "admin" ? @tutor_name = "SkillmeNG" : @tutor_name = @user_organizer.name
     end 
     
     def set_info
@@ -499,6 +499,7 @@ class CoursesController < ApplicationController
         redirect_to :back, alert: 'Oga, this course is under admin investigation.' 
       end
     end
+    
     
     
     def take_impression

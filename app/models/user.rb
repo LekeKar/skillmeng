@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
                     uniqueness: true
   
   # Scopes
-	scope :admin, -> {where(role: "Admin")}
+	scope :admin, -> {where(role: "admin")}
   
   
   # facebook oath

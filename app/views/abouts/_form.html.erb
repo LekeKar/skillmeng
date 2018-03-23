@@ -9,7 +9,7 @@
 	</div>
 	
   <hr>
-  <h4>What qualifications do people need for this course?<br><small>(one per input | leave blank if nothing)</small></h4>
+  <h4>What qualifications do people need for this course?<br><small>one per input | leave blank if nothing</small></h4>
   <div id="requirements">
     <%= f.simple_fields_for :requirements do |requirement| %>
       <%= render 'requirement_fields', f: requirement %>
@@ -22,7 +22,7 @@
     </div>
   </div>
   <hr>
-  <h4>What items should people bring?<br><small>(one per input | leave blank if nothing)</small></h4>
+  <h4>What items should people bring?<br><small>one per input | leave blank if nothing</small></h4>
   <div id="checklist_items">
     <%= f.simple_fields_for :checklist_items do |checklist_item| %>
       <%= render 'checklist_item_fields', f: checklist_item %>
@@ -36,7 +36,7 @@
   </div>
   
   <hr>
-  <h4> What will people recieve when the course is completed?<br><small>(one per input | leave blank if nothing)</small></h4>
+  <h4> What will people recieve when the course is completed?<br><small>one per input | leave blank if nothing</small></h4>
   <div id="course_rewards">
     <%= f.simple_fields_for :course_rewards do |course_reward| %>
       <%= render 'course_reward_fields', f: course_reward %>

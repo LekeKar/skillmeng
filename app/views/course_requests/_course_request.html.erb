@@ -8,7 +8,7 @@
   <a href="" data-toggle="modal" data-target="#barter<%= course_request.id%>">
   	<div class="well" style="padding: 0px;">
       <h5>
-      	<small><%= @offer_organizer != current_user.organizer ? "#{@offer_course.tutor} Requests" : "You Requested" %></small><br>
+      	<small><%= @offer_organizer != current_user.organizer ? "#{@offer_course.organizer.name} Requests" : "You Requested" %></small><br>
       		<%= @ask_course.title %>
         <br>
         <small>
@@ -68,7 +68,7 @@
 				    	"<%= course_request.additional_info %>"
 				    	<small>-
 					    	<%= link_to @offer_organizer, target: "_blank"  do %>
-					    		<%= @offer_course.tutor %>
+					    		<%= @offer_course.organizer.name %>
 					    	<% end %> 
 				    	</small>
 			    	</h5>
@@ -120,7 +120,7 @@
 
 						
 					<% when "accepted"%>
-						<h4><small><%= @offer_organizer == current_user.organizer ? @ask_course.tutor : "You" %></small><br><span style="color: #1aa67a;"> ACCEPTED </span> <hr>
+						<h4><small><%= @offer_organizer == current_user.organizer ? @ask_course.organizer.name : "You" %></small><br><span style="color: #1aa67a;"> ACCEPTED </span> <hr>
 							<small>
 				
 								<% if @offer_organizer != current_user.organizer %>
@@ -137,7 +137,7 @@
 						</h4>
 						
 					<% when "declined"%>
-					 	<h4><small><%= @offer_organizer == current_user.organizer ? @ask_course.tutor : "You" %></small><br><span style="color: #d9534f;"> DECLINED </span> <hr>
+					 	<h4><small><%= @offer_organizer == current_user.organizer ? @ask_course.organizer.name : "You" %></small><br><span style="color: #d9534f;"> DECLINED </span> <hr>
 
 				<% end%>
 				
