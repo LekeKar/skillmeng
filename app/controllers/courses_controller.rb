@@ -4,7 +4,6 @@ class CoursesController < ApplicationController
   before_action :authenticate_user!, except: [:autocomplete, :course_wizard, :index, :search, :show, :rating, :contact_info, :gallery, :payment] 
   before_action :user_auth, only: [:edit, :update, :course_wizard, :destroy, :course_manager, :location_accuracy, :requests]  
   before_action :activated_check, only: [:show]
-  before_action :set_tutor_name, only: [:new, :edit]
   before_action :suspended_check, only: [:destroy]
   before_action :check_wizard, only: [:new]
   before_action :min_price, only: [:show, :gallery, :rating]  
@@ -12,6 +11,7 @@ class CoursesController < ApplicationController
   before_action :course_completeness, only: [:course_manager, :show]
   after_action  :course_completeness, only: [:show]
   before_action :user_manager_check, only: [:new, :create, :edit, :update ]
+  before_action :set_tutor_name, only: [:new, :edit]
   before_action :set_user_fav, only: [:toggle_text, :toggle_email_broadcast, :toggle_text_broadcast]
 
 
@@ -409,7 +409,7 @@ class CoursesController < ApplicationController
     end
     
     def set_tutor_name
-      current_user.role == "admin" ? @tutor_name = "SkillmeNG" : @tutor_name = @user_organizer.name
+        current_user.role == "admin" ? @tutor_name = "SkillmeNG" : @tutor_name = @user_organizer.name
     end 
     
     def set_info

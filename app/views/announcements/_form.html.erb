@@ -29,7 +29,7 @@
   <div class="row" style="margin-bottom: 15px;">
     <div class="col-md-12">
       <div class="form-inputs">
-        <%= f.input :action_link, label:"Link" %>
+        <%= f.input :action_link, label:"Link", hint:"If left blank, button will link to #{@course.title} page."%>
        </div>
     </div>
     <hr></hr>
@@ -76,7 +76,7 @@
 
   <div class="form-actions text-center" style="margin-top: 20px">
     <%= f.button :submit, "Submit", id:"form_submit" %>
-		<% if current_page?(new_announcement_path) %>
+		<% unless current_page?(course_manager_path(@organizer,@course)) %>
 		  <%= link_to 'Cancel', :back, class:'btn btn-default ', id:"form_cancel" %>
     <% end %>
   </div>

@@ -7,14 +7,22 @@
   <style>
     img {
       display: block;
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
+      width: 85%;
+    }
+    
+    @media screen and (max-width: 760px){
+	   #image-container {
+    		margin-top: 50%;
+    	}
     }
   </style>
 </head>
 
 <body>
   <!-- This file lives in public/404.html -->
-  <div class="container-fluid" style="margin: 50px 0px 20px 0px;">
+  <div class="container-fluid" style="margin: 50px 0px 20px 0px;" id="image-container">
     <img src="../images/404-sqshd.png" class="img-fluid" alt="The page you were looking for doesn't exist (404)" style="max-width: 75%; height: auto;" >
 	</div>
 	<div class="text-center">
