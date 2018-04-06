@@ -27,7 +27,11 @@
 		    </div>
 		    <div class="panel-body container-fluid">
 		    	<% unless @course.course_state == "suspended"%>
-		     		<%= render "announcements/form"%>
+		    	  <% if @course.course_state == "setup" %>
+			     		<h5>The "add news" option will become available once this course is published.</h5>
+			     	<% else %>
+			     		<%= render "announcements/form"%>
+			     	<% end  %>
 		     	<% else %>
 		     	<div style="text-align: justify">
 		     		Announcement feature has been disabled because your course has been suspended by admin.

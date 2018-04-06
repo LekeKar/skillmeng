@@ -30,8 +30,7 @@ class WelcomeController < ApplicationController
       
       for category in @categories
         var = "#{category}"
-        courses = Course.active.where(:category => var)
-        @category_count[var] = courses
+        @category_count[var] = Course.active.where(:category => var).count
       end
     end
 end

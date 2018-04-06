@@ -64,7 +64,7 @@
       <% if @gallery_pics && !@gallery_pics.empty? %>
         <div class="mobile_centralize">
           <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-            <%= link_to 'add photo', new_course_gallery_pic_path(@course), style:"margin-bottom: 5px;", class:"btn btn-xs btn-default course_control"%>
+            <%= link_to 'add photo', new_course_gallery_pic_path(@course), style:"left: 10px;", class:"btn btn-xs btn-default course_control"%>
           <% end -%>
         <br>
         </div>
@@ -73,7 +73,7 @@
             <% for gallery_pic in  @gallery_pics %>
               <div>
                 <a href="#modalShow<%= gallery_pic.id%>" data-toggle="modal" data-target="#modalShow<%= gallery_pic.id%>">
-                  <%= image_tag gallery_pic.image.url(:medium), class:"img-responsive", style: "margin: 0 auto;" %>
+                  <%= image_tag gallery_pic.image.url(:medium), class:"img-responsive", style: "margin: 0 auto; width: 800px;" %>
                 </a>
               </div>
             <% end %>
