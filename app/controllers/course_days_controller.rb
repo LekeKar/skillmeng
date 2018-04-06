@@ -45,7 +45,7 @@ class CourseDaysController < ApplicationController
             session.delete(:setup_wizard)
             format.html { redirect_to @course, notice: "#{@course.title} now exists, Huzzah!. Now cross-check, edit and publish" }
           else
-            if params[:type] == "Submit and add another"
+            if params[:type] == "Submit and add new day"
               format.html { redirect_to new_course_course_day_path(@course), notice: 'Day was successfully created. Now create another.' }
             else
               format.html { redirect_to @course, notice: 'Day was successfully created' }
