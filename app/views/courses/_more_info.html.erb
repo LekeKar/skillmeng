@@ -341,7 +341,7 @@
           <br>
           <% if @contact.social_link %>
             <span style="font-size: 20px;">
-              <%= !@contact.social_link.facebook.present? ? "<a href='#{@contact.social_link.facebook}' target='_blank' style='color: #e58b5a;'><i class='fa fa-facebook-square'></i></a>".html_safe : "" %>
+              <%= @contact.social_link.facebook.present? ? "<a href='#{@contact.social_link.facebook}' target='_blank' style='color: #e58b5a;'><i class='fa fa-facebook-square'></i></a>".html_safe : "" %>
               <%= @contact.social_link.twitter.present? ? "<a href='#{@contact.social_link.twitter}' target='_blank' style='color: #e58b5a;'><i class='fa fa-twitter-square'></i></a>".html_safe : "" %>
               <%= @contact.social_link.linkedin.present? ? "<a href='#{@contact.social_link.linkedin}' target='_blank' style='color: #e58b5a;'><i class='fa fa-linkedin-square'></i></a>".html_safe : "" %>
               <%= @contact.social_link.googleplus.present? ? "<a href='#{@contact.social_link.googleplus}' target='_blank' style='color: #e58b5a;'><i class='fa fa-google-plus-square'></i></a>".html_safe : "" %>

@@ -1,6 +1,7 @@
       <!--collections-->
       <% @categories = [ "sport/fitness", "photography/film", "food/drink","fashion/style", "hair/beauty", "languages", "music", "art/crafts", "technical", "design", "technology", "professional", "lifestyle", "religion", "just for fun" ] %>
       <% @who_can_attend = [ 'everyone','adults (18+)','children only','men only','women only','couples only' ] %>
+      <% current_user.role == "admin" ? @tutor_name = "SkillmeNG" : @tutor_name = @user_organizer.name %>
  
 
       <%= simple_form_for(@course) do |f| %>

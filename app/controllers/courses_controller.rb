@@ -11,7 +11,6 @@ class CoursesController < ApplicationController
   before_action :course_completeness, only: [:course_manager, :show]
   after_action  :course_completeness, only: [:show]
   before_action :user_manager_check, only: [:new, :create, :edit, :update ]
-  before_action :set_tutor_name, only: [:new, :edit]
   before_action :set_user_fav, only: [:toggle_text, :toggle_email_broadcast, :toggle_text_broadcast]
 
 
@@ -408,10 +407,6 @@ class CoursesController < ApplicationController
       @course.update_attribute(:completeness, @total_score) 
     end
     
-    def set_tutor_name
-        current_user.role == "admin" ? @tutor_name = "SkillmeNG" : @tutor_name = @user_organizer.name
-    end 
-    
     def set_info
 
       @organizer = @course.organizer
@@ -499,7 +494,6 @@ class CoursesController < ApplicationController
         redirect_to :back, alert: 'Oga, this course is under admin investigation.' 
       end
     end
-    
     
     
     def take_impression

@@ -35,14 +35,18 @@
       
   
     <div class="form-actions text-center" style="margin-top: 20px">
+
       <% session[:setup_wizard] ? @pass_param = "Done" : @pass_param = "Submit"  %>
-      <% if session[:setup_wizard] %>
-       <%= link_to 'Back', edit_course_course_payment_path(@course, @course_payment), class:'btn btn-default ', id:"form_cancel" %>
-  		<% end%>
-      <%= f.button :submit, name: "type", value: "#{@pass_param}", id:"form_submit" %>
-  		<% unless session[:setup_wizard] %>
-  		  <%= link_to 'Cancel', @course, class:'btn btn-default ', id:"form_cancel" %>
-  		<% end %>
+        <% if session[:setup_wizard] %>
+         <%= link_to 'Back', edit_course_course_payment_path(@course, @course_payment), class:'btn btn-default ', id:"form_cancel" %>
+    		<% end %>
+        <%= f.button :submit, name: "type", value: "#{@pass_param}", id:"form_submit" %>
+        <% if current_page?(new_course_course_day_path(@course))%>
+      		<%= f.button :submit, name: "type", value: "Submit and add new day", class:'btn btn-default', id:"form_cancel", style:"width: 180px;"  %>
+        <% end %>
+        <% unless session[:setup_wizard] %>
+          <%= link_to 'Cancel', @course, class:'btn btn-default add_another', id:"form_cancel" %>
+    		<% end %>
     </div>
     
 <% end %>

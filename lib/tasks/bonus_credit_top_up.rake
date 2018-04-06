@@ -9,7 +9,7 @@ namespace :ade do
       #update bonus credit balance
         for org in @orgs
           
-          amount = {email:50, text:10}
+          amount = {email:50, text:50}
           org.organizer_credit_bal.email_bonus = amount[:email]
           org.organizer_credit_bal.text_bonus = amount[:text]
           org.organizer_credit_bal.save 

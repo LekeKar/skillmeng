@@ -5,3 +5,17 @@
 .table.vertical-alilgn  > tbody > tr > td {
      vertical-align: middle;
 }
+
+.add_another {
+  color: #dc6e3b;
+  width: 180px
+}
+
+@media (max-width: 750px) {
+
+  .add_another {
+    margin-top: 20px;
+  }
+  
+  
+}

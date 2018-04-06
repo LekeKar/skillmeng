@@ -203,7 +203,13 @@
           <% end %>
         <% else %>
           <div class="col-xs-12 col-sm-4 col-md-4">
-            <h5>No announcement yet</h5>
+            <% unless @course.course_state != "activated" %>  
+              <h5>No announcement yet</h5>
+            <%else%>
+              <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>  
+                <h5>The "add news" option will become available once this course is published.</h5>
+              <%end%> 
+            <%end%> 
           </div>
         <% end %>
           
