@@ -4,4 +4,4 @@
 # User-agent: *
 # Disallow: /
 
-Sitemap: https://skllming-leke.c9users.io/sitemap.xml.gz
+Sitemap: https://skillmeng-leke.c9users.io/sitemap.xml.gz

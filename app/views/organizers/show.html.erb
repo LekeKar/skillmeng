@@ -42,64 +42,7 @@
 						<div class="row" id="org_courses">
 				      <div class="tab-content">
 				    		<div class="tab-pane fade active in" id="courses">
-				    			<% if current_user && current_user.id == @organizer.user_id %>
-				    				<div class="col-xs-12 col-sm-6 col-md-4" style="margin-top: 25px;">
-				    					<div class="container-fluid">
-						    				<div class="row">
-													<div class="panel panel-default">
-													  <div class="panel-body add_org">
-													    <h4 style="text-align: center; margin-bottom: 20px"> Credit Status</h4>
-													    	<table class="table">
-													    		<!--shorten-->
-													    		<%email_bonus = @organizer.organizer_credit_bal.email_bonus %>
-													    		<%email_regular = @organizer.organizer_credit_bal.email_regular %>
-													    		<%text_bonus = @organizer.organizer_credit_bal.text_bonus %>
-													    		<%text_regular = @organizer.organizer_credit_bal.text_regular %>
-													    		
-													    		<tr>
-													    			<td>Email Bonus</td>
-													    			<td class="text-right"><%= email_bonus %></td>
-													    		</tr>
-													    		<tr>
-													    			<td>Email Regular</td>
-													    			<td class="text-right"><%= email_regular %></td>
-													    		</tr>
-													    		<tr style="font-weight: 500;" class="active">
-													    			<td>Email Total</td>
-													    			<td class="text-right"><%= email_bonus + email_regular %></td>
-													    		</tr>
-													    		<tr>
-													    			<td>Text Bonus</td>
-													    			<td class="text-right"><%= text_bonus %></td>
-													    		</tr>
-													    		<tr>
-													    			<td>Text Regular</td>
-													    			<td class="text-right"><%= text_regular %></td>
-													    		</tr>
-													    		<tr style="font-weight: 500;" class="active">
-													    			<td>Text Total</td>
-													    			<td class="text-right"> <%= text_bonus + text_regular %></td>
-													    		</tr>
-													    	</table>
-													    <div class="text-center">
-													    	<a href=".modal_addon" class="btn btn-md btn-success" data-toggle="modal" data-target=".modal_addon" style="background-color: #e07940; border: none; width: 150px; margin-bottom: 10px;">
-												          Purchase Add-ons
-												        </a>
-											        </div>
-													   
-															<% if @organizer.courses.count < 3 %>
-																<div class="text-center">
-																	<hr>
-															    <h4 style="text-align: center;"> <%= @course_slot_left %> Course <%= "Slot".pluralize(@course_slot_left) %> Left</h4>
-															    <%= link_to  "Create Course", new_course_path, style:"background-color: #7193bf; border: none; width: 150px;", class: "btn btn-md btn-success" %>
-														    </div>
-													    <% end %>
-													  </div>
-													</div>
-												</div>
-											</div>
-										</div>
-									<% end %>
+				    			
 									<%= render "courses" %>
 								</div>
 								
@@ -172,6 +115,86 @@
 						    				</row>
           
 						    			</div>
+				          	</div>
+				          	<div class="row">
+				          		<% if current_user && current_user.id == @organizer.user_id %>
+						    				
+												
+												<div class="col-xs-12 col-sm-6 col-md-5 col-md-offset-1" style="margin-top: 25px;">
+								    				
+											    <h4 style="text-align: center; margin-bottom: 20px"> Credit Status</h4>
+											    	<table class="table">
+											    		<!--shorten-->
+											    		<%email_bonus = @organizer.organizer_credit_bal.email_bonus %>
+											    		<%email_regular = @organizer.organizer_credit_bal.email_regular %>
+											    		<%text_bonus = @organizer.organizer_credit_bal.text_bonus %>
+											    		<%text_regular = @organizer.organizer_credit_bal.text_regular %>
+											    		
+											    		<tr>
+											    			<td>Email Bonus</td>
+											    			<td class="text-right"><%= email_bonus %></td>
+											    		</tr>
+											    		<tr>
+											    			<td>Email Regular</td>
+											    			<td class="text-right"><%= email_regular %></td>
+											    		</tr>
+											    		<tr style="font-weight: 500;" class="active">
+											    			<td>Email Total</td>
+											    			<td class="text-right"><%= email_bonus + email_regular %></td>
+											    		</tr>
+											    		<tr>
+											    			<td>Text Bonus</td>
+											    			<td class="text-right"><%= text_bonus %></td>
+											    		</tr>
+											    		<tr>
+											    			<td>Text Regular</td>
+											    			<td class="text-right"><%= text_regular %></td>
+											    		</tr>
+											    		<tr style="font-weight: 500;" class="active">
+											    			<td>Text Total</td>
+											    			<td class="text-right"> <%= text_bonus + text_regular %></td>
+											    		</tr>
+											    	</table>
+											    <div class="text-center">
+											    	<a href=".modal_addon" class="btn btn-md btn-success" data-toggle="modal" data-target=".modal_addon" style="background-color: #e07940; border: none; width: 150px; margin-bottom: 10px;">
+										          Purchase Add-ons
+										        </a>
+									        </div>
+												</div>
+												<div class="col-xs-12 col-sm-6 col-md-5  text-center" style="margin-top: 25px;">
+													   
+													<% if @organizer.courses.count < @course_slot_left %>
+													
+													  <h4 style="text-align: center; margin-bottom: 20px"> Course Slots </h4>
+													    <div class="row">
+															    <% for course in @courses %>
+															    	<%= link_to course do %>
+																    	<div class="col-md-6 col-xs-6">
+																    		<div class="container-fluid">
+																    		<%= image_tag course.display_pic.url(:medium), class:"img-rounded", style:"width: 130px;" %>
+																    	</div>
+																    	</div>
+															    	<% end %>
+															    <% end %>
+														    	<% @course_slot_left.times do %>
+															    	<%= link_to new_course_path do %>
+																    	<div class="col-md-6 col-xs-6">
+																    		<div class="container-fluid">
+																	    		<div class="panel panel-default" style="width: 130px; height: 130px; color: #777;" >
+																					  <div class="panel-body" >
+																					    <h5 style="margin-top: 30px;"> <span style="color: #06b462; margin-bottom: 10px;">Available</span>  <br> add course</h5>
+																					  </div>
+																					</div>
+																				</div>
+																    	</div>
+															    	<% end %>
+															    <% end %>
+															    
+													    	</div>
+												    </div>
+											    <% end %>
+												</div>
+											<% end %>
 				          	</div>
 				          	 
 									</div>

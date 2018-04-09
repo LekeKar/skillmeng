@@ -65,7 +65,7 @@
           <div class="col-xs-6 col-sm-6 col-md-6">
             <strong>
               <% if !course.course_prices.empty? %>
-                <% course.course_prices.nil? ? @min_price = course.course_prices.minimum(:price) : @min_price = 0 %>
+                <% !course.course_prices.nil? ? @min_price = course.course_prices.minimum(:price) : @min_price = 0 %>
                 <% if  @min_price > 0 %>
                   ₦<%= number_with_delimiter(@min_price.floor) %><%= course.course_prices.count > 1 ? "+" : "" %>
                 <% else %>
