@@ -3,6 +3,22 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 # Scroll to top button
+
+#search
+$(document).ready ->
+  courses = new Bloodhound(
+    datumTokenizer: Bloodhound.tokenizers.whitespace
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+    remote:
+      url: '/courses/autocomplete?query=%QUERY'
+      wildcard: '%QUERY')
+  $('#courses_search_nav').typeahead null, source: courses
+  $('#courses_search_mobile').typeahead null, source: courses
+return
+
+  
+
+
 $(document).ready ->
   #Check to see if the window is top if not then display button
   $(window).scroll ->
@@ -40,17 +56,4 @@ $(document).ready ->
       $(this).find('span').text 'Interested'
     return
   return
-  
-  #search
-  $(document).ready ->
-    courses = new Bloodhound(
-      datumTokenizer: Bloodhound.tokenizers.whitespace
-      queryTokenizer: Bloodhound.tokenizers.whitespace
-      remote:
-        url: '/courses/autocomplete?query=%QUERY'
-        wildcard: '%QUERY')
-    $('#courses_search_nav').typeahead null, source: courses
-    $('#courses_search_mobile').typeahead null, source: courses
-    return
-
   
