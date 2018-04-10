@@ -27,9 +27,12 @@ class ApplicationController < ActionController::Base
   		  if current_user
   		    @user_organizer = current_user.organizer
   		    if !@user_organizer.nil?
-    		    @course_slot_left = 4 - @user_organizer.courses.count
+  		      if current_user.role == "admin"
+    		      @course_slot_left = 4 - @user_organizer.courses.count
+      		  else
+      		    @course_slot_left = 2 - @user_organizer.courses.count
+      		  end
     		  end
   		  end 
   		end 
-  		
 end

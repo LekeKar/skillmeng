@@ -478,8 +478,8 @@ class CoursesController < ApplicationController
     end
 
     def class_limits
-      if current_user.courses.count > 2  && !current_user.admin
-        redirect_to @user_organizer, alert: 'You have uplaoded max amount of classes (3) for this account'   
+      if current_user.courses.count > 1  && current_user.role != "admin"
+        redirect_to @user_organizer, alert: 'You have uplaoded max amount of classes (2) for this account'   
       end    
     end 
 
