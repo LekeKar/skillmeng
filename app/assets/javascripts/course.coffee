@@ -4,8 +4,9 @@
 
 # Scroll to top button
 
-#search
+
 $(document).ready ->
+  #search
   courses = new Bloodhound(
     datumTokenizer: Bloodhound.tokenizers.whitespace
     queryTokenizer: Bloodhound.tokenizers.whitespace
@@ -14,12 +15,7 @@ $(document).ready ->
       wildcard: '%QUERY')
   $('#courses_search_nav').typeahead null, source: courses
   $('#courses_search_mobile').typeahead null, source: courses
-return
 
-  
-
-
-$(document).ready ->
   #Check to see if the window is top if not then display button
   $(window).scroll ->
     if $(this).scrollTop() > 100
@@ -27,6 +23,7 @@ $(document).ready ->
     else
       $('.scrollToTop').fadeOut()
     return
+    
   #Click event to scroll to top
   $('.scrollToTop').click ->
     $('html, body').animate { scrollTop: 0 }, 800
@@ -39,6 +36,7 @@ $(document).ready ->
     max_length = $('#count_message').data('value')
     $('#count_message').html text_length + ' /' + max_length
     return
+    
   $('#text2').keyup ->
     text_length = $(this).val().length
     max_length = $('#count_message2').data('value')
@@ -56,4 +54,5 @@ $(document).ready ->
       $(this).find('span').text 'Interested'
     return
   return
+return
   
