@@ -3,7 +3,7 @@
   <% if @slider_pic %>
     <% @course = Course.find(@slider_pic.course_id) %>
     <div class="jumbotron jumbotron_top" style="background: url('<%= @slider_pic.slider_image.url(:original) %>'); margin-top: -20px;">
-      <%= render "welcome_search"%>
+      
       <div id="course_title">
         <%= link_to @course do%>
           <%= @course.title %>
@@ -12,7 +12,7 @@
     </div>
   <% else %>
     <div class="jumbotron jumbotron_top" style='background: url(<%= image_tag "home_bg_1.jpeg"%>); margin-top: -20px;'>
-      <%= render "welcome_search"%>
+     
     </div>
   <% end %>
 </div>
