@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.4'
 gem 'rails', '4.2.6'
 gem 'pg', '~> 0.15'
+gem 'unicorn'
 gem 'rails_12factor', group: :production
 gem 'devise', '~> 4.2'
 gem 'paystack', '~> 0.1.6'
