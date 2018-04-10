@@ -564,7 +564,7 @@
                              
                                
                               <%= link_to @org do %>
-                                <%= image_tag "email_credit_refill.png", align:"center", width:"564", alt:"Yay, your offer was #{@ans}!", style:"max-width: 810px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;", class:"mcnImage" %>      
+                                <%= image_tag "email_credit_refill.png", align:"center", width:"564", alt:"Yay, your credit just got refilled!", style:"max-width: 810px;padding-bottom: 0;display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;", class:"mcnImage" %>      
                              	<% end %>
                               
                             </td>
@@ -594,7 +594,7 @@
                       <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #202020;font-family: 'Lato', sans-serif;font-size: 16px;line-height: 150%;text-align: left;">
                        Hello <%= @org.name %>, <br>
                        <div style="margin: 15px 0px;">
-                          We have topped up your bonus emails and text to <%= @amount[:email]%> and  <%= @amount[:text]%> respectively. So go ahead and reach out to people interested in your course and keep them updated.
+                          We have topped up your bonus emails to <%= @amount[:email]%>. So go ahead and reach out to people interested in your course and keep them updated.
                           <div style="text-align: center; color: #333; margin: 15px; font-weight: bold;">Broadcast responsibly. No one likes to be spammed.</div>
                           <hr>
                           <strong>How To Broadcast</strong>

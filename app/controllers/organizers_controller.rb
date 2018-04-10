@@ -135,7 +135,7 @@ class OrganizersController < ApplicationController
     end 
     
     def create_credit_bal
-      OrganizerCreditBal.create!(:email_regular  => 0, :email_bonus => 50, :text_regular  => 0, :text_bonus => 10,  :organizer_id => @organizer.id ) 
+      OrganizerCreditBal.create!(:email_regular  => 0, :email_bonus => 50, :text_regular  => 0, :text_bonus => 40,  :organizer_id => @organizer.id ) 
     end 
     
     def update_course_org

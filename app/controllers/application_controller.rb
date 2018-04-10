@@ -17,15 +17,17 @@ class ApplicationController < ActionController::Base
   		end
   		
   		def new_alert_info
-  		  @new_barter = CourseRequest.unread.where( :reciever_id => current_user)
-  		  @new_announcement = Alert.unread.where( :user_id => current_user)
+  		  if current_user
+    		  @new_barter = CourseRequest.unread.where( :reciever_id => current_user)
+    		  @new_announcement = Alert.unread.where( :user_id => current_user)
+  		  end
   		end
   		
   		def get_user_organizer
   		  if current_user
   		    @user_organizer = current_user.organizer
   		    if !@user_organizer.nil?
-    		    @course_slot_left = 3 - @user_organizer.courses.count
+    		    @course_slot_left = 4 - @user_organizer.courses.count
     		  end
   		  end 
   		end 
