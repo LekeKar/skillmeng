@@ -38,6 +38,7 @@ gem 'searchkick', '~> 1.3', '>= 1.3.3'
 gem 'impressionist', '~> 1.6'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
+gem "rack-timeout"
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'jquery-turbolinks', '~> 2.1'
