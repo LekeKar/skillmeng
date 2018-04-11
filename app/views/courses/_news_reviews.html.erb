@@ -180,7 +180,7 @@
                               </li>
                             <% end %>
                             <li><%= link_to 'Edit', edit_announcement_path(announcement,  @course)%></li>
-                            <li><%= link_to 'Delete',  announcement_path(announcement, @course), method: :delete, data: {confirm: "This action will delete this news, Are you sure?"}, style:"color: #d9534f;" %></li>
+                            <li><%= link_to 'Delete',  announcement_path(announcement), method: :delete, data: {confirm: "This action will delete this news, Are you sure?"}, style:"color: #d9534f;" %></li>
                           </ul>
                         </div>
                       <% end -%>

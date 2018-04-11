@@ -77,7 +77,7 @@ class AnnouncementsController < ApplicationController
   def destroy
     @announcement.destroy
     respond_to do |format|
-      format.html { redirect_to @course, notice: 'Announcement was successfully destroyed.' }
+      format.html { redirect_to (session.delete(:return_to) || :back), notice: 'Announcement was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
