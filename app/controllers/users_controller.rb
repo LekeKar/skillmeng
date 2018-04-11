@@ -49,11 +49,10 @@ class UsersController < ApplicationController
 		end 
 		
 		
-		@ann = Announcement.create(subject: "Barter offer was #{@ans}",
+		@ann = Announcement.create( 				subject: "Barter offer was #{@ans}",
 																				body: "Hi #{@offer_course.user.fname},\nYour offer for #{@ask_course.title} was #{@ans}.",
 																				sender: @ask_course.organizer.id,
 																				sender_type:"organizer",
-																				broadcast: false,
 																				action_type: "barter_response",
 																				action_link: "",
 																				action_id: "")
