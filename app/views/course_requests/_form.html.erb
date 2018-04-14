@@ -15,7 +15,7 @@
   </div>
 
   <div class="form-actions text-center">
-    <%= f.button :submit, 'Submit', id:"form_submit" %>
+    <%= f.button :submit, 'Submit', id:"form_submit", data: {confirm: "This action will submit this course request, do you wish to continue?"} %>
     <%= link_to 'Cancel', @course, class:'btn btn-default', id:"form_cancel" %>
   </div>
 <% end %>

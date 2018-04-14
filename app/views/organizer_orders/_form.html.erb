@@ -6,7 +6,7 @@
         <h3 class="mobile_centralize">Purchase email credit</h3>
         <div style="text-align: justify;" >
           Send email email updates directly to your followers. All followers have verified emails
-          and have chosen to hear from you. Skillmeng Sends you 50 bonus email credits each month
+          and have chosen to hear from you. Skillmeng gives you 50 bonus email credits and refills it each month
           but If you need a few more you can top-up here. Emails cost ₦7.50 each
           <br>
           <strong>current bal:</strong> <%= @organizer.organizer_credit_bal.email_bonus %> Bonus | <%= @organizer.organizer_credit_bal.email_regular %> Regular
@@ -17,7 +17,7 @@
           <br>
         </div>
       </div>
-      <div class="col-md-3 text-left" id="order_explaination">
+      <div class="col-md-3  col-md-offset-2 text-left" id="order_explaination">
         <%= f.simple_fields_for :organizer_credit_order do |builder| %>
           <div class="form-inputs">
             <div class="row">
@@ -36,7 +36,7 @@
         <div style="text-align: justify;" >
            If you need to let your followers know about any changes, a direct text
            message is the best way to reach them, because everyone gets text messages.
-           Skillmeng sends you 10 bonus text credits each month but If you need a few 
+           Skillmeng gives you 40 bonus text credits once you upen your account but If you need a few 
            more you can top-up here. Texts cost ₦11.99 each.
           <br>
           <strong>current bal:</strong> <%= @organizer.organizer_credit_bal.text_bonus %> Bonus | <%= @organizer.organizer_credit_bal.text_regular %> Regular
@@ -47,7 +47,7 @@
           <br>
         </div>
       </div>
-      <div class="col-md-3 text-left" id="order_explaination">
+      <div class="col-md-3 col-md-offset-2 text-left" id="order_explaination">
         <%= f.simple_fields_for :organizer_credit_order do |builder| %>
           <div class="form-inputs">
             <div class="row">
@@ -72,7 +72,7 @@
         </div>
         <%= f.error :base %>
       </div>
-      <div class="col-md-6 text-left" id="order_explaination">
+      <div class="col-md-3 col-md-offset-2 text-left" id="order_explaination">
         
         <div id="course_promotions">
           <%= f.simple_fields_for :course_promotions do |course_promotion| %>

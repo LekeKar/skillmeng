@@ -170,7 +170,7 @@ class AnnouncementsController < ApplicationController
     
       # send text
       @client.messages.create(
-      from: '+16174053029',
+      from: 'SkillmeNG',
       to: "+234#{tel}",
       body: "Alert from #{@course.title} on #skillmeng - \"#{@announcement.subject}, #{@announcement.body.first(message_length)} ...\" read more here #{course_link.short_url}"
       )

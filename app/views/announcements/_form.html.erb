@@ -75,7 +75,7 @@
   </div>
 
   <div class="form-actions text-center" style="margin-top: 20px">
-    <%= f.button :submit, "Submit", id:"form_submit" %>
+    <%= f.button :submit, "Submit", id:"form_submit", data: {confirm: "This action will submit this announcement. Emails and texts cannot be altered once sent. Do you wish to continue?"} %>
 		<% unless current_page?(course_manager_path(@organizer,@course)) %>
 		  <%= link_to 'Cancel', :back, class:'btn btn-default ', id:"form_cancel" %>
     <% end %>
