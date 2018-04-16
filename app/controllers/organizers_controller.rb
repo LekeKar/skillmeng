@@ -38,7 +38,7 @@ class OrganizersController < ApplicationController
     
     # capture metadescription
     @og_properties = {  
-      title: "#{@organizer.name}",
+      title: "Manager | #{@organizer.name}",
       type: 'website',
       image: @organizer.logo.url(:medium),
       url: "#{ENV["SKILLMENG_SITE"]}/organizers/#{@organizer.slug}",

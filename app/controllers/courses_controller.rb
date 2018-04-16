@@ -102,7 +102,7 @@ class CoursesController < ApplicationController
     
     # capture metadescription
     @og_properties = {  
-      title: "#{@course.title}",
+      title: "Course | #{@course.title}",
       type: 'website',
       image: @course.display_pic.url(:large),
       url: "#{ENV["SKILLMENG_SITE"]}/courses/#{@course.slug}",
