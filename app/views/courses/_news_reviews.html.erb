@@ -230,18 +230,20 @@
           <% if !@reviews_paginate.empty? %>
             
             <%= render @reviews_paginate.first(6) %>
-            <% if current_user && current_user.id != @course.user_id || params[:visitor] == "visitor" %>
-              <div class="col-xs-12 col-sm-4 col-md-4">
-                <div class="body_rating text-center" style= "height: 150px; margin-bottom: 20px;">
-                  <div class="panel-body">
-                    <H3>
-                      <%= link_to new_course_review_path(@course), style: "color: #e58b5a;"  do %>
-                         add review <br> <i class="fa fa-plus-square"></i> 
-                      <% end %>
-                    </H3>
+            <% unless @course.reviews.where(:user_id => current_user.id).exists? %>
+              <% if current_user && current_user.id != @course.user_id || params[:visitor] == "visitor" %>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                  <div class="body_rating text-center" style= "height: 150px; margin-bottom: 20px;">
+                    <div class="panel-body">
+                      <H3>
+                        <%= link_to new_course_review_path(@course), style: "color: #e58b5a;"  do %>
+                           add review <br> <i class="fa fa-plus-square"></i> 
+                        <% end %>
+                      </H3>
+                    </div>
                   </div>
                 </div>
-              </div>
+              <%end%>
             <%end%>
           <%else%>
             <div class="col-xs-12 col-sm-4 col-md-4 mobile_centralize" style= "margin-bottom: 20px;">

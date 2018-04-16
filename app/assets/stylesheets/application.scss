@@ -21,11 +21,51 @@
  *= require_tree .
  *= require_self
  */
- 
+
  @font-face {
   font-family: "slick";
   src: url(/assets/slick.ttf) format("truetype");
 }
+
+
+
+.navbar-toggle.collapsed {
+  .top-bar {
+    transform: rotate(0);
+  }
+  .middle-bar {
+    opacity: 1;
+  }
+  .bottom-bar {
+    transform: rotate(0);
+  }
+}
+
+.navbar-toggle {
+  border: none;
+  background: transparent !important;
+
+  &:hover {
+    background: transparent !important;
+  }
+
+  .icon-bar {
+    width: 22px;
+    transition: all 0.2s;
+  }
+  .top-bar {
+    transform: rotate(45deg);
+    transform-origin: 10% 10%;
+  }
+  .middle-bar {
+    opacity: 0;
+  }
+  .bottom-bar {
+    transform: rotate(-45deg);
+    transform-origin: 10% 90%;
+  }
+}
+
 
 #form_header {
 	border-color: #de6e32;
@@ -152,10 +192,15 @@ background: linear-gradient(to left, #ECE9E6 , #FFFFFF); /* W3C, IE 10+/ Edge, F
 }
 .scrollToTop:hover{
 	text-decoration:none;
+	color: #e07940;
 }
+
+.scrollToTop a:focus{color:#444;}
+
 
 a {
 	text-decoration: none !important;
+	outline: none !important;
 	 -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;

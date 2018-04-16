@@ -158,7 +158,7 @@ class AnnouncementsController < ApplicationController
     
     # send text and save bal
    
-    message_length = 80 - (@course.title.length + @announcement.subject.length)
+    message_length = 70 - (@course.title.length + @announcement.subject.length)
     bitly = Bitly.new(ENV["BITLY_USERNAME"] , ENV["BITLY_API_KEY"])
     course_link = bitly.shorten("#{ENV["SKILLMENG_SITE"]}/courses/#{@course.slug}")
    
@@ -172,7 +172,7 @@ class AnnouncementsController < ApplicationController
       @client.messages.create(
       from: 'SkillmeNG',
       to: "+234#{tel}",
-      body: "Alert from #{@course.title} on #skillmeng - \"#{@announcement.subject}, #{@announcement.body.first(message_length)} ...\" read more here #{course_link.short_url}"
+      body: "Alert from #{@course.title} on #skillmeng - \"#{@announcement.subject}, #{@announcement.body.first(message_length)} ...\" click the link to read more #{course_link.short_url}"
       )
       
     end 
