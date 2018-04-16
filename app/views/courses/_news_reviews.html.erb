@@ -230,8 +230,8 @@
           <% if !@reviews_paginate.empty? %>
             
             <%= render @reviews_paginate.first(6) %>
-            <% unless @course.reviews.where(:user_id => current_user.id).exists? %>
-              <% if current_user && current_user.id != @course.user_id || params[:visitor] == "visitor" %>
+            <% if current_user && current_user.id != @course.user_id || params[:visitor] == "visitor" %>
+              <% unless @course.reviews.where(:user_id => current_user.id).exists? %>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                   <div class="body_rating text-center" style= "height: 150px; margin-bottom: 20px;">
                     <div class="panel-body">
