@@ -40,7 +40,7 @@ class OrganizersController < ApplicationController
     @og_properties = {  
       title: "#{@organizer.name}",
       type: 'website',
-      image: @organizer.logo.url(:large),
+      image: @organizer.logo.url(:medium),
       url: "#{ENV["SKILLMENG_SITE"]}/organizers/#{@organizer.slug}",
       fb: ENV["FACEBOOK_ID"],
       description: @meta_description

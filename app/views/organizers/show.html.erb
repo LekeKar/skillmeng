@@ -8,9 +8,11 @@
 			    	<div style=" background-color: #FFF; padding: 7px; margin: 5px; border-radius: 10px; font-size: 2em; font-weight: 500; ">
 			    		<%= @organizer.name.try(:titleize) %>
 			    	</div> <br>
+			    	<% if current_user && current_user.id == @organizer.user_id %>
 			    	 	<a href=".modal_addon" class="btn btn-md btn-success" data-toggle="modal" data-target=".modal_addon" style="background-color: #FFF; box-shadow: 2px 2px 2px grey; color: #777; border: none; width: 100px; margin-bottom: 20px;">
 			         Add-ons
 			        </a>
+			      <% end %>
 					</div>
 			
 					<div class="container-fluid profile_content " style="background-color: #FFFFFF;">
@@ -72,7 +74,7 @@
 								<div class="tab-pane fade" id="info" >
 				          <div class="container-fluid" >
 				          	<div class="row" style="margin-bottom: 30px;">
-				          		<div class="col-md-4">
+				          		<div class="col-md-4"  style="margin-bottom: 15px;">
 				          			<%= image_tag @organizer.logo.url(:medium), class:"img-rounded img-responsive text-center", style:"margin: 0 auto; width: 200px; margin-top: 25px; "%>
 				          		</div>
 				          		<div class="col-md-8" id="org_info">
