@@ -4,7 +4,7 @@
       <h3 class="mobile_centralize">
         About 
         <% if @about && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-           <%= link_to 'edit about', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control" %>
+           <br><%= link_to 'edit about', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control" %>
         <% end -%>
       </h3>
       <% if @about %>
@@ -64,7 +64,7 @@
       <% if @gallery_pics && !@gallery_pics.empty? %>
         <div class="mobile_centralize">
           <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-            <%= link_to 'add photo', new_course_gallery_pic_path(@course), style:"left: 10px;", class:"btn btn-xs btn-default course_control"%>
+            <%= link_to 'add photo', new_course_gallery_pic_path(@course), id:"add_photo", class:"btn btn-xs btn-default course_control"%>
           <% end -%>
         <br>
         </div>

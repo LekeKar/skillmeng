@@ -123,6 +123,7 @@
 	color: #FFFFFF;
 	position: relative;
 	top: -3px;
+	margin: 10px 0px;
 }
 
 .course_control:hover{
@@ -600,12 +601,21 @@ $size: 35px;
 	
 // This is where the new change ends
 	
+@media (min-width: 750px) {
+	
+	#add_photo {
+		left: 12px;
+	}
+
+}
+
 
 @media (min-width: 1000px) and (max-width: 1200px) { 
 
 	#index_title {
 		height: 60px;
 	}
+	
 }
 	
 

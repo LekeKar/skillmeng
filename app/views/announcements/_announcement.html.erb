@@ -4,7 +4,7 @@
 
 <% case announcement.sender_type %>
   <% when "admin" %>
-    <% sender = "Andy" %>
+    <% sender = "SkillmeNG" %>
   <% when "organizer" %>
     <% organizer = Organizer.find( announcement.sender ) %>
     <% sender = organizer.name %>

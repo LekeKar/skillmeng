@@ -19,7 +19,7 @@ namespace :ade do
           # send in-app announcement  
         	@ann = Announcement.create(subject: "Bonus credit refilled!",
   																			body: "Hi #{org.user.fname}, your bonus credit has been topped-up!. Your bonus email is now  #{amount[:email]}. Bonus credit doesn't roll-over so make sure you spend it.",
-  																			sender: "Andy",
+  																			sender: "SkillmeNG",
   																			sender_type:"admin",
   																			email: false,
   																			text: false,

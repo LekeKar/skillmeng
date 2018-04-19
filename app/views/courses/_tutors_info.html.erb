@@ -4,10 +4,12 @@
       <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" && @user_organizer %>
         <small>
           <% if !@available_tutors.empty? %>
+             <br>
              <a href="#add_tutor" data-toggle="modal" data-target="#add_tutor" class="btn btn-primary btn-xs course_control">
                add Tutor
              </a>
           <% else %>
+            <br>
             <%= link_to 'add new tutor', new_organizer_tutor_path(@user_organizer), class:"btn btn-xs btn-default course_control"%>
           <% end %>
         </small>
