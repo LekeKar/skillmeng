@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   before_validation :strip_blanks
   after_create :subscribe_user_to_mailing_list
+  after_create :create_user_code
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -108,6 +109,10 @@ private
 
   def subscribe_user_to_mailing_list
     SubscribeUserToMailingListJob.perform_later(self)
+  end
+  
+  def create_user_code
+    self.update_attribute(:user_code, "#{self.created_at.month}-#{self.created_at.year}-#{self.fname.first}#{self.lname.first}-#{self.id}")
   end
  
 end

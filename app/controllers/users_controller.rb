@@ -4,11 +4,19 @@ class UsersController < ApplicationController
 	after_action :read_all_barter, only: [:barter]
 	after_action :read_all_news, only: [:show, :news] 
 	after_action :read_all_messages, only: [:show]
+	
+	require 'barby/barcode/code_128'
+	require 'barby/outputter/svg_outputter'
+
 
 	def show
 		@meta_description = "View summary of activities that pertain to you and see what you have missed. Also view and edit your user profile from here."
 	  @conversations = current_user.mailbox.inbox.order('updated_at DESC')
 	  @announcements = current_user.announcements.order('created_at DESC')
+	
+		@barcode = Barby::Code128.new(current_user.user_code).to_svg(margin: 0)
+		
+		
 	end 
 	
 	def news

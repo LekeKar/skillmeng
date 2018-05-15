@@ -90,18 +90,14 @@
 				        tel: <%= current_user.tel.present? ? number_to_phone(current_user.tel) : '<span style="background-color: #de6e32; color: #FFF; padding: 0px 5px;"> no number provided</span>'.html_safe  %> <br>
                 email: <%= current_user.email %> <br>
           	</div>
-          	<% if current_user.tel == "" %>
-            	<div class="col-md-4">
-                <div class="panel panel-default">
-                  <%= link_to edit_user_registration_path(current_user) do %>
-                    <div class="panel-body text-center" style="background-color: #de6e32; color: #FFF; border: none; border-radius: 5px; "> 
-                      <h2 style="margin: 0px; padding: 0px; font-family: 'Gochi Hand', cursive; letter-spacing: 0.5px;"> Didn't know they changed your course schedule?</h2>
-                      <h6>get text alerts from courses you follow by filling in your mobile number</h6>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            <%end %>
+          	<div class="col-md-4 text-center" >
+
+                <%= @barcode.sub!('<svg ', '<svg preserveAspectRatio="none" ').html_safe %> <br>
+                <%= current_user.user_code %>
+              
+          	  
+          	</div>
+            
           </div>
         </div>
       </div>
