@@ -8,6 +8,8 @@ class Organizer < ActiveRecord::Base
   has_one :organizer_credit_bal, dependent: :destroy
   has_one :location, dependent: :destroy
   accepts_nested_attributes_for :location, reject_if: :all_blank, allow_destroy: true
+  has_one :org_bank_info, dependent: :destroy
+  accepts_nested_attributes_for :org_bank_info, reject_if: :all_blank, allow_destroy: true
   
   belongs_to :user
   
@@ -39,16 +41,16 @@ class Organizer < ActiveRecord::Base
   validates :name, :presence => {:message => 'name must be present'}
   validates :phone, :numericality => true, :length => { is: 11}
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :message => "doesn't look like a valid email"
-  validate :check_for_address
+  validates :org_bank_info, presence: true
+  validates :location, presence: true
 
- private
- def check_for_address
-  return errors.add :base, "Organizer must have a location" unless self.location
- end
+private
+ 
  
  def check_for_extras
 	announcements = Announcement.organizer.where(:sender => self.id)
 	announcements.destroy_all
  end
+ 
     
 end

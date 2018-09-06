@@ -33,7 +33,6 @@ class CoursePaymentsController < ApplicationController
     @user_fullname = "#{current_user.fname.try(:titlize)} #{current_user.lname.try(:titlize)}"
 
     paystack =  Paystack.new
-
     subaccounts = PaystackSubaccounts.new(paystack)
     subaccount_result = subaccounts.create(
       

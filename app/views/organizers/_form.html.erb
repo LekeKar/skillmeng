@@ -32,19 +32,37 @@
       <div class="form-inputs">
         <%= location.input :address_line1, label: "Floor/Apt #(optional)"  -%>
         <%= location.input :address_line2, label: "Street address", required: true   -%>
-        <%= f.error :base, style:"color: #a74544;" %>
+        <%= f.error :location_er, style:"color: #a74544;" %>
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6">
             <%= location.input :city,  label: "Town", placeholder: "Yaba"  -%>
           </div>
           <div class="col-xs-12 col-sm-6 col-md-6">
-            <%= location.input :state,  :collection => ['Abia','Abuja (FCT)','Adamawa','Anambra','Akwa Ibom','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Enugu','Edo','Ekiti','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'] -%>
+            <%= location.input :state,  :collection => ['Abia','Abuja (FCT)','Adamawa','Anambra','Akwa Ibom','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Enugu','Edo','Ekiti','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'], :selected => 'Lagos' -%>
           </div>
         </div>
       </div>
       
     <% end %>
-	</div>
+    
+    <hr>
+    <%= f.simple_fields_for :org_bank_info do |org_bank_info| %>
+    <%= f.error :bank_er, style:"color: #a74544;" %>
+      <div class="bank_name_ans">
+        <%= org_bank_info.input :bank_name, label: "Bank name", :collection => @bank_name, :selected => 'Guaranty Trust Bank' %> 
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6 account_name_ans">
+          <%= org_bank_info.input :bank_account_name, label: "Account name ", hint: "As shown on account statement"  %>
+        </div>
+        <div class="col-md-6 account_number_ans">
+           <%= org_bank_info.input :bank_account_number, label: "Account number"  %>
+        </div>
+      </div>
+      <%= org_bank_info.hidden_field :paystack_id %>
+      <%= org_bank_info.hidden_field :paystack_plan %>
+  	<%end%>
 	
 
 	<div class="form-actions text-center">

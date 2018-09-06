@@ -411,7 +411,6 @@ class CoursesController < ApplicationController
 
       @organizer = @course.organizer
       @about = @course.about
-      @course_payment = @course.course_payment
       @contact = @course.contact
       @online = @course.online
       @reports = @course.reports
@@ -453,7 +452,7 @@ class CoursesController < ApplicationController
     end 
     
     def min_price
-      @min_price = @course.course_prices.minimum(:price)
+      @min_price = @course.course_plans.minimum(:price)
     end
 
 

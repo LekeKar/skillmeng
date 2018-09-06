@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     resources :reviews, except: [:show, :index]
     resources :gallery_pics, except: [:show, :index] 
   	resources :abouts, except: [:show, :index] 
-  	resources :course_payments, except: [:show, :index]
+  	resources :course_plans, except: [:show, :index]
     resources :course_requests, except: [:show, :index] do
       get 'toggle_read'
     end 

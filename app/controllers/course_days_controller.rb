@@ -100,7 +100,7 @@ class CourseDaysController < ApplicationController
       end 
       # Never trust parameters from the scary internet, only allow the white list through.
       def course_day_params
-        params.require(:course_day).permit(:weekday, :calendar_day, :location_id, :course_id, locations_attributes: [:id, :address_line1, :address_line2, :city, :state, :country, :latitude, :longitude, :_destroy,  course_times_attributes: [:id, :end_time, :start_time, :description, :_destroy]])
+        params.require(:course_day).permit(:weekday, :calendar_day, :location_id, :course_id, locations_attributes: [:id, :address_line1, :address_line2, :city, :state, :country, :latitude, :longitude, :_destroy], course_times_attributes: [:id, :end_time, :start_time, :description, :_destroy])
       end
       def set_course
         @course = Course.friendly.find(params[:course_id])

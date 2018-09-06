@@ -3,15 +3,9 @@
     <div class="col-sm-8 col-md-7 ">
       <div>
         <h3 class="course_tabs_menu more_tabs" style="padding-bottom: 15px;" >
-          <a href="#price" role="tab" data-toggle="tab" id="price_tabs">
+          <a href="#course_class" role="tab" data-toggle="tab" id="course_class_tabs">
             <span class="menu-item active" >
-             Price
-            </span>
-          </a>
-          &nbsp;
-          <a href="#schedule" role="tab" data-toggle="tab" id="schedule_tabs">
-            <span class="menu-item" >
-            Schedule
+             <%= "Plans".pluralize(@course.course_plans.count) %>
             </span>
           </a>
           &nbsp;
@@ -28,19 +22,19 @@
         
         <!--Price content-->
        
-        <div class="tab-pane fade active in"  id="price">
+        <div class="tab-pane fade active in"  id="course_class">
           <div class="mobile_centralize">
             <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-              <% if !@course_payment.nil? %>
-                <%= link_to 'edit price', edit_course_course_payment_path(@course, @course_payment), class:"btn btn-xs btn-default course_control"%>
+              <% if !@course_plan.nil? %>
+                <%= link_to 'edit plans', edit_course_course_plan_path(@course, @course_plan), class:"btn btn-xs btn-default course_control"%>
                 <br>
-              <% elsif @course_payment.blank? || @course_payment.course_prices.empty? %>
-                <%= link_to 'add prices', new_course_course_payment_path(@course), class:"btn btn-xs btn-default course_control"%>
+              <% elsif @course_plan.blank? || @course_plan.course_plans.empty? %>
+                <%= link_to 'add plans', new_course_course_plan_path(@course), class:"btn btn-xs btn-default course_control"%>
                 <br>
               <% end %>
             <% end %>
           </div>
-          <% if @course_payment && !@course_payment.course_prices.empty? %>
+          <% if @course_plan && !@course_plan.course_plans.empty? %>
               <table class="table table-condensed table-striped">
                 <tr>
                   <td>
@@ -50,7 +44,7 @@
                     <strong>Details</strong>   
                   </td>
                 </tr> 
-                <% for price in @course_payment.course_prices.order('price ASC') do %>
+                <% for price in @course_plan.course_plans.order('price ASC') do %>
                   <tr>
                     <td style="min-width: 150px">
                       <%= price.price? ? "₦#{number_with_delimiter(price.price.floor)}" : "Free" %> for <%= pluralize(price.quantity, "#{price.unit}") %>
@@ -60,7 +54,7 @@
                     </td>
                   </tr> 
                 <% end %>
-                <% if @user_organizer && @user_organizer.courses.count > 0 && @course_payment.trade_by_barter %>
+                <% if @user_organizer && @user_organizer.courses.count > 0 && @course_plan.trade_by_barter %>
                   <tr>
                     <td> Barter available</td>
                     <td style="color: #777777;">This course owner is willing to teach you this course in exchange of learning from one of the courses you offer on Skillmeng&trade;.</td>
@@ -68,13 +62,13 @@
                 <% end %>
               </table>
           <% else %>
-           <% if @course_payment.blank? || @course_payment.course_prices.empty? %>
+           <% if @course_plan.blank? || @course_plan.course_plans.empty? %>
               <h5>No info provided</h5> 
             <% end %>
           <% end %>
           
           <% unless current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
-            <% if @course_payment && !@course_payment.course_prices.empty? %>
+            <% if @course_plan && !@course_plan.course_plans.empty? %>
               <div class="mobile_centralize">
                 <a href="" data-toggle="modal" data-target=".payment_info_modal", style="background-color: #e58b5a; border: none; width: 90px;", class="btn btn-xs btn-success" >
                   How to pay
@@ -85,116 +79,7 @@
         
         </div>
         
-        
-        <!--schedule info-->
-        <div class="tab-pane fade" id="schedule">
-          <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-            <div class="mobile_centralize">
-              <small>
-               <%= link_to 'add day', new_course_course_day_path(@course), class:"btn btn-xs btn-default course_control"%>
-              </small>
-            </div>
-          <% end -%>
-          <% if !@course_days.blank? %>
-            <div class="panel-group" id="accordion_day" role="tablist" aria-multiselectable="true" style="margin-top: 10px;">
-              <small>
-                <% data_count = 0 %>
-            
-                  <% for course_day in @course_days %>
-                      <%  if @course.schedule_style == "Specific calender days" && course_day.calendar_day < 1.day.ago %>
-                        <div class="text-center" style="margin-bottom: 8px;">
-                          <h5><%= course_day.calendar_day.strftime('%a | %b %e %G')  %> event has expired.
-                            <% if !@course_days.blank? && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-                              <br>
-                              <div style="margin-top: 8px;">
-                                <%= link_to 'edit', edit_course_course_day_path(@course, course_day), style:"color: #333333" %> |
-                                <%= link_to 'delete',course_course_day_path(@course, course_day), method: :delete, style:"color: #e38b5f", data: {confirm: "This action will delete this Day, are you sure?"}%>
-                              </div>
-                            <% end %>  
-                          </h5>
-                          <hr style="border-style: dashed;">
-                        </div>
-                      
-                        
-                        
-                      <% else %>
-                        <h5 class="text-left" style="margin-bottom: -8px; border-radius: 5px;">
-                          <a id="course_day_link" role="button" style="color: #e58b5a;"  data-toggle="collapse" data-parent="#accordion_day" href="#day<%=course_day.id%>" aria-expanded="true" aria-controls="collapseTwo">
-                            <% case @course.schedule_style %>
-                              <% when "Recurring weekdays" %>
-                                <%= course_day.weekday %> 
-                              <% when "Specific calender days" %>
-                                <%= course_day.calendar_day.strftime('%a | %b %e %G')  %>
-                            <% end %>
-                            
-                          </a>
-                          
-                          <% if !@course_days.blank? && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-                            <div class="pull-right" role="group" style="margin-top: 0.3px;" >
-                              <%= link_to 'Edit', edit_course_course_day_path(@course, course_day), style:"color: #e58b5a" %> |
-                              <%= link_to 'Delete',course_course_day_path(@course, course_day), method: :delete, style:"color: #e58b5a", data: {confirm: "This action will delete this Day, are you sure?"}%>
-                						</div>
-                          <% end -%>
-                        </h5>
-                    
-                        <div id="day<%=course_day.id%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                          <% @locations = Location.where(:course_day_id => course_day.id) %>
-                          <% for location in @locations do %>
-                            <div class="row">
-                              <div class="col-xs-5 col-sm-5 col-md-5">
-                                <%= link_to  "http://maps.google.com/maps?q=#{location.address_line2} #{location.city} ", :target => "_blank" do %>
-                                  <h5  style="color: #333333;" >
-                                    <% if location.address_line1 && !location.address_line1.blank? %>
-                                      <%= location.address_line1 %><br>
-                                    <% end %>
-                                    <%= location.address_line2 %><br>
-                                    <%= location.city %>, 
-                                    <%= location.state %>
-                                  </h5>
-                                <% end %>  
-                              </div>
-                              <div class="col-xs-7 col-sm-7 col-md-7">
-                                <% location.course_times.order("start_time ASC").each do |time| %>
-                                  <div class="text-right">
-                                    <h5>
-                                      <%= time.start_time.strftime("%I:%M %p") %> - 
-                                      <%= time.end_time.strftime("%I:%M %p") %>
-                                      <% if !time.description.blank? %>
-                                        <br><small class="dont-break-out" style="color: #333333;" ><%= time.description %></small>
-                                      <% end %>
-                                    </h5>
-                                  </div>
-                                <% end %>
-                              </div>
-                            </div>
-                            <% if @locations.count > 1 && location != @locations.last %>
-                              <hr style="border-style: dashed;">
-                            <% end -%>
-                          <% end %>
-                      </div>
-                      <% if course_day != @course_days.last %>
-                        <hr>
-                      <%end%>
-                      <% data_count += 1 %>
-                    <% end %>
-                  <% end %>
-                
-              </small>
-            </div>
-          <% else %> 
-            <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
-              <div class="text-left">
-                <h5 style="margin-top: 10px;">
-                  Schedule has no days!
-                </h5>
-              </div>
-            <% else %> 
-              <h5>No info provided</h5>
-            <% end -%>
-          <%end%>
-        </div>
-        
-        
+
         <!--More info-->
         <div class="tab-pane fade" id="more_info">
           
@@ -385,7 +270,7 @@
 
 
 <!--modal for payment instructions-->
-<% if @course_payment %>
+<% if @course_plan %>
   <div class="modal fade payment_info_modal" tabindex="-1" role="dialog" aria-labelledby="payment_info_modal">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -409,22 +294,22 @@
                   </h4>
                 </div>
                 <div id="actual_payment_info" style="display: none;">
-                  <strong>Bank Name:</strong> <%= @course_payment.bank_name %><br>
-                  <strong>Account Number:</strong> <%= @course_payment.bank_account_number %><br>
-                  <strong>Account Name:</strong> <%= @course_payment.bank_account_name %><br>
+                  <strong>Bank Name:</strong> <%= @course_plan.bank_name %><br>
+                  <strong>Account Number:</strong> <%= @course_plan.bank_account_number %><br>
+                  <strong>Account Name:</strong> <%= @course_plan.bank_account_name %><br>
                   <strong>Payment Instructions:</strong>
-                  <% if @course_payment.payment_instruction.present? %>
-                    <br> <div style="text-align: justify;"><%= @course_payment.payment_instruction %></div>
+                  <% if @course_plan.payment_instruction.present? %>
+                    <br> <div style="text-align: justify;"><%= @course_plan.payment_instruction %></div>
                   <% else %>
                     <span class="text-center" style="color: grey;">No payment instructions provided</span>
                   <% end %><br>
                   <strong>Refund Instructions:</strong>
-                  <% if @course_payment.refund_instruction.present? %>
-                    <br><div style="text-align: justify;"><%= @course_payment.refund_instruction %></div>
+                  <% if @course_plan.refund_instruction.present? %>
+                    <br><div style="text-align: justify;"><%= @course_plan.refund_instruction %></div>
                   <% else %>
                     <span class="text-center" style="color: grey;">No refund instructions provided</span>
                   <% end %>
-                  <% if @user_organizer && @user_organizer.courses.count > 0 && @course_payment.trade_by_barter %>
+                  <% if @user_organizer && @user_organizer.courses.count > 0 && @course_plan.trade_by_barter %>
                     <hr>
                     <div>
                       Barter option is available <span data-toggle="tooltip" title="This course owner is willing to teach you this course in exchange of learning from one of the courses you offer on Skillmeng&trade;. Go on, see if you could strike a deal. Goodluck!"><i class="fa fa-question-circle"></i></span><br>
@@ -441,14 +326,14 @@
                     <!--price info-->
                     <tr style="color: #de7947;">
                       <td>
-                         <strong>Prices</strong>
-                        <% if @course_payment.blank? || @course_payment.course_prices.empty? %>
+                         <strong>plans</strong>
+                        <% if @course_plan.blank? || @course_plan.course_plans.empty? %>
                           <strong>No info provided</strong>
                         <% else %>
                       </td>
                       <td></td>
                     </tr>
-                    <% for price in @course_payment.course_prices.order('price ASC') do %>
+                    <% for price in @course_plan.course_plans.order('price ASC') do %>
                       <tr>
                         <td>
                           <%= price.price? ? "₦#{number_with_delimiter(price.price.floor)}" : "Free" %> for <%= pluralize(price.quantity, "#{price.unit}") %>
@@ -458,7 +343,7 @@
                         </td>
                       </tr> 
                     <% end %>
-                    <% if @user_organizer && @user_organizer.courses.count > 1 && @course_payment.trade_by_barter %>
+                    <% if @user_organizer && @user_organizer.courses.count > 1 && @course_plan.trade_by_barter %>
                       <tr>
                         <td> Barter available</td>
                         <td style="color: #777777;">This course owner is willing to teach you this course in exchange of learning from one of the courses you offer on Skillmeng&trade;.</td>

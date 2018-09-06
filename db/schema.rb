@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180515170957) do
+ActiveRecord::Schema.define(version: 20180906091904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,46 +77,15 @@ ActiveRecord::Schema.define(version: 20180515170957) do
 
   add_index "contacts", ["course_id"], name: "index_contacts_on_course_id", using: :btree
 
-  create_table "course_days", force: :cascade do |t|
-    t.string   "weekday"
-    t.date     "calendar_day"
-    t.integer  "course_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+  create_table "course_plans", force: :cascade do |t|
+    t.decimal "price",           default: 0.0
+    t.string  "plan_name"
+    t.string  "refund_policy",   default: "No Refunds"
+    t.integer "course_id"
+    t.integer "capacity"
+    t.text    "description"
+    t.boolean "trade_by_barter", default: false
   end
-
-  add_index "course_days", ["course_id"], name: "index_course_days_on_course_id", using: :btree
-
-  create_table "course_payments", force: :cascade do |t|
-    t.text     "refund_instruction"
-    t.string   "bank_name"
-    t.string   "bank_account_number"
-    t.string   "bank_account_name"
-    t.string   "paystack_id"
-    t.boolean  "trade_by_barter"
-    t.integer  "course_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.string   "seek_course1"
-    t.string   "seek_course2"
-    t.string   "seek_course3"
-    t.string   "paystack_plan"
-    t.text     "payment_instruction"
-  end
-
-  add_index "course_payments", ["course_id"], name: "index_course_payments_on_course_id", using: :btree
-
-  create_table "course_prices", force: :cascade do |t|
-    t.decimal  "price",             default: 0.0
-    t.string   "unit"
-    t.string   "explaination"
-    t.integer  "course_payment_id"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "quantity"
-  end
-
-  add_index "course_prices", ["course_payment_id"], name: "index_course_prices_on_course_payment_id", using: :btree
 
   create_table "course_promotions", force: :cascade do |t|
     t.float    "price",              default: 7500.0
@@ -288,6 +257,16 @@ ActiveRecord::Schema.define(version: 20180515170957) do
   add_index "impressions", ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index", using: :btree
   add_index "impressions", ["user_id"], name: "index_impressions_on_user_id", using: :btree
 
+  create_table "lessons", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "lessons", ["course_id"], name: "index_lessons_on_course_id", using: :btree
+
   create_table "locations", force: :cascade do |t|
     t.string   "address_line1"
     t.string   "address_line2"
@@ -360,6 +339,15 @@ ActiveRecord::Schema.define(version: 20180515170957) do
 
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id", using: :btree
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
+
+  create_table "org_bank_infos", force: :cascade do |t|
+    t.string  "bank_name"
+    t.string  "bank_account_number"
+    t.string  "bank_account_name"
+    t.string  "paystack_id"
+    t.string  "paystack_plan"
+    t.integer "organizer_id"
+  end
 
   create_table "organizer_credit_bals", force: :cascade do |t|
     t.integer  "email_regular"
@@ -466,6 +454,18 @@ ActiveRecord::Schema.define(version: 20180515170957) do
   add_index "reviews", ["course_id"], name: "index_reviews_on_course_id", using: :btree
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
+  create_table "schedules", force: :cascade do |t|
+    t.time     "end_time"
+    t.time     "start_time"
+    t.string   "week_day"
+    t.date     "calender_day"
+    t.integer  "course_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "schedules", ["course_id"], name: "index_schedules_on_course_id", using: :btree
+
   create_table "search_terms", force: :cascade do |t|
     t.string   "term"
     t.datetime "created_at",               null: false
@@ -526,6 +526,28 @@ ActiveRecord::Schema.define(version: 20180515170957) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
+  create_table "transactions", force: :cascade do |t|
+    t.string   "authorisation_url"
+    t.string   "access_code"
+    t.string   "reference"
+    t.string   "status"
+    t.integer  "quantity"
+    t.integer  "price"
+    t.string   "trans_type"
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "buyer_id"
+    t.integer  "seller_id"
+    t.string   "subscription_code"
+    t.string   "email_token"
+    t.string   "subscription_status"
+  end
+
+  add_index "transactions", ["course_id"], name: "index_transactions_on_course_id", using: :btree
+  add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
+
   create_table "tutors", force: :cascade do |t|
     t.string   "name"
     t.text     "bio"
@@ -580,9 +602,6 @@ ActiveRecord::Schema.define(version: 20180515170957) do
   add_foreign_key "alerts", "users"
   add_foreign_key "checklist_items", "abouts"
   add_foreign_key "contacts", "courses"
-  add_foreign_key "course_days", "courses"
-  add_foreign_key "course_payments", "courses"
-  add_foreign_key "course_prices", "course_payments"
   add_foreign_key "course_promotions", "courses"
   add_foreign_key "course_promotions", "organizer_orders"
   add_foreign_key "course_requests", "courses"

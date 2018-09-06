@@ -40,7 +40,7 @@ class ContactsController < ApplicationController
       if @contact.save
   	    if session[:setup_wizard]
   	      session[:setup_wizard] = "contact"
-          format.html { redirect_to new_course_course_payment_path(@course), notice: 'Contact was successfully created.' }
+          format.html { redirect_to new_course_course_plan_path(@course), notice: 'Contact was successfully created.' }
         else
           format.html { redirect_to @course, notice: 'Contact was successfully created.' }
         end
@@ -59,10 +59,10 @@ class ContactsController < ApplicationController
       if @contact.update(contact_params)
         if session[:setup_wizard]
           session[:setup_wizard] = "contact"
-          if @course_payment
-  	 	      format.html { redirect_to edit_course_course_payment_path(@course, @course_payment), notice: 'Contact was successfully updated.' }
+          if @course_plan
+  	 	      format.html { redirect_to edit_course_course_plan_path(@course, @course_plan), notice: 'Contact was successfully updated.' }
     	 	  else
-    	 	    format.html { redirect_to new_course_course_payment_path(@course), notice: 'Contact was successfully updated.' }
+    	 	    format.html { redirect_to edit_course_course_plan_path(@course), notice: 'Contact was successfully updated.' }
     	 	  end
     	  else
           format.html { redirect_to @course, notice: 'Contact was successfully updated.' }
@@ -103,7 +103,6 @@ class ContactsController < ApplicationController
     def set_course
       @course = Course.friendly.find(params[:course_id])
       @about = @course.about
-      @course_payment = @course.course_payment
     end
     
     def organizer_check

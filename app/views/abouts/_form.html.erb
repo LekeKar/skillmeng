@@ -1,6 +1,8 @@
 
 
 <%= simple_form_for([@course, @about]) do |f| %>
+  
+
 	<div class="form-inputs">
 		<h4>
 		  <%= f.input :content, required: true, label:'<span style="font-weight: 500;">What is this course about?</span>'.html_safe, maxlength: "300",  :input_html => {:rows => 5, :id => "text"}-%>
@@ -66,7 +68,6 @@
   </div>
 
 <% end -%>
-
 
 
 

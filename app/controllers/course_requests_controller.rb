@@ -29,7 +29,7 @@ class CourseRequestsController < ApplicationController
   # POST /course_requests
   # POST /course_requests.json
   def create
-    @course_request =  @course.course_requests.build(course_request_params)
+    @course_request = @course.course_requests.build(course_request_params)
     @course_request.user_id = current_user.id
     @course_request.reciever_id = @course.user_id
 
