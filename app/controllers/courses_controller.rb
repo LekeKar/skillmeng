@@ -356,12 +356,12 @@ class CoursesController < ApplicationController
   
     
     def course_completeness
-      # Basic Details
+      # Basic Details (total 30)
       @basic_score = 10
       @course.display_pic.exists? ? @basic_score += 10 : @basic_score += 0 
       @course.tags.count > 2 ? @basic_score += 10 : @basic_score += 0
       
-      # Contact
+      # Contact (total 30)
       @contact_score = 0
       @contact.present? ? @contact_score += 10 : @contact_score += 0 
       if @contact.present?
@@ -369,22 +369,15 @@ class CoursesController < ApplicationController
         @contact.tel1.present? ? @contact_score += 10 : @contact_score += 0
       end
       
-      # Payment
-      @payment_score = 0
-      @course_payment.present? ? @payment_score += 10 : @payment_score += 0
-      if @course_payment.present?
-        @course_payment.refund_instruction.present? ? @payment_score += 10 : @payment_score += 0 
-      end
-      
-      # About/Requirements
+      # About/Requirements (total 10)
       @about_req_score = 0
       @about.present? ? @about_req_score += 10 : @about_req_score += 0
       
-      # Schedule
-      @schedule_score = 0
-      @course_days.any? ? @schedule_score += 10 : @schedule_score += 0
+      # Plans (total 10)
+      @plans_score = 0
+      @course_plans.any? ? @plans_score += 10 : @plans_score += 0
       
-      # Gallery
+      # Gallery (total 10)
       @gallery_score = 0
       case @gallery_pics.count
         when 0
@@ -397,13 +390,12 @@ class CoursesController < ApplicationController
           @gallery_score += 10
       end 
       
-      
-      # Tutor
+      # Tutor (total 10)
       @tutor_score = 0
       @tutors.any? ? @tutor_score += 10 : @tutor_score += 0
       
       # Total
-      @total_score = @basic_score + @contact_score + @payment_score + @about_req_score + @schedule_score + @gallery_score + @tutor_score
+      @total_score = @basic_score + @contact_score + @about_req_score + @plans_score + @gallery_score + @tutor_score
       @course.update_attribute(:completeness, @total_score) 
     end
     
@@ -414,6 +406,7 @@ class CoursesController < ApplicationController
       @contact = @course.contact
       @online = @course.online
       @reports = @course.reports
+      @course_plans = @course.course_plans.order(plan_name: :asc)
       @course_request = @course.course_requests
       @announcements = Announcement.course.where(:sender => @course.id).order('created_at DESC')
       @total_email_credit = @organizer.organizer_credit_bal.email_regular + @organizer.organizer_credit_bal.email_bonus
@@ -430,19 +423,19 @@ class CoursesController < ApplicationController
       @reviews = @course.reviews
       @reviews_paginate = @course.reviews.order("created_at DESC").page(params[:page]).per_page(2)
       
-      if @course.schedule_style == "Recurring weekdays"
-         @course_days = @course.course_days.order("CASE course_days.weekday WHEN 'Weekdays (Mon - Fri)' THEN 0 " \
-                                                          "WHEN 'Monday' THEN 1 " \
-                                                          "WHEN 'Tuesday' THEN 2 " \
-                                                          "WHEN 'Wednesday' THEN 3 " \
-                                                          "WHEN 'Thursday' THEN 4 " \
-                                                          "WHEN 'Friday' THEN 5 " \
-                                                          "WHEN 'Saturday' THEN 6 " \
-                                                          "WHEN 'Sunday' THEN 7 " \
-                                                          "WHEN 'Weekends (Sat & Sun)' THEN 8 END")
-      else
-         @course_days = @course.course_days.order('course_days.calendar_day ASC')
-      end
+      # if @course.schedule_style == "Recurring weekdays"
+      #   @course_days = @course.course_days.order("CASE course_days.weekday WHEN 'Weekdays (Mon - Fri)' THEN 0 " \
+      #                                                     "WHEN 'Monday' THEN 1 " \
+      #                                                     "WHEN 'Tuesday' THEN 2 " \
+      #                                                     "WHEN 'Wednesday' THEN 3 " \
+      #                                                     "WHEN 'Thursday' THEN 4 " \
+      #                                                     "WHEN 'Friday' THEN 5 " \
+      #                                                     "WHEN 'Saturday' THEN 6 " \
+      #                                                     "WHEN 'Sunday' THEN 7 " \
+      #                                                     "WHEN 'Weekends (Sat & Sun)' THEN 8 END")
+      # else
+      #   @course_days = @course.course_days.order('course_days.calendar_day ASC')
+      # end
 
       if @reviews.blank?
         @avg_review = 0

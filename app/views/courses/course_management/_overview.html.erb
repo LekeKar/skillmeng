@@ -37,7 +37,7 @@
         		<tr>
         			<td><strong>Setup</strong></td>
         			<td class="active">
-        			   <%= calc_percent(@course.completeness,120).to_i%>%
+        			   <%= calc_percent(@course.completeness,100).to_i%>%
         			   <% if @total_score.to_i == 120 %>
                   <i class="fa fa-check-circle" style="color: #5cb85c;"></i>
                  <% end %>

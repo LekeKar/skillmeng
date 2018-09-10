@@ -1,4 +1,4 @@
-<% total_percent = calc_percent(@total_score,120) %>
+<% total_percent = calc_percent(@total_score,100) %>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -104,45 +104,7 @@
         </div>
       </div>
       
-      <!--payment -->
-      <div class="panel panel-default">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#payment" aria-expanded="false" aria-controls="collapseTwo">
-          <div class="panel-heading" role="tab" id="headingTwo">
-            <h4 class="panel-title">
-              Payment
-              <span class="pull-right" style="margin-top: 1px; color: #777777;">
-                <%= calc_percent(@payment_score,20).round %>%
-              </span>
-            </h4>
-          </div>
-        </a>
-        <div id="payment" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="panel-body">
-            <table class="table table-hover">
-              <tr>
-                <td class="active">Basic payment info</td>
-                <%= @course_payment.present? ? check_cross("success") : check_cross("fail")  %>
-              </tr>
-              <tr>
-                <td class="active">Refund instruction</td>
-                <% if @course_payment.present? && @course_payment.refund_instruction.present? %>
-                  <%= check_cross("success") %>
-                <% else %>
-                  <%= check_cross("fail") %>
-                <% end %>
-              </tr>
-            </table>
-            
-            <div class="text-center">
-              <% if @course_payment.present? %>
-                <%= link_to 'edit info', edit_course_course_payment_path(@course, @course_payment), target: "_blank" %>
-              <%else%>
-                <%= link_to 'add info', new_course_course_payment_path(@course), target: "_blank"  %>
-              <%end%>
-            </div>
-          </div>
-        </div>
-      </div>
+    
       
       <!-- About/Requirement -->
       <div class="panel panel-default">
@@ -176,14 +138,14 @@
         </div>
       </div>
       
-      <!-- Schedule -->
+      <!-- Plans -->
       <div class="panel panel-default">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#schedule" aria-expanded="false" aria-controls="collapseThree">
           <div class="panel-heading" role="tab" id="headingThree">
             <h4 class="panel-title">
-              Schedule
+              Plans
               <span class="pull-right" style="margin-top: 1px; color: #777777;">
-                <%= calc_percent(@schedule_score,10).round %>%
+                <%= calc_percent(@plans_score,10).round %>%
               </span>
             </h4>
           </div>
@@ -192,13 +154,13 @@
           <div class="panel-body">
             <table class="table table-hover">
               <tr>
-                <td class="active">Date <small style="color: #777777;">(1 minimum)</small></td>
-                <%= @course_days.any? ? check_cross("success") : check_cross("fail")%>
+                <td class="active">Plans <small style="color: #777777;">(1 minimum)</small></td>
+                <%= @course_plans.any? ? check_cross("success") : check_cross("fail")%>
               </tr>
             </table>
            
             <div class="text-center">
-              <%= link_to 'add date', new_course_course_day_path(@course), target: "_blank" %>
+              <%= link_to 'add plan', new_course_course_plan_path(@course), target: "_blank" %>
             </div>
           </div>
         </div>

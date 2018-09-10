@@ -15,6 +15,14 @@
 				<div class="panel-body">
 					<%= render 'form' %>
 				</div>
+				<% if @course_plan.display_pic.present? %>
+					<div class="panel-footer">
+						<div class="text-center" style="color: #777; margin-bottom: 10px;">
+							<strong>current picture</strong>
+						</div>
+	          <%= image_tag @course_plan.display_pic.url(:large), class:"img-responsive", style: "margin: 0 auto; margin-bottom: 15px;"%>
+					</div>
+				<% end %>
 			</div>
 		</div>
 	</div>

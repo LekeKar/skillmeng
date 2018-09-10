@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180906091904) do
+ActiveRecord::Schema.define(version: 20180907222654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,13 +78,20 @@ ActiveRecord::Schema.define(version: 20180906091904) do
   add_index "contacts", ["course_id"], name: "index_contacts_on_course_id", using: :btree
 
   create_table "course_plans", force: :cascade do |t|
-    t.decimal "price",           default: 0.0
-    t.string  "plan_name"
-    t.string  "refund_policy",   default: "No Refunds"
-    t.integer "course_id"
-    t.integer "capacity"
-    t.text    "description"
-    t.boolean "trade_by_barter", default: false
+    t.decimal  "price",                    default: 0.0
+    t.string   "plan_name"
+    t.string   "refund_policy",            default: "No Refunds"
+    t.integer  "course_id"
+    t.integer  "capacity"
+    t.text     "description"
+    t.boolean  "trade_by_barter",          default: false
+    t.string   "display_pic_file_name"
+    t.string   "display_pic_content_type"
+    t.integer  "display_pic_file_size"
+    t.datetime "display_pic_updated_at"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.text     "week_days",                default: [],           array: true
   end
 
   create_table "course_promotions", force: :cascade do |t|

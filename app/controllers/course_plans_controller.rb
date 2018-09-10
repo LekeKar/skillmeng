@@ -29,7 +29,6 @@ class CoursePlansController < ApplicationController
 
     respond_to do |format|
       if @course_plan.save
-    
         if session[:setup_wizard]
           session.delete(:setup_wizard)
         end
@@ -51,6 +50,8 @@ class CoursePlansController < ApplicationController
   def update
     respond_to do |format|
       if @course_plan.update(course_plan_params)
+        
+        @course_plan.week_days << params[:week_days]
         format.html { redirect_to @course, notice: 'Price plan was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
@@ -65,7 +66,7 @@ class CoursePlansController < ApplicationController
   def destroy
     @course_plan.destroy
     respond_to do |format|
-      format.html { redirect_to course_plans_url, notice: 'Price plan was successfully destroyed.' }
+      format.html { redirect_to @course, notice: 'Price plan was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -84,6 +85,6 @@ class CoursePlansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_plan_params
-      params.require(:course_plan).permit(:price, :class_name, :refund_policy, :course_id, :capacity, :description, :trade_by_barter)
+      params.require(:course_plan).permit(:id, :price, :plan_name, :refund_policy, :display_pic, :start_date, :end_date, :course_id, :capacity, :description, :trade_by_barter, week_days: [])
     end
 end

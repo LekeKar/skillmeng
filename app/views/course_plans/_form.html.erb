@@ -13,19 +13,21 @@
     		<%= f.input :capacity, label:'Max Capacity', required: true-%>
     	</div>
     	<div class="col-md-6">
-    		<%= f.input :refund_policy, :collection => @refund_options, label: 'Refund policy <i class="fa fa-question-circle" data-toggle="tooltip" title="How many days can attendes apply for a refund prior to the event."></i>'.html_safe,  required: true-%>
+    		<%= f.input :refund_policy, :collection => @refund_options, include_blank: false, label: 'Refund policy <i class="fa fa-question-circle" data-toggle="tooltip" title="How many days can attendes apply for a refund prior to the event."></i>'.html_safe,  required: true-%>
     	</div>
 	    <div class="col-md-12">
-    		<%= f.input :description, required: true, label:'<span style="font-weight: 500;">Tell us more about this plan? </span>'.html_safe, maxlength: "800",  :input_html => {:rows => 5, :id => "text"}-%>
-    	  <h6 class="pull-right" id="count_message" style="color: grey" data-value= 800></h6>
+    		<%= f.input :description, required: true, label:'<span style="font-weight: 500;">Tell us more about this plan? </span>'.html_safe,  :input_html => {:rows => 5, :id => "text"}-%>
   	  </div>
-  	  
-  	  <div class="col-md-12">
+  	  <div class="col-md-6">
+  	  	<%= f.input :display_pic, hint: 'Recommended size: 600px <span style="font-size: .8em;">x</span> 300px'.html_safe, label: 'Display picture',  as: :file%>
     		<%= f.input :trade_by_barter, label: 'People can offer to teach me a skill in exchange for this class <i class="fa fa-question-circle" data-toggle="tooltip" title="On Skillmeng™, course organizers can offer to teach a course in exchange of another tought by others."></i>'.html_safe, required: true-%>
+    	</div>
+    	<div class="col-md-3">
+  	  	<%= f.input :week_days, label: "Weekdays", collection:  ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'], wrapper_html: { class: 'form-group' }, as: :check_boxes, include_hidden: false, input_html: {:multiple => true} %>
     	</div>
 	  </div>
 	</div>
-  
+             
 
   	<div class="form-actions text-center" style="margin-top: 20px">
 
