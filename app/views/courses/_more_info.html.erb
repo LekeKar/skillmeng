@@ -1,127 +1,217 @@
 <div class="more_info container-fluid" style="background-color: #f9f9f9">
   <div class="row" style="margin-bottom: 20px;"> 
-    <div class="col-sm-8 col-md-7 ">
-      <div>
-        <h3 class="course_tabs_menu more_tabs" style="padding-bottom: 15px;" >
-          <a href="#course_plans" role="tab" data-toggle="tab" id="course_plans_tabs">
-            <span class="menu-item active" >
-             <%= "Plans".pluralize(@course.course_plans.count) %>
-            </span>
-          </a>
-          &nbsp;
-          <a href="#more_info" role="tab" data-toggle="tab" id="more_info_tabs">
-            <span class="menu-item" >
-              More
-            </span>
-          </a>
-		    </h3>
-      </div>
-      
-      <!--Info content-->
-      <div class="tab-content">
-        
-        <!--Plans content-->
-       <% @plan1 = CoursePlan.first%>
-        <div class="tab-pane fade active in" id="course_plans">
-    
-            <div class="row">
-              <% for plan in @course_plans %>
-                <div class="col-md-6  col-md-offset-0  col-xs-offset-1 col-xs-10">
-                  <div class="panel panel-default">
-                    <div class="panel-heading text-center"><strong><%= plan.plan_name%></strong></div>
-                    <div class="panel-body">
-                      <div class="row">
-                        <div class="col-md-2 col-xs-2"><i class="fa fa-money" style="font-size: 1.3em;"></i></div>
-                        <div class="col-md-10 col-xs-10 text-right"><%= plan.price? ? "₦#{number_with_delimiter(plan.price.floor)}" : "Free" %></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-2 col-xs-2"><i class="fa fa-calendar" style="font-size: 1.3em;"></i></div>
-                        <div class="col-md-10 col-xs-10 text-right">
-                          <% for day in plan.week_days%>
-                            <%= day %>
-                          <% end %>
-                        </div>
-                      </div>
-                      <div class="row" style="margin-top: 10px; margin-bottom: 8px;">
-                        <div class="col-md-12">
-                          <div class="progress" style="margin-bottom: -18px; background-color: #95999b;">
-                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 60%; background-color: #dd6e31;">
-                              <span class="sr-only">40% Complete (success)</span>
-                            </div>
-                          </div>
-                          <p class="text-center" style="font-size: 0.8em; color: #FFF;"> <%= plan.capacity %> spots left</p>
-                        </div>
-                      </div>
-                      <div class="btn-group btn-group-justified " role="group" aria-label="...">
-                        <div class="btn-group btn-group-xs" role="group">
-                          <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#plan_modal_<%=plan.id%>">
-                            Details
-                          </button>
-                        </div>
-                          <div class="btn-group btn-group-xs" role="group">
-                            <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-                              <%= link_to "Edit", edit_course_course_plan_path(@course, plan), style:"color: #FFF; background-color: #7193bf; border-color: #7193bf;", class:"btn btn-default"%>
-                            <% else %>
-                              <button type="button" class="btn btn-default" style="color: #dd6e31;">Book</button>
-                            <% end %>
-                          </div>
+    <div class="col-sm-8 col-md-7 mobile_centralize">
+
+      <h3><%= "Plans".pluralize(@course.course_plans.count) %></h3>
+      <div class="row">
+        <% for plan in @course_plans %>
+          <div class="col-md-6  col-md-offset-0  col-xs-offset-1 col-xs-10">
+            <div class="panel panel-default">
+              <div class="panel-heading text-center"><strong><%= plan.plan_name%></strong></div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-2 col-xs-2"><i class="fa fa-money" style="font-size: 1.3em;"></i></div>
+                  <div class="col-md-10 col-xs-10 text-right"><%= plan.price? ? "₦#{number_with_delimiter(plan.price.floor)}" : "Free" %></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2 col-xs-2"><i class="fa fa-calendar" style="font-size: 1.3em;"></i></div>
+                  <div class="col-md-10 col-xs-10 text-right">
+                    <% if @course.schedule_style == "Recurring weekdays" %>
+                      <% for day in plan.week_days%>
+                        <%= day %>
+                      <% end %>
+                    <% else %>
+                      <% if plan.start_date && plan.end_date %>
+                        <%= plan.start_date.strftime("%d/%m/%y") %> - <%= plan.end_date.strftime("%d/%m/%y") %>
+                      <% else %>
+                        -
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 10px; margin-bottom: 8px;">
+                  <div class="col-md-12">
+                    <div class="progress" style="margin-bottom: 5px; background-color: #95999b;">
+                      <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: <%= plan.status == 'Open' ? '60%': '100%' %>;  background-color: <%= plan.status == 'Open' ? '#dd6e31': '#777' %>;">
+                          <span class="sr-only">40% Complete (success)</span>
+                        <p class="text-center" style=" color: #FFF;"> <%= plan.status == 'Open' ? "#{plan.capacity} spots left" : 'Plan is unavailable' %> </p>
                       </div>
                     </div>
                   </div>
                 </div>
-              
-                <!--plan modal-->
-                <div class="modal fade" id="plan_modal_<%=plan.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                  <div class="modal-dialog modal-md" role="document">
-                    <div class="modal-content">
-                      <%= image_tag plan.display_pic.url(:medium), class: 'img-responsive' %>
-                      <div class="modal-body">
-                        <div class="row" style="margin-bottom: 15px;">
-                          <div class="col-xs-6 col-md-6 text-left">
-                            <h4><%= plan.plan_name %></h4>
-                              <i class="fa fa-money" style="font-size: 1.3em;"></i> &nbsp; <%= plan.price? ? "₦#{number_with_delimiter(plan.price.floor)}" : "Free" %><br>
-                              <i class="fa fa-calendar" style="font-size: 1.3em;"></i> &nbsp; <% for day in plan.week_days%> <%= day %><% end %>
-
-                          </div>
-                          <div class="col-xs-6 col-md-4 col-md-offset-2">
-                            <div class="progress" style=" background-color: #95999b; margin-top: 12px;">
-                              <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 60%;  background-color: #dd6e31;">
-                                <span class="sr-only">40% Complete (success)</span>
-                                <p class="text-center" style=" color: #FFF;"> <%= plan.capacity %> spots left</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row" style="margin-bottom: 15px;">
-                          <div class="col-md-12">
-                            <%= plan.description %>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 text-center">
-                            <h5><%= plan.refund_policy == "No Refunds" ? "No refund available":"Refund availbale within #{plan.refund_policy}"  %></h5>
-                            <h5><%= plan.trade_by_barter? ? "Plan is open to trade by barter":"" %></h5>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-default" style="background-color: #dd6e31; color:#FFF; border-color: #dd6e31;" >Book</button>
-                      </div>
-                    </div>
+                <div class="btn-group btn-group-justified " role="group" aria-label="...">
+                  <div class="btn-group btn-group-xs" role="group">
+                    <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#plan_modal_<%=plan.id%>">
+                      Details
+                    </button>
                   </div>
+                    <div class="btn-group btn-group-xs" role="group">
+                      <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+                        <%= link_to "Edit", edit_course_course_plan_path(@course, plan), style:"color: #FFF; background-color: #7193bf; border-color: #7193bf;", class:"btn btn-default"%>
+                      <% else %>
+                        <button type="button" class="btn btn-default <%= plan.status == 'Open' ? '': 'disabled' %>" style="color: #dd6e31;">Book</button>
+                      <% end %>
+                    </div>
                 </div>
-
-                
-              <% end %>
+              </div>
             </div>
-
-        </div>
+          </div>
         
+          <!--plan modal-->
+          <div class="modal fade" id="plan_modal_<%=plan.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-md" role="document">
+              <div class="modal-content">
+                <%= image_tag plan.display_pic.url(:medium), class: 'img-responsive' %>
+                <div class="modal-body">
+                  <div class="row" style="margin-bottom: 15px;">
+                    <div class="col-xs-6 col-md-6 text-left">
+                      <h4><%= plan.plan_name %></h4>
+                      <i class="fa fa-money" style="font-size: 1.3em;"></i> &nbsp; <%= plan.price? ? "₦#{number_with_delimiter(plan.price.floor)}" : "Free" %><br>
+                      <i class="fa fa-calendar" style="font-size: 1.3em;"></i> &nbsp; 
+                      <% if @course.schedule_style == "Recurring weekdays" %>
+                        <% for day in plan.week_days%>
+                          <%= day %>
+                        <% end %>
+                      <% else %>
+                        <% if plan.start_date && plan.end_date %>
+                          <%= plan.start_date.strftime("%d/%m/%y") %> - <%= plan.end_date.strftime("%d/%m/%y") %>
+                        <% else %>
+                          -
+                        <% end %>
+                      <% end %>
 
-        <!--More info-->
-        <div class="tab-pane fade" id="more_info">
-          
+                    </div>
+                    <div class="col-xs-6 col-md-4 col-md-offset-2">
+                      <div class="progress" style=" background-color: #95999b; margin-top: 12px; margin-bottom: 10px;">
+                        <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: <%= plan.status == 'Open' ? '60%': '100%' %>;  background-color: <%= plan.status == 'Open' ? '#dd6e31': '#777' %>;">
+                          <span class="sr-only">40% Complete (success)</span>
+                          <p class="text-center" style=" color: #FFF;"> <%= plan.status == 'Open' ? " #{plan.capacity} spots left": 'Plan is unavailable' %> </p>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+                            <%= link_to "Edit Plan", edit_course_course_plan_path(@course, plan), style:"color: #FFF; background-color: #7193bf; border-color: #7193bf;", class:"btn btn-default"%>
+                        <% else %>
+                          <button type="button" class="btn btn-default <%= plan.status == 'open' ? '': 'disabled' %>" style="color: #dd6e31;">Book Plan</button>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-bottom: 15px;">
+                    <div class="col-md-12">
+                      <%= plan.description.html_safe %>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 text-center">
+                      <h5><%= plan.refund_policy == "No Refunds" ? "No refund available":"Refund availbale within #{plan.refund_policy}"  %></h5>
+                      <h5><%= plan.trade_by_barter? ? "Plan is open to trade by barter":"" %></h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal" id="form_cancel">close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+        <%= link_to 'add Plan', new_course_course_plan_path(@course), class:"btn btn-xs btn-default course_control"%>
+      <% end %>
+    </div>
+        
+    <hr id="desktop_disapear" style="margin-top: 20px">
+    
+    <!--regarding contact-->
+    <div class="col-sm-4 col-md-5 mobile_centralize">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="contact_text">
+            <div class="contact_tabs">
+              <h3> Contact
+                <% if @contact && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+                  <small>
+                    <br> <%= link_to 'edit contact', edit_course_contact_path(@course, @contact), class:"btn btn-xs btn-default course_control"%>
+                  </small>
+                <% end -%>
+              </h3>
+            </div>
+            <% if @contact %>
+              <strong>Name:</strong>
+              <strong></strong> <%=@contact.contact_name %>
+              <% if !@contact.tel1.blank? %>
+                <br>
+                  <strong>Telphone 1:</strong>
+                  <%=number_to_phone(@contact.tel1)%>
+              <% end -%>
+              <% if !@contact.tel2.blank? %>
+                <br>
+                  <strong>Telphone 2:</strong>
+                  <%=number_to_phone(@contact.tel2)%>
+              <% end -%>
+              <% if !@contact.tel3.blank? %>
+                <br>
+                  <strong>Telphone 3:</strong>
+                  <%=number_to_phone(@contact.tel3)%>
+              <% end -%>
+              <% if !@contact.email.blank? %>
+                <br>
+                  <strong>Email:</strong>
+                  <%=@contact.email%> 
+              <% end -%>
+             
+              
+              <br>
+              
+                <span style="font-size: 20px;">
+                  <% if @contact.social_link %>
+                    <%= @contact.social_link.facebook.present? ? "<a href='#{@contact.social_link.facebook}' target='_blank' style='color: #e58b5a;'><i class='fa fa-facebook-square'></i></a>".html_safe : "" %>
+                    <%= @contact.social_link.twitter.present? ? "<a href='#{@contact.social_link.twitter}' target='_blank' style='color: #e58b5a;'><i class='fa fa-twitter-square'></i></a>".html_safe : "" %>
+                    <%= @contact.social_link.linkedin.present? ? "<a href='#{@contact.social_link.linkedin}' target='_blank' style='color: #e58b5a;'><i class='fa fa-linkedin-square'></i></a>".html_safe : "" %>
+                    <%= @contact.social_link.googleplus.present? ? "<a href='#{@contact.social_link.googleplus}' target='_blank' style='color: #e58b5a;'><i class='fa fa-google-plus-square'></i></a>".html_safe : "" %>
+                    <%= @contact.social_link.pintrest.present? ? "<a href='#{@contact.social_link.pintrest}' target='_blank' style='color: #e58b5a;'><i class='fa fa-pinterest-square'></i></a>".html_safe : "" %>
+                    <%= @contact.social_link.instagram.present? ? "<a href='#{@contact.social_link.instagram}' target='_blank' style='color: #e58b5a;'><i class='fa fa-instagram'></i></a>".html_safe : "" %>
+                  <% end %>
+                  <%= !@contact.tutor_website.blank? ? "<a href='#{@contact.tutor_website}' target='_blank' style='color: #e58b5a;'><i class='fa fa-globe'></i></a>".html_safe : "" %>
+                </span> 
+              
+              
+            <% else %> 
+              <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
+                
+                 <br><%= link_to 'Share contact details', new_course_contact_path(@course), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %>
+                <h5>Tell people how to contact you</h5>
+              
+              <% else %> 
+                  <h5 style="margin-top: 25px;">No info provided</h5> 
+              <% end -%>
+            <% end -%>
+            
+            <!--send in app message-->
+            <% if current_user && current_user.id == @course.user_id%>          
+        
+            <% elsif current_user -%>
+              <%= form_tag conversations_path, method: :post do %>
+                <%= hidden_field_tag :sender, @course.user_id %>
+                <%= hidden_field_tag :subject,  "[Message] #{@course.title} by #{current_user.fname.try(:titleize)} #{current_user.lname.try(:titleize)}".html_safe %>
+                <%= text_area_tag :body, nil, class: 'form-control message_text_input', :input_html => {:rows => 1} %>
+                <%= submit_tag "SEND MESSAGE", class: 'btn  btn-default btn-sm btn-block', style: "background-color: #555555; color: #FFFFFF; border: none;" %>
+              <% end -%>
+            <% else -%>
+              <br>
+              <%= link_to "Login in", new_user_session_path %> to send an in-app message.
+            <% end -%>
+          </div>
+        </div> 
+      </div> 
+        
+        
+      <div class="row">
+        <div class="col-md-12 mobile_centralize">
+          <!--More info-->
+          <h3> More Info </h3>        
           <% unless @about %>
              <h5>No info provided</h5>
           <% end %>
@@ -133,7 +223,7 @@
               </small>
             </div>
           <% end -%>
-          
+                
           <!--requirements info-->
           <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-top: 10px;">
             <% if @about && @about.requirements.present? %>
@@ -154,12 +244,12 @@
             <% elsif  current_user && current_user.id == @course.user_id && @about && @about.requirements.blank? && params[:visitor] != "visitor"%>
               <div class="text-left mobile_centralize">
                 Tell people what they need to have <br>
-                <%= link_to 'Add qualification', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control" , style:"margin-top: 10px;" %> 
+                <%= link_to 'add qualification', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control" , style:"margin-top: 10px;" %> 
               </div>
             <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
               <div class="text-left mobile_centralize">
                 Tell people what they need to have <br>
-                <%= link_to 'Add qualification', new_course_about_path(@course), class:"btn btn-xs btn-default course_control"  , style:"margin-top: 10px;"%> 
+                <%= link_to 'add qualification', new_course_about_path(@course), class:"btn btn-xs btn-default course_control"  , style:"margin-top: 10px;"%> 
               </div>
             <% end %>
             
@@ -182,12 +272,12 @@
             <% elsif  current_user && current_user.id == @course.user_id && @about && @about.checklist_items.blank? && params[:visitor] != "visitor" %>
               <div class="mobile_centralize">
                 Tell people what they need to bring <br>
-                <%= link_to 'Add item', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control" , style:"margin-top: 10px;" %> 
+                <%= link_to 'add item', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control" , style:"margin-top: 10px;" %> 
               </div>
             <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
               <div class=" mobile_centralize">
                 Tell people what they need to bring <br>
-                <%= link_to 'Add item', new_course_about_path(@course), class:"btn btn-xs btn-default course_control" , style:"margin-top: 10px;" %> 
+                <%= link_to 'add item', new_course_about_path(@course), class:"btn btn-xs btn-default course_control" , style:"margin-top: 10px;" %> 
               </div>
             <% end %>
             
@@ -211,12 +301,12 @@
             <% elsif  current_user && current_user.id == @course.user_id && @about && @about.course_rewards.blank? && params[:visitor] != "visitor" %>
               <div class="mobile_centralize">
                 Tell people what awards (if any) are available<br>
-                <%= link_to 'Add item', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %> 
+                <%= link_to 'add item', edit_course_about_path(@course, @about), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %> 
               </div>
              <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
               <div class="mobile_centralize">
                 Tell people what awards (if any) are available<br>
-                <%= link_to 'Add item', new_course_about_path(@course), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %> 
+                <%= link_to 'add item', new_course_about_path(@course), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %> 
               </div>
             <% end %>
             
@@ -224,221 +314,9 @@
         </div>
       </div>
     </div>
-    
-
-    <hr id="desktop_disapear" style="margin-top: 20px">
-    
-    <!--regarding contact-->
-    <div class="col-sm-4 col-md-5">
-      <div class="contact_text">
-        <div class="contact_tabs">
-          <h3> Contact
-            <% if @contact && current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-              <small>
-                <br> <%= link_to 'edit contact', edit_course_contact_path(@course, @contact), class:"btn btn-xs btn-default course_control"%>
-              </small>
-            <% end -%>
-          </h3>
-        </div>
-        <% if @contact %>
-          <strong>Name:</strong>
-          <strong></strong> <%=@contact.contact_name %>
-          <% if !@contact.tel1.blank? %>
-            <br>
-              <strong>Telphone 1:</strong>
-              <%=number_to_phone(@contact.tel1)%>
-          <% end -%>
-          <% if !@contact.tel2.blank? %>
-            <br>
-              <strong>Telphone 2:</strong>
-              <%=number_to_phone(@contact.tel2)%>
-          <% end -%>
-          <% if !@contact.tel3.blank? %>
-            <br>
-              <strong>Telphone 3:</strong>
-              <%=number_to_phone(@contact.tel3)%>
-          <% end -%>
-          <% if !@contact.email.blank? %>
-            <br>
-              <strong>Email:</strong>
-              <%=@contact.email%> 
-          <% end -%>
-         
-          
-          <br>
-          <% if @contact.social_link %>
-            <span style="font-size: 20px;">
-              <%= @contact.social_link.facebook.present? ? "<a href='#{@contact.social_link.facebook}' target='_blank' style='color: #e58b5a;'><i class='fa fa-facebook-square'></i></a>".html_safe : "" %>
-              <%= @contact.social_link.twitter.present? ? "<a href='#{@contact.social_link.twitter}' target='_blank' style='color: #e58b5a;'><i class='fa fa-twitter-square'></i></a>".html_safe : "" %>
-              <%= @contact.social_link.linkedin.present? ? "<a href='#{@contact.social_link.linkedin}' target='_blank' style='color: #e58b5a;'><i class='fa fa-linkedin-square'></i></a>".html_safe : "" %>
-              <%= @contact.social_link.googleplus.present? ? "<a href='#{@contact.social_link.googleplus}' target='_blank' style='color: #e58b5a;'><i class='fa fa-google-plus-square'></i></a>".html_safe : "" %>
-              <%= @contact.social_link.pintrest.present? ? "<a href='#{@contact.social_link.pintrest}' target='_blank' style='color: #e58b5a;'><i class='fa fa-pinterest-square'></i></a>".html_safe : "" %>
-              <%= @contact.social_link.instagram.present? ? "<a href='#{@contact.social_link.instagram}' target='_blank' style='color: #e58b5a;'><i class='fa fa-instagram'></i></a>".html_safe : "" %>
-              <%= !@contact.tutor_website.blank? ? "<a href='#{@contact.tutor_website}' target='_blank' style='color: #e58b5a;'><i class='fa fa-globe'></i></a>".html_safe : "" %>
-            </span> 
-          <% end %>
-          
-        <% else %> 
-          <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" -%>
-            
-             <br><%= link_to 'Share contact details', new_course_contact_path(@course), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %>
-            <h5>Tell people how to contact you</h5>
-          
-          <% else %> 
-              <h5 style="margin-top: 25px;">No info provided</h5> 
-          <% end -%>
-        <% end -%>
-        
-        <!--send in app message-->
-        <% if current_user && current_user.id == @course.user_id%>          
-    
-        <% elsif current_user -%>
-          <%= form_tag conversations_path, method: :post do %>
-            <%= hidden_field_tag :sender, @course.user_id %>
-            <%= hidden_field_tag :subject,  "[Message] #{@course.title} by #{current_user.fname.try(:titleize)} #{current_user.lname.try(:titleize)}".html_safe %>
-            <%= text_area_tag :body, nil, class: 'form-control message_text_input', :input_html => {:rows => 1} %>
-            <%= submit_tag "SEND MESSAGE", class: 'btn  btn-default btn-sm btn-block', style: "background-color: #555555; color: #FFFFFF; border: none;" %>
-          <% end -%>
-        <% else -%>
-          <br>
-          <%= link_to "Login in", new_user_session_path %> to send an in-app message.
-        <% end -%>
-      </div>
-    </div>
   </div>
 </div>
 
-
-<!--modal for payment instructions-->
-<% if @course_plan %>
-  <div class="modal fade payment_info_modal" tabindex="-1" role="dialog" aria-labelledby="payment_info_modal">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">How to pay</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="container-fluid">
-              <div class="col-xs-12 col-sm-6 col-md-6">
-                <div id="payment_warning" class="text-center" style="background-color: #e27937; color: #FFFFFF; padding: 30px;">
-                  <h4>
-                    <strong style="font-family: 'Gochi Hand', cursive; font-size: 1.6em;">Hollup!</strong>
-                    <div style="text-align: justify; margin-top: 10px;" >
-                      BEFORE YOU PAY for <%= @course.title %> - make sure you get in touch with the course manager. <br><br>
-                      SkillmeNG&trade;  is not responsible for this course content and does not accept any responsibility/liability for 
-                      this transaction. In short - pay at your own risk!
-                    </div>
-                    <br><button class="btn btn-default btn-sm" id="payment_warning_accept" type="submit" style="margin-top: 10px; border: none; color: #e27937;">I accept</button>
-                  </h4>
-                </div>
-                <div id="actual_payment_info" style="display: none;">
-                  <strong>Bank Name:</strong> <%= @course_plan.bank_name %><br>
-                  <strong>Account Number:</strong> <%= @course_plan.bank_account_number %><br>
-                  <strong>Account Name:</strong> <%= @course_plan.bank_account_name %><br>
-                  <strong>Payment Instructions:</strong>
-                  <% if @course_plan.payment_instruction.present? %>
-                    <br> <div style="text-align: justify;"><%= @course_plan.payment_instruction %></div>
-                  <% else %>
-                    <span class="text-center" style="color: grey;">No payment instructions provided</span>
-                  <% end %><br>
-                  <strong>Refund Instructions:</strong>
-                  <% if @course_plan.refund_instruction.present? %>
-                    <br><div style="text-align: justify;"><%= @course_plan.refund_instruction %></div>
-                  <% else %>
-                    <span class="text-center" style="color: grey;">No refund instructions provided</span>
-                  <% end %>
-                  <% if @user_organizer && @user_organizer.courses.count > 0 && @course_plan.trade_by_barter %>
-                    <hr>
-                    <div>
-                      Barter option is available <span data-toggle="tooltip" title="This course owner is willing to teach you this course in exchange of learning from one of the courses you offer on Skillmeng&trade;. Go on, see if you could strike a deal. Goodluck!"><i class="fa fa-question-circle"></i></span><br>
-                      <%= link_to "Try barter", new_course_course_request_path(@course), class:"btn btn-xs btn-default", style:"border: none; background-color: #e27937; color:#FFFFFF;" %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-              
-             
-              <div class="col-xs-12 col-sm-6 col-md-6" style="margin: 30px 0px;">
-              
-                <table class="table table-condensed table-striped">
-                    <!--price info-->
-                    <tr style="color: #de7947;">
-                      <td>
-                         <strong>plans</strong>
-                        <% if @course_plan.blank? || @course_plan.course_plans.empty? %>
-                          <strong>No info provided</strong>
-                        <% else %>
-                      </td>
-                      <td></td>
-                    </tr>
-                    <% for price in @course_plan.course_plans.order('price ASC') do %>
-                      <tr>
-                        <td>
-                          <%= price.price? ? "₦#{number_with_delimiter(price.price.floor)}" : "Free" %> for <%= pluralize(price.quantity, "#{price.unit}") %>
-                        </td>
-                        <td style="color: #777777;">
-                          <%= price.explaination %>    
-                        </td>
-                      </tr> 
-                    <% end %>
-                    <% if @user_organizer && @user_organizer.courses.count > 1 && @course_plan.trade_by_barter %>
-                      <tr>
-                        <td> Barter available</td>
-                        <td style="color: #777777;">This course owner is willing to teach you this course in exchange of learning from one of the courses you offer on Skillmeng&trade;.</td>
-                      </tr>
-                    <% end %>
-                    
-                    <!--contact info-->
-                    <% if @contact %>
-                      <tr style="color: #de7947;">
-                        <td>
-                           <strong>Contact</strong>
-                        </td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td style="width: 125px">Name</td>
-                        <td style="color: #777777;"><%=@contact.contact_name %></td>
-                      </tr>
-                      <% if !@contact.tel1.blank? %>
-                        <tr>
-                          <td style="width: 125px">Telphone 1</td>
-                          <td style="color: #777777;"><%=number_to_phone(@contact.tel1)%></td>
-                        </tr>  
-                      <% end %>
-                      <% if !@contact.tel2.blank? %>
-                        <tr>
-                          <td style="width: 125px">Telphone 2</td>
-                          <td style="color: #777777;"><%=number_to_phone(@contact.tel2)%></td>
-                        </tr>  
-                      <% end %>  
-                      <% if !@contact.tel3.blank? %>
-                        <tr>
-                          <td style="width: 125px">Telphone 3</td>
-                          <td style="color: #777777;"><%=number_to_phone(@contact.tel3)%></td>
-                        </tr>  
-                      <% end %>  
-                      <% if !@contact.email.blank? %>
-                        <tr>
-                          <td style="width: 125px">Email</td>
-                          <td style="color: #777777; "> <%=@contact.email%> </td>
-                        </tr>  
-                      <% end %>  
-                    <% end -%>
-                  </table>
-                <% end %>
-             
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
 
 <script>
   $('#payment_warning_accept').click(function(e){    

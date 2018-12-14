@@ -13,6 +13,19 @@
 					<% end %>
 				</div>
 				<div class="panel-body">
+					<div class="row mobile_centralize" style="margin-bottom: 15px;">
+						<div class="col-md-12">
+							
+							<%= link_to plan_status_toggle_path(@course_plan) do %>
+								<% if @course_plan.status == 'Open' %>
+									<button class="btn btn-success btn-md" role="button"><i class="fa fa-pause"></i> Pause plan</button>
+								<% else %>
+									<button class="btn btn-danger btn-md" role="button"><i class="fa fa-play"></i> Resume plan</button>
+								<% end %>
+							<% end %>
+						
+						</div>
+					</div>
 					<%= render 'form' %>
 				</div>
 				<% if @course_plan.display_pic.present? %>

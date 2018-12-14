@@ -1,19 +1,22 @@
 source 'https://rubygems.org'
 
 ruby '2.3.4'
-gem 'rails', '4.2.6'
+gem 'rails', '>= 4.2.6'
 gem 'pg', '~> 0.15'
 gem 'unicorn'
 gem 'rails_12factor', group: :production
 gem 'devise', '~> 4.2'
 gem 'paystack', '~> 0.1.6'
 gem 'rails_admin', '~> 1.0'
-gem 'therubyracer'
 gem 'omniauth'
 gem 'oauth2', '~> 1.3', '>= 1.3.1'
 gem 'omniauth-facebook', '~> 4.0'
 gem 'omniauth-google-oauth2'
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', '~> 4.0'
+gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.8'
+gem 'less-rails', '~> 2.8'
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
+gem 'therubyracer', '~> 0.12.3'
 gem 'country_select'
 gem 'friendly_id', '~> 5.2', '>= 5.2.1'
 gem 'will_paginate', '~> 3.1'
@@ -56,7 +59,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 3.0'
   gem 'spring'
 end
 

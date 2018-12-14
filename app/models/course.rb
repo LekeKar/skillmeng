@@ -7,17 +7,12 @@ class Course < ActiveRecord::Base
 	belongs_to :organizer
 	has_one  :homepage_slider_course, dependent: :destroy
 	has_one  :about, dependent: :destroy
-	has_many :course_days, dependent: :destroy
-	
 	has_many :course_plans, dependent: :destroy
 	has_one  :contact, dependent: :destroy
 	has_many :reviews, dependent: :destroy
 	has_many :course_requests, dependent: :destroy
 	has_many :gallery_pics, dependent: :destroy
-	has_many :course_times, dependent: :destroy
 	has_many :reports, dependent: :destroy
-
-	has_many :locations, through: :course_days
 	has_many :org_bank_info, through: :organizer
 	
 	# Course promotions

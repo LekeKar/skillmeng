@@ -11,7 +11,6 @@ class Announcement < ActiveRecord::Base
   
   validates_length_of :subject, :maximum => 40
   validates :subject, :presence => {:message => 'Announcement must have a subject'}
-  validates_length_of :body, :maximum => 400
   validates :body, :presence => {:message => 'Announcement must have a body'}
   
   scope :admin, -> { where(sender_type: "admin")}

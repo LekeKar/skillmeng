@@ -17,6 +17,7 @@
 //= require cocoon
 //= require twitter/bootstrap
 //= require bootstrap-datepicker/core
+//= require bootstrap-wysihtml5
 //= require underscore
 //= require gmaps/google
 //= require cocoon

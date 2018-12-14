@@ -4,7 +4,7 @@ class AnnouncementMailerPreview < ActionMailer::Preview
   # Preview this email at http://localhost:3000/rails/mailers/announcement_mailer/course_news
   def course_news
     user = User.find(1)
-    announcement = Announcement.find(1)
+    announcement = Announcement.find(2)
     AnnouncementMailer.course_news(user, announcement)
   end
   

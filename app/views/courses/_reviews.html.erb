@@ -1,0 +1,37 @@
+<div class="container-fluid news_content">
+  <h3 class="mobile_centralize">Reviews</h3>
+    <div class=" container-fluid reviews_content">
+      <div class="row">
+        <% if !@reviews_paginate.empty? %>
+          
+          <%= render @reviews_paginate.first(6) %>
+          <% if current_user && current_user.id != @course.user_id || params[:visitor] == "visitor" %>
+            <% unless @course.reviews.where(:user_id => current_user.id).exists? %>
+              <div class="col-xs-12 col-sm-4 col-md-4 mobile_centralize">
+                <div class="body_rating text-center" style= "height: 150px; margin-bottom: 20px;">
+                  <div class="panel-body">
+                    <H3>
+                      <%= link_to new_course_review_path(@course), style: "color: #e58b5a;"  do %>
+                         add review <br> <i class="fa fa-plus-square"></i> 
+                      <% end %>
+                    </H3>
+                  </div>
+                </div>
+              </div>
+            <%end%>
+          <%end%>
+        <%else%>
+          <div class="col-xs-12 col-sm-4 col-md-4 mobile_centralize" style= "margin-bottom: 20px;">
+            <%= link_to "Be the first to review", new_course_review_path(@course), class: "btn btn-md btn-success", style:"background-color: #e58b5a; border: none;"%>
+          </div>
+        <%end%>
+      </div>
+      
+      <% if  @reviews_paginate.count > 6 %>
+        <div class="text-center">
+          <%= link_to "view all", course_rating_path(@course), class:"text-center btn btn-xs btn-success", style:"background-color: #e58b5a; border: none; width: 90px;"  %>
+        </div>
+      <% end %>
+    
+    </div>
+  </div>

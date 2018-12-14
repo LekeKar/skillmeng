@@ -1,10 +1,6 @@
 class Location < ActiveRecord::Base
 	before_validation :strip_blanks
-	
-	has_many :course_times, dependent: :destroy
-	accepts_nested_attributes_for :course_times, reject_if: :all_blank, allow_destroy: true
-	
-	belongs_to :course_day
+
 	belongs_to :organizer
 	
 	before_save :capitalize_fields
@@ -18,17 +14,12 @@ class Location < ActiveRecord::Base
 	validates :address_line2, :presence => {:message => 'Location must have street address'}
 	validates :city, :presence => {:message => 'Location must have city'}
 	validates :state, :presence => {:message => 'Location must have state'}
-	validate :require_course_times, :if => 'course_day.present?'
 
 	private
     def set_country
      	self.country ||= "Nigeria"
     end
     
-    def require_course_times
-    	errors[:base] << "You must provide at least one course time" if self.course_times.size < 1
-    end
-
     def full_street_address
 		" #{address_line2}, #{city}, #{state}, 'Nigeria'"
     end

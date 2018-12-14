@@ -56,7 +56,7 @@
   </div>
   
   
- 	<div class="modal fade text-center" id="modal_<%= announcement.id%>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+ 	<div class="modal fade" id="modal_<%= announcement.id%>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 	  <div class="modal-dialog modal-md" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header" style="padding: 5px; color: #3f3f3f; ">
@@ -92,42 +92,41 @@
               </a>
             <% end %>
           <% end %>
-          <div style="text-align: center;"class="mobile_justify" ><%= announcement.body %></div><br>
-          
-        
+          <div class="mobile_justify" ><%= announcement.body.html_safe %></div><br>
           <br>
-            
-          <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <% case announcement.action_type %>
-              <% when "barter_response" %>
-                <div class="btn-group" role="group">
-                  <%= link_to barter_path(current_user, type: "sent"), class: "btn btn-default", type:"button" do %>
-                    view response
-                  <% end %>
-                </div>
-              <% when "view Manager" %>
-                <div class="btn-group" role="group">
-                  <%= link_to @user_organizer, class: "btn btn-default", type:"button" do  %>
-                    view manager
-                  <% end %>
-                </div>
-              <% when "link" %>
-                <div class="btn-group" role="group">
-                  <a class="btn btn-default" type:"button" href="<%=announcement.action_link%>".html_safe role="button" target="_blank">
-                    Learn more
-                  </a>
-                </div>
-              <% when "view course" %>
-                <div class="btn-group" role="group">
-                  <%= link_to @course, class: "btn btn-default", type:"button" do %>
-                    View course
-                  <% end %>
-                </div>
-            <% end %>
-            <div class="btn-group" role="group">
-              <button type="button" class="btn btn-default" data-dismiss="modal" style="color: #d9534f;" >close</button>
+          <div class="text-center">
+            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+              <% case announcement.action_type %>
+                <% when "barter_response" %>
+                  <div class="btn-group" role="group">
+                    <%= link_to barter_path(current_user, type: "sent"), class: "btn btn-default", type:"button" do %>
+                      view response
+                    <% end %>
+                  </div>
+                <% when "view Manager" %>
+                  <div class="btn-group" role="group">
+                    <%= link_to @user_organizer, class: "btn btn-default", type:"button" do  %>
+                      view manager
+                    <% end %>
+                  </div>
+                <% when "link" %>
+                  <div class="btn-group" role="group">
+                    <a class="btn btn-default" type:"button" href="<%=announcement.action_link%>".html_safe role="button" target="_blank">
+                      Learn more
+                    </a>
+                  </div>
+                <% when "view course" %>
+                  <div class="btn-group" role="group">
+                    <%= link_to @course, class: "btn btn-default", type:"button" do %>
+                      View course
+                    <% end %>
+                  </div>
+              <% end %>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="form_cancel" >close</button>
+              </div>
             </div>
-          </div>
+          </div>  
         </div>
       </div>
     </div>

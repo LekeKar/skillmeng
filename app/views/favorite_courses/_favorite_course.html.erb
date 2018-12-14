@@ -7,6 +7,9 @@
         <%=link_to course.title.try(:titleize), course %>
       </h5>
     </div>
+    <div class="panel-body" style="background: url('<%= course.display_pic.url(:large) %>'); height: 100px; background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; " >
+        
+    </div>
 
     <div class="panel-body"  style="font-size: 11px; padding: 10px 10px 0px 10px;">
       

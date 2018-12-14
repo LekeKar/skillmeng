@@ -13,17 +13,39 @@
     		<%= f.input :capacity, label:'Max Capacity', required: true-%>
     	</div>
     	<div class="col-md-6">
-    		<%= f.input :refund_policy, :collection => @refund_options, include_blank: false, label: 'Refund policy <i class="fa fa-question-circle" data-toggle="tooltip" title="How many days can attendes apply for a refund prior to the event."></i>'.html_safe,  required: true-%>
+    		<%= f.input :refund_policy, :collection => @refund_options, include_blank: false, label: 'Refund policy <i class="fa fa-question-circle" data-toggle="tooltip" title="How many days can attendes apply for a refund prior to the event."></i>'.html_safe-%>
     	</div>
 	    <div class="col-md-12">
-    		<%= f.input :description, required: true, label:'<span style="font-weight: 500;">Tell us more about this plan? </span>'.html_safe,  :input_html => {:rows => 5, :id => "text"}-%>
+    		<%= f.input :description, as: :wysihtml5  %>
   	  </div>
   	  <div class="col-md-6">
+  	  	<%= f.input :auto_reset, :collection => @reset_options, include_blank: false, label: 'Auto Reset Bookings <i class="fa fa-question-circle" data-toggle="tooltip" title="How often do you want bookings for this plan to reset"></i>'.html_safe-%>
   	  	<%= f.input :display_pic, hint: 'Recommended size: 600px <span style="font-size: .8em;">x</span> 300px'.html_safe, label: 'Display picture',  as: :file%>
-    		<%= f.input :trade_by_barter, label: 'People can offer to teach me a skill in exchange for this class <i class="fa fa-question-circle" data-toggle="tooltip" title="On Skillmeng™, course organizers can offer to teach a course in exchange of another tought by others."></i>'.html_safe, required: true-%>
+    		<%= f.input :trade_by_barter, label: 'People can offer to teach me a skill in exchange for this plan <i class="fa fa-question-circle" data-toggle="tooltip" title="On Skillmeng™, course organizers can offer to teach a course in exchange of another tought by others."></i>'.html_safe, required: true-%>
     	</div>
     	<div class="col-md-3">
-  	  	<%= f.input :week_days, label: "Weekdays", collection:  ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'], wrapper_html: { class: 'form-group' }, as: :check_boxes, include_hidden: false, input_html: {:multiple => true} %>
+    		<% if @course.schedule_style == "Recurring weekdays" %>
+  	  		<%= f.input :week_days, label: "What days will it hold?", collection:  ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'], wrapper_html: { class: 'form-group' }, as: :check_boxes, include_hidden: false, input_html: {:multiple => true}%>
+    		<% else %>
+    			<div class="form-inline" id="datepicker">
+    				<div class="row" style="margin-bottom: 10px;">
+    					<div class="col-md-12" style="margin-bottom: 10px;">
+		            <%= f.label :start_date, 'Start date' %><br> 
+		            <div class="input-group date">
+		              <%= f.input :start_date, :start_year => 2018, label: false, :as => :string, type:"text", class: "form-control" %>
+		              <span class="input-group-addon"><i class="fa fa-th"></i></span>
+		            </div>
+		         	</div>
+			        <div class="col-md-12">
+		            <%= f.label :end_date, 'End date' %><br>
+		            <div class="input-group date">
+		              <%= f.input :end_date, :start_year => 2018, label: false, :as => :string, type:"text", class: "form-control" %>
+		              <span class="input-group-addon"><i class="fa fa-th"></i></span>
+		            </div>
+	            </div>
+		        </div>
+          </div>
+    		<% end %>
     	</div>
 	  </div>
 	</div>
@@ -40,9 +62,23 @@
       		<%= f.button :submit, name: "type", value: "Submit and add new", class:'btn btn-default', id:"form_cancel", style:"width: 180px;"  %>
         <% end %>
         <% unless session[:setup_wizard] %>
-          <%= link_to 'Cancel', @course, class:'btn btn-default add_another', id:"form_cancel" %>
+          <%= link_to 'Cancel', @course, class:'btn btn-default add_another', id:"form_cancel", style: "margin-top: 0px;" %>
     		<% end %>
     </div>
 <% end %>
 
 <%= render "helper_code/tooltip_toggle" %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    
+    $('#datepicker .input-group.date').datepicker({
+      format: "yyyy-mm-dd",
+      startDate: "13/07/2017",
+      maxViewMode: 2,
+      clearBtn: true,
+      autoclose: true,
+      todayHighlight: true
+    });
+  });
+               
+</script>

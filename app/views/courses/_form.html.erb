@@ -25,7 +25,7 @@
                 </div>
               <div class="col-xs-12 col-sm-4 col-md-4">
                 <%= f.input :attended_by, label:'Who can attend?', :collection => @who_can_attend, :default => true %>
-                <%= f.input :schedule_style, label: "Schedule style", required: true, :collection => ['Specific calender days','Recurring weekdays'] -%>
+                <%= f.input :schedule_style, label: "Schedule style", :collection => ['Recurring weekdays','Specific calender days'], include_blank: false -%>
               </div>
               <div class="col-xs-12 col-sm-4 col-md-4">
                 <%= f.input :saed, label:'It\'s a SAED <i class="fa fa-question-circle" data-toggle="tooltip" title="A Skill Acquisition and Entrepreneurship Development program for NYSC corpers. (Must be government registered)"></i>'.html_safe %>

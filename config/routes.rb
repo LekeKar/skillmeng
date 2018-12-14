@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'toggle_email_broadcast/:favorite_course_id', :to => 'courses#toggle_email_broadcast', :as => :toggle_email_broadcast
   get 'toggle_text_broadcast/:favorite_course_id', :to => 'courses#toggle_text_broadcast', :as => :toggle_text_broadcast
   get 'toggle_subscription/:favorite_course_id', :to => 'courses#toggle_subscription', :as => :toggle_subscription
+  get 'plan_status_toggle/:course_plan_id', :to => 'course_plans#plan_status_toggle', :as => :plan_status_toggle
   post '/messages/send_message', :to => "messages#send_message", :as => "send_message"
   get 'email_broadcast/:course_id/annoucement/:id', :to => "announcements#email_broadcast", :as => "email_broadcast"
   get 'text_broadcast/:course_id/annoucement/:id', :to => "announcements#text_broadcast", :as => "text_broadcast"
@@ -44,7 +45,6 @@ Rails.application.routes.draw do
     end 
   	resources :contacts, except: [:show, :index] 
   	resources :course_notifications, except: [:show, :index] 
-  	resources :course_days, except: [:show, :index]
     resources :reports, except: [:show, :index]
 
       get 'rating'

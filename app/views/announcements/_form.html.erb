@@ -11,8 +11,7 @@
     </div>
     <div class="col-md-12">
       <div class="form-inputs">
-        <%= f.input :body, required: true, label: "Content", maxlength: "400",  :input_html => {:rows => 5, :id => "text"}-%>
-	      <h6 class="pull-right" id="count_message" data-value=400></h6>
+        <%= f.input :body, required: true, label: "Content", maxlength: "400", as: :wysihtml5-%>
       </div>
     </div>
   </div>
@@ -69,7 +68,7 @@
         </div>
       </div>
       <div class="col-md-12" style="color: #777;">
-        <h5>Pro tip: Broadcast responsibly. No one likes to be spammed.</h5>
+        <h5>Broadcast responsibly. No one likes to be spammed.</h5>
       </div>
     <% end %>
   </div>

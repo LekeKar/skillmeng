@@ -73,7 +73,6 @@
         <%= f.error :base %>
       </div>
       <div class="col-md-3 col-md-offset-2 text-left" id="order_explaination">
-        
         <div id="course_promotions">
           <%= f.simple_fields_for :course_promotions do |course_promotion| %>
             <%= render 'course_promotion_fields', f: course_promotion %>

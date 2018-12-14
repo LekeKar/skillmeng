@@ -29,7 +29,7 @@ class GalleryPicsController < ApplicationController
     respond_to do |format|
       if @gallery_pic.save
         if params[:type] == "Submit and add photo"
-          format.html { redirect_to new_course_gallery_pic_path(@course), notice: 'Day was successfully created. Now create another.' }
+          format.html { redirect_to new_course_gallery_pic_path(@course), notice: 'Gallery pic was successfully created. Now create another.' }
         else
           format.html { redirect_to (@course), notice: 'Gallery pic was successfully created.' }
         end

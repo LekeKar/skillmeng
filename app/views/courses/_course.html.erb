@@ -120,7 +120,7 @@
             <small> <% if course.local_area.present? %><%= course.local_area.try(:titleize) %>,<% end %> <%= course.locality.try(:titleize) %></small>
           </h5>
         </div>
-        
+      
         <script>
           $(document).on("click",'.heart_<%= course.id %>', function(event) { 
             <% if current_user %>
@@ -130,6 +130,29 @@
             <% end %>
           });
         </script>
+      </div>
+      
+      <div class="panel-footer text-center">
+        <% if !course.course_plans.empty?  %>
+          <% if course.schedule_style == "Recurring weekdays" %>
+            <% x = []%>
+            <% for plan in course.course_plans %>
+              <% x += plan.week_days %>
+            <% end %>
+            
+            <% odr =  ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'] %>
+            <% x.sort_by! do |element| %>
+              <% odr.index(element) %>
+            <% end %>
+            <% for day in x.uniq %>
+              <strong><%= day %></strong>
+            <% end %>
+          <% else %>
+            <strong><%= course.course_plans.minimum(:start_date).strftime("%d/%m/%Y")  %> - <%= course.course_plans.maximum(:end_date).strftime("%d/%m/%Y")  %>  </strong>
+          <% end %>
+        <% else %>
+          <strong>-</strong>
+        <% end %>
       </div>
     </div>
   </div>

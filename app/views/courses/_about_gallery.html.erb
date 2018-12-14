@@ -8,12 +8,36 @@
         <% end -%>
       </h3>
       <% if @about %>
-        <div style = "text-align: justify;"><%= @about.content %></div> <br>
+        <div style = "text-align: justify;">
+          <%= @about.content %>
+          <br>
+          <strong>Schedule:</strong>
+          <% if !@course_plans.empty?  %>
+            <% if @course.schedule_style == "Recurring weekdays" %>
+        
+              <% x = []%>
+              <% for plan in @course.course_plans %>
+                <% x += plan.week_days %>
+              <% end %>
+              
+              <% odr =  ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'] %>
+              <% x.sort_by! do |element| %>
+                <% odr.index(element) %>
+              <% end %>
+              <% for day in x.uniq %>
+                <%= day %>
+              <% end %>
+            <% else %>
+              <%= @course.course_plans.minimum(:start_date).strftime("%d/%m/%Y")  %> - <%= @course.course_plans.maximum(:end_date).strftime("%d/%m/%Y")  %>
+            <% end %>
+          <% end %>
+          <br> <small style="color: #ccc;">see plans for details</small>
+        </div> <br>
       <% else -%>
         <div class="text-left mobile_centralize">
           <%if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" && @about.nil? -%>
              Tell people about your course <br>
-            <%= link_to 'Add about info', new_course_about_path(@course), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %>
+            <%= link_to 'add about info', new_course_about_path(@course), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %>
           <% else %> 
              No info provided 
           <% end -%>
@@ -60,14 +84,8 @@
        
       
     </div>
-    <div class="col-md-6 col-sm-6 gallery_info">
+    <div class="col-md-6 col-sm-6 gallery_info ">
       <% if @gallery_pics && !@gallery_pics.empty? %>
-        <div class="mobile_centralize">
-          <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-            <%= link_to 'add photo', new_course_gallery_pic_path(@course), id:"add_photo", class:"btn btn-xs btn-default course_control"%>
-          <% end -%>
-        <br>
-        </div>
         <div class="container-fluid carousel_outer">
           <div class="about_carousel">
             <% for gallery_pic in  @gallery_pics %>
@@ -79,17 +97,17 @@
             <% end %>
           </div>
         </div>
-      <% elsif current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
-        <div class="container-fluid">
-          <div class="gallery_add text-center" style= "height: 150px; margin-bottom: 20px;">
-            <div class="panel-body">
-              <H3>
-                <%= link_to new_course_gallery_pic_path(@course), style: "color: #e58b5a;"  do %>
-                   add photo <br> <i class="fa fa-plus-square"></i> 
-                <% end %>
-              </H3>
-            </div>
-          </div>
+      <% else %>
+        <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+          <%= link_to  new_course_gallery_pic_path(@course) do %>
+            <%= image_tag 'add_pictures.png', class:"img-responsive"%>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if current_user && current_user.id == @course.user_id && params[:visitor] != "visitor" %>
+        <div class="mobile_centralize">
+          <%= link_to 'add photo', new_course_gallery_pic_path(@course), class:"btn btn-xs btn-default course_control", style:"margin-top: 10px;" %>
+        <br>
         </div>
       <% end %>
     </div>
@@ -110,7 +128,7 @@
         <div class="modal-body text-center">
           <%= image_tag gallery_pic.image.url(:original), class:"display_pic img-responsive", style: "margin: 0 auto; max-height: 450px;"%> <br>
           <% if gallery_pic.caption? %>
-            "<%= gallery_pic.caption %>"
+            <%= gallery_pic.caption.html_safe %>
           <% end %>
           <br>
           
@@ -121,7 +139,7 @@
               </div>
             <% end %>
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-default" id="form_cancel" data-dismiss="modal" >Close</button>
+              <button type="button" class="btn btn-default" id="form_cancel" data-dismiss="modal" >close</button>
             </div>
           </div>
           

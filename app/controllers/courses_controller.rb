@@ -120,7 +120,7 @@ class CoursesController < ApplicationController
     
     unless similar_courses.empty?
       @other_courses = similar_courses
-      @other_courses_type = "similar"
+      @other_courses_type = "other"
     else
       @other_courses_type = "promoted"
       promoted_courses = Course.active.order(featured: :desc, completeness: :desc).featured.shuffle.first(6)
@@ -423,20 +423,6 @@ class CoursesController < ApplicationController
       @reviews = @course.reviews
       @reviews_paginate = @course.reviews.order("created_at DESC").page(params[:page]).per_page(2)
       
-      # if @course.schedule_style == "Recurring weekdays"
-      #   @course_days = @course.course_days.order("CASE course_days.weekday WHEN 'Weekdays (Mon - Fri)' THEN 0 " \
-      #                                                     "WHEN 'Monday' THEN 1 " \
-      #                                                     "WHEN 'Tuesday' THEN 2 " \
-      #                                                     "WHEN 'Wednesday' THEN 3 " \
-      #                                                     "WHEN 'Thursday' THEN 4 " \
-      #                                                     "WHEN 'Friday' THEN 5 " \
-      #                                                     "WHEN 'Saturday' THEN 6 " \
-      #                                                     "WHEN 'Sunday' THEN 7 " \
-      #                                                     "WHEN 'Weekends (Sat & Sun)' THEN 8 END")
-      # else
-      #   @course_days = @course.course_days.order('course_days.calendar_day ASC')
-      # end
-
       if @reviews.blank?
         @avg_review = 0
       else

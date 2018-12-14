@@ -15,14 +15,7 @@ class Organizer < ActiveRecord::Base
   
   # Credit orders
   	has_many :credit_orders, through: :organizer_orders, source: :organizer_credit_order
-  # payment info
-  	has_many :course_payments, through: :courses
-  # course days 
-  	has_many :course_days, through: :courses
-  # course locations
-  	has_many :course_locations, through: :course_days, source: :locations
-  	
-  
+ 
   
   extend FriendlyId
   friendly_id :name, use: :slugged

@@ -2,11 +2,11 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-   <%= f.input :image, as: :file, required: true, hint: 'Recommended size: 700px <span style="font-size: .8em;">x</span> 460px'.html_safe %>
+   <%= f.input :image, as: :file, required: true, hint: 'Recommended size: 1080px <span style="font-size: .8em;">x</span> 1080px'.html_safe %>
   </div>
 
   <div class="form-inputs">
-    <%= f.input :caption, label: "Caption",  :input_html => {:rows => 5, :id => "text"}, maxlength: "300" %>
+    <%= f.input :caption, label: "Caption", as: :wysihtml5 %>
   </div>
   <h6 class="text-right" id="count_message" style="color: grey" data-value="300"></h6>
 
@@ -14,6 +14,6 @@
   <div class="form-actions text-center">
     <%= f.button :submit,"Submit", id:"form_submit" %>
     <%= f.button :submit, name: "type", value: "Submit and add photo", class:'btn btn-default', id:"form_cancel", style:"width: 180px;"  %>
-    <%= link_to 'Cancel', :back, id:"form_cancel", class:'btn btn-default' %>
+    <%= link_to 'Cancel', @course, id:"form_cancel", class:'btn btn-default' %>
   </div>
 <% end %>

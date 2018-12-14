@@ -8,7 +8,7 @@
 			      Newsfeed
 			    </div>
 				</div>
-				<div class="container-fluid profile_content text-center" style="background-color: #FFFFFF;">
+				<div class="container-fluid profile_content" style="background-color: #FFFFFF;">
 					<div class="row" >
 					  <div class="container-fluid">
   						<div id="barter_rec">
@@ -16,7 +16,7 @@
   						  	<%= render @announcements %>
   						  <% else %>
   						  	<div class="quote">
-  						  		<h3>
+  						  		<h3 class="text-center">
   						  			This page shows all your in-app announcements from courses that
   						  			you are interested in. Only courses that you are interested in can 
   						  			post announcements to your news feed. You can change these settings 
@@ -29,7 +29,7 @@
 					</div>
 					
 					<div class="row">
-					  <div id="infinite-scrolling" class="text-center" style="color: #777777;">
+					  <div id="infinite-scrolling" style="color: #777777;">
 					  	<%= will_paginate @announcements %>
 					  </div>
 					</div>

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180907222654) do
+ActiveRecord::Schema.define(version: 20180922120112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,9 +20,8 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_abouts_on_course_id", using: :btree
   end
-
-  add_index "abouts", ["course_id"], name: "index_abouts_on_course_id", using: :btree
 
   create_table "alerts", force: :cascade do |t|
     t.integer  "user_id"
@@ -31,10 +29,9 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.boolean  "read",            default: true
+    t.index ["announcement_id"], name: "index_alerts_on_announcement_id", using: :btree
+    t.index ["user_id"], name: "index_alerts_on_user_id", using: :btree
   end
-
-  add_index "alerts", ["announcement_id"], name: "index_alerts_on_announcement_id", using: :btree
-  add_index "alerts", ["user_id"], name: "index_alerts_on_user_id", using: :btree
 
   create_table "announcements", force: :cascade do |t|
     t.string   "subject"
@@ -59,9 +56,8 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.integer  "about_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["about_id"], name: "index_checklist_items_on_about_id", using: :btree
   end
-
-  add_index "checklist_items", ["about_id"], name: "index_checklist_items_on_about_id", using: :btree
 
   create_table "contacts", force: :cascade do |t|
     t.string   "contact_name"
@@ -73,12 +69,11 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "tutor_website"
+    t.index ["course_id"], name: "index_contacts_on_course_id", using: :btree
   end
 
-  add_index "contacts", ["course_id"], name: "index_contacts_on_course_id", using: :btree
-
   create_table "course_plans", force: :cascade do |t|
-    t.decimal  "price",                    default: 0.0
+    t.decimal  "price",                    default: "0.0"
     t.string   "plan_name"
     t.string   "refund_policy",            default: "No Refunds"
     t.integer  "course_id"
@@ -92,6 +87,10 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.date     "start_date"
     t.date     "end_date"
     t.text     "week_days",                default: [],           array: true
+    t.string   "status",                   default: "Open"
+    t.string   "auto_reset",               default: "Never"
+    t.string   "slug"
+    t.index ["slug"], name: "index_course_plans_on_slug", unique: true, using: :btree
   end
 
   create_table "course_promotions", force: :cascade do |t|
@@ -100,10 +99,9 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.integer  "organizer_order_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.index ["course_id"], name: "index_course_promotions_on_course_id", using: :btree
+    t.index ["organizer_order_id"], name: "index_course_promotions_on_organizer_order_id", using: :btree
   end
-
-  add_index "course_promotions", ["course_id"], name: "index_course_promotions_on_course_id", using: :btree
-  add_index "course_promotions", ["organizer_order_id"], name: "index_course_promotions_on_organizer_order_id", using: :btree
 
   create_table "course_requests", force: :cascade do |t|
     t.string   "sender_trade_courses"
@@ -117,10 +115,9 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.datetime "updated_at",                           null: false
     t.integer  "reciever_id"
     t.string   "status",               default: "new"
+    t.index ["course_id"], name: "index_course_requests_on_course_id", using: :btree
+    t.index ["user_id"], name: "index_course_requests_on_user_id", using: :btree
   end
-
-  add_index "course_requests", ["course_id"], name: "index_course_requests_on_course_id", using: :btree
-  add_index "course_requests", ["user_id"], name: "index_course_requests_on_user_id", using: :btree
 
   create_table "course_rewards", force: :cascade do |t|
     t.string   "name"
@@ -129,32 +126,17 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.integer  "about_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["about_id"], name: "index_course_rewards_on_about_id", using: :btree
   end
-
-  add_index "course_rewards", ["about_id"], name: "index_course_rewards_on_about_id", using: :btree
-
-  create_table "course_times", force: :cascade do |t|
-    t.time     "end_time"
-    t.time     "start_time"
-    t.string   "description"
-    t.integer  "course_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "location_id"
-  end
-
-  add_index "course_times", ["course_id"], name: "index_course_times_on_course_id", using: :btree
-  add_index "course_times", ["location_id"], name: "index_course_times_on_location_id", using: :btree
 
   create_table "course_tutors", force: :cascade do |t|
     t.integer  "course_id"
     t.integer  "tutor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_tutors_on_course_id", using: :btree
+    t.index ["tutor_id"], name: "index_course_tutors_on_tutor_id", using: :btree
   end
-
-  add_index "course_tutors", ["course_id"], name: "index_course_tutors_on_course_id", using: :btree
-  add_index "course_tutors", ["tutor_id"], name: "index_course_tutors_on_tutor_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
     t.string   "title"
@@ -184,11 +166,10 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.string   "slug"
     t.string   "theme",                     default: "flame_pea_orange"
     t.boolean  "primary",                   default: false
+    t.index ["organizer_id"], name: "index_courses_on_organizer_id", using: :btree
+    t.index ["slug"], name: "index_courses_on_slug", unique: true, using: :btree
+    t.index ["user_id"], name: "index_courses_on_user_id", using: :btree
   end
-
-  add_index "courses", ["organizer_id"], name: "index_courses_on_organizer_id", using: :btree
-  add_index "courses", ["slug"], name: "index_courses_on_slug", unique: true, using: :btree
-  add_index "courses", ["user_id"], name: "index_courses_on_user_id", using: :btree
 
   create_table "favorite_courses", force: :cascade do |t|
     t.integer  "course_id"
@@ -205,12 +186,11 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.string   "sluggable_type", limit: 50
     t.string   "scope"
     t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
-
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "gallery_pics", force: :cascade do |t|
     t.text     "caption"
@@ -221,9 +201,8 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.index ["course_id"], name: "index_gallery_pics_on_course_id", using: :btree
   end
-
-  add_index "gallery_pics", ["course_id"], name: "index_gallery_pics_on_course_id", using: :btree
 
   create_table "homepage_slider_courses", force: :cascade do |t|
     t.integer  "course_id"
@@ -233,9 +212,8 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.string   "slider_image_content_type"
     t.integer  "slider_image_file_size"
     t.datetime "slider_image_updated_at"
+    t.index ["course_id"], name: "index_homepage_slider_courses_on_course_id", using: :btree
   end
-
-  add_index "homepage_slider_courses", ["course_id"], name: "index_homepage_slider_courses_on_course_id", using: :btree
 
   create_table "impressions", force: :cascade do |t|
     t.string   "impressionable_type"
@@ -252,17 +230,16 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.text     "params"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index", using: :btree
+    t.index ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index", using: :btree
+    t.index ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index", using: :btree
+    t.index ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index", using: :btree
+    t.index ["impressionable_type", "impressionable_id", "params"], name: "poly_params_request_index", using: :btree
+    t.index ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index", using: :btree
+    t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index", using: :btree
+    t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index", using: :btree
+    t.index ["user_id"], name: "index_impressions_on_user_id", using: :btree
   end
-
-  add_index "impressions", ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index", using: :btree
-  add_index "impressions", ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index", using: :btree
-  add_index "impressions", ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index", using: :btree
-  add_index "impressions", ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index", using: :btree
-  add_index "impressions", ["impressionable_type", "impressionable_id", "params"], name: "poly_params_request_index", using: :btree
-  add_index "impressions", ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index", using: :btree
-  add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index", using: :btree
-  add_index "impressions", ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index", using: :btree
-  add_index "impressions", ["user_id"], name: "index_impressions_on_user_id", using: :btree
 
   create_table "lessons", force: :cascade do |t|
     t.string   "title"
@@ -270,9 +247,8 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.integer  "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_lessons_on_course_id", using: :btree
   end
-
-  add_index "lessons", ["course_id"], name: "index_lessons_on_course_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "address_line1"
@@ -286,19 +262,17 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.datetime "updated_at",    null: false
     t.integer  "course_day_id"
     t.integer  "organizer_id"
+    t.index ["course_day_id"], name: "index_locations_on_course_day_id", using: :btree
+    t.index ["organizer_id"], name: "index_locations_on_organizer_id", using: :btree
   end
-
-  add_index "locations", ["course_day_id"], name: "index_locations_on_course_day_id", using: :btree
-  add_index "locations", ["organizer_id"], name: "index_locations_on_organizer_id", using: :btree
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id"
     t.string  "unsubscriber_type"
     t.integer "conversation_id"
+    t.index ["conversation_id"], name: "index_mailboxer_conversation_opt_outs_on_conversation_id", using: :btree
+    t.index ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type", using: :btree
   end
-
-  add_index "mailboxer_conversation_opt_outs", ["conversation_id"], name: "index_mailboxer_conversation_opt_outs_on_conversation_id", using: :btree
-  add_index "mailboxer_conversation_opt_outs", ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type", using: :btree
 
   create_table "mailboxer_conversations", force: :cascade do |t|
     t.string   "subject",    default: ""
@@ -322,12 +296,11 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.datetime "created_at",                           null: false
     t.boolean  "global",               default: false
     t.datetime "expires"
+    t.index ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id", using: :btree
+    t.index ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type", using: :btree
+    t.index ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type", using: :btree
+    t.index ["type"], name: "index_mailboxer_notifications_on_type", using: :btree
   end
-
-  add_index "mailboxer_notifications", ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id", using: :btree
-  add_index "mailboxer_notifications", ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type", using: :btree
-  add_index "mailboxer_notifications", ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type", using: :btree
-  add_index "mailboxer_notifications", ["type"], name: "index_mailboxer_notifications_on_type", using: :btree
 
   create_table "mailboxer_receipts", force: :cascade do |t|
     t.integer  "receiver_id"
@@ -342,10 +315,9 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.boolean  "is_delivered",               default: false
     t.string   "delivery_method"
     t.string   "message_id"
+    t.index ["notification_id"], name: "index_mailboxer_receipts_on_notification_id", using: :btree
+    t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
   end
-
-  add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id", using: :btree
-  add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
 
   create_table "org_bank_infos", force: :cascade do |t|
     t.string  "bank_name"
@@ -364,9 +336,8 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.datetime "updated_at",    null: false
     t.integer  "text_regular"
     t.integer  "text_bonus"
+    t.index ["organizer_id"], name: "index_organizer_credit_bals_on_organizer_id", using: :btree
   end
-
-  add_index "organizer_credit_bals", ["organizer_id"], name: "index_organizer_credit_bals_on_organizer_id", using: :btree
 
   create_table "organizer_credit_orders", force: :cascade do |t|
     t.float    "email_price",        default: 7.5
@@ -376,9 +347,8 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.integer  "email_quantity",     default: 0
     t.float    "text_price",         default: 11.99
     t.integer  "text_quantity",      default: 0
+    t.index ["organizer_order_id"], name: "index_organizer_credit_orders_on_organizer_order_id", using: :btree
   end
-
-  add_index "organizer_credit_orders", ["organizer_order_id"], name: "index_organizer_credit_orders_on_organizer_order_id", using: :btree
 
   create_table "organizer_orders", force: :cascade do |t|
     t.float    "total"
@@ -391,9 +361,8 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.string   "access_code"
     t.string   "authorization_url"
     t.integer  "transaction_id"
+    t.index ["organizer_id"], name: "index_organizer_orders_on_organizer_id", using: :btree
   end
-
-  add_index "organizer_orders", ["organizer_id"], name: "index_organizer_orders_on_organizer_id", using: :btree
 
   create_table "organizers", force: :cascade do |t|
     t.string   "name"
@@ -411,19 +380,17 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.index ["slug"], name: "index_organizers_on_slug", unique: true, using: :btree
+    t.index ["user_id"], name: "index_organizers_on_user_id", using: :btree
   end
-
-  add_index "organizers", ["slug"], name: "index_organizers_on_slug", unique: true, using: :btree
-  add_index "organizers", ["user_id"], name: "index_organizers_on_user_id", using: :btree
 
   create_table "qualifications", force: :cascade do |t|
     t.string   "description"
     t.integer  "tutor_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["tutor_id"], name: "index_qualifications_on_tutor_id", using: :btree
   end
-
-  add_index "qualifications", ["tutor_id"], name: "index_qualifications_on_tutor_id", using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.string   "reason"
@@ -434,19 +401,17 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.integer  "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["course_id"], name: "index_reports_on_course_id", using: :btree
+    t.index ["user_id"], name: "index_reports_on_user_id", using: :btree
   end
-
-  add_index "reports", ["course_id"], name: "index_reports_on_course_id", using: :btree
-  add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
 
   create_table "requirements", force: :cascade do |t|
     t.string   "description"
     t.integer  "about_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["about_id"], name: "index_requirements_on_about_id", using: :btree
   end
-
-  add_index "requirements", ["about_id"], name: "index_requirements_on_about_id", using: :btree
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "rating"
@@ -456,10 +421,9 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean  "anonymous"
+    t.index ["course_id"], name: "index_reviews_on_course_id", using: :btree
+    t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
   end
-
-  add_index "reviews", ["course_id"], name: "index_reviews_on_course_id", using: :btree
-  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "schedules", force: :cascade do |t|
     t.time     "end_time"
@@ -469,9 +433,8 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.integer  "course_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["course_id"], name: "index_schedules_on_course_id", using: :btree
   end
-
-  add_index "schedules", ["course_id"], name: "index_schedules_on_course_id", using: :btree
 
   create_table "search_terms", force: :cascade do |t|
     t.string   "term"
@@ -485,10 +448,9 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+    t.index ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
   end
-
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "social_links", force: :cascade do |t|
     t.integer  "tutor_id"
@@ -501,10 +463,9 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.string   "googleplus"
     t.string   "pintrest"
     t.string   "instagram"
+    t.index ["contact_id"], name: "index_social_links_on_contact_id", using: :btree
+    t.index ["tutor_id"], name: "index_social_links_on_tutor_id", using: :btree
   end
-
-  add_index "social_links", ["contact_id"], name: "index_social_links_on_contact_id", using: :btree
-  add_index "social_links", ["tutor_id"], name: "index_social_links_on_tutor_id", using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -514,24 +475,22 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.string   "tagger_type"
     t.string   "context",       limit: 128
     t.datetime "created_at"
+    t.index ["context"], name: "index_taggings_on_context", using: :btree
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+    t.index ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy", using: :btree
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id", using: :btree
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type", using: :btree
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type", using: :btree
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id", using: :btree
   end
-
-  add_index "taggings", ["context"], name: "index_taggings_on_context", using: :btree
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy", using: :btree
-  add_index "taggings", ["taggable_id"], name: "index_taggings_on_taggable_id", using: :btree
-  add_index "taggings", ["taggable_type"], name: "index_taggings_on_taggable_type", using: :btree
-  add_index "taggings", ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type", using: :btree
-  add_index "taggings", ["tagger_id"], name: "index_taggings_on_tagger_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
   end
-
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "transactions", force: :cascade do |t|
     t.string   "authorisation_url"
@@ -550,10 +509,9 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.string   "subscription_code"
     t.string   "email_token"
     t.string   "subscription_status"
+    t.index ["course_id"], name: "index_transactions_on_course_id", using: :btree
+    t.index ["user_id"], name: "index_transactions_on_user_id", using: :btree
   end
-
-  add_index "transactions", ["course_id"], name: "index_transactions_on_course_id", using: :btree
-  add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
 
   create_table "tutors", force: :cascade do |t|
     t.string   "name"
@@ -567,9 +525,8 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.datetime "avatar_updated_at"
     t.integer  "organizer_id"
     t.string   "job_title"
+    t.index ["organizer_id"], name: "index_tutors_on_organizer_id", using: :btree
   end
-
-  add_index "tutors", ["organizer_id"], name: "index_tutors_on_organizer_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "fname",                  default: "", null: false
@@ -598,11 +555,10 @@ ActiveRecord::Schema.define(version: 20180907222654) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "user_code"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "abouts", "courses"
   add_foreign_key "alerts", "announcements"
@@ -614,7 +570,6 @@ ActiveRecord::Schema.define(version: 20180907222654) do
   add_foreign_key "course_requests", "courses"
   add_foreign_key "course_requests", "users"
   add_foreign_key "course_rewards", "abouts"
-  add_foreign_key "course_times", "courses"
   add_foreign_key "course_tutors", "courses"
   add_foreign_key "course_tutors", "tutors"
   add_foreign_key "courses", "users"

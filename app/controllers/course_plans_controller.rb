@@ -1,6 +1,6 @@
 class CoursePlansController < ApplicationController
-  before_action :set_course_plan, only: [:show, :edit, :update, :destroy]
-  before_action :set_course
+  before_action :set_course_plan, only: [:show, :edit, :update, :destroy, :plan_status_toggle]
+  before_action :set_course, except: [:plan_status_toggle] 
 
   # GET /course_plans
   # GET /course_plans.json
@@ -70,21 +70,47 @@ class CoursePlansController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+   
+  def plan_status_toggle
+    if @course_plan.status == "Open"
+      @course_plan.update_attribute(:status, "Paused")
+      message = "#{@course_plan.plan_name} plan is now paused"
+    else 
+      @course_plan.update_attribute(:status, "Open")
+      message = "#{@course_plan.plan_name} plan is now open"
+    end 
+    
+    respond_to do |format|
+      format.html { redirect_to :back, notice: message };
+      format.json { head :no_content }
+      format.js   { head :no_content }
+      format.xml  { head :no_content }
+    end
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course_plan
-      @course_plan = CoursePlan.find(params[:id])
+      if params[:id]
+       @course_plan = CoursePlan.friendly.find(params[:id])
+      else
+        @course_plan = CoursePlan.friendly.find(params[:course_plan_id]) 
+      end
     end
+
     
     def set_course
       @course = Course.friendly.find(params[:course_id])
       @contact = @course.contact
       @refund_options = ["1 day", "7 days", "30 days", "No Refunds"]
+      @reset_options = ["Never", "Every Day (12am)", "Every Monday (12am)", "Every Month (1st 12am)", "Every Year ( Jan 1st 12am)"]
+      
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_plan_params
-      params.require(:course_plan).permit(:id, :price, :plan_name, :refund_policy, :display_pic, :start_date, :end_date, :course_id, :capacity, :description, :trade_by_barter, week_days: [])
+      params.require(:course_plan).permit(:id, :price, :plan_name, :refund_policy, :display_pic, :start_date, :end_date, :course_id, :capacity, :auto_reset, :status, :description, :trade_by_barter, week_days: [])
     end
+   
 end
