@@ -28,7 +28,7 @@
                 <%= day %>
               <% end %>
             <% else %>
-              <%= @course.course_plans.minimum(:start_date).strftime("%d/%m/%Y")  %> - <%= @course.course_plans.maximum(:end_date).strftime("%d/%m/%Y")  %>
+              <%= @course.course_plans.minimum(:start_date).strftime("%d/%m/%Y")  %> - <%= @course.course_plans.minimum(:end_date).strftime("%d/%m/%Y")  %>
             <% end %>
           <% end %>
           <br> <small style="color: #ccc;">see plans for details</small>

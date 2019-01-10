@@ -105,9 +105,8 @@ class CoursePlansController < ApplicationController
       @contact = @course.contact
       @refund_options = ["1 day", "7 days", "30 days", "No Refunds"]
       @reset_options = ["Never", "Every Day (12am)", "Every Monday (12am)", "Every Month (1st 12am)", "Every Year ( Jan 1st 12am)"]
-      
     end
-
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_plan_params
       params.require(:course_plan).permit(:id, :price, :plan_name, :refund_policy, :display_pic, :start_date, :end_date, :course_id, :capacity, :auto_reset, :status, :description, :trade_by_barter, week_days: [])

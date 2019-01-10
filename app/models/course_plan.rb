@@ -1,4 +1,5 @@
 class CoursePlan < ActiveRecord::Base
+  before_create :set_default_dates
   belongs_to :course
   
   #FriendlyID config
@@ -25,6 +26,12 @@ class CoursePlan < ActiveRecord::Base
       errors.add(:start_date, "Start date can't be in the past")
     end
   end 
+  
+   def set_default_dates
+    self.start_date = Time.now
+    self.end_date = Time.now + 1.year 
+  end 
+
   def end_date_cannot_be_before_start
     if start_date.present? && end_date < start_date
       errors.add(:end_date, "End date must be after start date")
